@@ -1,0 +1,30 @@
+{
+    "name": "dam/atelier",
+    "description": "Projeto de conclução Anhanguera",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Dam\\Atelier\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Débora Almeida",
+            "email": "debora.mello@multi24h.com.br"
+        }
+    ],
+    "minimum-stability": "dev",
+
+    "require": {
+        "doctrine/orm": "^2.13",
+        "nyholm/psr7": "^1.5",
+        "psr/http-message": "^1.0",
+        "nyholm/psr7-server": "^1.0",
+        "psr/http-server-handler": "^1.0",
+        "psr/container": "^1.0",
+        "php-di/php-di": "^6.4",
+        "symfony/cache": "^6.1",
+        "ext-json": "*",
+        "ext-simplexml": "*"
+    }
+}
