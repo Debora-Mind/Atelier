@@ -2,7 +2,7 @@
 
 namespace Dam\Atelier\Controller;
 
-use Dam\Atelier\Entity\Curso;
+use Dam\Atelier\Entity\Modelo;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
@@ -31,7 +31,7 @@ class Persistencia implements RequestHandlerInterface
             FILTER_SANITIZE_SPECIAL_CHARS
         );
 
-        $curso = new Curso();
+        $curso = new Modelo();
         $curso->setDescricao($descricao);
 
         $id = filter_var(
@@ -43,10 +43,10 @@ class Persistencia implements RequestHandlerInterface
         if (!is_null($id) && $id !== false) {
             $curso->setId($id);
             $this->entityManager->merge($curso);
-            $this->defineMensagem($tipo, 'Curso atualizado com sucesso');
+            $this->defineMensagem($tipo, 'Modelo atualizado com sucesso');
         } else {
             $this->entityManager->persist($curso);
-            $this->defineMensagem($tipo, 'Curso inserido com sucesso');
+            $this->defineMensagem($tipo, 'Modelo inserido com sucesso');
         }
 
         $this->entityManager->flush();

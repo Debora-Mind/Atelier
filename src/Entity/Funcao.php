@@ -2,11 +2,12 @@
 
 namespace Dam\Atelier\Entity;
 
+use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
 use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column};
 
-//Table(name="cursos")
+//Table(name="modelos")
 #[Entity]
-class Curso implements \JsonSerializable
+class Funcao implements \JsonSerializable
 {
     #[Id, GeneratedValue(strategy: 'AUTO'), Column]
     private int $id;
@@ -19,26 +20,22 @@ class Curso implements \JsonSerializable
         return $this->id;
     }
 
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
-
     public function getDescricao(): string
     {
         return $this->descricao;
     }
 
-    public function setDescricao(string $descricao): void
+    public function setDescricao(string $descricao): Funcao
     {
         $this->descricao = $descricao;
+        return $this;
     }
 
     public function jsonSerialize()
     {
         return [
             'id' => $this->id,
-            'descricao' => $this->descricao
+            'modelo' => $this->descricao,
         ];
     }
 }

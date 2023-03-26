@@ -2,7 +2,7 @@
 
 namespace Dam\Atelier\Controller;
 
-use Dam\Atelier\Entity\Curso;
+use Dam\Atelier\Entity\Modelo;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;

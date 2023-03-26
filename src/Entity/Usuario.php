@@ -13,10 +13,65 @@ class Usuario
     private int $id;
 
     #[Column]
-    private $email;
+    private $usuario;
 
     #[Column]
     private $senha;
+
+    #[Column]
+    private $id_funcionario;
+
+    #[Column]
+    private $permissoes = [];
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
+        return $this;
+    }
+
+    public function getSenha()
+    {
+        return $this->senha;
+    }
+
+    public function setSenha($senha)
+    {
+        $this->senha = $senha;
+        return $this;
+    }
+
+    public function getIdFuncionario()
+    {
+        return $this->id_funcionario;
+    }
+
+    public function setIdFuncionario($id_funcionario)
+    {
+        $this->id_funcionario = $id_funcionario;
+        return $this;
+    }
+
+    public function getPermissoes(): array
+    {
+        return $this->permissoes;
+    }
+
+    public function setPermissoes(array $permissoes): Usuario
+    {
+        $this->permissoes = $permissoes;
+        return $this;
+    }
 
     public function senhaEstaCorreta(string $senhaPura): bool
     {
