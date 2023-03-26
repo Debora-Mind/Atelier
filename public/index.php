@@ -8,6 +8,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 $caminho = $_SERVER['PATH_INFO'] ?? '/';
+
 $rotas = require __DIR__ . '/../config/routes.php';
 
 if (!array_key_exists($caminho, $rotas)) {
@@ -17,9 +18,10 @@ if (!array_key_exists($caminho, $rotas)) {
 
 session_start();
 
-$ehRotaDeLogin = stripos($caminho, 'Login');
+$ehRotaDeLogin = stripos($caminho, 'login');
+
 if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
-    header('Location: /Login');
+    header('Location: /login');
     exit();
 }
 

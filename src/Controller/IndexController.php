@@ -20,7 +20,7 @@ class IndexController implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $html = $this->renderizaHtml('index.php', []);
+        $html = $this->renderizaHtml('/', []);
 
         return new Response(200, [], $html);
     }
