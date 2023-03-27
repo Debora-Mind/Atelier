@@ -18,8 +18,8 @@ class Usuario
     #[Column]
     private $senha;
 
-    #[Column]
-    private $id_funcionario;
+    #[Column(nullable: 'True')]
+    private ? Funcionario $id_funcionario;
 
     #[Column]
     private $permissoes = [];

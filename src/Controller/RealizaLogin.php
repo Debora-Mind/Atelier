@@ -2,8 +2,8 @@
 
 namespace Dam\Atelier\Controller;
 
-use Dam\Atelier\Entity\Modelo;
-use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
+use Dam\Atelier\Entity\Usuario;
+use Dam\Atelier\Helper\FlashMessageTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -12,7 +12,12 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class RealizaLogin implements RequestHandlerInterface
 {
-    use RenderizadorDeHtmlTrait;
+    use FlashMessageTrait;
+
+    /**
+     * @var \Doctrine\Common\Persistence\ObjectRepository
+     */
+    private $repositorioDeUsuarios;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -22,8 +27,39 @@ class RealizaLogin implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $html = $this->renderizaHtml('RealizaLogin/listar-modelos.php', []);
+        $usuario = filter_var(
+            $request->getParsedBody()['usuario'],
+            FILTER_SANITIZE_SPECIAL_CHARS
+        );
 
-        return new Response(200, [], $html);
+        $redirecionamentoLogin = new Response(302, ['Location' => '/login']);
+        if (is_null($usuario) || $usuario === false) {
+            $this->defineMensagem(
+                'danger',
+                'O usuário digitado não é um usuário válido.'
+            );
+
+            return $redirecionamentoLogin;
+        }
+
+        $senha = filter_input(
+            INPUT_POST,
+            'senha',
+            FILTER_SANITIZE_SPECIAL_CHARS
+        );
+
+        /** @var Usuario $usuario */
+        $usuario = $this->repositorioDeUsuarios
+            ->findOneBy(['usuario' => $usuario]);
+
+        if (is_null($usuario) || !$usuario->senhaEstaCorreta($senha)) {
+            $this->defineMensagem('danger', 'Usuário ou senha inválidos');
+
+            return $redirecionamentoLogin;
+        }
+
+        $_SESSION['logado'] = true;
+
+        return new Response(302, ['Location' => '/']);
     }
 }
