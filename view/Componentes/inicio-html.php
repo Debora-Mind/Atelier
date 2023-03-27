@@ -13,3 +13,6 @@
 <body>
 <?php if (isset($_SESSION['logado'])): ?>
 <?php endif; ?>
+<?php $dataAtual = new DateTimeImmutable();
+$dataAtual = $dataAtual->format('Y-m-d');
+?>

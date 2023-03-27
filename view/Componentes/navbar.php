@@ -11,7 +11,7 @@
                         Cadastros
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><button class="dropdown-item" onclick="modalModelos()">Modelos</button></li>
+                        <li><a class="dropdown-item" href="/modelos">Modelos</a></li>
                         <li><a class="dropdown-item" href="#">Funcionários</a></li>
                         <li><a class="dropdown-item" href="#">Funções</a></li>
                         <li><a class="dropdown-item" href="#">Usuários</a></li>
@@ -46,5 +46,6 @@
     </div>
 </div>
 <div class="position-absolute bottom-0 end-0 m-5">
-    <img src="img/logo.jpeg" class="" alt="logo da empresa">
+    <img src="img/logo.jpeg" class="bg-image rounded" alt="logo da empresa">
 </div>
+<div class="container-xl mt-5">

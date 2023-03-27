@@ -36,11 +36,6 @@ class Modelo implements \JsonSerializable
     #[Column(type: 'date')]
     private ? \DateTimeImmutable $data_saida;
 
-    public function __construct()
-    {
-        $this->data_entrada = new \DateTimeImmutable();
-    }
-
     public function getId(): int
     {
         return $this->id;
@@ -110,6 +105,11 @@ class Modelo implements \JsonSerializable
     {
         $this->cod_barras = $cod_barras;
         return $this;
+    }
+
+    public function setDataEntrada(\DateTimeImmutable $data_entrada): void
+    {
+        $this->data_entrada = $data_entrada;
     }
 
     public function getDataEntrada(): string
