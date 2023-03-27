@@ -3,20 +3,21 @@
 namespace Dam\Atelier\Entity;
 
 use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column};
+use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, ManyToOne};
 
-//Table(name="modelos")
+//Table(name="faltas")
 #[Entity]
 class Faltas implements \JsonSerializable
 {
-    #[Id, GeneratedValue(strategy: 'AUTO'), Column]
+    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
     private int $id;
 
     #[Column]
+    #[ManyToOne(targetEntity: 'Faltas', inversedBy: 'Funcionario')]
     private int $id_funcionario;
 
     #[Column]
-    private array $faltas = [];
+    private array $listaDeFaltas = [];
 
     public function getId(): int
     {
@@ -36,17 +37,17 @@ class Faltas implements \JsonSerializable
 
     public function addFaltas($data_falta)
     {
-        $this->faltas[] .= $data_falta;
+        $this->listaDeFaltas[] .= $data_falta;
     }
 
-    public function getFaltas()
+    public function getListaDeFaltas()
     {
-        return $this->faltas;
+        return $this->listaDeFaltas;
     }
 
     public function countFaltas()
     {
-        return count($this->faltas);
+        return count($this->listaDeFaltas);
     }
 
     public function jsonSerialize()
@@ -54,7 +55,7 @@ class Faltas implements \JsonSerializable
         return [
             'id' => $this->id,
             'id_funcionario' => $this->id_funcionario,
-            'faltas' => $this->faltas,
+            'faltas' => $this->listaDeFaltas,
             'num_faltas' => $this->countFaltas(),
         ];
     }

@@ -5,11 +5,11 @@ namespace Dam\Atelier\Entity;
 use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
 use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column};
 
-//Table(name="modelos")
+//Table(name="modelo")
 #[Entity]
 class Modelo implements \JsonSerializable
 {
-    #[Id, GeneratedValue(strategy: 'AUTO'), Column]
+    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
     private int $id;
 
     #[Column]
@@ -30,15 +30,15 @@ class Modelo implements \JsonSerializable
     #[Column]
     private string $cod_barras;
 
-    #[Column(type: 'data')]
-    private string $data_entrada;
+    #[Column(type: 'date')]
+    private \DateTimeImmutable $data_entrada;
 
-    #[Column(type: 'data')]
-    private string $data_saida;
+    #[Column(type: 'date')]
+    private ? \DateTimeImmutable $data_saida;
 
     public function __construct()
     {
-        $this->data_entrada = date('d/m/Y');
+        $this->data_entrada = new \DateTimeImmutable();
     }
 
     public function getId(): int
@@ -114,17 +114,17 @@ class Modelo implements \JsonSerializable
 
     public function getDataEntrada(): string
     {
-        return $this->data_entrada;
+        return $this->data_entrada->format('d/m/y H:i');
     }
 
     public function getDataSaida(): string
     {
-        return $this->data_saida;
+        return $this->data_saida->format('d/m/y H:i');
     }
 
     public function setDataSaida(string $data_saida): Modelo
     {
-        $this->data_saida = $data_saida;
+        $this->data_saida = new \DateTimeImmutable();
         return $this;
     }
 
@@ -138,8 +138,8 @@ class Modelo implements \JsonSerializable
             'quantidade' => $this->quantidade,
             'valor' => $this->valor,
             'cod_barras' => $this->cod_barras,
-            'data_entrada' => $this->data_entrada,
-            'data_saida' => $this->data_saida,
+            'data_entrada' => $this->data_entrada->format('d/m/y H:i'),
+            'data_saida' => $this->data_saida->format('d/m/y H:i'),
         ];
     }
 }

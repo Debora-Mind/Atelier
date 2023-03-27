@@ -4,12 +4,12 @@ namespace Dam\Atelier\Entity;
 
 use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column};
 
-//@Table(name="usuarios")
+//@Table(name="usuario")
 #[Entity]
 class Usuario
 {
 
-    #[Id, GeneratedValue(strategy: 'AUTO'), Column]
+    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
     private int $id;
 
     #[Column]

@@ -3,25 +3,25 @@
 namespace Dam\Atelier\Entity;
 
 use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column};
-use mysql_xdevapi\DatabaseObject;
+use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, OneToOne};
 
-//Table(name="modelos")
+//Table(name="layout")
 #[Entity]
 class Layout implements \JsonSerializable
 {
-    #[Id, GeneratedValue(strategy: 'AUTO'), Column]
+    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
     private int $id;
 
-    #[Column]
-    private \DateTimeImmutable $data;
+    #[Column(type: 'date')]
+    private \DateTime $data;
 
     #[Column]
+    #[OneToOne(mappedBy: 'Layout', targetEntity: 'Relacao')]
     private Relacao $id_relacao;
 
     public function __construct()
     {
-
+        $this->id_relacao = new Relacao();
     }
 
     public function getId(): int
@@ -29,12 +29,12 @@ class Layout implements \JsonSerializable
         return $this->id;
     }
 
-    public function getData(): \DateTimeImmutable
+    public function getData(): string
     {
-        return $this->data;
+        return $this->data->format('d/m/y H:i');
     }
 
-    public function setData(\DateTimeImmutable $data): Layout
+    public function setData(\DateTime $data): Layout
     {
         $this->data = $data;
         return $this;
@@ -45,14 +45,18 @@ class Layout implements \JsonSerializable
         return $this->id_relacao;
     }
 
+    public function addRelacao($relacao)
+    {
+        $this->id_relacao->addRelacao($relacao);
+    }
+
 
     public function jsonSerialize()
     {
         return [
             'id' => $this->id,
-            'id_funcionario' => $this->id_funcionario,
-            'faltas' => $this->faltas,
-            'num_faltas' => $this->countFaltas(),
+            'data' => $this->data->format('d/m/y H:i'),
+            'id_relacao' => $this->id_relacao,
         ];
     }
 }

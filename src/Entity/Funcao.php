@@ -3,13 +3,13 @@
 namespace Dam\Atelier\Entity;
 
 use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column};
+use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, ManyToOne};
 
-//Table(name="modelos")
+//Table(name="funcao")
 #[Entity]
 class Funcao implements \JsonSerializable
 {
-    #[Id, GeneratedValue(strategy: 'AUTO'), Column]
+    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
     private int $id;
 
     #[Column]

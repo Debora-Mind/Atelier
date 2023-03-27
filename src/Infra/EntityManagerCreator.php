@@ -3,10 +3,14 @@
 namespace Dam\Atelier\Infra;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\ORMSetup;
 
 class EntityManagerCreator
 {
+    /**
+     * @throws ORMException
+     */
     public static function getEntityManager(): EntityManager
     {
         $isDevMode = true;
@@ -17,9 +21,10 @@ class EntityManagerCreator
 
         $conn = [
             'driver' => 'pdo_sqlite',
-            'path' => __DIR__ . '/../../db.sqlite',
+            'path' => __DIR__ . '/../../database/db.sqlite',
         ];
 
         return EntityManager::create($conn, $config);
+
     }
 }
