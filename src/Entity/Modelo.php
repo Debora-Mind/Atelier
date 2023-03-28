@@ -31,14 +31,19 @@ class Modelo implements \JsonSerializable
     private string $cod_barras;
 
     #[Column(type: 'date')]
-    private \DateTimeImmutable $data_entrada;
+    private \DateTime $data_entrada;
 
-    #[Column(type: 'date')]
+    #[Column(type: 'date', nullable: true)]
     private ? \DateTimeImmutable $data_saida;
 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getModelo(): string
@@ -107,7 +112,7 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function setDataEntrada(\DateTimeImmutable $data_entrada): void
+    public function setDataEntrada(\DateTime $data_entrada): void
     {
         $this->data_entrada = $data_entrada;
     }

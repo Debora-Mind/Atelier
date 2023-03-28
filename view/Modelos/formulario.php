@@ -39,6 +39,7 @@
             <div class="col col-md-auto">
                 <label for="valor">Valor</label>
                 <input type="number"
+                       step="0.01"
                        id="valor"
                        name="valor"
                        class="form-control"
@@ -59,7 +60,9 @@
                        id="data-entrada"
                        name="data-entrada"
                        class="data-entrada"
-                       value="<?= isset($modelo) ? $modelo->getDataEntrada() : $dataAtual ?>">
+                       value="<?= isset($modelo) ? $modelo->getDataEntrada() : $dataAtual ?>"
+                       style="width: 100%; height: 2.4rem"
+                >
                 </div>
             </div>
         </div>

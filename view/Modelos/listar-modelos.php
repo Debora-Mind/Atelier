@@ -9,7 +9,6 @@
         <?php foreach ($modelos as $modelo): ?>
             <li class="list-group-item d-flex justify-content-between">
                 <?= $modelo->getModelo(); ?>
-
                 <span>
                     <a href="/alterar-curso?id=<?= $modelo->getId(); ?>" class="btn btn-info btn-sm">
                         Alterar

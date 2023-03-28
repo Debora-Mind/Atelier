@@ -1,10 +1,10 @@
 <?php
 
-use Dam\Atelier\Controller\{
-    FormularioLogin,
+use Dam\Atelier\Controller\{FormularioLogin,
     FormularioModelo,
     IndexController,
     ListarModelos,
+    Persistencia,
     RealizaLogin};
 
 return [
@@ -13,4 +13,5 @@ return [
     '/realiza-login' => RealizaLogin::class,
     '/modelos' => ListarModelos::class,
     '/novo-modelo' => FormularioModelo::class,
+    '/salvar-modelo' => Persistencia::class,
 ];
