@@ -13,7 +13,8 @@
     <title>Atelier da Roberta</title>
 </head>
 <body>
-<?php if (isset($_SESSION['logado'])): ?>
-<?php endif; ?>
-<?php $dataAtual = new DateTime();
-?>
+<div id="logo" class="fixed-bottom h-100">
+    <?php if (isset($_SESSION['logado'])): ?>
+    <?php endif; ?>
+    <?php $dataAtual = new DateTime();
+    ?>
