@@ -7,6 +7,10 @@
 }
 
 #conteudo {
-    background-color: rgba(255,255,255,0.90)
-;
+    background-color: rgba(255,255,255,0.90);
+}
+
+.barra-rolagem {
+    max-height:80%;
+    overflow-y:auto;
 }
