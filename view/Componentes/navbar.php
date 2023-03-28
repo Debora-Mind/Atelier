@@ -38,14 +38,4 @@
         </button>
     </div>
 </nav>
-<div class="modal fade bd-example-modal-xl" id="modelos" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            ...
-        </div>
-    </div>
-</div>
-<div class="position-fixed bottom-0 end-0 m-5 ">
-    <img src="img/logo.png" class="bg-image rounded" alt="logo da empresa">
-</div>
 <div class="container-xl mt-5">
