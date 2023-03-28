@@ -61,7 +61,9 @@
                        id="data-entrada"
                        name="data-entrada"
                        class="data-entrada"
-                       value="<?= isset($modelo) ? $modelo->getDataEntrada() : $dataAtual->format('Y-m-d') ?>"
+                       value="<?= isset($modelo) ?
+                           $modelo->getDataEntrada()->format('Y-m-d') :
+                           $dataAtual->format('Y-m-d') ?>"
                        style="width: 100%; height: 2.4rem"
                 >
                 </div>

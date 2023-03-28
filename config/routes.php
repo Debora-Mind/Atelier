@@ -1,6 +1,8 @@
 <?php
 
-use Dam\Atelier\Controller\{FormularioLogin,
+use Dam\Atelier\Controller\{Exclusao,
+    FormularioEdicao,
+    FormularioLogin,
     FormularioModelo,
     IndexController,
     ListarModelos,
@@ -14,4 +16,6 @@ return [
     '/modelos' => ListarModelos::class,
     '/novo-modelo' => FormularioModelo::class,
     '/salvar-modelo' => Persistencia::class,
+    '/alterar-modelo' => FormularioEdicao::class,
+    '/excluir-modelo' => Exclusao::class,
 ];
