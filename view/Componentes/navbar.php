@@ -45,7 +45,7 @@
         </div>
     </div>
 </div>
-<div class="position-absolute bottom-0 end-0 m-5">
-    <img src="img/logo.jpeg" class="bg-image rounded" alt="logo da empresa">
+<div class="position-fixed bottom-0 end-0 m-5 ">
+    <img src="img/logo.png" class="bg-image rounded" alt="logo da empresa">
 </div>
 <div class="container-xl mt-5">

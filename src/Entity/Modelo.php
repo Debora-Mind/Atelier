@@ -117,14 +117,14 @@ class Modelo implements \JsonSerializable
         $this->data_entrada = $data_entrada;
     }
 
-    public function getDataEntrada(): string
+    public function getDataEntrada(): \DateTime
     {
-        return $this->data_entrada->format('d/m/y H:i');
+        return $this->data_entrada;
     }
 
-    public function getDataSaida(): string
+    public function getDataSaida(): mixed
     {
-        return $this->data_saida->format('d/m/y H:i');
+        return $this->data_saida;
     }
 
     public function setDataSaida(string $data_saida): Modelo

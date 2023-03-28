@@ -60,7 +60,7 @@ class Persistencia implements RequestHandlerInterface
             $request->getParsedBody()['data-entrada'],
             FILTER_SANITIZE_SPECIAL_CHARS
         );
-        $data_entrada = new \DateTimeImmutable($data_entrada);
+        $data_entrada = new \DateTime($data_entrada);
 
         $modelo = new Modelo();
         $modelo->setModelo($descricaoModelo)

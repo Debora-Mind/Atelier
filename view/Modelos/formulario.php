@@ -7,12 +7,13 @@
             <div class="col col-md-auto">
                 <label for="modelo">Modelo</label>
                 <input type="text"
+                       autofocus
                        id="modelo"
                        name="modelo"
                        class="form-control"
                        value="<?= isset($modelo) ? $modelo->getModelo() : ''; ?>">
             </div>
-            <div class="col col-md-auto>
+            <div class="col col-md-auto">
                 <label for="producao">Rel.Produção</label>
                 <input type="number"
                        id="producao"
@@ -60,7 +61,7 @@
                        id="data-entrada"
                        name="data-entrada"
                        class="data-entrada"
-                       value="<?= isset($modelo) ? $modelo->getDataEntrada() : $dataAtual ?>"
+                       value="<?= isset($modelo) ? $modelo->getDataEntrada() : $dataAtual->format('Y-m-d') ?>"
                        style="width: 100%; height: 2.4rem"
                 >
                 </div>
