@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<div  id="teste">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container-fluid">
         <div class="navbar-brand" href="#">Atelier da Roberta</div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,4 +39,5 @@
         </button>
     </div>
 </nav>
-<div class="container-xl mt-5">
+<div style="height: 2rem"></div>
+<div id="conteudo" class="container-xl mt-5">

@@ -1,7 +1,12 @@
 #teste {
     background-image: url("../img/logo.png");
     background-repeat: no-repeat;
-    background-position-x: 100%;
-    background-position-y: 100%;
-    background;
+    background-position-x: 95%;
+    background-position-y: 87%;
+    background-attachment: fixed;
+}
+
+#conteudo {
+    background-color: rgba(255,255,255,0.90)
+;
 }

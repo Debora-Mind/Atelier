@@ -12,7 +12,7 @@
     <script src="js/custom.js" rel="script"></script>
     <title>Atelier da Roberta</title>
 </head>
-<body id="teste">
+<body>
 <?php if (isset($_SESSION['logado'])): ?>
 <?php endif; ?>
 <?php $dataAtual = new DateTime();
