@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'dam/atelier',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '416d03d2e25cd4f75ac15edb0cd9dfab21ec8f73',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'dam/atelier' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '416d03d2e25cd4f75ac15edb0cd9dfab21ec8f73',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -288,7 +288,7 @@
         'symfony/cache' => array(
             'pretty_version' => '6.3.x-dev',
             'version' => '6.3.9999999.9999999-dev',
-            'reference' => '9fbb6081c832bddd5d964485086682791920d9eb',
+            'reference' => '605bd3f42a78ca75b2ad7a1170d7e9efff288fb6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/cache',
             'aliases' => array(),
@@ -314,7 +314,7 @@
         'symfony/console' => array(
             'pretty_version' => '6.3.x-dev',
             'version' => '6.3.9999999.9999999-dev',
-            'reference' => '516a2684d4545bc6dedbf162480d2a35d451b0ae',
+            'reference' => '244eb2cac9abec8828ee0cdb572bb380cfec278e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/console',
             'aliases' => array(),
@@ -409,7 +409,7 @@
         'symfony/string' => array(
             'pretty_version' => '6.3.x-dev',
             'version' => '6.3.9999999.9999999-dev',
-            'reference' => '01204629fd5c1db46e6c9181a5a2933c33bbfff8',
+            'reference' => 'f2e190ee75ff0f5eced645ec0be5c66fac81f51f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/string',
             'aliases' => array(),

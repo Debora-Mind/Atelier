@@ -133,6 +133,14 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
+    public function cor()
+    {
+        if (isset($this->data_saida)) {
+            return 'green';
+        }
+        return 'black';
+    }
+
     public function jsonSerialize(): array
     {
         return [
