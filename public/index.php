@@ -19,8 +19,7 @@ if (!array_key_exists($caminho, $rotas)) {
 session_start();
 
 $ehRotaDeLogin = stripos($caminho, 'login');
-
-if (!isset($_SESSION['logado']) && $ehRotaDeLogin === false) {
+if ((!isset($_SESSION['logado']) || $_SESSION['logado'] === false) && $ehRotaDeLogin === false) {
     header('Location: /login');
     exit();
 }
