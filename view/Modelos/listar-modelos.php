@@ -36,9 +36,10 @@
                     <td><?= $modelo->getDataSaida() ? $modelo->getDataSaida() : ''; ?></td>
                     <td class="text-center px-0">
                         <button title="Dar saída"
+                            <?= $modelo->disabled() ?>
                             onclick="darSaida('<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
                             style="border: none; padding: 0">
-                            <i class="bi bi-square" style="color: <?= $modelo->cor() ?>"></i>
+                            <i class="<?= $modelo->button() ?>" style="color: <?= $modelo->cor() ?>"></i>
                         </button>
                     </td>
                     <td class="text-center px-0">

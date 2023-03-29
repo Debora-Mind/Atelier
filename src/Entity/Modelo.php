@@ -142,6 +142,22 @@ class Modelo implements \JsonSerializable
         return 'black';
     }
 
+    public function button()
+    {
+        if (isset($this->data_saida)) {
+            return 'bi bi-check-square';
+        }
+        return 'bi bi-square';
+    }
+
+    public function disabled()
+    {
+        if (isset($this->data_saida)) {
+            return 'disabled';
+        }
+        return '';
+    }
+
     public function jsonSerialize(): array
     {
         return [
