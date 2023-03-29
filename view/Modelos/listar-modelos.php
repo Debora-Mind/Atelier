@@ -1,9 +1,15 @@
 <?php include __DIR__ . '/../Componentes/inicio-html.php'; ?>
 <?php include __DIR__ . '/../Componentes/navbar.php'; ?>
 
-    <a href="/novo-modelo" class="btn btn-primary mb-2">
-        <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
-    </a>
+    <div class="d-inline w-100">
+        <input type="text" name="busca" id="busca" value="Modelo ou código de barras:" class="w-25">
+        <a class="btn btn-primary mb-2">
+            <i class="bi bi-search"></i> Buscar
+        </a>
+        <a href="/novo-modelo" class="btn btn-primary mb-2 end-0 text-end me-0 po">
+            <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
+        </a>
+    </div>
 
     <ul class="list-group">
         <table class="table table-dark table-striped">
