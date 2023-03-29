@@ -7,7 +7,8 @@ use Dam\Atelier\Controller\{Exclusao,
     IndexController,
     ListarModelos,
     Persistencia,
-    RealizaLogin};
+    RealizaLogin,
+    RealizaSaida};
 
 return [
     '/' => IndexController::class,
@@ -18,4 +19,5 @@ return [
     '/salvar-modelo' => Persistencia::class,
     '/alterar-modelo' => FormularioEdicao::class,
     '/excluir-modelo' => Exclusao::class,
+    '/dar-saida' => RealizaSaida::class,
 ];

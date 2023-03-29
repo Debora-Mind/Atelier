@@ -33,9 +33,10 @@
                     <td><?= $modelo->getValor(); ?></td>
                     <td><?= $modelo->getCodBarras(); ?></td>
                     <td><?= $modelo->getDataEntrada()->format('d/m/Y'); ?></td>
-                    <td><?= $modelo->getDataSaida() ? $modelo->getDataSaida()->format('d/m/Y H:i') : ''; ?></td>
+                    <td><?= $modelo->getDataSaida() ? $modelo->getDataSaida() : ''; ?></td>
                     <td class="text-center px-0">
-                        <button title="Dar saída" onclick="darSaida('<?= $modelo->getModelo() ?>')"
+                        <button title="Dar saída"
+                            onclick="darSaida('<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
                             style="border: none; padding: 0">
                             <i class="bi bi-square" style="color: <?= $modelo->cor() ?>"></i>
                         </button>

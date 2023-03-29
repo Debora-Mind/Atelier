@@ -33,8 +33,8 @@ class Modelo implements \JsonSerializable
     #[Column(type: 'date')]
     private \DateTime $data_entrada;
 
-    #[Column(type: 'date', nullable: true)]
-    private ? \DateTimeImmutable $data_saida;
+    #[Column(nullable: true)]
+    private ? string $data_saida;
 
     public function getId(): int
     {
@@ -127,9 +127,10 @@ class Modelo implements \JsonSerializable
         return $this->data_saida;
     }
 
-    public function setDataSaida(string $data_saida): Modelo
+    public function setDataSaida(): Modelo
     {
-        $this->data_saida = new \DateTimeImmutable();
+        $data = new \DateTime();
+        $this->data_saida = $data->format('d/m/Y H:i');
         return $this;
     }
 

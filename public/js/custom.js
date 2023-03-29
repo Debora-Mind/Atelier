@@ -1,8 +1,8 @@
-function darSaida(modelo) {
+function darSaida(modelo, id) {
     confirmar = confirm('Tem certeza que quer dar saída no modelo ' + modelo + '?')
 
     if (confirmar === true) {
-        window.location.href = '/'
+        window.location.href = '/dar-saida?id=' + id
     }
 }
 
