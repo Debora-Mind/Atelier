@@ -1,19 +1,26 @@
 <?php include __DIR__ . '/../Componentes/inicio-html.php'; ?>
 <?php include __DIR__ . '/../Componentes/navbar.php'; ?>
 
-    <div class="d-inline w-100">
-        <input type="text" name="busca" id="busca" value="Modelo ou código de barras:" class="w-25">
-        <a class="btn btn-primary mb-2">
-            <i class="bi bi-search"></i> Buscar
-        </a>
-        <a href="/novo-modelo" class="btn btn-primary mb-2 end-0 text-end me-0 po">
-            <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
-        </a>
+    <div class="d-flex align-items-center align-items-stretch">
+        <div>
+            <input type="text" name="busca" placeholder="Digite o modelo ou código de barras">
+            <a class="btn btn-primary mb-2" type="submit">
+                <i class="bi bi-search"></i> Buscar
+            </a>
+        </div>
+        <div id="menssagem-listar-modelos" class="flex-fill">
+            <?php include __DIR__ . '/../Componentes/mensagens.php';?>
+        </div>
+        <div>
+            <a type="button" href="/novo-modelo" class="btn btn-primary mb-2">
+                <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
+            </a>
+        </div>
     </div>
 
     <ul class="list-group">
         <table class="table table-dark table-striped">
-            <thead>
+            <thead style="background-color: black;">
             <tr>
                 <th scope="col" style="width: 4%">#</th>
                 <th scope="col" style="width: 10%">Modelo</th>
@@ -28,7 +35,6 @@
             </tr>
             </thead>
             <tbody class="table table-striped">
-
             <?php foreach ($modelos as $modelo): ?>
                 <tr>
                     <th scope="row"><?= $modelo->getId(); ?></th>
@@ -43,24 +49,25 @@
                     <td class="text-center px-0">
                         <button title="Dar saída"
                             <?= $modelo->disabled() ?>
-                            onclick="darSaida('<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
-                            style="border: none; padding: 0">
+                                onclick="darSaida('<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
+                                style="border: none; padding: 0;">
                             <i class="<?= $modelo->button() ?>" style="color: <?= $modelo->cor() ?>"></i>
                         </button>
                     </td>
                     <td class="text-center px-0">
                         <a title="Editar" href="/alterar-modelo?id=<?= $modelo->getId(); ?>">
-                            <i class="bi bi-pencil-square" style="color: black"></i>
+                            <i class="bi bi-pencil-square" style="color: black;"></i>
                         </a>
                     </td>
                     <td class="text-center px-0">
-                        <button title="Excluír?"
-                            onclick="excluir('<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
-                            style="border: none; padding: 0">
-                            <i class="bi bi-trash3-fill" style="color: black"></i>
+                        <button title="Excluir?"
+                                onclick="excluir('<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
+                                style="border: none; padding: 0;">
+                            <i class="bi bi-trash3-fill" style="color: black;"></i>
                         </button>
                     </td>
-                <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </ul>
