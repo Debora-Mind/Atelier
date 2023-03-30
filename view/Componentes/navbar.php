@@ -39,4 +39,4 @@
     </div>
 </nav>
 <div style="height: 2rem"></div>
-<div id="conteudo" class="container-xl mt-5 barra-rolagem">
+<div id="conteudo" class="container-xl mt-5 barra-rolagem" style="max-width: 85%;">
