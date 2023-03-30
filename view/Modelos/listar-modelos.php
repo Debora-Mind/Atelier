@@ -1,13 +1,16 @@
-<?php include __DIR__ . '/../Componentes/inicio-html.php'; ?>
-<?php include __DIR__ . '/../Componentes/navbar.php'; ?>
+<?php
+include __DIR__ . '/../Componentes/inicio-html.php';
+include __DIR__ . '/../Componentes/navbar.php';
+
+?>
 
     <div class="d-flex align-items-center align-items-stretch">
-        <div>
-            <input type="text" name="busca" placeholder="Digite o modelo ou código de barras">
-            <a class="btn btn-primary mb-2" type="submit">
+        <form action="/modelos" method="post">
+            <input type="text" name="busca" id="busca" placeholder="Digite o modelo ou código de barras" autofocus>
+            <button class="btn btn-primary mb-2" type="submit">
                 <i class="bi bi-search"></i> Buscar
-            </a>
-        </div>
+            </button>
+        </form>
         <div id="menssagem-listar-modelos" class="flex-fill">
             <?php include __DIR__ . '/../Componentes/mensagens.php';?>
         </div>
