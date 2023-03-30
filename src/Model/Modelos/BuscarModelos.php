@@ -13,7 +13,6 @@ class BuscarModelos
 
     public function busca($repositorio, $pesquisa)
     {
-        // chamando a função buscarModelos da trait
         $modelos = $this->buscarModelos($repositorio, $pesquisa);
     }
 

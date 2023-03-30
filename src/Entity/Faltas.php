@@ -2,21 +2,22 @@
 
 namespace Dam\Atelier\Entity;
 
-use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, ManyToOne};
+use Doctrine\ORM\Mapping\{Entity, ManyToOne, Table, Id, Column, GeneratedValue};
 
-//Table(name="faltas")
 #[Entity]
+#[Table(name: "faltas")]
 class Faltas implements \JsonSerializable
 {
-    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
+    #[Id]
+    #[GeneratedValue(strategy: 'AUTO')]
+    #[Column(unique: true)]
     private int $id;
 
     #[Column]
-    #[ManyToOne(targetEntity: 'Faltas', inversedBy: 'Funcionario')]
-    private int $id_funcionario;
+    #[ManyToOne(targetEntity: Funcionario::class, inversedBy: 'faltas')]
+    private Funcionario $funcionario;
 
-    #[Column]
+    #[Column(type: 'json')]
     private array $listaDeFaltas = [];
 
     public function getId(): int
@@ -24,39 +25,51 @@ class Faltas implements \JsonSerializable
         return $this->id;
     }
 
-    public function getIdFuncionario(): int
+    public function getFuncionario(): Funcionario
     {
-        return $this->id_funcionario;
+        return $this->funcionario;
     }
 
-    public function setIdFuncionario(int $id_funcionario): Faltas
+    public function setFuncionario(Funcionario $funcionario): self
     {
-        $this->id_funcionario = $id_funcionario;
+        $this->funcionario = $funcionario;
+
         return $this;
     }
 
-    public function addFaltas($data_falta)
+    public function addFalta(string $data_falta): void
     {
-        $this->listaDeFaltas[] .= $data_falta;
+        $this->listaDeFaltas[] = $data_falta;
     }
 
-    public function getListaDeFaltas()
+    public function getListaDeFaltas(): array
     {
         return $this->listaDeFaltas;
     }
 
-    public function countFaltas()
+    public function countFaltas(): int
     {
         return count($this->listaDeFaltas);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->id,
-            'id_funcionario' => $this->id_funcionario,
+            'id_funcionario' => $this->funcionario->getId(),
             'faltas' => $this->listaDeFaltas,
             'num_faltas' => $this->countFaltas(),
         ];
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'id_funcionario' => $this->funcionario,
+            'faltas' => $this->listaDeFaltas,
+            'num_faltas' => $this->countFaltas(),
+        ];
+    }
+
 }

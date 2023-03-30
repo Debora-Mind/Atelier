@@ -2,26 +2,26 @@
 
 namespace Dam\Atelier\Entity;
 
-use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, OneToOne};
+use Doctrine\ORM\Mapping\{Entity, OneToOne, Table, Id, Column, GeneratedValue};
 
-//Table(name="layout")
 #[Entity]
+#[Table(name: "layout")]
 class Layout implements \JsonSerializable
 {
-    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
+    #[Id]
+    #[GeneratedValue(strategy: 'AUTO')]
+    #[Column(unique: true)]
     private int $id;
 
     #[Column(type: 'date')]
     private \DateTime $data;
 
-    #[Column]
-    #[OneToOne(mappedBy: 'Layout', targetEntity: 'Relacao')]
-    private Relacao $id_relacao;
+    #[OneToOne(mappedBy: 'layout', targetEntity: Relacao::class)]
+    private Relacao $relacao;
 
     public function __construct()
     {
-        $this->id_relacao = new Relacao();
+        $this->relacao = new Relacao();
     }
 
     public function getId(): int
@@ -40,23 +40,31 @@ class Layout implements \JsonSerializable
         return $this;
     }
 
-    public function getIdRelacao(): Relacao
+    public function getRelacao(): Relacao
     {
-        return $this->id_relacao;
+        return $this->relacao;
     }
 
     public function addRelacao($relacao)
     {
-        $this->id_relacao->addRelacao($relacao);
+        $this->relacao->addRelacao($relacao);
     }
-
 
     public function jsonSerialize()
     {
         return [
             'id' => $this->id,
-            'data' => $this->data->format('d/m/y H:i'),
-            'id_relacao' => $this->id_relacao,
+            'data' => $this->getData(),
+            'relacao' => $this->relacao,
+        ];
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'data' => $this->getData(),
+            'relacao' => $this->relacao->toArray(),
         ];
     }
 }

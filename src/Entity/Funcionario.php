@@ -2,15 +2,13 @@
 
 namespace Dam\Atelier\Entity;
 
-use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, OneToMany, OneToOne};
-use Dam\Atelier\Entity\Faltas;
+use Doctrine\ORM\Mapping\{Entity, JoinColumn, ManyToOne, OneToMany, Table, Id, Column, GeneratedValue};
 
-//Table(name="funcionario")
 #[Entity]
+#[Table(name: "funcionario")]
 class Funcionario implements \JsonSerializable
 {
-    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
+    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: true)]
     private int $id;
 
     #[Column]
@@ -22,18 +20,17 @@ class Funcionario implements \JsonSerializable
     #[Column(type: 'date')]
     private \DateTime $data_nascimento;
 
-    #[Column(nullable: 'true')]
+    #[Column(nullable: true)]
     private string $matricula;
 
-    #[Column]
-    #[OneToMany(mappedBy: 'Funcionario', targetEntity: 'Funcao')]
-    private Funcao $id_funcao;
+    #[ManyToOne(targetEntity: Funcao::class)]
+    #[JoinColumn(name: 'id_funcao_id', referencedColumnName: 'id')]
+    private Funcao $funcao;
 
-    #[Column(type: 'float', nullable: 'true')]
+    #[Column(type: 'float', nullable: true)]
     private float $valor_hora;
 
-    #[Column]
-    #[OneToMany(mappedBy: 'Funcionario', targetEntity: 'Faltas')]
+    #[OneToMany(mappedBy: 'funcionario', targetEntity: Faltas::class)]
     private Faltas $id_faltas;
 
     public function __construct()
@@ -59,7 +56,7 @@ class Funcionario implements \JsonSerializable
 
     public function addFalta(\DateTime $data_falta)
     {
-        $this->id_faltas->addFaltas($data_falta);
+        $this->id_faltas->addFalta($data_falta->format('d/m/Y'));
     }
 
     public function countFaltas()
@@ -83,53 +80,48 @@ class Funcionario implements \JsonSerializable
         return $this;
     }
 
-    public function getDataNascimento(): string
+    public function getDataNascimento(): \DateTime
     {
-        return $this->data_nascimento->format('d/m/y');
+        return $this->data_nascimento;
     }
 
-    public function setDataNascimento(\DateTime $data_nascimento): Funcionario
+    public function setDataNascimento(\DateTime $data_nascimento): self
     {
         $this->data_nascimento = $data_nascimento;
         return $this;
     }
 
-    public function getMatricula(): string
+    public function getMatricula(): ?string
     {
         return $this->matricula;
     }
 
-    public function setMatricula(string $matricula): Funcionario
+    public function setMatricula(?string $matricula): self
     {
         $this->matricula = $matricula;
         return $this;
     }
 
-    public function getIdFuncao(): Funcao
+    public function getFuncao(): Funcao
     {
-        return $this->id_funcao;
+        return $this->funcao;
     }
 
-    public function setIdFuncao(Funcao $id_funcao): Funcionario
+    public function setFuncao(Funcao $funcao): self
     {
-        $this->id_funcao = $id_funcao;
+        $this->funcao = $funcao;
         return $this;
     }
 
-    public function getValorHora(): float
+    public function getValorHora(): ?float
     {
         return $this->valor_hora;
     }
 
-    public function setValorHora(string $valor_hora): Funcionario
+    public function setValorHora(?float $valor_hora): self
     {
         $this->valor_hora = $valor_hora;
         return $this;
-    }
-
-    public function getIdFaltas(): \Dam\Atelier\Entity\Faltas
-    {
-        return $this->id_faltas;
     }
 
     public function jsonSerialize()
@@ -140,9 +132,28 @@ class Funcionario implements \JsonSerializable
             'cpf' => $this->cpf,
             'data_nascimento' => $this->data_nascimento->format('d/m/y'),
             'matricula' => $this->matricula,
-            'id_funcao' => $this->id_funcao,
+            'funcao' => $this->funcao->toArray(),
             'valor_hora' => $this->valor_hora,
-            'id_faltas' => $this->id_faltas,
+            'faltas' => $this->id_faltas->toArray(),
+        ];
+    }
+
+    public function toArray(): array
+    {
+        $faltas = [];
+        foreach ($this->id_faltas as $falta) {
+            $faltas[] = $falta->getDataFalta()->format('d/m/Y');
+        }
+
+        return [
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'cpf' => $this->cpf,
+            'data_nascimento' => $this->data_nascimento->format('d/m/Y'),
+            'matricula' => $this->matricula,
+            'funcao' => $this->funcao->getDescricao(),
+            'valor_hora' => $this->valor_hora,
+            'faltas' => $faltas,
         ];
     }
 

@@ -2,11 +2,10 @@
 
 namespace Dam\Atelier\Entity;
 
-use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, ManyToOne};
+use Doctrine\ORM\Mapping\{Entity, Table, Id, Column,GeneratedValue};
 
-//Table(name="funcao")
 #[Entity]
+#[Table(name: "funcao")]
 class Funcao implements \JsonSerializable
 {
     #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
@@ -31,11 +30,19 @@ class Funcao implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->id,
-            'modelo' => $this->descricao,
+            'descricao' => $this->descricao,
+        ];
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'descricao' => $this->descricao,
         ];
     }
 }

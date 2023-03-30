@@ -2,10 +2,10 @@
 
 namespace Dam\Atelier\Entity;
 
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column};
+use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, Table};
 
-//@Table(name="usuario")
 #[Entity]
+#[Table(name: "usuario")]
 class Usuario
 {
 

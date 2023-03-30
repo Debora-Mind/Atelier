@@ -2,11 +2,10 @@
 
 namespace Dam\Atelier\Entity;
 
-use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column};
+use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, Table};
 
-//Table(name="modelo")
 #[Entity]
+#[Table(name: "modelo")]
 class Modelo implements \JsonSerializable
 {
     #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
@@ -169,7 +168,7 @@ class Modelo implements \JsonSerializable
             'valor' => $this->valor,
             'cod_barras' => $this->cod_barras,
             'data_entrada' => $this->data_entrada->format('d/m/y H:i'),
-            'data_saida' => $this->data_saida->format('d/m/y H:i'),
+            'data_saida' => $this->data_saida,
         ];
     }
 }

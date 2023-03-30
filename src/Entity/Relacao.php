@@ -2,21 +2,20 @@
 
 namespace Dam\Atelier\Entity;
 
-use Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand;
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, OneToOne};
+use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, OneToOne, Table};
 
-//Table(name="relacao")
 #[Entity]
+#[Table(name: "relacao")]
 class Relacao implements \JsonSerializable
 {
-    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
+    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: true)]
     private int $id;
 
     #[Column]
     private array $relacoes;
 
     #[Column]
-    #[OneToOne(mappedBy: 'Layout', inversedBy: 'Relacao')]
+    #[OneToOne(mappedBy: Layout::class, inversedBy: Relacao::class)]
     private Layout $id_layout;
 
     public function __construct()
@@ -67,6 +66,15 @@ class Relacao implements \JsonSerializable
             'id' => $this->id,
             'relacoes' => $this->relacoes,
             'id_layout' => $this->id_layout,
-            ];
+        ];
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'relacoes' => $this->relacoes,
+            'id_layout' => $this->id_layout->getId(),
+        ];
     }
 }

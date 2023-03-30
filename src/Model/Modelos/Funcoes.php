@@ -9,7 +9,6 @@ trait Funcoes
 {
     public function buscarModelos($repositorio, $busca)
     {
-
         $modelos = $repositorio->createQueryBuilder('m')
             ->where('m.cod_barras = :buscaExata')
             ->orWhere('m.modelo LIKE :buscaMeio')
