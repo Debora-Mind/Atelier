@@ -52,12 +52,10 @@ final class DumpCompletionCommand extends Command
             default => ['~/.bashrc', "/etc/bash_completion.d/$commandName"],
         };
 
-        $supportedShells = implode(', ', $this->getSupportedShells());
-
         $this
             ->setHelp(<<<EOH
 The <info>%command.name%</> command dumps the shell completion script required
-to use shell autocompletion (currently, {$supportedShells} completion are supported).
+to use shell autocompletion (currently, bash and fish completion is supported).
 
 <comment>Static installation
 -------------------</>

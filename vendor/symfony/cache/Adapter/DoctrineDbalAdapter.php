@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Cache\Adapter;
 
-use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\ServerInfoAwareConnection;
 use Doctrine\DBAL\DriverManager;
@@ -148,7 +147,7 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
             $ids,
         ], [
             ParameterType::INTEGER,
-            class_exists(ArrayParameterType::class) ? ArrayParameterType::STRING : Connection::PARAM_STR_ARRAY,
+            Connection::PARAM_STR_ARRAY,
         ])->iterateNumeric();
 
         foreach ($result as $row) {
@@ -166,7 +165,7 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
                 $expired,
             ], [
                 ParameterType::INTEGER,
-                class_exists(ArrayParameterType::class) ? ArrayParameterType::STRING : Connection::PARAM_STR_ARRAY,
+                Connection::PARAM_STR_ARRAY,
             ]);
         }
     }
@@ -209,7 +208,7 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
     {
         $sql = "DELETE FROM $this->table WHERE $this->idCol IN (?)";
         try {
-            $this->conn->executeStatement($sql, [array_values($ids)], [class_exists(ArrayParameterType::class) ? ArrayParameterType::STRING : Connection::PARAM_STR_ARRAY]);
+            $this->conn->executeStatement($sql, [array_values($ids)], [Connection::PARAM_STR_ARRAY]);
         } catch (TableNotFoundException) {
         }
 
@@ -265,42 +264,35 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
             $stmt = $this->conn->prepare($sql);
         }
 
+        // $id and $data are defined later in the loop. Binding is done by reference, values are read on execution.
         if ('sqlsrv' === $platformName || 'oci' === $platformName) {
-            $bind = static function ($id, $data) use ($stmt) {
-                $stmt->bindValue(1, $id);
-                $stmt->bindValue(2, $id);
-                $stmt->bindValue(3, $data, ParameterType::LARGE_OBJECT);
-                $stmt->bindValue(6, $data, ParameterType::LARGE_OBJECT);
-            };
+            $stmt->bindParam(1, $id);
+            $stmt->bindParam(2, $id);
+            $stmt->bindParam(3, $data, ParameterType::LARGE_OBJECT);
             $stmt->bindValue(4, $lifetime, ParameterType::INTEGER);
             $stmt->bindValue(5, $now, ParameterType::INTEGER);
+            $stmt->bindParam(6, $data, ParameterType::LARGE_OBJECT);
             $stmt->bindValue(7, $lifetime, ParameterType::INTEGER);
             $stmt->bindValue(8, $now, ParameterType::INTEGER);
         } elseif (null !== $platformName) {
-            $bind = static function ($id, $data) use ($stmt) {
-                $stmt->bindValue(1, $id);
-                $stmt->bindValue(2, $data, ParameterType::LARGE_OBJECT);
-            };
+            $stmt->bindParam(1, $id);
+            $stmt->bindParam(2, $data, ParameterType::LARGE_OBJECT);
             $stmt->bindValue(3, $lifetime, ParameterType::INTEGER);
             $stmt->bindValue(4, $now, ParameterType::INTEGER);
         } else {
+            $stmt->bindParam(1, $data, ParameterType::LARGE_OBJECT);
             $stmt->bindValue(2, $lifetime, ParameterType::INTEGER);
             $stmt->bindValue(3, $now, ParameterType::INTEGER);
+            $stmt->bindParam(4, $id);
 
             $insertStmt = $this->conn->prepare($insertSql);
+            $insertStmt->bindParam(1, $id);
+            $insertStmt->bindParam(2, $data, ParameterType::LARGE_OBJECT);
             $insertStmt->bindValue(3, $lifetime, ParameterType::INTEGER);
             $insertStmt->bindValue(4, $now, ParameterType::INTEGER);
-
-            $bind = static function ($id, $data) use ($stmt, $insertStmt) {
-                $stmt->bindValue(1, $data, ParameterType::LARGE_OBJECT);
-                $stmt->bindValue(4, $id);
-                $insertStmt->bindValue(1, $id);
-                $insertStmt->bindValue(2, $data, ParameterType::LARGE_OBJECT);
-            };
         }
 
         foreach ($values as $id => $data) {
-            $bind($id, $data);
             try {
                 $rowCount = $stmt->executeStatement();
             } catch (TableNotFoundException) {
@@ -321,22 +313,6 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
         return $failed;
     }
 
-    /**
-     * @internal
-     */
-    protected function getId(mixed $key): string
-    {
-        if ('pgsql' !== $this->platformName ??= $this->getPlatformName()) {
-            return parent::getId($key);
-        }
-
-        if (str_contains($key, "\0") || str_contains($key, '%') || !preg_match('//u', $key)) {
-            $key = rawurlencode($key);
-        }
-
-        return parent::getId($key);
-    }
-
     private function getPlatformName(): string
     {
         if (isset($this->platformName)) {
@@ -345,16 +321,16 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
 
         $platform = $this->conn->getDatabasePlatform();
 
-        return $this->platformName = match (true) {
+        return match (true) {
             $platform instanceof \Doctrine\DBAL\Platforms\MySQLPlatform,
-            $platform instanceof \Doctrine\DBAL\Platforms\MySQL57Platform => 'mysql',
-            $platform instanceof \Doctrine\DBAL\Platforms\SqlitePlatform => 'sqlite',
+            $platform instanceof \Doctrine\DBAL\Platforms\MySQL57Platform => $this->platformName = 'mysql',
+            $platform instanceof \Doctrine\DBAL\Platforms\SqlitePlatform => $this->platformName = 'sqlite',
             $platform instanceof \Doctrine\DBAL\Platforms\PostgreSQLPlatform,
-            $platform instanceof \Doctrine\DBAL\Platforms\PostgreSQL94Platform => 'pgsql',
-            $platform instanceof \Doctrine\DBAL\Platforms\OraclePlatform => 'oci',
+            $platform instanceof \Doctrine\DBAL\Platforms\PostgreSQL94Platform => $this->platformName = 'pgsql',
+            $platform instanceof \Doctrine\DBAL\Platforms\OraclePlatform => $this->platformName = 'oci',
             $platform instanceof \Doctrine\DBAL\Platforms\SQLServerPlatform,
-            $platform instanceof \Doctrine\DBAL\Platforms\SQLServer2012Platform => 'sqlsrv',
-            default => $platform::class,
+            $platform instanceof \Doctrine\DBAL\Platforms\SQLServer2012Platform => $this->platformName = 'sqlsrv',
+            default => $this->platformName = $platform::class,
         };
     }
 

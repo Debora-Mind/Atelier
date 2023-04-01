@@ -20,12 +20,8 @@ class EntityManagerCreator
         );
 
         $conn = [
-            'driver' => 'pdo_mysql',
-            'host' => 'localhost',
-            'port' => '3306',
-            'dbname' => 'atelier',
-            'user' => 'root',
-            'password' => '',
+            'driver' => 'pdo_sqlite',
+            'path' => __DIR__ . '/../../database/db.sqlite',
         ];
 
         return EntityManager::create($conn, $config);

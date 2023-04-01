@@ -204,19 +204,15 @@ class XmlDriver extends FileDriver
                 // Evaluate <discriminator-column...>
                 if (isset($xmlRoot->{'discriminator-column'})) {
                     $discrColumn = $xmlRoot->{'discriminator-column'};
-                    $columnDef   = [
-                        'name' => isset($discrColumn['name']) ? (string) $discrColumn['name'] : null,
-                        'type' => isset($discrColumn['type']) ? (string) $discrColumn['type'] : 'string',
-                        'length' => isset($discrColumn['length']) ? (int) $discrColumn['length'] : 255,
-                        'columnDefinition' => isset($discrColumn['column-definition']) ? (string) $discrColumn['column-definition'] : null,
-                        'enumType' => isset($discrColumn['enum-type']) ? (string) $discrColumn['enum-type'] : null,
-                    ];
-
-                    if (isset($discrColumn['options'])) {
-                        $columnDef['options'] = $this->parseOptions($discrColumn['options']->children());
-                    }
-
-                    $metadata->setDiscriminatorColumn($columnDef);
+                    $metadata->setDiscriminatorColumn(
+                        [
+                            'name' => isset($discrColumn['name']) ? (string) $discrColumn['name'] : null,
+                            'type' => isset($discrColumn['type']) ? (string) $discrColumn['type'] : 'string',
+                            'length' => isset($discrColumn['length']) ? (int) $discrColumn['length'] : 255,
+                            'columnDefinition' => isset($discrColumn['column-definition']) ? (string) $discrColumn['column-definition'] : null,
+                            'enumType' => isset($discrColumn['enum-type']) ? (string) $discrColumn['enum-type'] : null,
+                        ]
+                    );
                 } else {
                     $metadata->setDiscriminatorColumn(['name' => 'dtype', 'type' => 'string', 'length' => 255]);
                 }

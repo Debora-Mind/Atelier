@@ -313,19 +313,15 @@ class AnnotationDriver extends CompatibilityAnnotationDriver
                     $discrColumnAnnot = $classAnnotations[Mapping\DiscriminatorColumn::class];
                     assert($discrColumnAnnot instanceof Mapping\DiscriminatorColumn);
 
-                    $columnDef = [
-                        'name' => $discrColumnAnnot->name,
-                        'type' => $discrColumnAnnot->type ?: 'string',
-                        'length' => $discrColumnAnnot->length ?? 255,
-                        'columnDefinition' => $discrColumnAnnot->columnDefinition,
-                        'enumType' => $discrColumnAnnot->enumType,
-                    ];
-
-                    if ($discrColumnAnnot->options) {
-                        $columnDef['options'] = $discrColumnAnnot->options;
-                    }
-
-                    $metadata->setDiscriminatorColumn($columnDef);
+                    $metadata->setDiscriminatorColumn(
+                        [
+                            'name'             => $discrColumnAnnot->name,
+                            'type'             => $discrColumnAnnot->type ?: 'string',
+                            'length'           => $discrColumnAnnot->length ?? 255,
+                            'columnDefinition' => $discrColumnAnnot->columnDefinition,
+                            'enumType'         => $discrColumnAnnot->enumType,
+                        ]
+                    );
                 } else {
                     $metadata->setDiscriminatorColumn(['name' => 'dtype', 'type' => 'string', 'length' => 255]);
                 }
