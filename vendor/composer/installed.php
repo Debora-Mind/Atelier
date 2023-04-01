@@ -3,7 +3,7 @@
         'name' => 'dam/atelier',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '416d03d2e25cd4f75ac15edb0cd9dfab21ec8f73',
+        'reference' => 'c9b519f8334a86183974a4eca565080d559ee386',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'dam/atelier' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '416d03d2e25cd4f75ac15edb0cd9dfab21ec8f73',
+            'reference' => 'c9b519f8334a86183974a4eca565080d559ee386',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -49,7 +49,7 @@
         'doctrine/dbal' => array(
             'pretty_version' => '3.7.x-dev',
             'version' => '3.7.9999999.9999999-dev',
-            'reference' => '9058614cea2c188ddb996f32e461032ff797c356',
+            'reference' => 'e5f123852e1726ea29020d2cf4f5cfe929b3919b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/dbal',
             'aliases' => array(),
@@ -103,7 +103,7 @@
         'doctrine/orm' => array(
             'pretty_version' => '2.15.x-dev',
             'version' => '2.15.9999999.9999999-dev',
-            'reference' => 'aec35565024de102bedf55837d8b655a04d6ba15',
+            'reference' => 'b2707509fcb67221b78a682c909d2e48b36974d5',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/orm',
             'aliases' => array(),
@@ -288,7 +288,7 @@
         'symfony/cache' => array(
             'pretty_version' => '6.3.x-dev',
             'version' => '6.3.9999999.9999999-dev',
-            'reference' => '605bd3f42a78ca75b2ad7a1170d7e9efff288fb6',
+            'reference' => '00dafabc9754e428173acf042efedef96d9cd460',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/cache',
             'aliases' => array(),
@@ -314,7 +314,7 @@
         'symfony/console' => array(
             'pretty_version' => '6.3.x-dev',
             'version' => '6.3.9999999.9999999-dev',
-            'reference' => '244eb2cac9abec8828ee0cdb572bb380cfec278e',
+            'reference' => 'f4e7d86a6256fe7105c863ee6c77291c64a9959e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/console',
             'aliases' => array(),

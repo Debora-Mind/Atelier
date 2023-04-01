@@ -16,7 +16,7 @@
     "minimum-stability": "dev",
 
     "require": {
-        "doctrine/orm": "^2.13",
+        "doctrine/orm": "^2.15",
         "nyholm/psr7": "^1.5",
         "psr/http-message": "^1.0",
         "nyholm/psr7-server": "^1.0",
