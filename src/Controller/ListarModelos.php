@@ -4,6 +4,7 @@ namespace Dam\Atelier\Controller;
 use Dam\Atelier\Entity\Modelo;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Dam\Atelier\Model\Modelos\BuscarModelos;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -53,6 +54,25 @@ class ListarModelos implements RequestHandlerInterface
             return $this->modelos->buscarModelos($this->entityManager->getRepository(Modelo::class), $busca);
         }
 
-        return $this->entityManager->getRepository(Modelo::class)->findAll();
+        $modelos = $this->entityManager->getRepository(Modelo::class)->findAll();
+
+        usort($modelos, function($a, $b) {
+            $aDate = $a->getDataSaida();
+            $bDate = $b->getDataSaida();
+
+            if (!isset($aDate)) {
+                return -1;
+            }
+            if (!isset($bDate)) {
+                return 1;
+            }
+            if ($aDate == $bDate) {
+                return 0;
+            }
+
+            return ($aDate > $bDate) ? -1 : 1;
+        });
+
+        return $modelos;
     }
 }
