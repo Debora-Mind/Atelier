@@ -9,9 +9,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/modelos">Modelos</a></li>
-                        <li><a class="dropdown-item" href="#">Funcionários</a></li>
-                        <li><a class="dropdown-item" href="#">Funções</a></li>
-                        <li><a class="dropdown-item" href="#">Usuários</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Funcionários</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Funções</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Usuários</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -19,13 +19,13 @@
                         Layout
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Funções</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Funções</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item disabled">
                     <a class="nav-link active" href="#">Quadro de Produção</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item disabled">
                     <a class="nav-link active" href="#">Visão Geral</a>
                 </li>
             </ul>
