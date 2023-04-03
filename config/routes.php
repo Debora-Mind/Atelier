@@ -22,4 +22,5 @@ return [
     '/excluir-modelo' => Exclusao::class,
     '/dar-saida' => RealizaSaida::class,
     '/usuarios' => ListarUsuarios::class,
+    '/novo-usuario' => FormularioUsuario::class,
 ];
