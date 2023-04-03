@@ -1,6 +1,7 @@
 <?php
 namespace Dam\Atelier\Controller;
 
+use ArrayObject;
 use Dam\Atelier\Entity\Modelo;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Dam\Atelier\Model\Modelos\BuscarModelos;
@@ -51,12 +52,12 @@ class ListarModelos implements RequestHandlerInterface
     {
         $resultados = new ArrayCollection();
         $filtroValido = in_array($filtro, [1, 2, 3]);
-
+        // 1 = Todos, 2 = Com saída, 3 = Sem saída
         foreach ($repositorio as $modelo) {
             if ($filtroValido) {
-                $condicao = ($filtro == 1 && $modelo->getDataSaida() !== null) ||
-                    ($filtro == 2 && $modelo->getDataSaida() === null) ||
-                    ($filtro == 3);
+                $condicao = ($filtro == 2 && $modelo->getDataSaida() !== null) ||
+                    ($filtro == 3 && $modelo->getDataSaida() === null) ||
+                    ($filtro == 1);
 
                 if ($condicao) {
                     $resultados->add($modelo);
@@ -96,10 +97,10 @@ class ListarModelos implements RequestHandlerInterface
         });
 
         if (!empty($busca)) {
-            return $this->modelos->buscarModelos($modelos, $busca);
+            return $this->modelos->buscarModelos($array, $busca);
         }
 
-        return $modelos;
+        return $array;
     }
 
     private function renderizarTemplate(mixed $modelos): string

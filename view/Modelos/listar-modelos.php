@@ -17,13 +17,13 @@ include __DIR__ . '/../Componentes/navbar.php';
             <select type="button" name="filtro-saida" id="filtro-saida"
                     class="btn btn-toolbar btn-primary ms-2 mb-2">
                 <option value="1" selected class="dropdown-item bg-white text-start">
-                    Com saída
+                    Todos
                 </option>
                 <option value="2" class="dropdown-item bg-white text-start">
-                    Sem saída
+                    Com saída
                 </option>
                 <option value="3" class="dropdown-item bg-white text-start">
-                    Todos
+                    Sem saída
                 </option>
             </select>
         </form>
