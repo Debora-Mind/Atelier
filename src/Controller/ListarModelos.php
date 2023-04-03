@@ -5,6 +5,7 @@ use Dam\Atelier\Entity\Modelo;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Dam\Atelier\Model\Modelos\BuscarModelos;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -26,37 +27,57 @@ class ListarModelos implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $busca = $this->tratarBusca($request);
-
-        $modelos = $this->obterListaDeModelos($busca);
-
-        $html = $this->renderizaHtml('Modelos/listar-modelos.php', [
-            'modelos' => $modelos,
-        ]);
+        $modelos = $this->obterListaDeModelos($request);
+        $html = $this->renderizarTemplate($modelos);
 
         return new Response(200, [], $html);
     }
 
     private function tratarBusca(ServerRequestInterface $request): string
     {
-        $busca = '';
-
-        if (isset($request->getParsedBody()['busca'])) {
-            $busca = filter_var($request->getParsedBody()['busca'], FILTER_SANITIZE_SPECIAL_CHARS);
-        }
-
-        return $busca;
+        return $request->getParsedBody()['busca'] ?
+            filter_var($request->getParsedBody()['busca'],
+            FILTER_SANITIZE_SPECIAL_CHARS) : '';
     }
 
-    private function obterListaDeModelos(string $busca): array
+    private function obterFiltro(ServerRequestInterface $request): int
     {
-        if (!empty($busca)) {
-            return $this->modelos->buscarModelos($this->entityManager->getRepository(Modelo::class), $busca);
+        $filtro = $request->getParsedBody()['filtro-saida'] ?? 1;
+        return (int) $filtro;
+    }
+
+    private function filtrarModelos($repositorio, $filtro)
+    {
+        $resultados = new ArrayCollection();
+        $filtroValido = in_array($filtro, [1, 2, 3]);
+
+        foreach ($repositorio as $modelo) {
+            if ($filtroValido) {
+                $condicao = ($filtro == 1 && $modelo->getDataSaida() !== null) ||
+                    ($filtro == 2 && $modelo->getDataSaida() === null) ||
+                    ($filtro == 3);
+
+                if ($condicao) {
+                    $resultados->add($modelo);
+                }
+            } else {
+                $resultados->add($modelo);
+            }
         }
 
-        $modelos = $this->entityManager->getRepository(Modelo::class)->findAll();
+        return $resultados;
+    }
 
-        usort($modelos, function($a, $b) {
+    private function obterListaDeModelos($request)
+    {
+        $filtro = $this->obterFiltro($request);
+        $busca = $this->tratarBusca($request);
+        $modelos = $this->entityManager->getRepository(Modelo::class)->findAll();
+        $modelos = $this->filtrarModelos($modelos, $filtro);
+
+        //Ordenação da lista
+        $array = $modelos->toArray();
+        usort($array, function ($a, $b) {
             $aDate = $a->getDataSaida();
             $bDate = $b->getDataSaida();
 
@@ -73,6 +94,17 @@ class ListarModelos implements RequestHandlerInterface
             return ($aDate > $bDate) ? -1 : 1;
         });
 
+        if (!empty($busca)) {
+            return $this->modelos->buscarModelos($modelos, $busca);
+        }
+
         return $modelos;
+    }
+
+    private function renderizarTemplate(mixed $modelos): string
+    {
+        return $this->renderizaHtml('Modelos/listar-modelos.php', [
+            'modelos' => $modelos,
+        ]);
     }
 }

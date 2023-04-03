@@ -4,16 +4,28 @@ include __DIR__ . '/../Componentes/navbar.php';
 ?>
 
     <div class="d-flex align-items-center align-items-stretch">
-        <form action="/modelos" method="post">
+        <form action="/modelos" method="post" class="d-flex">
             <input type="text"
                    name="busca"
                    id="busca"
                    placeholder="Digite o modelo ou código de barras"
                    autofocus
                    style="height: 82%">
-            <button class="btn btn-primary mb-2" type="submit">
+            <button class="btn btn-primary mb-2 ms-2" type="submit">
                 <i class="bi bi-search"></i> Buscar
             </button>
+            <select type="button" name="filtro-saida" id="filtro-saida"
+                    class="btn btn-toolbar btn-primary ms-2 mb-2">
+                <option value="1" selected class="dropdown-item bg-white text-start">
+                    Com saída
+                </option>
+                <option value="2" class="dropdown-item bg-white text-start">
+                    Sem saída
+                </option>
+                <option value="3" class="dropdown-item bg-white text-start">
+                    Todos
+                </option>
+            </select>
         </form>
         <div id="menssagem-listar-modelos" class="flex-fill">
             <?php include __DIR__ . '/../Componentes/mensagens.php';?>
