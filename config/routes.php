@@ -6,6 +6,7 @@ use Dam\Atelier\Controller\{Exclusao,
     FormularioModelo,
     IndexController,
     ListarModelos,
+    ListarUsuarios,
     Persistencia,
     RealizaLogin,
     RealizaSaida};
@@ -20,4 +21,5 @@ return [
     '/alterar-modelo' => FormularioEdicao::class,
     '/excluir-modelo' => Exclusao::class,
     '/dar-saida' => RealizaSaida::class,
+    '/usuarios' => ListarUsuarios::class,
 ];

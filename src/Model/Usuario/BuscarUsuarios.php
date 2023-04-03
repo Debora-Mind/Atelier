@@ -1,16 +1,16 @@
 <?php
 
-namespace Dam\Atelier\Model\Modelos;
+namespace Dam\Atelier\Model\Usuario;
 
 use Dam\Atelier\Model\Funcoes;
 
-class BuscarModelos
+class BuscarUsuarios
 {
     use Funcoes;
 
     public function busca($repositorio, $pesquisa)
     {
-        $modelos = $this->buscarModelos($repositorio, $pesquisa);
+        $usuarios = $this->buscarUsuarios($repositorio, $pesquisa);
     }
 
 }
