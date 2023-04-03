@@ -35,7 +35,7 @@
                        id="quantidade"
                        name="quantidade"
                        class="form-control"
-                       value="<?= isset($modelo) ? $modelo->getSublote() : ''; ?>">
+                       value="<?= isset($modelo) ? $modelo->getQuantidade() : ''; ?>">
             </div>
             <div class="col col-md-auto">
                 <label for="valor">Valor</label>
@@ -44,7 +44,7 @@
                        id="valor"
                        name="valor"
                        class="form-control"
-                       value="<?= isset($modelo) ? $modelo->getSublote() : ''; ?>">
+                       value="<?= isset($modelo) ? $modelo->getValor() : ''; ?>">
             </div>
             <div class="col col-md-auto">
                 <label for="cod-barras">Cod.Barras</label>
@@ -60,14 +60,26 @@
                 <input type="date"
                        id="data-entrada"
                        name="data-entrada"
-                       class="data-entrada"
+                       class="form-control"
                        value="<?= isset($modelo) ?
                            $modelo->getDataEntrada()->format('Y-m-d') :
                            $dataAtual->format('Y-m-d') ?>"
-                       style="width: 100%; height: 2.4rem"
-                >
+                       style="width: 100%; height: 2.4rem">
                 </div>
             </div>
+            <?php if(isset($modelo) && $modelo->getDataSaida() != null) : ?>
+            <div class="col col-md-auto">
+                <label for="data-entrada">Saída</label>
+                <div>
+                    <input type="datetime-local"
+                           id="data-saida"
+                           name="data-saida"
+                           class="form-control"
+                           value="<?= $modelo->getDataSaida(true) ?>"
+                           style="width: 100%; height: 2.4rem">
+                </div>
+            </div>
+            <?php endif;?>
         </div>
         <button class="btn btn-primary col-2 mt-2">Salvar</button>
     </form>

@@ -56,8 +56,11 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getProducao(): string
+    public function getProducao(): ?string
     {
+        if ($this->producao === '0') {
+            return null;
+        }
         return $this->producao;
     }
 
@@ -67,8 +70,11 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getSublote(): string
+    public function getSublote(): ?string
     {
+        if ($this->sublote === '0') {
+            return null;
+        }
         return $this->sublote;
     }
 
@@ -78,8 +84,11 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getQuantidade(): string
+    public function getQuantidade(): ?string
     {
+        if ($this->quantidade === '0') {
+            return null;
+        }
         return $this->quantidade;
     }
 
@@ -89,8 +98,14 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getValor(): string
+    public function getValor(bool $virgula = false): ?string
     {
+        if ($this->valor === '0') {
+            return null;
+        }
+        if ($virgula){
+            return str_replace('.', ',',$this->valor);
+        }
         return $this->valor;
     }
 
@@ -121,8 +136,12 @@ class Modelo implements \JsonSerializable
         return $this->data_entrada;
     }
 
-    public function getDataSaida(): mixed
+    public function getDataSaida(bool $formatado = false): mixed
     {
+        if ($formatado === true){
+            $data = new \DateTime($this->data_saida);
+            return $data->format('Y-m-d\TH:i:s');
+        }
         return $this->data_saida;
     }
 

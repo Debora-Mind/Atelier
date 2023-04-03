@@ -46,10 +46,18 @@ class Persistencia implements RequestHandlerInterface
             FILTER_SANITIZE_NUMBER_INT
         );
 
-        $valor = filter_var(
-            $request->getParsedBody()['valor'],
-            FILTER_SANITIZE_NUMBER_FLOAT
-        );
+        $valor = $request->getParsedBody()['valor'];
+
+        if ($valor !== '') {
+            $valor = filter_var(
+                $valor,
+                FILTER_SANITIZE_NUMBER_FLOAT,
+                FILTER_FLAG_ALLOW_FRACTION
+            );
+        } else {
+            // Define um valor padrão, como zero
+            $valor = 0;
+        }
 
         $cod_barras = filter_var(
             $request->getParsedBody()['cod-barras'],

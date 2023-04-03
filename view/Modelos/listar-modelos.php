@@ -60,7 +60,7 @@ include __DIR__ . '/../Componentes/navbar.php';
                     <td><?= $modelo->getProducao(); ?></td>
                     <td><?= $modelo->getSublote(); ?></td>
                     <td><?= $modelo->getQuantidade(); ?></td>
-                    <td><?= $modelo->getValor(); ?></td>
+                    <td><?= $modelo->getValor(true); ?></td>
                     <td><?= $modelo->getCodBarras(); ?></td>
                     <td><?= $modelo->getDataEntrada()->format('d/m/Y'); ?></td>
                     <td><?= $modelo->getDataSaida() ? $modelo->getDataSaida() : ''; ?></td>
