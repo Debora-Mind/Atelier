@@ -81,7 +81,11 @@
             </div>
             <?php endif;?>
         </div>
-        <button class="btn btn-primary col-2 mt-2">Salvar</button>
+        <div class="position-absolute">
+            <button class="btn btn-primary mt-2 fixed">Salvar</button>
+            <button type="button" onclick="window.location.href='/modelos'"
+                    class="btn btn-danger mt-2 fixed">Cancelar</button>
+        </div>
     </form>
 
 <?php include __DIR__ . '/../Componentes/fim-html.php';
