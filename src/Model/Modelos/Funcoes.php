@@ -7,16 +7,12 @@ use Doctrine\ORM\EntityManagerInterface;
 
 trait Funcoes
 {
-    public function buscarModelos($repositorio, $busca)
+    public function buscarModelos($modelos, $busca)
     {
-        $modelos = $repositorio->createQueryBuilder('m')
-            ->where('m.cod_barras = :buscaExata')
-            ->orWhere('m.modelo LIKE :buscaMeio')
-            ->setParameter('buscaExata', $busca)
-            ->setParameter('buscaMeio', '%'.$busca.'%')
-            ->getQuery()
-            ->getResult();
+        $modelosFiltrados = $modelos->filter(function($modelo) use ($busca) {
+            return $modelo->getCodBarras() == $busca || strpos($modelo->getModelo(), $busca) !== false;
+        });
 
-        return $modelos;
+        return $modelosFiltrados;
     }
 }
