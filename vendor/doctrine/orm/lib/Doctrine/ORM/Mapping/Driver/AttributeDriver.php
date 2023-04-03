@@ -265,19 +265,15 @@ class AttributeDriver extends CompatibilityAnnotationDriver
                 if (isset($classAttributes[Mapping\DiscriminatorColumn::class])) {
                     $discrColumnAttribute = $classAttributes[Mapping\DiscriminatorColumn::class];
 
-                    $columnDef = [
-                        'name' => isset($discrColumnAttribute->name) ? (string) $discrColumnAttribute->name : null,
-                        'type' => isset($discrColumnAttribute->type) ? (string) $discrColumnAttribute->type : 'string',
-                        'length' => isset($discrColumnAttribute->length) ? (int) $discrColumnAttribute->length : 255,
-                        'columnDefinition' => isset($discrColumnAttribute->columnDefinition) ? (string) $discrColumnAttribute->columnDefinition : null,
-                        'enumType' => isset($discrColumnAttribute->enumType) ? (string) $discrColumnAttribute->enumType : null,
-                    ];
-
-                    if ($discrColumnAttribute->options) {
-                        $columnDef['options'] = (array) $discrColumnAttribute->options;
-                    }
-
-                    $metadata->setDiscriminatorColumn($columnDef);
+                    $metadata->setDiscriminatorColumn(
+                        [
+                            'name'             => isset($discrColumnAttribute->name) ? (string) $discrColumnAttribute->name : null,
+                            'type'             => isset($discrColumnAttribute->type) ? (string) $discrColumnAttribute->type : 'string',
+                            'length'           => isset($discrColumnAttribute->length) ? (int) $discrColumnAttribute->length : 255,
+                            'columnDefinition' => isset($discrColumnAttribute->columnDefinition) ? (string) $discrColumnAttribute->columnDefinition : null,
+                            'enumType'         => isset($discrColumnAttribute->enumType) ? (string) $discrColumnAttribute->enumType : null,
+                        ]
+                    );
                 } else {
                     $metadata->setDiscriminatorColumn(['name' => 'dtype', 'type' => 'string', 'length' => 255]);
                 }

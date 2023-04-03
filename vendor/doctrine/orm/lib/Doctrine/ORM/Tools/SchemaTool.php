@@ -48,7 +48,6 @@ use function strtolower;
  * @link    www.doctrine-project.org
  *
  * @psalm-import-type AssociationMapping from ClassMetadata
- * @psalm-import-type DiscriminatorColumnMapping from ClassMetadata
  * @psalm-import-type FieldMapping from ClassMetadata
  * @psalm-import-type JoinColumnData from ClassMetadata
  */
@@ -445,7 +444,6 @@ class SchemaTool
             $options['columnDefinition'] = $discrColumn['columnDefinition'];
         }
 
-        $options = $this->gatherColumnOptions($discrColumn) + $options;
         $table->addColumn($discrColumn['name'], $discrColumn['type'], $options);
     }
 
@@ -794,7 +792,7 @@ class SchemaTool
     }
 
     /**
-     * @psalm-param JoinColumnData|FieldMapping|DiscriminatorColumnMapping $mapping
+     * @psalm-param JoinColumnData|FieldMapping $mapping
      *
      * @return mixed[]
      */

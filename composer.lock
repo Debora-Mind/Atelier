@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e33636a90d6a3f5f108ab7ff2a586dfa",
+    "content-hash": "1391edb1521d1ddd6001c638cf9f754c",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -284,12 +284,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "e5f123852e1726ea29020d2cf4f5cfe929b3919b"
+                "reference": "9058614cea2c188ddb996f32e461032ff797c356"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/e5f123852e1726ea29020d2cf4f5cfe929b3919b",
-                "reference": "e5f123852e1726ea29020d2cf4f5cfe929b3919b",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/9058614cea2c188ddb996f32e461032ff797c356",
+                "reference": "9058614cea2c188ddb996f32e461032ff797c356",
                 "shasum": ""
             },
             "require": {
@@ -305,9 +305,9 @@
                 "doctrine/coding-standard": "11.1.0",
                 "fig/log-test": "^1",
                 "jetbrains/phpstorm-stubs": "2022.3",
-                "phpstan/phpstan": "1.10.9",
+                "phpstan/phpstan": "1.10.3",
                 "phpstan/phpstan-strict-rules": "^1.5",
-                "phpunit/phpunit": "9.6.6",
+                "phpunit/phpunit": "9.6.4",
                 "psalm/plugin-phpunit": "0.18.4",
                 "squizlabs/php_codesniffer": "3.7.2",
                 "symfony/cache": "^5.4|^6.0",
@@ -388,7 +388,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-31T19:34:00+00:00"
+            "time": "2023-03-13T13:53:34+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -772,12 +772,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "b2707509fcb67221b78a682c909d2e48b36974d5"
+                "reference": "aec35565024de102bedf55837d8b655a04d6ba15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/b2707509fcb67221b78a682c909d2e48b36974d5",
-                "reference": "b2707509fcb67221b78a682c909d2e48b36974d5",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/aec35565024de102bedf55837d8b655a04d6ba15",
+                "reference": "aec35565024de102bedf55837d8b655a04d6ba15",
                 "shasum": ""
             },
             "require": {
@@ -813,7 +813,7 @@
                 "symfony/cache": "^4.4 || ^5.4 || ^6.0",
                 "symfony/var-exporter": "^4.4 || ^5.4 || ^6.2",
                 "symfony/yaml": "^3.4 || ^4.0 || ^5.0 || ^6.0",
-                "vimeo/psalm": "4.30.0 || 5.9.0"
+                "vimeo/psalm": "4.30.0 || 5.8.0"
             },
             "suggest": {
                 "ext-dom": "Provides support for XSD validation for XML mapping files",
@@ -865,7 +865,7 @@
                 "issues": "https://github.com/doctrine/orm/issues",
                 "source": "https://github.com/doctrine/orm/tree/2.15.x"
             },
-            "time": "2023-03-30T18:37:50+00:00"
+            "time": "2023-03-24T07:27:38+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -1722,12 +1722,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "00dafabc9754e428173acf042efedef96d9cd460"
+                "reference": "605bd3f42a78ca75b2ad7a1170d7e9efff288fb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/00dafabc9754e428173acf042efedef96d9cd460",
-                "reference": "00dafabc9754e428173acf042efedef96d9cd460",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/605bd3f42a78ca75b2ad7a1170d7e9efff288fb6",
+                "reference": "605bd3f42a78ca75b2ad7a1170d7e9efff288fb6",
                 "shasum": ""
             },
             "require": {
@@ -1810,7 +1810,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-30T09:40:52+00:00"
+            "time": "2023-03-21T21:06:29+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -1898,12 +1898,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "f4e7d86a6256fe7105c863ee6c77291c64a9959e"
+                "reference": "244eb2cac9abec8828ee0cdb572bb380cfec278e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/f4e7d86a6256fe7105c863ee6c77291c64a9959e",
-                "reference": "f4e7d86a6256fe7105c863ee6c77291c64a9959e",
+                "url": "https://api.github.com/repos/symfony/console/zipball/244eb2cac9abec8828ee0cdb572bb380cfec278e",
+                "reference": "244eb2cac9abec8828ee0cdb572bb380cfec278e",
                 "shasum": ""
             },
             "require": {
@@ -1986,7 +1986,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-30T09:40:52+00:00"
+            "time": "2023-03-28T09:11:57+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",

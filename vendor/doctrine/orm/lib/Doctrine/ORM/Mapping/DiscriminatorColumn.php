@@ -45,29 +45,18 @@ final class DiscriminatorColumn implements MappingAttribute
      */
     public $enumType = null;
 
-    /**
-     * @var array<string, mixed>
-     * @readonly
-     */
-    public $options = [];
-
-    /**
-     * @param class-string<\BackedEnum>|null $enumType
-     * @param array<string, mixed>           $options
-     */
+    /** @param class-string<\BackedEnum>|null $enumType */
     public function __construct(
         ?string $name = null,
         ?string $type = null,
         ?int $length = null,
         ?string $columnDefinition = null,
-        ?string $enumType = null,
-        array $options = []
+        ?string $enumType = null
     ) {
         $this->name             = $name;
         $this->type             = $type;
         $this->length           = $length;
         $this->columnDefinition = $columnDefinition;
         $this->enumType         = $enumType;
-        $this->options          = $options;
     }
 }
