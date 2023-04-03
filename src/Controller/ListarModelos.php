@@ -35,10 +35,11 @@ class ListarModelos implements RequestHandlerInterface
 
     private function tratarBusca(ServerRequestInterface $request): string
     {
-        return $request->getParsedBody()['busca'] ?
-            filter_var($request->getParsedBody()['busca'],
-            FILTER_SANITIZE_SPECIAL_CHARS) : '';
+        $parsedBody = $request->getParsedBody();
+        $busca = $parsedBody['busca'] ?? '';
+        return filter_var($busca, FILTER_SANITIZE_SPECIAL_CHARS);
     }
+
 
     private function obterFiltro(ServerRequestInterface $request): int
     {

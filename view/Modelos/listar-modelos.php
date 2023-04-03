@@ -36,8 +36,7 @@ include __DIR__ . '/../Componentes/navbar.php';
             </a>
         </div>
     </div>
-
-    <ul class="list-group">
+    <div class="list-group">
         <table class="table table-dark table-striped">
             <thead style="background-color: black;">
             <tr>
@@ -89,6 +88,6 @@ include __DIR__ . '/../Componentes/navbar.php';
             <?php endforeach; ?>
             </tbody>
         </table>
-    </ul>
+    </div>
 
 <?php include __DIR__ . '/../Componentes/fim-html.php';
