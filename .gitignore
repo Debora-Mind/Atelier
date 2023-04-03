@@ -1,4 +1,6 @@
 /vendor
 /.idea
 /node_modules
+teste.php
 src/Infra/EntityManagerCreator.php
+src/Infra/Producao - EntityManagerCreator.php
