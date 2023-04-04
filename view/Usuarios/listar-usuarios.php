@@ -27,12 +27,12 @@ include __DIR__ . '/../Componentes/navbar.php';
     <div class="list-group">
         <table class="table table-dark table-striped">
             <thead style="background-color: black;">
-            <tr>
-                <th scope="col" style="width: 4%">#</th>
-                <th scope="col" style="width: 15%">Usuario</th>
-                <th scope="col">Funcionario</th>
-                <th colspan="2" style="width: 5%" scope="col" class="text-center">Ações</th>
-            </tr>
+                <tr>
+                    <th scope="col" style="width: 4%">#</th>
+                    <th scope="col" style="width: 15%">Usuario</th>
+                    <th scope="col">Funcionario</th>
+                    <th colspan="2" style="width: 5%" scope="col" class="text-center">Ações</th>
+                </tr>
             </thead>
             <tbody class="table table-striped">
             <?php foreach ($usuarios as $usuario): ?>
@@ -49,7 +49,7 @@ include __DIR__ . '/../Componentes/navbar.php';
                         <button title="Excluir?"
                                 onclick="excluir('usuario', '<?php unset($_SESSION['usuario'],
                                     $_SESSION['senha'],
-                                    $_SESSION['senha-repitida'], 
+                                    $_SESSION['senha-repitida'],
                                     $_SESSION['funcionario']);;
                                 echo ($usuario->getUsuario()) ?>', '<?= $usuario->getId(); ?>')"
                                 style="border: none; padding: 0;">
