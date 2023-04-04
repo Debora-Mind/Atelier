@@ -11,7 +11,7 @@ include __DIR__ . '/../Componentes/navbar.php';
                    placeholder="Digite o modelo ou código de barras"
                    autofocus
                    style="height: 82%">
-            <button class="btn btn-primary mb-2 ms-2" type="submit">
+            <button class="btn btn-info text-light mb-2 ms-2" type="submit">
                 <i class="bi bi-search"></i> Buscar
             </button>
         </form>
@@ -19,13 +19,13 @@ include __DIR__ . '/../Componentes/navbar.php';
             <?php include __DIR__ . '/../Componentes/mensagens.php';?>
         </div>
         <div>
-            <a type="button" href="/novo-usuario" class="btn btn-primary mb-2">
+            <a type="button" href="/novo-usuario" class="btn btn-info text-light mb-2">
                 <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
             </a>
         </div>
     </div>
     <div class="list-group">
-        <table class="table table-dark table-striped">
+        <table class="table table-primary table-striped">
             <thead style="background-color: black;">
                 <tr>
                     <th scope="col" style="width: 4%">#</th>

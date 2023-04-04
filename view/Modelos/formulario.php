@@ -82,7 +82,7 @@
             <?php endif;?>
         </div>
         <div class="position-absolute">
-            <button class="btn btn-primary mt-2 fixed">Salvar</button>
+            <button class="btn btn-success mt-2 fixed">Confirmar</button>
             <button type="button" onclick="window.location.href='/modelos'"
                     class="btn btn-danger mt-2 fixed">Cancelar</button>
         </div>

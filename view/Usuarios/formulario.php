@@ -30,8 +30,8 @@
                        class="form-control">
             </div>
             <div class="col col-md-auto">
-                <label for="funcionarios">Funcionário</label>
-                <select type="button" name="funcionarios" id="funcionarios"
+                <label for="funcionario">Funcionário</label>
+                <select type="button" name="funcionario" id="funcionario"
                         class="btn btn-toolbar border mb-2">
                     <option value="0" selected class="dropdown-item bg-white text-start">
                         <?php if(isset($usuario)) : ?>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="position-absolute">
-            <button class="btn btn-primary mt-2 fixed">Salvar</button>
+            <button class="btn btn-success mt-2 fixed">Confirmar</button>
             <button type="button" onclick="cancelar('usuarios')"
                     class="btn btn-danger mt-2 fixed">Cancelar</button>
         </div>

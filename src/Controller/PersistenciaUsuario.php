@@ -43,7 +43,7 @@ class PersistenciaUsuario implements RequestHandlerInterface
         );
 
         $funcionario = filter_var(
-            $request->getParsedBody()['funcionario'],
+            $request->getAttribute('funcionario'),
             FILTER_SANITIZE_NUMBER_INT
         );
 
@@ -51,7 +51,7 @@ class PersistenciaUsuario implements RequestHandlerInterface
 
         $senhaCriptografada = $this->CriptografarSenha($senha);
 
-        $novoUsuario = new Usuario();
+        $novoUsuario = new Usuario($this->entityManager);
         $novoUsuario->setUsuario($usuario)
             ->setSenha($senhaCriptografada)
             ->setPermissoes($permissoes);
