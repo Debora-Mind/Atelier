@@ -44,4 +44,16 @@ trait Funcoes
         return $funcoesFiltradas;
     }
 
+    public function buscarFuncionarios(array $funcionarios, $busca)
+    {
+        $funcionariosFiltrados = array_filter($funcionarios, function($funcionario) use ($busca) {
+            if (!($funcionario instanceof Funcao)) {
+                return false;
+            }
+            return strpos($funcionario->getNome(), $busca) !== false;
+        });
+
+        return $funcionariosFiltrados;
+    }
+
 }

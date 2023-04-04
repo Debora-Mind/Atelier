@@ -79,7 +79,7 @@ include __DIR__ . '/../Componentes/navbar.php';
                     </td>
                     <td class="text-center px-0">
                         <button title="Excluir?"
-                                onclick="excluir('<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
+                                onclick="excluir('modelo', '<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
                                 style="border: none; padding: 0;">
                             <i class="bi bi-trash3-fill" style="color: black;"></i>
                         </button>

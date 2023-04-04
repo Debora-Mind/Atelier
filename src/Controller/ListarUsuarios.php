@@ -6,6 +6,7 @@ use ArrayObject;
 use Dam\Atelier\Entity\Modelo;
 use Dam\Atelier\Entity\Usuario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
+use Dam\Atelier\Model\Funcionarios\BuscarFuncionarios;
 use Dam\Atelier\Model\Funcoes\BuscarFuncoes;
 use Dam\Atelier\Model\Modelos\BuscarModelos;
 use Dam\Atelier\Model\Usuario\BuscarUsuarios;
@@ -25,11 +26,16 @@ class ListarUsuarios implements RequestHandlerInterface
     private $usuarios;
     private $funcoes;
 
-    public function __construct(EntityManagerInterface $entityManager, BuscarUsuarios $usuarios, BuscarFuncoes $funcoes)
+
+    public function __construct(EntityManagerInterface $entityManager,
+                                BuscarUsuarios $usuarios,
+                                BuscarFuncoes $funcoes,
+                                BuscarFuncionarios $funcionarios)
     {
         $this->entityManager = $entityManager;
         $this->usuarios = $usuarios;
         $this->funcoes = $funcoes;
+        $this->funcionarios = $funcionarios;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -50,30 +56,8 @@ class ListarUsuarios implements RequestHandlerInterface
 
     private function obterFiltro(ServerRequestInterface $request): int
     {
-        $filtro = $request->getParsedBody()['filtro-funcao'] ?? 1;
+        $filtro = $request->getParsedBody()['filtro-funcao'] ?? 0;
         return (int)$filtro;
-    }
-
-    private function filtrar($repositorio, $filtro)
-    {
-        $resultados = new ArrayCollection();
-        $filtroValido = in_array($filtro, [1, 2, 3]);
-        // 1 = Todos, 2 = Com saída, 3 = Sem saída
-        foreach ($repositorio as $usuario) {
-            if ($filtroValido) {
-                $condicao = ($filtro == 2 && $usuario->getDataSaida() !== null) ||
-                    ($filtro == 3 && $usuario->getDataSaida() === null) ||
-                    ($filtro == 1);
-
-                if ($condicao) {
-                    $resultados->add($usuario);
-                }
-            } else {
-                $resultados->add($usuario);
-            }
-        }
-
-        return $resultados;
     }
 
     private function obterLista($request)
@@ -81,26 +65,26 @@ class ListarUsuarios implements RequestHandlerInterface
         $filtro = $this->obterFiltro($request);
         $busca = $this->tratarBusca($request);
         $usuarios = $this->entityManager->getRepository(Usuario::class)->findAll();
-        $usuarios = $this->filtrar($usuarios, $filtro);
+        $listaUsuarios = new ArrayCollection($usuarios);
 
         //Ordenação da lista
-        $array = $usuarios->toArray();
+        $array = $listaUsuarios->toArray();
         usort($array, function ($a, $b) {
-            return strcmp($a->getName(), $b->getName());
+            return strcmp($a->getId(), $b->getId());
         });
 
         if (!empty($busca)) {
             return $this->usuarios->buscarUsuarios($array, $busca);
         }
 
-        return $array;
+        return $usuarios;
     }
 
     private function renderizarTemplate(mixed $usuarios): string
     {
         return $this->renderizaHtml('Usuarios/listar-usuarios.php', [
             'usuarios' => $usuarios,
-            'funcoes' => $this->funcoes,
+            'funcoes' => $this->funcoes
         ]);
     }
 }

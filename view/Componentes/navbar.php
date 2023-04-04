@@ -14,7 +14,7 @@
                         <li><a class="dropdown-item" href="/modelos">Modelos</a></li>
                         <li><a class="dropdown-item disabled" href="#">Funcionários</a></li>
                         <li><a class="dropdown-item disabled" href="#">Funções</a></li>
-                        <li><a class="dropdown-item disabled" href="#">Usuários</a></li>
+                        <li><a class="dropdown-item" href="/usuarios">Usuários</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

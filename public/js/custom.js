@@ -6,10 +6,14 @@ function darSaida(modelo, id) {
     }
 }
 
-function excluir(modelo, id) {
-    confirmar = confirm('Tem certeza que quer excluír o modelo ' + modelo + '?')
+function excluir(tipo, modelo, id) {
+    confirmar = confirm('Tem certeza que quer excluír o ' + tipo + ' ' + modelo + '?')
 
     if (confirmar === true) {
-        window.location.href = '/excluir-modelo?id=' + id
+        window.location.href = '/excluir-' + tipo + '?id=' + id
     }
+}
+
+function cancelar(caminho) {
+    window.location.href = caminho
 }
