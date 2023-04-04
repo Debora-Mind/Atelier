@@ -5,7 +5,7 @@
           method="post">
         <div class="form-group gx-2 justify-content-md-start col-3">
             <div class="col col-md-auto">
-                <label for="modelo">Usuário</label>
+                <label for="usuario">Usuário</label>
                 <input type="text"
                        autofocus
                        id="usuario"
@@ -20,24 +20,22 @@
                            id="senha"
                            name="senha"
                            class="form-control"
-                           value="<?= isset($_SESSION['senha']) ? $_SESSION['senha'] : (isset($usuario) ? $usuario->getSenha() : ''); ?>">
                 </div>
             </div>
             <div class="col col-md-auto">
-                <label for="producao">Repita a senha</label>
+                <label for="senha-repitida">Repita a senha</label>
                 <input type="password"
                        id="senha-repitida"
                        name="senha-repitida"
-                       class="form-control"
-                       value="<?= ($_SESSION['senha-repitida']) ?? (isset($usuario) ? $usuario->getSenha() : ''); ?>">
+                       class="form-control">
             </div>
             <div class="col col-md-auto">
                 <label for="funcionarios">Funcionário</label>
                 <select type="button" name="funcionarios" id="funcionarios"
                         class="btn btn-toolbar border mb-2">
                     <option value="0" selected class="dropdown-item bg-white text-start">
-                        <?php if(isset($usuario) && $usuario->$usuario->getIdFundionario()->getNome() != null) : ?>
-                            <?= $usuario->getIdFundionario()->getNome() ?>
+                        <?php if(isset($usuario)) : ?>
+                            <?= $usuario->getFuncionario() ?>
                         <?php else: ?>
                             Selecione
                         <?php endif; ?>

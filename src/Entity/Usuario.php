@@ -2,12 +2,19 @@
 
 namespace Dam\Atelier\Entity;
 
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, Table};
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, JoinColumn, ManyToOne, Table};
 
 #[Entity]
 #[Table(name: "usuario")]
 class Usuario
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
     private int $id;
@@ -18,8 +25,9 @@ class Usuario
     #[Column]
     private $senha;
 
-    #[Column(nullable: 'True')]
-    private ? Funcionario $id_funcionario;
+    #[ManyToOne(targetEntity: 'Funcionario')]
+    #[JoinColumn(name: 'id_funcionario', referencedColumnName: 'id')]
+    private ? int $id_funcionario;
 
     #[Column]
     private $permissoes = [];
@@ -56,9 +64,16 @@ class Usuario
         return $this;
     }
 
-    public function getIdFuncionario()
+    public function getFuncionario()
     {
-        return $this->id_funcionario;
+        if (!isset($this->id_funcionario)) {
+            return null;
+        }
+
+        $funcionarios = $this->entityManager->getRepository(Funcionario::class);
+        $funcionario = $funcionarios->find($this->id_funcionario);
+
+        return $funcionario;
     }
 
     public function setIdFuncionario($id_funcionario)

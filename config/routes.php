@@ -3,6 +3,7 @@
 use Dam\Atelier\Controller\{ExcluirUsuario,
     Exclusao,
     FormularioEdicao,
+    FormularioEdicaoUsuario,
     FormularioLogin,
     FormularioModelo,
     FormularioUsuario,
@@ -28,4 +29,5 @@ return [
     '/novo-usuario' => FormularioUsuario::class,
     '/salvar-usuario' => PersistenciaUsuario::class,
     '/excluir-usuario' => ExcluirUsuario::class,
+    '/alterar-usuario' => FormularioEdicaoUsuario::class,
 ];

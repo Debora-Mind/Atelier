@@ -2,6 +2,7 @@
 
 namespace Dam\Atelier\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\{Entity, JoinColumn, ManyToOne, OneToMany, Table, Id, Column, GeneratedValue};
 
 #[Entity]
@@ -31,12 +32,7 @@ class Funcionario implements \JsonSerializable
     private float $valor_hora;
 
     #[OneToMany(mappedBy: 'funcionario', targetEntity: Faltas::class)]
-    private Faltas $id_faltas;
-
-    public function __construct()
-    {
-        $this->id_faltas = new Faltas ();
-    }
+    private ArrayCollection $faltas;
 
     public function getId(): int
     {
@@ -54,19 +50,19 @@ class Funcionario implements \JsonSerializable
         return $this;
     }
 
-    public function addFalta(\DateTime $data_falta)
+    public function addFalta(Faltas $falta): void
     {
-        $this->id_faltas->addFalta($data_falta->format('d/m/Y'));
+        $this->faltas[] = $falta;
     }
 
-    public function countFaltas()
+    public function countFaltas(): int
     {
-        return $this->id_faltas->countFaltas();
+        return $this->faltas->count();
     }
 
-    public function getFaltas(): array
+    public function getFaltas(): ArrayCollection
     {
-        return $this->id_faltas->getListaDeFaltas();
+        return $this->faltas;
     }
 
     public function getCpf(): string

@@ -62,8 +62,6 @@ class PersistenciaUsuario implements RequestHandlerInterface
         );
 
         $_SESSION['usuario'] = $usuario;
-        $_SESSION['senha'] = $senha;
-        $_SESSION['senha-repitida'] = $senhaRepitida;
         $_SESSION['funcionario'] = $funcionario;
 
         $tipo = 'success';
@@ -85,8 +83,6 @@ class PersistenciaUsuario implements RequestHandlerInterface
         $this->entityManager->flush();
 
         unset($_SESSION['usuario'],
-              $_SESSION['senha'],
-              $_SESSION['senha-repitida'],
               $_SESSION['funcionario']);
 
         return new Response(302, ['Location' => '/usuarios']);
