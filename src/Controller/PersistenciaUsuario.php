@@ -66,6 +66,17 @@ class PersistenciaUsuario implements RequestHandlerInterface
 
         $tipo = 'success';
 
+        if ($usuario === "") {
+            $tipo = 'danger';
+            $this->defineMensagem($tipo, "O campo 'Usuário' é obrigatório");
+            header('Location: /novo-usuario');
+            exit();
+        } elseif ($senha === "") {
+            $tipo = 'danger';
+            $this->defineMensagem($tipo, "O campo 'Senha' é obrigatório");
+            header('Location: /novo-usuario');
+            exit();
+        }
         if ($senha !== $senhaRepitida) {
             $tipo = 'danger';
             $this->defineMensagem($tipo, 'As senhas devem ser iguais');
