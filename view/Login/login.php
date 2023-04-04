@@ -15,7 +15,7 @@
         <?php include __DIR__ . '/../Componentes/mensagens.php';?>
     </div>
     <div class="mb-5 d-grid">
-        <button class="btn btn-info btn-lg mb-5">Login</button>
+        <button class="btn btn-info btn-lg text-light mb-5">Login</button>
     </div>
 </form>
 <div class="position-absolute translate-middle top-50" style="left: 28%">
