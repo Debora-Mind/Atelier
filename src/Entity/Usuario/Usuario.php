@@ -86,4 +86,15 @@ class Usuario
         $this->permissoes = $permissoes;
         return $this;
     }
+
+    public function addPermissao($permissao)
+    {
+        $this->permissoes [] = $permissao;
+    }
+
+    public function removePermissoes()
+    {
+        $this->permissoes = [];
+    }
+
 }

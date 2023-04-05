@@ -14,6 +14,7 @@ use Dam\Atelier\Controller\{IndexController,
     Usuario\FormularioPermissoes,
     Usuario\FormularioUsuario,
     Usuario\ListarUsuarios,
+    Usuario\PersistenciaPermissoes,
     Usuario\PersistenciaUsuario};
 
 return [
@@ -32,4 +33,5 @@ return [
     '/excluir-usuario' => ExcluirUsuario::class,
     '/alterar-usuario' => FormularioEdicaoUsuario::class,
     '/alterar-permissoes' => FormularioPermissoes::class,
+    '/salvar-permissoes' => PersistenciaPermissoes::class,
 ];
