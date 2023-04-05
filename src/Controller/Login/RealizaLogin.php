@@ -1,6 +1,6 @@
 <?php
 
-namespace Dam\Atelier\Controller;
+namespace Dam\Atelier\Controller\Login;
 
 use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\FlashMessageTrait;

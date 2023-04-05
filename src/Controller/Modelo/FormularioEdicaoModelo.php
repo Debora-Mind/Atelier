@@ -1,6 +1,6 @@
 <?php
 
-namespace Dam\Atelier\Controller;
+namespace Dam\Atelier\Controller\Modelo;
 
 use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Helper\FlashMessageTrait;
@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class FormularioEdicao implements RequestHandlerInterface
+class FormularioEdicaoModelo implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait, FlashMessageTrait;
 

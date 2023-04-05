@@ -1,5 +1,5 @@
 <?php
-namespace Dam\Atelier\Controller;
+namespace Dam\Atelier\Controller\Modelo;
 
 use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;

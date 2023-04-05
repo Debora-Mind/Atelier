@@ -1,8 +1,8 @@
 <?php
 
-namespace Dam\Atelier\Controller;
+namespace Dam\Atelier\Controller\Modelo;
 
-use Dam\Atelier\Entity\Usuario\Usuario;
+use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class ExcluirUsuario implements RequestHandlerInterface
+class ExcluirModelo implements RequestHandlerInterface
 {
     use FlashMessageTrait;
 
@@ -31,19 +31,19 @@ class ExcluirUsuario implements RequestHandlerInterface
             FILTER_VALIDATE_INT
         );
 
-        $resposta = new Response(302, ['Location' => '/usuarios']);
+        $resposta = new Response(302, ['Location' => '/modelos']);
         if (is_null($id) || $id === false) {
-            $this->defineMensagem('danger', 'Usuário inexistente');
+            $this->defineMensagem('danger', 'Modelo inexistente');
             return $resposta;
         }
 
-        $usuario = $this->entityManager->getReference(
-            Usuario::class,
+        $modelo = $this->entityManager->getReference(
+            Modelo::class,
             $id
         );
-        $this->entityManager->remove($usuario);
+        $this->entityManager->remove($modelo);
         $this->entityManager->flush();
-        $this->defineMensagem('success', 'Usuário excluído com sucesso');
+        $this->defineMensagem('success', 'Modelo excluído com sucesso');
 
         return $resposta;
     }

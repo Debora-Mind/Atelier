@@ -1,10 +1,8 @@
 <?php
 
-namespace Dam\Atelier\Controller;
+namespace Dam\Atelier\Controller\Usuario;
 
-use Dam\Atelier\Entity\Funcionario\Funcionario;
 use Dam\Atelier\Entity\Usuario\Permissoes;
-use Dam\Atelier\Entity\Usuario\PermissoesUsuario;
 use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Doctrine\ORM\EntityManagerInterface;
