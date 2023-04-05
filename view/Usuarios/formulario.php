@@ -33,10 +33,12 @@
                 <label for="funcionario">Funcionário</label>
                 <select type="button" name="funcionario" id="funcionario"
                         class="btn btn-toolbar border mb-2">
-                    <option value="0" selected class="dropdown-item bg-white text-start">
+                    <option selected class="dropdown-item bg-white text-start"
                         <?php if(isset($usuario)) : ?>
+                            value=<?= $usuario->getFuncionario() == null ? '0' : $usuario->getFuncionario()->getId()?>>
                             <?= $usuario->getFuncionario() == null ? 'Selecione' : $usuario->getFuncionario()->getNome()?>
                         <?php else: ?>
+                            value=0>
                             Selecione
                         <?php endif; ?>
                     </option>

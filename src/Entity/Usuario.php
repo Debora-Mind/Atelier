@@ -69,17 +69,7 @@ class Usuario
         if (!$this->funcionario) {
             return null;
         }
-
-        $funcionarioId = (int) $this->funcionario;
-
-        if (!$funcionarioId) {
-            throw new \InvalidArgumentException('Identificador de funcionário inválido');
-        }
-
-        $funcionarios = $this->entityManager->getRepository(Funcionario::class);
-        $funcionario = $funcionarios->find($funcionarioId);
-
-        return $funcionario;
+        return $this->funcionario;
     }
 
     public function setFuncionario($funcionario)

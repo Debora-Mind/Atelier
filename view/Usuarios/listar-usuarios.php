@@ -39,7 +39,7 @@ include __DIR__ . '/../Componentes/navbar.php';
                 <tr>
                     <th scope="row"><?= $usuario->getId(); ?></th>
                     <td><?= $usuario->getUsuario(); ?></td>
-                    <td><?= $usuario->getFuncionario(); ?></td>
+                    <td><?= $usuario->getFuncionario() == null ? '' : $usuario->getFuncionario()->getNome() ?></td>
                     <td class="text-right px-0">
                         <a title="Editar" href="/alterar-usuario?id=<?= $usuario->getId(); ?>">
                             <i class="bi bi-pencil-square" style="color: black;"></i>
