@@ -10,7 +10,7 @@ class BuscarFuncionarios
 
     public function busca($repositorio, $pesquisa)
     {
-        $funcionarios = $this->buscarFuncionarios($repositorio, $pesquisa);
+        return $this->buscarFuncionarios($repositorio, $pesquisa);
     }
 
 }

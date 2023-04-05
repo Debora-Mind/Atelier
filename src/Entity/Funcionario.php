@@ -3,7 +3,7 @@
 namespace Dam\Atelier\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping\{Entity, JoinColumn, ManyToOne, OneToMany, Table, Id, Column, GeneratedValue};
+use Doctrine\ORM\Mapping\{Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, Table, Id, Column, GeneratedValue};
 
 #[Entity]
 #[Table(name: "funcionario")]
@@ -25,14 +25,14 @@ class Funcionario implements \JsonSerializable
     private string $matricula;
 
     #[ManyToOne(targetEntity: Funcao::class)]
-    #[JoinColumn(name: 'id_funcao_id', referencedColumnName: 'id')]
+    #[JoinColumn(name: 'funcao_id', referencedColumnName: 'id')]
     private Funcao $funcao;
 
     #[Column(type: 'float', nullable: true)]
     private float $valor_hora;
 
-    #[OneToMany(mappedBy: 'funcionario', targetEntity: Faltas::class)]
-    private ArrayCollection $faltas;
+    #[OneToOne(mappedBy: 'funcionario', targetEntity: Faltas::class)]
+    private Faltas $faltas;
 
     public function getId(): int
     {
@@ -52,17 +52,17 @@ class Funcionario implements \JsonSerializable
 
     public function addFalta(Faltas $falta): void
     {
-        $this->faltas[] = $falta;
+        $this->faltas->addFalta();
     }
 
     public function countFaltas(): int
     {
-        return $this->faltas->count();
+        return $this->faltas->countFaltas();
     }
 
-    public function getFaltas(): ArrayCollection
+    public function getFaltas(): array
     {
-        return $this->faltas;
+        return $this->faltas->toArray();
     }
 
     public function getCpf(): string
@@ -130,14 +130,14 @@ class Funcionario implements \JsonSerializable
             'matricula' => $this->matricula,
             'funcao' => $this->funcao->toArray(),
             'valor_hora' => $this->valor_hora,
-            'faltas' => $this->id_faltas->toArray(),
+            'faltas' => $this->faltas->toArray(),
         ];
     }
 
     public function toArray(): array
     {
         $faltas = [];
-        foreach ($this->id_faltas as $falta) {
+        foreach ($this->faltas as $falta) {
             $faltas[] = $falta->getDataFalta()->format('d/m/Y');
         }
 
@@ -152,5 +152,4 @@ class Funcionario implements \JsonSerializable
             'faltas' => $faltas,
         ];
     }
-
 }

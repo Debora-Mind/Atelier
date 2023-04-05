@@ -45,7 +45,6 @@ class FormularioEdicaoUsuario implements RequestHandlerInterface
         }
 
         $usuario = $this->repositorioUsuarios->find($id);
-
         $funcionarios = $this->funcionarios->findAll();
 
         $html = $this->renderizaHtml('Usuarios/formulario.php', [

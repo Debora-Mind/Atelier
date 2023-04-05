@@ -26,8 +26,8 @@ class Usuario
     private $senha;
 
     #[ManyToOne(targetEntity: 'Funcionario')]
-    #[JoinColumn(name: 'id_funcionario', referencedColumnName: 'id')]
-    private ? int $id_funcionario;
+    #[JoinColumn(name: 'funcionario', referencedColumnName: 'id')]
+    private ? Funcionario $funcionario;
 
     #[Column]
     private $permissoes = [];
@@ -66,19 +66,25 @@ class Usuario
 
     public function getFuncionario()
     {
-        if (!isset($this->id_funcionario)) {
+        if (!$this->funcionario) {
             return null;
         }
 
+        $funcionarioId = (int) $this->funcionario;
+
+        if (!$funcionarioId) {
+            throw new \InvalidArgumentException('Identificador de funcionário inválido');
+        }
+
         $funcionarios = $this->entityManager->getRepository(Funcionario::class);
-        $funcionario = $funcionarios->find($this->id_funcionario);
+        $funcionario = $funcionarios->find($funcionarioId);
 
         return $funcionario;
     }
 
-    public function setIdFuncionario($id_funcionario)
+    public function setFuncionario($funcionario)
     {
-        $this->id_funcionario = $id_funcionario;
+        $this->funcionario = $funcionario;
         return $this;
     }
 

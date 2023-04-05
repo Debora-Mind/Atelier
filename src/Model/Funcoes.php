@@ -3,6 +3,7 @@
 namespace Dam\Atelier\Model;
 
 use Dam\Atelier\Entity\Funcao;
+use Dam\Atelier\Entity\Funcionario;
 use Dam\Atelier\Entity\Modelo;
 use Dam\Atelier\Entity\Usuario;
 
@@ -47,7 +48,7 @@ trait Funcoes
     public function buscarFuncionarios(array $funcionarios, $busca)
     {
         $funcionariosFiltrados = array_filter($funcionarios, function($funcionario) use ($busca) {
-            if (!($funcionario instanceof Funcao)) {
+            if (!($funcionario instanceof Funcionario)) {
                 return false;
             }
             return strpos($funcionario->getNome(), $busca) !== false;

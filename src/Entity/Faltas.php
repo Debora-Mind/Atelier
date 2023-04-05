@@ -2,19 +2,17 @@
 
 namespace Dam\Atelier\Entity;
 
-use Doctrine\ORM\Mapping\{Entity, ManyToOne, Table, Id, Column, GeneratedValue};
+use Doctrine\ORM\Mapping\{Entity, JoinColumn, ManyToOne, OneToOne, Table, Id, Column, GeneratedValue};
 
 #[Entity]
 #[Table(name: "faltas")]
 class Faltas implements \JsonSerializable
 {
-    #[Id]
-    #[GeneratedValue(strategy: 'AUTO')]
-    #[Column(unique: true)]
+    #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: true)]
     private int $id;
 
-    #[Column]
-    #[ManyToOne(targetEntity: Funcionario::class, inversedBy: 'faltas')]
+    #[OneToOne(targetEntity: Funcionario::class, inversedBy: 'faltas')]
+    #[JoinColumn(name: 'funcionario_id', referencedColumnName: 'id')]
     private Funcionario $funcionario;
 
     #[Column(type: 'json')]
@@ -71,5 +69,4 @@ class Faltas implements \JsonSerializable
             'num_faltas' => $this->countFaltas(),
         ];
     }
-
 }

@@ -19,7 +19,7 @@
                     <input type="password"
                            id="senha"
                            name="senha"
-                           class="form-control"
+                           class="form-control">
                 </div>
             </div>
             <div class="col col-md-auto">
@@ -35,7 +35,7 @@
                         class="btn btn-toolbar border mb-2">
                     <option value="0" selected class="dropdown-item bg-white text-start">
                         <?php if(isset($usuario)) : ?>
-                            <?= $usuario->getFuncionario() ?>
+                            <?= $usuario->getFuncionario() == null ? 'Selecione' : $usuario->getFuncionario()->getNome()?>
                         <?php else: ?>
                             Selecione
                         <?php endif; ?>

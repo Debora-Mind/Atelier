@@ -2,6 +2,7 @@
 
 namespace Dam\Atelier\Controller;
 
+use Dam\Atelier\Entity\Funcionario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Dam\Atelier\Model\Funcionarios\BuscarFuncionarios;
 use Dam\Atelier\Model\Funcoes\BuscarFuncoes;
@@ -16,20 +17,20 @@ class FormularioUsuario implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
 
-    private $entityManager;
     private $funcionarios;
 
-    public function __construct(EntityManagerInterface $entityManager,
-                                BuscarFuncionarios $funcionarios)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
-        $this->funcionarios = $funcionarios;
+        $this->funcionarios = $entityManager
+            ->getRepository(Funcionario::class);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $funcionarios = $this->funcionarios->findAll();
+
         $html = $this->renderizaHtml('Usuarios/formulario.php', [
-            'funcionarios' => $this->funcionarios,
+            'funcionarios' => $funcionarios,
         ]);
         return new Response(200, [], $html);
     }
