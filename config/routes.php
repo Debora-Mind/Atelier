@@ -1,12 +1,12 @@
 <?php
 
-use Dam\Atelier\Controller\{
-    ExcluirUsuario,
+use Dam\Atelier\Controller\{ExcluirUsuario,
     Exclusao,
     FormularioEdicao,
     FormularioEdicaoUsuario,
     FormularioLogin,
     FormularioModelo,
+    FormularioPermissoes,
     FormularioUsuario,
     IndexController,
     ListarModelos,
@@ -31,4 +31,5 @@ return [
     '/salvar-usuario' => PersistenciaUsuario::class,
     '/excluir-usuario' => ExcluirUsuario::class,
     '/alterar-usuario' => FormularioEdicaoUsuario::class,
+    '/alterar-permissoes' => FormularioPermissoes::class,
 ];

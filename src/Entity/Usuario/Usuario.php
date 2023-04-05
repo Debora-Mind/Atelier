@@ -22,6 +22,9 @@ class Usuario
     #[JoinColumn(name: 'funcionario', referencedColumnName: 'id')]
     private ? Funcionario $funcionario;
 
+    #[Column(type: 'json', nullable: true)]
+    private $permissoes = [];
+
     public function getId(): int
     {
         return $this->id;
@@ -71,5 +74,16 @@ class Usuario
     public function senhaEstaCorreta(string $senhaPura): bool
     {
         return password_verify($senhaPura, $this->senha);
+    }
+
+    public function getPermissoes(): array
+    {
+        return $this->permissoes;
+    }
+
+    public function setPermissoes(array $permissoes): Usuario
+    {
+        $this->permissoes = $permissoes;
+        return $this;
     }
 }

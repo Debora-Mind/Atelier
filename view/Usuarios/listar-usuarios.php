@@ -31,7 +31,7 @@ include __DIR__ . '/../Componentes/navbar.php';
                     <th scope="col" style="width: 4%">#</th>
                     <th scope="col" style="width: 15%">Usuario</th>
                     <th scope="col">Funcionario</th>
-                    <th colspan="2" style="width: 5%" scope="col" class="text-center">Ações</th>
+                    <th colspan="3" style="width: 8%" scope="col" class="text-center">Ações</th>
                 </tr>
             </thead>
             <tbody class="table table-striped">
@@ -41,17 +41,20 @@ include __DIR__ . '/../Componentes/navbar.php';
                     <td><?= $usuario->getUsuario(); ?></td>
                     <td><?= $usuario->getFuncionario() == null ? '' : $usuario->getFuncionario()->getNome() ?></td>
                     <td class="text-right px-0">
+                        <a title="Permissões" href="/alterar-permissoes?id=<?= $usuario->getId(); ?>">
+                            <i class="bi bi-list-check" style="color: black;"></i>
+                        </a>
+                    </td>
+                    <td class="text-right px-0">
                         <a title="Editar" href="/alterar-usuario?id=<?= $usuario->getId(); ?>">
                             <i class="bi bi-pencil-square" style="color: black;"></i>
                         </a>
                     </td>
                     <td class="text-right px-0">
                         <button title="Excluir?"
-                                onclick="excluir('usuario', '<?php unset($_SESSION['usuario'],
-                                    $_SESSION['senha'],
-                                    $_SESSION['senha-repitida'],
-                                    $_SESSION['funcionario']);;
-                                echo ($usuario->getUsuario()) ?>', '<?= $usuario->getId(); ?>')"
+                                onclick="excluir('usuario',
+                                    '<?= $usuario->getUsuario() ?>',
+                                    '<?= $usuario->getId(); ?>')"
                                 style="border: none; padding: 0;">
                             <i class="bi bi-trash3-fill" style="color: black;"></i>
                         </button>
