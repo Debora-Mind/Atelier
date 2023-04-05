@@ -1,0 +1,12 @@
+id,nome,descricao
+1,"Visualizar Usuários","Pode visualizar os usuários existentes"
+2,"Criar Usuários","Pode criar novos usuários"
+3,"Editar Usuários","Pode editar usuários existentes"
+4,"Excluír Usuários","Pode excluir usuários existentes"
+5,"Dar permissões","Pode dar ou remover permissões de usuários"
+6,"Visualizar Modelos","Visualiza os modelos cadastrados"
+7,"Criar Modelos","Pode criar novos modelos"
+8,"Editar Modelos","Pode editar modelos existentes"
+9,"Excluir Modelos","Pode excluir modelos existentes"
+10,"Dar saída","Da saída no modelo"
+11,"Visualizar valores em Modelos","Visualiza o valor de unitário de cada modelos"
