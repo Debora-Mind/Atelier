@@ -1,21 +1,14 @@
 <?php
 
-namespace Dam\Atelier\Entity;
+namespace Dam\Atelier\Entity\Usuario;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, JoinColumn, ManyToOne, Table};
+use Dam\Atelier\Entity\Funcionario\Funcionario;
+use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, JoinColumn, ManyToOne, Table};
 
 #[Entity]
 #[Table(name: "usuario")]
 class Usuario
 {
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
     #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: 'True')]
     private int $id;
 
@@ -25,12 +18,9 @@ class Usuario
     #[Column]
     private $senha;
 
-    #[ManyToOne(targetEntity: 'Funcionario')]
+    #[ManyToOne(targetEntity: Funcionario::class)]
     #[JoinColumn(name: 'funcionario', referencedColumnName: 'id')]
     private ? Funcionario $funcionario;
-
-    #[Column]
-    private $permissoes = [];
 
     public function getId(): int
     {
@@ -75,17 +65,6 @@ class Usuario
     public function setFuncionario($funcionario)
     {
         $this->funcionario = $funcionario;
-        return $this;
-    }
-
-    public function getPermissoes(): array
-    {
-        return $this->permissoes;
-    }
-
-    public function setPermissoes(array $permissoes): Usuario
-    {
-        $this->permissoes = $permissoes;
         return $this;
     }
 

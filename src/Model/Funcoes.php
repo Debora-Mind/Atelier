@@ -2,10 +2,10 @@
 
 namespace Dam\Atelier\Model;
 
-use Dam\Atelier\Entity\Funcao;
-use Dam\Atelier\Entity\Funcionario;
-use Dam\Atelier\Entity\Modelo;
-use Dam\Atelier\Entity\Usuario;
+use Dam\Atelier\Entity\Funcionario\Funcao;
+use Dam\Atelier\Entity\Funcionario\Funcionario;
+use Dam\Atelier\Entity\Modelo\Modelo;
+use Dam\Atelier\Entity\Usuario\Usuario;
 
 trait Funcoes
 {

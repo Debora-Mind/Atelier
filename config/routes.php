@@ -1,6 +1,7 @@
 <?php
 
-use Dam\Atelier\Controller\{ExcluirUsuario,
+use Dam\Atelier\Controller\{
+    ExcluirUsuario,
     Exclusao,
     FormularioEdicao,
     FormularioEdicaoUsuario,

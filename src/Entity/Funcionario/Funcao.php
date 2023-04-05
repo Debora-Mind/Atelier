@@ -1,8 +1,8 @@
 <?php
 
-namespace Dam\Atelier\Entity;
+namespace Dam\Atelier\Entity\Funcionario;
 
-use Doctrine\ORM\Mapping\{Entity, Table, Id, Column,GeneratedValue};
+use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, Table};
 
 #[Entity]
 #[Table(name: "funcao")]

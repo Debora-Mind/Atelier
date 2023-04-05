@@ -1,9 +1,8 @@
 <?php
 
-namespace Dam\Atelier\Entity;
+namespace Dam\Atelier\Entity\Funcionario;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping\{Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, Table, Id, Column, GeneratedValue};
+use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, JoinColumn, ManyToOne, OneToOne, Table};
 
 #[Entity]
 #[Table(name: "funcionario")]

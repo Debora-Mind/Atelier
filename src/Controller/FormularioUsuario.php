@@ -2,11 +2,8 @@
 
 namespace Dam\Atelier\Controller;
 
-use Dam\Atelier\Entity\Funcionario;
+use Dam\Atelier\Entity\Funcionario\Funcionario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
-use Dam\Atelier\Model\Funcionarios\BuscarFuncionarios;
-use Dam\Atelier\Model\Funcoes\BuscarFuncoes;
-use Dam\Atelier\Model\Usuario\BuscarUsuarios;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

@@ -2,9 +2,8 @@
 
 namespace Dam\Atelier\Controller;
 
-use Dam\Atelier\Entity\Funcionario;
-use Dam\Atelier\Entity\Modelo;
-use Dam\Atelier\Entity\Usuario;
+use Dam\Atelier\Entity\Funcionario\Funcionario;
+use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;

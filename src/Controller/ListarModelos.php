@@ -1,11 +1,9 @@
 <?php
 namespace Dam\Atelier\Controller;
 
-use ArrayObject;
-use Dam\Atelier\Entity\Modelo;
+use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Dam\Atelier\Model\Modelos\BuscarModelos;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;

@@ -2,15 +2,11 @@
 
 namespace Dam\Atelier\Controller;
 
-use ArrayObject;
-use Dam\Atelier\Entity\Modelo;
-use Dam\Atelier\Entity\Usuario;
+use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Dam\Atelier\Model\Funcionarios\BuscarFuncionarios;
 use Dam\Atelier\Model\Funcoes\BuscarFuncoes;
-use Dam\Atelier\Model\Modelos\BuscarModelos;
 use Dam\Atelier\Model\Usuario\BuscarUsuarios;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
@@ -25,6 +21,7 @@ class ListarUsuarios implements RequestHandlerInterface
     private $entityManager;
     private $usuarios;
     private $funcoes;
+    private $funcionarios;
 
 
     public function __construct(EntityManagerInterface $entityManager,

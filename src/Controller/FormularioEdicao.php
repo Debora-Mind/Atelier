@@ -2,10 +2,9 @@
 
 namespace Dam\Atelier\Controller;
 
-use Dam\Atelier\Entity\Modelo;
+use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
-use Dam\Atelier\Infra\EntityManagerCreator;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Dam\Atelier\Entity;
+namespace Dam\Atelier\Entity\Funcionario;
 
-use Doctrine\ORM\Mapping\{Entity, JoinColumn, ManyToOne, OneToOne, Table, Id, Column, GeneratedValue};
+use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, JoinColumn, OneToOne, Table};
 
 #[Entity]
 #[Table(name: "faltas")]
@@ -11,7 +11,7 @@ class Faltas implements \JsonSerializable
     #[Id, GeneratedValue(strategy: 'AUTO'), Column(unique: true)]
     private int $id;
 
-    #[OneToOne(targetEntity: Funcionario::class, inversedBy: 'faltas')]
+    #[OneToOne(inversedBy: 'faltas', targetEntity: Funcionario::class)]
     #[JoinColumn(name: 'funcionario_id', referencedColumnName: 'id')]
     private Funcionario $funcionario;
 

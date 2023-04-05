@@ -1,8 +1,8 @@
 <?php
 
-namespace Dam\Atelier\Entity;
+namespace Dam\Atelier\Entity\Modelo;
 
-use Doctrine\ORM\Mapping\{GeneratedValue, Id, Entity, Column, Table};
+use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, Table};
 
 #[Entity]
 #[Table(name: "modelo")]
