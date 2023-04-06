@@ -3,6 +3,7 @@ namespace Dam\Atelier\Controller\Modelo;
 
 use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
+use Dam\Atelier\Helper\VerificarPermissoesTrait;
 use Dam\Atelier\Model\Modelos\BuscarModelos;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +15,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 class ListarModelos implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
+    use VerificarPermissoesTrait;
 
     private $entityManager;
     private $modelos;
@@ -26,6 +28,7 @@ class ListarModelos implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $this->verificarPermissoes([6]);
         $modelos = $this->obterListaDeModelos($request);
         $html = $this->renderizarTemplate($modelos);
 
