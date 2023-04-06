@@ -4,6 +4,7 @@ namespace Dam\Atelier\Controller\Modelo;
 
 use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Helper\FlashMessageTrait;
+use Dam\Atelier\Helper\VerificarPermissoesTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -13,6 +14,8 @@ use Psr\Http\Server\RequestHandlerInterface;
 class RealizaSaidaModelo implements RequestHandlerInterface
 {
     use FlashMessageTrait;
+    use VerificarPermissoesTrait;
+
     private $repositorioDeModelos;
 
     /**
@@ -29,6 +32,7 @@ class RealizaSaidaModelo implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $this->verificarPermissoes([6, 10]);
         $id = filter_var(
             $request->getQueryParams()['id'] ?? false,
             FILTER_VALIDATE_INT

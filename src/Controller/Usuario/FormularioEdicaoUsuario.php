@@ -6,6 +6,7 @@ use Dam\Atelier\Entity\Funcionario\Funcionario;
 use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
+use Dam\Atelier\Helper\VerificarPermissoesTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -15,6 +16,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 class FormularioEdicaoUsuario implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait, FlashMessageTrait;
+    use VerificarPermissoesTrait;
 
     /**
      * @var \Doctrine\Common\Persistence\ObjectRepository
@@ -32,6 +34,7 @@ class FormularioEdicaoUsuario implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $this->verificarPermissoes([1, 3]);
         $id = filter_var(
             $request->getQueryParams()['id'],
             FILTER_VALIDATE_INT

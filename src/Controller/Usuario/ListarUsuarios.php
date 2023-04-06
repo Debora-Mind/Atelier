@@ -4,6 +4,7 @@ namespace Dam\Atelier\Controller\Usuario;
 
 use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
+use Dam\Atelier\Helper\VerificarPermissoesTrait;
 use Dam\Atelier\Model\Funcionarios\BuscarFuncionarios;
 use Dam\Atelier\Model\Funcoes\BuscarFuncoes;
 use Dam\Atelier\Model\Usuario\BuscarUsuarios;
@@ -17,6 +18,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 class ListarUsuarios implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
+    use VerificarPermissoesTrait;
 
     private $entityManager;
     private $usuarios;
@@ -37,6 +39,7 @@ class ListarUsuarios implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $this->verificarPermissoes([1]);
         $usuarios = $this->obterLista($request);
         $html = $this->renderizarTemplate($usuarios);
 

@@ -4,6 +4,7 @@ namespace Dam\Atelier\Controller\Usuario;
 
 use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\FlashMessageTrait;
+use Dam\Atelier\Helper\VerificarPermissoesTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -13,6 +14,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 class ExcluirUsuario implements RequestHandlerInterface
 {
     use FlashMessageTrait;
+    use VerificarPermissoesTrait;
 
     /**
      * @var \Doctrine\ORM\EntityManagerInterface
@@ -26,6 +28,7 @@ class ExcluirUsuario implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $this->verificarPermissoes([1, 4]);
         $id = filter_var(
             $request->getQueryParams()['id'],
             FILTER_VALIDATE_INT

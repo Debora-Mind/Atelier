@@ -5,6 +5,7 @@ namespace Dam\Atelier\Controller\Usuario;
 use Dam\Atelier\Entity\Usuario\Permissoes;
 use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
+use Dam\Atelier\Helper\VerificarPermissoesTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -14,6 +15,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 class FormularioPermissoes implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
+    use VerificarPermissoesTrait;
 
     private $permissoes;
     private $usuario;
@@ -28,6 +30,7 @@ class FormularioPermissoes implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
 {
+    $this->verificarPermissoes([1, 5]);
     $id = filter_var(
         $request->getQueryParams()['id'],
         FILTER_VALIDATE_INT
