@@ -269,7 +269,7 @@ trait AbstractAdapterTrait
         return $wasEnabled;
     }
 
-    public function reset(): void
+    public function reset()
     {
         if ($this->deferred) {
             $this->commit();
@@ -317,7 +317,10 @@ trait AbstractAdapterTrait
         }
     }
 
-    private function getId(mixed $key): string
+    /**
+     * @internal
+     */
+    protected function getId(mixed $key)
     {
         if ($this->versioningIsEnabled && '' === $this->namespaceVersion) {
             $this->ids = [];
@@ -353,8 +356,8 @@ trait AbstractAdapterTrait
             return $this->namespace.$this->namespaceVersion.$key;
         }
         if (\strlen($id = $this->namespace.$this->namespaceVersion.$key) > $this->maxIdLength) {
-            // Use xxh128 to favor speed over security, which is not an issue here
-            $this->ids[$key] = $id = substr_replace(base64_encode(hash('xxh128', $key, true)), static::NS_SEPARATOR, -(\strlen($this->namespaceVersion) + 2));
+            // Use MD5 to favor speed over security, which is not an issue here
+            $this->ids[$key] = $id = substr_replace(base64_encode(hash('md5', $key, true)), static::NS_SEPARATOR, -(\strlen($this->namespaceVersion) + 2));
             $id = $this->namespace.$this->namespaceVersion.$id;
         }
 

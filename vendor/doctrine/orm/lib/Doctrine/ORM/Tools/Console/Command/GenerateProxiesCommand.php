@@ -26,7 +26,9 @@ use function sprintf;
  */
 class GenerateProxiesCommand extends AbstractEntityManagerCommand
 {
-    /** @return void */
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this->setName('orm:generate-proxies')

@@ -14,19 +14,19 @@ use Doctrine\ORM\EntityManagerInterface;
 class TableGenerator extends AbstractIdGenerator
 {
     /** @var string */
-    private $tableName;
+    private $_tableName;
 
     /** @var string */
-    private $sequenceName;
+    private $_sequenceName;
 
     /** @var int */
-    private $allocationSize;
+    private $_allocationSize;
 
     /** @var int|null */
-    private $nextValue;
+    private $_nextValue;
 
     /** @var int|null */
-    private $maxValue;
+    private $_maxValue;
 
     /**
      * @param string $tableName
@@ -35,9 +35,9 @@ class TableGenerator extends AbstractIdGenerator
      */
     public function __construct($tableName, $sequenceName = 'default', $allocationSize = 10)
     {
-        $this->tableName      = $tableName;
-        $this->sequenceName   = $sequenceName;
-        $this->allocationSize = $allocationSize;
+        $this->_tableName      = $tableName;
+        $this->_sequenceName   = $sequenceName;
+        $this->_allocationSize = $allocationSize;
     }
 
     /**
@@ -47,23 +47,23 @@ class TableGenerator extends AbstractIdGenerator
         EntityManagerInterface $em,
         $entity
     ) {
-        if ($this->maxValue === null || $this->nextValue === $this->maxValue) {
+        if ($this->_maxValue === null || $this->_nextValue === $this->_maxValue) {
             // Allocate new values
             $conn = $em->getConnection();
 
             if ($conn->getTransactionNestingLevel() === 0) {
                 // use select for update
-                $sql          = $conn->getDatabasePlatform()->getTableHiLoCurrentValSql($this->tableName, $this->sequenceName);
+                $sql          = $conn->getDatabasePlatform()->getTableHiLoCurrentValSql($this->_tableName, $this->_sequenceName);
                 $currentLevel = $conn->fetchOne($sql);
 
                 if ($currentLevel !== null) {
-                    $this->nextValue = $currentLevel;
-                    $this->maxValue  = $this->nextValue + $this->allocationSize;
+                    $this->_nextValue = $currentLevel;
+                    $this->_maxValue  = $this->_nextValue + $this->_allocationSize;
 
                     $updateSql = $conn->getDatabasePlatform()->getTableHiLoUpdateNextValSql(
-                        $this->tableName,
-                        $this->sequenceName,
-                        $this->allocationSize
+                        $this->_tableName,
+                        $this->_sequenceName,
+                        $this->_allocationSize
                     );
 
                     if ($conn->executeStatement($updateSql, [1 => $currentLevel, 2 => $currentLevel + 1]) !== 1) {
@@ -78,6 +78,6 @@ class TableGenerator extends AbstractIdGenerator
             }
         }
 
-        return $this->nextValue++;
+        return $this->_nextValue++;
     }
 }

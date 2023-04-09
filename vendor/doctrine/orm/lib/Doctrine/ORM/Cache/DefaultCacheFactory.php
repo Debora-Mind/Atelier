@@ -138,7 +138,6 @@ class DefaultCacheFactory implements CacheFactory
      */
     public function buildCachedCollectionPersister(EntityManagerInterface $em, CollectionPersister $persister, array $mapping)
     {
-        assert(isset($mapping['cache']));
         $usage  = $mapping['cache']['usage'];
         $region = $this->getRegion($mapping['cache']);
 

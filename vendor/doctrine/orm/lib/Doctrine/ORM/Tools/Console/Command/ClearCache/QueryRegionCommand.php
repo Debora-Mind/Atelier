@@ -20,7 +20,9 @@ use function sprintf;
  */
 class QueryRegionCommand extends AbstractEntityManagerCommand
 {
-    /** @return void */
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this->setName('orm:clear-cache:region:query')

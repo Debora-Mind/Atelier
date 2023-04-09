@@ -1,11 +1,6 @@
 CHANGELOG
 =========
 
-6.3
----
-
- * Add support for Relay PHP extension for Redis
-
 6.1
 ---
 

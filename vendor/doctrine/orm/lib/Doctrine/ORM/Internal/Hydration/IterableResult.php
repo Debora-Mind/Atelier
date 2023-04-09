@@ -16,21 +16,21 @@ use ReturnTypeWillChange;
 class IterableResult implements Iterator
 {
     /** @var AbstractHydrator */
-    private $hydrator;
+    private $_hydrator;
 
     /** @var bool */
-    private $rewinded = false;
+    private $_rewinded = false;
 
     /** @var int */
-    private $key = -1;
+    private $_key = -1;
 
     /** @var mixed[]|null */
-    private $current = null;
+    private $_current = null;
 
     /** @param AbstractHydrator $hydrator */
     public function __construct($hydrator)
     {
-        $this->hydrator = $hydrator;
+        $this->_hydrator = $hydrator;
     }
 
     /**
@@ -41,12 +41,12 @@ class IterableResult implements Iterator
     #[ReturnTypeWillChange]
     public function rewind()
     {
-        if ($this->rewinded === true) {
+        if ($this->_rewinded === true) {
             throw new HydrationException('Can only iterate a Result once.');
         }
 
-        $this->current  = $this->next();
-        $this->rewinded = true;
+        $this->_current  = $this->next();
+        $this->_rewinded = true;
     }
 
     /**
@@ -57,30 +57,30 @@ class IterableResult implements Iterator
     #[ReturnTypeWillChange]
     public function next()
     {
-        $this->current = $this->hydrator->hydrateRow();
-        $this->key++;
+        $this->_current = $this->_hydrator->hydrateRow();
+        $this->_key++;
 
-        return $this->current;
+        return $this->_current;
     }
 
     /** @return mixed */
     #[ReturnTypeWillChange]
     public function current()
     {
-        return $this->current;
+        return $this->_current;
     }
 
     /** @return int */
     #[ReturnTypeWillChange]
     public function key()
     {
-        return $this->key;
+        return $this->_key;
     }
 
     /** @return bool */
     #[ReturnTypeWillChange]
     public function valid()
     {
-        return $this->current !== false;
+        return $this->_current !== false;
     }
 }

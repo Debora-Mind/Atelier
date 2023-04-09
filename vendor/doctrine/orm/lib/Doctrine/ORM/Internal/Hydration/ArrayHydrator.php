@@ -19,34 +19,34 @@ use function reset;
 class ArrayHydrator extends AbstractHydrator
 {
     /** @var array<string,bool> */
-    private $rootAliases = [];
+    private $_rootAliases = [];
 
     /** @var bool */
-    private $isSimpleQuery = false;
+    private $_isSimpleQuery = false;
 
     /** @var mixed[] */
-    private $identifierMap = [];
+    private $_identifierMap = [];
 
     /** @var mixed[] */
-    private $resultPointers = [];
+    private $_resultPointers = [];
 
     /** @var array<string,string> */
-    private $idTemplate = [];
+    private $_idTemplate = [];
 
     /** @var int */
-    private $resultCounter = 0;
+    private $_resultCounter = 0;
 
     /**
      * {@inheritdoc}
      */
     protected function prepare()
     {
-        $this->isSimpleQuery = count($this->resultSetMapping()->aliasMap) <= 1;
+        $this->_isSimpleQuery = count($this->resultSetMapping()->aliasMap) <= 1;
 
         foreach ($this->resultSetMapping()->aliasMap as $dqlAlias => $className) {
-            $this->identifierMap[$dqlAlias]  = [];
-            $this->resultPointers[$dqlAlias] = [];
-            $this->idTemplate[$dqlAlias]     = '';
+            $this->_identifierMap[$dqlAlias]  = [];
+            $this->_resultPointers[$dqlAlias] = [];
+            $this->_idTemplate[$dqlAlias]     = '';
         }
     }
 
@@ -70,7 +70,7 @@ class ArrayHydrator extends AbstractHydrator
     protected function hydrateRowData(array $row, array &$result)
     {
         // 1) Initialize
-        $id                 = $this->idTemplate; // initialize the id-memory
+        $id                 = $this->_idTemplate; // initialize the id-memory
         $nonemptyComponents = [];
         $rowData            = $this->gatherRowData($row, $id, $nonemptyComponents);
 
@@ -91,14 +91,14 @@ class ArrayHydrator extends AbstractHydrator
 
                 // Get a reference to the right element in the result tree.
                 // This element will get the associated element attached.
-                if ($this->resultSetMapping()->isMixed && isset($this->rootAliases[$parent])) {
-                    $first = reset($this->resultPointers);
+                if ($this->resultSetMapping()->isMixed && isset($this->_rootAliases[$parent])) {
+                    $first = reset($this->_resultPointers);
                     // TODO: Exception if $key === null ?
-                    $baseElement =& $this->resultPointers[$parent][key($first)];
-                } elseif (isset($this->resultPointers[$parent])) {
-                    $baseElement =& $this->resultPointers[$parent];
+                    $baseElement =& $this->_resultPointers[$parent][key($first)];
+                } elseif (isset($this->_resultPointers[$parent])) {
+                    $baseElement =& $this->_resultPointers[$parent];
                 } else {
-                    unset($this->resultPointers[$dqlAlias]); // Ticket #1228
+                    unset($this->_resultPointers[$dqlAlias]); // Ticket #1228
 
                     continue;
                 }
@@ -116,8 +116,8 @@ class ArrayHydrator extends AbstractHydrator
                     }
 
                     if (isset($nonemptyComponents[$dqlAlias])) {
-                        $indexExists  = isset($this->identifierMap[$path][$id[$parent]][$id[$dqlAlias]]);
-                        $index        = $indexExists ? $this->identifierMap[$path][$id[$parent]][$id[$dqlAlias]] : false;
+                        $indexExists  = isset($this->_identifierMap[$path][$id[$parent]][$id[$dqlAlias]]);
+                        $index        = $indexExists ? $this->_identifierMap[$path][$id[$parent]][$id[$dqlAlias]] : false;
                         $indexIsValid = $index !== false ? isset($baseElement[$relationAlias][$index]) : false;
 
                         if (! $indexExists || ! $indexIsValid) {
@@ -131,7 +131,7 @@ class ArrayHydrator extends AbstractHydrator
 
                             end($baseElement[$relationAlias]);
 
-                            $this->identifierMap[$path][$id[$parent]][$id[$dqlAlias]] = key($baseElement[$relationAlias]);
+                            $this->_identifierMap[$path][$id[$parent]][$id[$dqlAlias]] = key($baseElement[$relationAlias]);
                         }
                     }
                 } else {
@@ -155,8 +155,8 @@ class ArrayHydrator extends AbstractHydrator
             } else {
                 // It's a root result element
 
-                $this->rootAliases[$dqlAlias] = true; // Mark as root
-                $entityKey                    = $this->resultSetMapping()->entityMappings[$dqlAlias] ?: 0;
+                $this->_rootAliases[$dqlAlias] = true; // Mark as root
+                $entityKey                     = $this->resultSetMapping()->entityMappings[$dqlAlias] ?: 0;
 
                 // if this row has a NULL value for the root result id then make it a null result.
                 if (! isset($nonemptyComponents[$dqlAlias])) {
@@ -164,14 +164,14 @@ class ArrayHydrator extends AbstractHydrator
                         ? [$entityKey => null]
                         : null;
 
-                    $resultKey = $this->resultCounter;
-                    ++$this->resultCounter;
+                    $resultKey = $this->_resultCounter;
+                    ++$this->_resultCounter;
 
                     continue;
                 }
 
                 // Check for an existing element
-                if ($this->isSimpleQuery || ! isset($this->identifierMap[$dqlAlias][$id[$dqlAlias]])) {
+                if ($this->_isSimpleQuery || ! isset($this->_identifierMap[$dqlAlias][$id[$dqlAlias]])) {
                     $element = $this->resultSetMapping()->isMixed
                         ? [$entityKey => $data]
                         : $data;
@@ -180,15 +180,15 @@ class ArrayHydrator extends AbstractHydrator
                         $resultKey          = $row[$this->resultSetMapping()->indexByMap[$dqlAlias]];
                         $result[$resultKey] = $element;
                     } else {
-                        $resultKey = $this->resultCounter;
+                        $resultKey = $this->_resultCounter;
                         $result[]  = $element;
 
-                        ++$this->resultCounter;
+                        ++$this->_resultCounter;
                     }
 
-                    $this->identifierMap[$dqlAlias][$id[$dqlAlias]] = $resultKey;
+                    $this->_identifierMap[$dqlAlias][$id[$dqlAlias]] = $resultKey;
                 } else {
-                    $index     = $this->identifierMap[$dqlAlias][$id[$dqlAlias]];
+                    $index     = $this->_identifierMap[$dqlAlias][$id[$dqlAlias]];
                     $resultKey = $index;
                 }
 
@@ -197,7 +197,7 @@ class ArrayHydrator extends AbstractHydrator
         }
 
         if (! isset($resultKey)) {
-            $this->resultCounter++;
+            $this->_resultCounter++;
         }
 
         // Append scalar values to mixed result sets
@@ -206,7 +206,7 @@ class ArrayHydrator extends AbstractHydrator
                 // this only ever happens when no object is fetched (scalar result only)
                 $resultKey = isset($this->resultSetMapping()->indexByMap['scalars'])
                     ? $row[$this->resultSetMapping()->indexByMap['scalars']]
-                    : $this->resultCounter - 1;
+                    : $this->_resultCounter - 1;
             }
 
             foreach ($rowData['scalars'] as $name => $value) {
@@ -217,7 +217,7 @@ class ArrayHydrator extends AbstractHydrator
         // Append new object to mixed result sets
         if (isset($rowData['newObjects'])) {
             if (! isset($resultKey)) {
-                $resultKey = $this->resultCounter - 1;
+                $resultKey = $this->_resultCounter - 1;
             }
 
             $scalarCount = (isset($rowData['scalars']) ? count($rowData['scalars']) : 0);
@@ -253,19 +253,19 @@ class ArrayHydrator extends AbstractHydrator
         bool $oneToOne
     ): void {
         if ($coll === null) {
-            unset($this->resultPointers[$dqlAlias]); // Ticket #1228
+            unset($this->_resultPointers[$dqlAlias]); // Ticket #1228
 
             return;
         }
 
         if ($oneToOne) {
-            $this->resultPointers[$dqlAlias] =& $coll;
+            $this->_resultPointers[$dqlAlias] =& $coll;
 
             return;
         }
 
         if ($index !== false) {
-            $this->resultPointers[$dqlAlias] =& $coll[$index];
+            $this->_resultPointers[$dqlAlias] =& $coll[$index];
 
             return;
         }
@@ -275,6 +275,6 @@ class ArrayHydrator extends AbstractHydrator
         }
 
         end($coll);
-        $this->resultPointers[$dqlAlias] =& $coll[key($coll)];
+        $this->_resultPointers[$dqlAlias] =& $coll[key($coll)];
     }
 }

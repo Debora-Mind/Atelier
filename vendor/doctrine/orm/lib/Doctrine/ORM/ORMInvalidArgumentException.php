@@ -22,8 +22,6 @@ use function sprintf;
 
 /**
  * Contains exception messages for all invalid lifecycle state exceptions inside UnitOfWork
- *
- * @psalm-import-type AssociationMapping from ClassMetadata
  */
 class ORMInvalidArgumentException extends InvalidArgumentException
 {
@@ -82,8 +80,8 @@ class ORMInvalidArgumentException extends InvalidArgumentException
     }
 
     /**
-     * @psalm-param non-empty-list<array{AssociationMapping, object}> $newEntitiesWithAssociations non-empty an array
-     *                                                                of [array $associationMapping, object $entity] pairs
+     * @param array[][]|object[][] $newEntitiesWithAssociations non-empty an array
+     *                                                              of [array $associationMapping, object $entity] pairs
      *
      * @return ORMInvalidArgumentException
      */
@@ -111,7 +109,7 @@ class ORMInvalidArgumentException extends InvalidArgumentException
 
     /**
      * @param object $entry
-     * @psalm-param AssociationMapping $associationMapping
+     * @psalm-param array<string, string> $associationMapping
      *
      * @return ORMInvalidArgumentException
      */
@@ -122,7 +120,7 @@ class ORMInvalidArgumentException extends InvalidArgumentException
 
     /**
      * @param object $entry
-     * @psalm-param AssociationMapping $assoc
+     * @psalm-param array<string, string> $assoc
      *
      * @return ORMInvalidArgumentException
      */
@@ -222,8 +220,8 @@ EXCEPTION
     }
 
     /**
-     * @param AssociationMapping $assoc
-     * @param mixed              $actualValue
+     * @param mixed[] $assoc
+     * @param mixed   $actualValue
      *
      * @return self
      */
@@ -273,7 +271,7 @@ EXCEPTION
 
     /**
      * @param object $entity
-     * @psalm-param AssociationMapping $associationMapping
+     * @psalm-param array<string,string> $associationMapping
      */
     private static function newEntityFoundThroughRelationshipMessage(array $associationMapping, $entity): string
     {

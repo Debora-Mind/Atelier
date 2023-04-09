@@ -309,7 +309,7 @@ EOF;
                 $value = str_replace("\n", "\n    ", $value);
                 $value = "static function () {\n    return {$value};\n}";
             }
-            $hash = hash('xxh128', $value);
+            $hash = hash('md5', $value);
 
             if (null === $id = $dumpedMap[$hash] ?? null) {
                 $id = $dumpedMap[$hash] = \count($dumpedMap);
@@ -338,7 +338,7 @@ EOF;
     /**
      * Load the cache file.
      */
-    private function initialize(): void
+    private function initialize()
     {
         if (isset(self::$valuesCache[$this->file])) {
             $values = self::$valuesCache[$this->file];

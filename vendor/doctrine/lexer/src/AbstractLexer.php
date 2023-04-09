@@ -56,14 +56,16 @@ abstract class AbstractLexer
     /**
      * The next token in the input.
      *
-     * @var Token<T, V>|null
+     * @var mixed[]|null
+     * @psalm-var Token<T, V>|null
      */
     public $lookahead;
 
     /**
      * The last matched/seen token.
      *
-     * @var Token<T, V>|null
+     * @var mixed[]|null
+     * @psalm-var Token<T, V>|null
      */
     public $token;
 
@@ -215,7 +217,8 @@ abstract class AbstractLexer
     /**
      * Moves the lookahead token forward.
      *
-     * @return Token<T, V>|null The next token or NULL if there are no more tokens ahead.
+     * @return mixed[]|null The next token or NULL if there are no more tokens ahead.
+     * @psalm-return Token<T, V>|null
      */
     public function peek()
     {
@@ -229,7 +232,8 @@ abstract class AbstractLexer
     /**
      * Peeks at the next token, returns it and immediately resets the peek.
      *
-     * @return Token<T, V>|null The next token or NULL if there are no more tokens ahead.
+     * @return mixed[]|null The next token or NULL if there are no more tokens ahead.
+     * @psalm-return Token<T, V>|null
      */
     public function glimpse()
     {

@@ -37,7 +37,9 @@ use function strtolower;
  */
 class ConvertMappingCommand extends AbstractEntityManagerCommand
 {
-    /** @return void */
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this->setName('orm:convert-mapping')

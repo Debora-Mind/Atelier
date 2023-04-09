@@ -39,7 +39,7 @@ final class DumpCompletionCommand extends Command
 
     private array $supportedShells;
 
-    protected function configure(): void
+    protected function configure()
     {
         $fullCommand = $_SERVER['PHP_SELF'];
         $commandName = basename($fullCommand);
@@ -52,10 +52,12 @@ final class DumpCompletionCommand extends Command
             default => ['~/.bashrc', "/etc/bash_completion.d/$commandName"],
         };
 
+        $supportedShells = implode(', ', $this->getSupportedShells());
+
         $this
             ->setHelp(<<<EOH
 The <info>%command.name%</> command dumps the shell completion script required
-to use shell autocompletion (currently, bash and fish completion is supported).
+to use shell autocompletion (currently, {$supportedShells} completion are supported).
 
 <comment>Static installation
 -------------------</>
@@ -141,6 +143,8 @@ EOH
      */
     private function getSupportedShells(): array
     {
-        return $this->supportedShells ??= array_map(fn ($f) => pathinfo($f, \PATHINFO_EXTENSION), glob(__DIR__.'/../Resources/completion.*'));
+        return $this->supportedShells ??= array_map(function ($f) {
+            return pathinfo($f, \PATHINFO_EXTENSION);
+        }, glob(__DIR__.'/../Resources/completion.*'));
     }
 }

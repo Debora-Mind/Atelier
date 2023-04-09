@@ -37,7 +37,7 @@ include __DIR__ . '/../Componentes/navbar.php';
         </div>
     </div>
     <div class="list-group">
-        <table class="table table-primary table-striped">
+        <table class="table table-primary table-striped bg-light">
             <thead style="background-color: black;">
             <tr>
                 <th scope="col" style="width: 4%">#</th>

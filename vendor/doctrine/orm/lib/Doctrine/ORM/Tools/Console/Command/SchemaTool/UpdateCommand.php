@@ -24,7 +24,9 @@ class UpdateCommand extends AbstractCommand
     /** @var string */
     protected $name = 'orm:schema-tool:update';
 
-    /** @return void */
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this->setName($this->name)
@@ -77,10 +79,7 @@ EOT
         $saveMode = ! $input->getOption('complete');
 
         if ($saveMode) {
-            $notificationUi->warning(sprintf(
-                'Not passing the "--complete" option to "%s" is deprecated and will not be supported when using doctrine/dbal 4',
-                $this->getName() ?? $this->name
-            ));
+            $notificationUi->warning('Not passing the "--complete" option to "orm:schema-tool:update" is deprecated and will not be supported when using doctrine/dbal 4');
         }
 
         $sqls = $schemaTool->getUpdateSchemaSql($metadatas, $saveMode);

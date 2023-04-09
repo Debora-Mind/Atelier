@@ -19,7 +19,9 @@ use function sprintf;
  */
 class CreateCommand extends AbstractCommand
 {
-    /** @return void */
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this->setName('orm:schema-tool:create')

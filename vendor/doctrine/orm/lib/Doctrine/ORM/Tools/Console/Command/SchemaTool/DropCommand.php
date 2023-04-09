@@ -20,7 +20,9 @@ use function sprintf;
  */
 class DropCommand extends AbstractCommand
 {
-    /** @return void */
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this->setName('orm:schema-tool:drop')

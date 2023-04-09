@@ -31,12 +31,12 @@ class CacheDataCollector extends DataCollector implements LateDataCollectorInter
      */
     private array $instances = [];
 
-    public function addInstance(string $name, TraceableAdapter $instance): void
+    public function addInstance(string $name, TraceableAdapter $instance)
     {
         $this->instances[$name] = $instance;
     }
 
-    public function collect(Request $request, Response $response, \Throwable $exception = null): void
+    public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
         $empty = ['calls' => [], 'adapters' => [], 'config' => [], 'options' => [], 'statistics' => []];
         $this->data = ['instances' => $empty, 'total' => $empty];
@@ -49,7 +49,7 @@ class CacheDataCollector extends DataCollector implements LateDataCollectorInter
         $this->data['total']['statistics'] = $this->calculateTotalStatistics();
     }
 
-    public function reset(): void
+    public function reset()
     {
         $this->data = [];
         foreach ($this->instances as $instance) {
@@ -57,7 +57,7 @@ class CacheDataCollector extends DataCollector implements LateDataCollectorInter
         }
     }
 
-    public function lateCollect(): void
+    public function lateCollect()
     {
         $this->data['instances']['calls'] = $this->cloneVar($this->data['instances']['calls']);
     }

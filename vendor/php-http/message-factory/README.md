@@ -18,12 +18,12 @@ $ composer require php-http/message-factory
 
 ## Documentation
 
-Please see the [official documentation](http://docs.php-http.org/en/latest/message/message-factory.html).
+Please see the [official documentation](http://php-http.readthedocs.org/en/latest/message-factory/).
 
 
 ## Contributing
 
-Please see our [contributing guide](http://docs.php-http.org/en/latest/development/contributing.html).
+Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
 
 
 ## Security

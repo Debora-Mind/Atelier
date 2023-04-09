@@ -21,20 +21,20 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
      *
      * @var int
      */
-    private $allocationSize;
+    private $_allocationSize;
 
     /**
      * The name of the sequence.
      *
      * @var string
      */
-    private $sequenceName;
+    private $_sequenceName;
 
     /** @var int */
-    private $nextValue = 0;
+    private $_nextValue = 0;
 
     /** @var int|null */
-    private $maxValue = null;
+    private $_maxValue = null;
 
     /**
      * Initializes a new sequence generator.
@@ -44,8 +44,8 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
      */
     public function __construct($sequenceName, $allocationSize)
     {
-        $this->sequenceName   = $sequenceName;
-        $this->allocationSize = $allocationSize;
+        $this->_sequenceName   = $sequenceName;
+        $this->_allocationSize = $allocationSize;
     }
 
     /**
@@ -53,20 +53,20 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
      */
     public function generateId(EntityManagerInterface $em, $entity)
     {
-        if ($this->maxValue === null || $this->nextValue === $this->maxValue) {
+        if ($this->_maxValue === null || $this->_nextValue === $this->_maxValue) {
             // Allocate new values
             $connection = $em->getConnection();
-            $sql        = $connection->getDatabasePlatform()->getSequenceNextValSQL($this->sequenceName);
+            $sql        = $connection->getDatabasePlatform()->getSequenceNextValSQL($this->_sequenceName);
 
             if ($connection instanceof PrimaryReadReplicaConnection) {
                 $connection->ensureConnectedToPrimary();
             }
 
-            $this->nextValue = (int) $connection->fetchOne($sql);
-            $this->maxValue  = $this->nextValue + $this->allocationSize;
+            $this->_nextValue = (int) $connection->fetchOne($sql);
+            $this->_maxValue  = $this->_nextValue + $this->_allocationSize;
         }
 
-        return $this->nextValue++;
+        return $this->_nextValue++;
     }
 
     /**
@@ -76,7 +76,7 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
      */
     public function getCurrentMaxValue()
     {
-        return $this->maxValue;
+        return $this->_maxValue;
     }
 
     /**
@@ -86,7 +86,7 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
      */
     public function getNextValue()
     {
-        return $this->nextValue;
+        return $this->_nextValue;
     }
 
     /**
@@ -103,8 +103,8 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
     public function __serialize(): array
     {
         return [
-            'allocationSize' => $this->allocationSize,
-            'sequenceName' => $this->sequenceName,
+            'allocationSize' => $this->_allocationSize,
+            'sequenceName' => $this->_sequenceName,
         ];
     }
 
@@ -123,7 +123,7 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
     /** @param array<string, mixed> $data */
     public function __unserialize(array $data): void
     {
-        $this->sequenceName   = $data['sequenceName'];
-        $this->allocationSize = $data['allocationSize'];
+        $this->_sequenceName   = $data['sequenceName'];
+        $this->_allocationSize = $data['allocationSize'];
     }
 }

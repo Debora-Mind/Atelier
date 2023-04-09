@@ -87,8 +87,6 @@ use function trim;
  *
  * Subclasses can be created to provide custom persisting and querying strategies,
  * i.e. spanning multiple tables.
- *
- * @psalm-import-type AssociationMapping from ClassMetadata
  */
 class BasicEntityPersister implements EntityPersister
 {
@@ -1334,9 +1332,9 @@ class BasicEntityPersister implements EntityPersister
     /**
      * Gets the SQL join fragment used when selecting entities from an association.
      *
-     * @param string             $field
-     * @param AssociationMapping $assoc
-     * @param string             $alias
+     * @param string  $field
+     * @param mixed[] $assoc
+     * @param string  $alias
      *
      * @return string
      */
@@ -1368,7 +1366,7 @@ class BasicEntityPersister implements EntityPersister
      * Gets the SQL join fragment used when selecting entities from a
      * many-to-many association.
      *
-     * @psalm-param AssociationMapping $manyToMany
+     * @psalm-param array<string, mixed> $manyToMany
      *
      * @return string
      */
@@ -1696,7 +1694,7 @@ class BasicEntityPersister implements EntityPersister
     /**
      * Builds the left-hand-side of a where condition statement.
      *
-     * @psalm-param AssociationMapping|null $assoc
+     * @psalm-param array<string, mixed>|null $assoc
      *
      * @return string[]
      * @psalm-return list<string>
@@ -1769,7 +1767,7 @@ class BasicEntityPersister implements EntityPersister
      * Subclasses are supposed to override this method if they intend to change
      * or alter the criteria by which entities are selected.
      *
-     * @param AssociationMapping|null $assoc
+     * @param mixed[]|null $assoc
      * @psalm-param array<string, mixed> $criteria
      * @psalm-param array<string, mixed>|null $assoc
      *
@@ -1812,7 +1810,7 @@ class BasicEntityPersister implements EntityPersister
      * Builds criteria and execute SQL statement to fetch the one to many entities from.
      *
      * @param object $sourceEntity
-     * @psalm-param AssociationMapping $assoc
+     * @psalm-param array<string, mixed> $assoc
      */
     private function getOneToManyStatement(
         array $assoc,

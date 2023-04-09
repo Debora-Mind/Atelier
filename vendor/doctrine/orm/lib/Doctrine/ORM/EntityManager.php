@@ -814,7 +814,7 @@ class EntityManager implements EntityManagerInterface
                     $entityName
                 );
             } else {
-                throw NotSupported::createForPersistence3(sprintf(
+                NotSupported::createForPersistence3(sprintf(
                     'Using short namespace alias "%s" when calling %s',
                     $entityName,
                     __METHOD__

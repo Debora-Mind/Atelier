@@ -64,7 +64,7 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
             $this->conn = $connOrDsn;
         } else {
             if (!class_exists(DriverManager::class)) {
-                throw new InvalidArgumentException('Failed to parse DSN. Try running "composer require doctrine/dbal".');
+                throw new InvalidArgumentException(sprintf('Failed to parse the DSN "%s". Try running "composer require doctrine/dbal".', $connOrDsn));
             }
             $this->conn = DriverManager::getConnection(['url' => $connOrDsn]);
         }
@@ -98,18 +98,14 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
         }
     }
 
-    /**
-     * @param \Closure $isSameDatabase
-     */
-    public function configureSchema(Schema $schema, Connection $forConnection/* , \Closure $isSameDatabase */): void
+    public function configureSchema(Schema $schema, Connection $forConnection): void
     {
-        if ($schema->hasTable($this->table)) {
+        // only update the schema for this connection
+        if ($forConnection !== $this->conn) {
             return;
         }
 
-        $isSameDatabase = 2 < \func_num_args() ? func_get_arg(2) : static fn () => false;
-
-        if ($forConnection !== $this->conn && !$isSameDatabase($this->conn->executeStatement(...))) {
+        if ($schema->hasTable($this->table)) {
             return;
         }
 
@@ -311,6 +307,22 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
         }
 
         return $failed;
+    }
+
+    /**
+     * @internal
+     */
+    protected function getId($key)
+    {
+        if ('pgsql' !== $this->platformName ??= $this->getPlatformName()) {
+            return parent::getId($key);
+        }
+
+        if (str_contains($key, "\0") || str_contains($key, '%') || !preg_match('//u', $key)) {
+            $key = rawurlencode($key);
+        }
+
+        return parent::getId($key);
     }
 
     private function getPlatformName(): string

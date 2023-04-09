@@ -27,7 +27,9 @@ use function strtoupper;
  */
 class RunDqlCommand extends AbstractEntityManagerCommand
 {
-    /** @return void */
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this->setName('orm:run-dql')

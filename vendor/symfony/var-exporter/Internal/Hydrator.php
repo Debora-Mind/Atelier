@@ -254,9 +254,6 @@ class Hydrator
         };
     }
 
-    /**
-     * @return array
-     */
     public static function getPropertyScopes($class)
     {
         $propertyScopes = [];

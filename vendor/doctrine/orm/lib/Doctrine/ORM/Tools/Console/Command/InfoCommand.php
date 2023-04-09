@@ -20,7 +20,9 @@ use function sprintf;
  */
 class InfoCommand extends AbstractEntityManagerCommand
 {
-    /** @return void */
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this->setName('orm:info')

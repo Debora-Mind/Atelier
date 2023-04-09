@@ -46,10 +46,6 @@ use function strtolower;
  * <tt>ClassMetadata</tt> class descriptors.
  *
  * @link    www.doctrine-project.org
- *
- * @psalm-import-type AssociationMapping from ClassMetadata
- * @psalm-import-type FieldMapping from ClassMetadata
- * @psalm-import-type JoinColumnData from ClassMetadata
  */
 class SchemaTool
 {
@@ -101,7 +97,7 @@ class SchemaTool
 
         foreach ($createSchemaSql as $sql) {
             try {
-                $conn->executeStatement($sql);
+                $conn->executeQuery($sql);
             } catch (Throwable $e) {
                 throw ToolsException::schemaToolFailure($sql, $e);
             }
@@ -472,7 +468,7 @@ class SchemaTool
      * Creates a column definition as required by the DBAL from an ORM field mapping definition.
      *
      * @param ClassMetadata $class The class that owns the field mapping.
-     * @psalm-param FieldMapping $mapping The field mapping.
+     * @psalm-param array<string, mixed> $mapping The field mapping.
      */
     private function gatherColumn(
         ClassMetadata $class,
@@ -661,8 +657,8 @@ class SchemaTool
     /**
      * Gathers columns and fk constraints that are required for one part of relationship.
      *
-     * @psalm-param array<string, JoinColumnData>    $joinColumns
-     * @psalm-param AssociationMapping               $mapping
+     * @psalm-param array<string, mixed>             $joinColumns
+     * @psalm-param array<string, mixed>             $mapping
      * @psalm-param list<string>                     $primaryKeyColumns
      * @psalm-param array<string, array{
      *                  foreignTableName: string,
@@ -792,7 +788,7 @@ class SchemaTool
     }
 
     /**
-     * @psalm-param JoinColumnData|FieldMapping $mapping
+     * @param mixed[] $mapping
      *
      * @return mixed[]
      */
@@ -835,7 +831,7 @@ class SchemaTool
 
         foreach ($dropSchemaSql as $sql) {
             try {
-                $conn->executeStatement($sql);
+                $conn->executeQuery($sql);
             } catch (Throwable $e) {
                 // ignored
             }
@@ -853,7 +849,7 @@ class SchemaTool
         $conn          = $this->em->getConnection();
 
         foreach ($dropSchemaSql as $sql) {
-            $conn->executeStatement($sql);
+            $conn->executeQuery($sql);
         }
     }
 
@@ -943,7 +939,7 @@ class SchemaTool
         $conn            = $this->em->getConnection();
 
         foreach ($updateSchemaSql as $sql) {
-            $conn->executeStatement($sql);
+            $conn->executeQuery($sql);
         }
     }
 

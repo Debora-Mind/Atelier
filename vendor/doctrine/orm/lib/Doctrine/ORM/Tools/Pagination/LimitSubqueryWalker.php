@@ -33,7 +33,7 @@ class LimitSubqueryWalker extends TreeWalkerAdapter
      *
      * @var int
      */
-    private $aliasCounter = 0;
+    private $_aliasCounter = 0;
 
     public function walkSelectStatement(SelectStatement $AST)
     {
@@ -77,7 +77,7 @@ class LimitSubqueryWalker extends TreeWalkerAdapter
             if ($item->expression instanceof PathExpression) {
                 $AST->selectClause->selectExpressions[] = new SelectExpression(
                     $this->createSelectExpressionItem($item->expression),
-                    '_dctrn_ord' . $this->aliasCounter++
+                    '_dctrn_ord' . $this->_aliasCounter++
                 );
 
                 continue;

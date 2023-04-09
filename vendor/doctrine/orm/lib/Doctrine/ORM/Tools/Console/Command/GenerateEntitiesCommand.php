@@ -28,7 +28,9 @@ use function sprintf;
  */
 class GenerateEntitiesCommand extends AbstractEntityManagerCommand
 {
-    /** @return void */
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this->setName('orm:generate-entities')

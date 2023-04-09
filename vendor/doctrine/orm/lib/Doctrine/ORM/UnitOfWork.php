@@ -29,6 +29,7 @@ use Doctrine\ORM\Id\AssignedGenerator;
 use Doctrine\ORM\Internal\CommitOrderCalculator;
 use Doctrine\ORM\Internal\HydrationCompleteHandler;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\ORM\Mapping\Reflection\ReflectionPropertiesGetter;
 use Doctrine\ORM\Persisters\Collection\CollectionPersister;
@@ -82,7 +83,7 @@ use function sprintf;
  *
  * Internal note: This class contains highly performance-sensitive code.
  *
- * @psalm-import-type AssociationMapping from ClassMetadata
+ * @psalm-import-type AssociationMapping from ClassMetadataInfo
  */
 class UnitOfWork implements PropertyChangedListener
 {
@@ -125,7 +126,7 @@ class UnitOfWork implements PropertyChangedListener
      * we always take the root class name of the hierarchy.
      *
      * @var mixed[]
-     * @psalm-var array<class-string, array<string, object>>
+     * @psalm-var array<class-string, array<string, object|null>>
      */
     private $identityMap = [];
 
@@ -213,7 +214,7 @@ class UnitOfWork implements PropertyChangedListener
      * Keys are OIDs, payload is a two-item array describing the association
      * and the entity.
      *
-     * @var array<int, array{AssociationMapping, object}> indexed by respective object spl_object_id()
+     * @var object[][]|array[][] indexed by respective object spl_object_id()
      */
     private $nonCascadedNewDetectedEntities = [];
 
@@ -257,7 +258,7 @@ class UnitOfWork implements PropertyChangedListener
     /**
      * The collection persister instances used to persist collections.
      *
-     * @psalm-var array<array-key, CollectionPersister>
+     * @psalm-var array<string, CollectionPersister>
      */
     private $collectionPersisters = [];
 
@@ -905,7 +906,7 @@ class UnitOfWork implements PropertyChangedListener
      * Computes the changes of an association.
      *
      * @param mixed $value The value of the association.
-     * @psalm-param AssociationMapping $assoc The association mapping.
+     * @psalm-param array<string, mixed> $assoc The association mapping.
      *
      * @throws ORMInvalidArgumentException
      * @throws ORMException
@@ -3047,7 +3048,7 @@ class UnitOfWork implements PropertyChangedListener
     /**
      * Gets the identity map of the UnitOfWork.
      *
-     * @psalm-return array<class-string, array<string, object>>
+     * @psalm-return array<class-string, array<string, object|null>>
      */
     public function getIdentityMap()
     {
@@ -3246,7 +3247,7 @@ class UnitOfWork implements PropertyChangedListener
     /**
      * Gets a collection persister for a collection-valued association.
      *
-     * @psalm-param AssociationMapping $association
+     * @psalm-param array<string, mixed> $association
      *
      * @return CollectionPersister
      */

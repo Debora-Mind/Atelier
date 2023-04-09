@@ -25,7 +25,6 @@ use function array_values;
 use function assert;
 use function count;
 
-/** @psalm-import-type AssociationMapping from ClassMetadata */
 abstract class AbstractCollectionPersister implements CachedCollectionPersister
 {
     /** @var UnitOfWork */
@@ -65,7 +64,7 @@ abstract class AbstractCollectionPersister implements CachedCollectionPersister
      * @param CollectionPersister    $persister   The collection persister that will be cached.
      * @param Region                 $region      The collection region.
      * @param EntityManagerInterface $em          The entity manager.
-     * @param AssociationMapping     $association The association mapping.
+     * @param mixed[]                $association The association mapping.
      */
     public function __construct(CollectionPersister $persister, Region $region, EntityManagerInterface $em, array $association)
     {
