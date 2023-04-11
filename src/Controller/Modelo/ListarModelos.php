@@ -49,12 +49,25 @@ class ListarModelos implements RequestHandlerInterface
         return (int) $filtro;
     }
 
-    private function filtrarModelos($repositorio, $filtro)
+    private function obterSemana(ServerRequestInterface $request): int|null
     {
+        $semana = $request->getParsedBody()['semana'] ?? 0;
+        $semana = (int) filter_var($semana, FILTER_SANITIZE_NUMBER_INT);
+        if ($semana == 0) {
+            return null;
+        }
+        return $semana;
+    }
+
+    private function filtrarModelos($repositorio, $filtro, $semana)
+    {
+        $semanaValida = array_filter($repositorio, function ($item) use ($semana) {
+            return $item->getSemana() == $semana;
+        });
         $resultados = new ArrayCollection();
         $filtroValido = in_array($filtro, [1, 2, 3]);
         // 1 = Todos, 2 = Com saída, 3 = Sem saída
-        foreach ($repositorio as $modelo) {
+        foreach ($semana ? $semanaValida : $repositorio as $modelo) {
             if ($filtroValido) {
                 $condicao = ($filtro == 2 && $modelo->getDataSaida() !== null) ||
                     ($filtro == 3 && $modelo->getDataSaida() === null) ||
@@ -75,8 +88,9 @@ class ListarModelos implements RequestHandlerInterface
     {
         $filtro = $this->obterFiltro($request);
         $busca = $this->tratarBusca($request);
+        $semana = $this->obterSemana($request);
         $modelos = $this->entityManager->getRepository(Modelo::class)->findAll();
-        $modelos = $this->filtrarModelos($modelos, $filtro);
+        $modelos = $this->filtrarModelos($modelos, $filtro, $semana);
 
         //Ordenação da lista
         $array = $modelos->toArray();

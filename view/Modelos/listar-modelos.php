@@ -13,7 +13,13 @@ $linhas = 0;
                    id="busca"
                    placeholder="Digite o modelo ou código de barras"
                    autofocus
-                   style="height: 82%">
+                   style="height: 82%; width: 18rem">
+            <input type="text"
+                   name="semana"
+                   id="semana"
+                   placeholder="Semana"
+                   style="height: 82%;width: 5rem"
+            class="ms-2">
             <button class="btn btn-info text-light mb-2 ms-2" type="submit">
                 <i class="bi bi-search"></i> Buscar
             </button>
