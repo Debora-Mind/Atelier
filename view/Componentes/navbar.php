@@ -44,4 +44,4 @@
     </div>
 </nav>
 <div style="height: 1rem"></div>
-<div id="conteudo" class="container-xl mt-5 barra-rolagem bg-transparent" style="max-width: 85%;">
+<div id="conteudo" class="container-xl mt-5 barra-rolagem bg-transparent w-100" style="max-width: 85%;">

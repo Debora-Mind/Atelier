@@ -26,6 +26,9 @@ class Modelo implements \JsonSerializable
     #[Column(type: 'float')]
     private string $valor;
 
+    #[Column(type: 'integer')]
+    private string $semana;
+
     #[Column]
     private string $cod_barras;
 
@@ -112,6 +115,17 @@ class Modelo implements \JsonSerializable
     public function setValor(string $valor): Modelo
     {
         $this->valor = $valor;
+        return $this;
+    }
+
+    public function getSemana(): string
+    {
+        return $this->semana;
+    }
+
+    public function setSemana(string $semana): Modelo
+    {
+        $this->semana = $semana;
         return $this;
     }
 

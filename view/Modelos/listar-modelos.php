@@ -1,9 +1,12 @@
 <?php
 include __DIR__ . '/../Componentes/inicio-html.php';
 include __DIR__ . '/../Componentes/navbar.php';
+$valor = 0;
+$qtd = 0;
+$linhas = 0;
 ?>
-
-    <div class="d-flex align-items-center align-items-stretch">
+<div class="">
+    <div class="d-flex align-items-center align-items-stretch busca">
         <form action="/modelos" method="post" class="d-flex">
             <input type="text"
                    name="busca"
@@ -38,7 +41,7 @@ include __DIR__ . '/../Componentes/navbar.php';
     </div>
     <div class="list-group">
         <table class="table table-primary table-striped bg-light">
-            <thead style="background-color: black;">
+            <thead class="" style="background-color: black;">
             <tr>
                 <th scope="col" style="width: 4%">#</th>
                 <th scope="col" style="width: 10%">Modelo</th>
@@ -46,6 +49,7 @@ include __DIR__ . '/../Componentes/navbar.php';
                 <th scope="col" style="width: 8%">Sublote</th>
                 <th scope="col" style="width: 8%">Quantidade</th>
                 <th scope="col" style="width: 7%">Valor</th>
+                <th scope="col" style="width: 7%">Semana</th>
                 <th scope="col" style="width: 16%">Cod.Barras</th>
                 <th scope="col" style="width: 12%">Entrada</th>
                 <th scope="col" style="width: 17%">Saída</th>
@@ -61,6 +65,7 @@ include __DIR__ . '/../Componentes/navbar.php';
                     <td><?= $modelo->getSublote(); ?></td>
                     <td><?= $modelo->getQuantidade(); ?></td>
                     <td><?= $modelo->getValor(true); ?></td>
+                    <td><?= $modelo->getSemana(); ?></td>
                     <td><?= $modelo->getCodBarras(); ?></td>
                     <td><?= $modelo->getDataEntrada()->format('d/m/Y'); ?></td>
                     <td><?= $modelo->getDataSaida() ? $modelo->getDataSaida() : ''; ?></td>
@@ -85,9 +90,34 @@ include __DIR__ . '/../Componentes/navbar.php';
                         </button>
                     </td>
                 </tr>
+            <?php
+                $valor += ($modelo->getValor() * $modelo->getQuantidade());
+                $qtd += $modelo->getQuantidade();
+                $linhas += 1;
+            ?>
             <?php endforeach; ?>
+            <tfoot class="text-start">
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    <strong>Total: </strong>
+                    <?= number_format($linhas,0, ',', '.'); ?> registros
+                </td>
+                <td colspan="3">
+                    <strong>Quantidade Total: </strong>
+                    <?= number_format($qtd,0, ',', '.'); ?>
+                </td>
+                <td></td>
+                <td colspan="4" class="text-end">
+                    <strong>Valor Total: </strong>
+                    <?= number_format($valor, 2, ',', '.'); ?>
+                </td>
+                <td></td>
+            </tr>
+            </tfoot>
             </tbody>
         </table>
     </div>
+</div>
 
 <?php include __DIR__ . '/../Componentes/fim-html.php';

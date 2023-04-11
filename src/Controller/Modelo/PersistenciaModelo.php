@@ -59,6 +59,11 @@ class PersistenciaModelo implements RequestHandlerInterface
             $valor = 0;
         }
 
+        $semana = filter_var(
+            $request->getParsedBody()['semana'],
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
         $cod_barras = filter_var(
             $request->getParsedBody()['cod-barras'],
             FILTER_SANITIZE_NUMBER_INT
@@ -76,6 +81,7 @@ class PersistenciaModelo implements RequestHandlerInterface
             ->setSublote($sublote)
             ->setQuantidade($quantidade)
             ->setValor($valor)
+            ->setSemana($semana)
             ->setCodBarras($cod_barras)
             ->setDataEntrada($data_entrada);
 

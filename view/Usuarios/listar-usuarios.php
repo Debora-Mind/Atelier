@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . '/../Componentes/inicio-html.php';
 include __DIR__ . '/../Componentes/navbar.php';
+$linhas = 0;
 ?>
 
     <div class="d-flex align-items-center align-items-stretch">
@@ -60,8 +61,18 @@ include __DIR__ . '/../Componentes/navbar.php';
                         </button>
                     </td>
                 </tr>
+            <?php $linhas += 1; ?>
             <?php endforeach; ?>
             </tbody>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td colspan="5">
+                    <strong>Total: </strong>
+                    <?= number_format($linhas,0, ',', '.'); ?> registros
+                </td>
+            </tr>
+            </tfoot>
         </table>
     </div>
 

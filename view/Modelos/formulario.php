@@ -47,6 +47,14 @@
                        value="<?= isset($modelo) ? $modelo->getValor() : ''; ?>">
             </div>
             <div class="col col-md-auto">
+                <label for="semana">Semana</label>
+                <input type="number"
+                       id="semana"
+                       name="semana"
+                       class="form-control"
+                       value="<?= isset($modelo) ? $modelo->getValor() : ''; ?>">
+            </div>
+            <div class="col col-md-auto">
                 <label for="cod-barras">Cod.Barras</label>
                 <input type="number"
                        id="cod-barras"
