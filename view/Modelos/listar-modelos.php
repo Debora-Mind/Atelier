@@ -14,7 +14,7 @@ $linhas = 0;
                    placeholder="Digite o modelo ou código de barras"
                    autofocus
                    style="height: 82%; width: 18rem">
-            <input type="text"
+            <input type="number"
                    name="semana"
                    id="semana"
                    placeholder="Semana"

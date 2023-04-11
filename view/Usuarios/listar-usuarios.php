@@ -6,10 +6,10 @@ $linhas = 0;
 
     <div class="d-flex align-items-center align-items-stretch">
         <form action="/usuarios" method="post" class="d-flex">
-            <input type="number"
+            <input type="text"
                    name="busca"
                    id="busca"
-                   placeholder="Digite o modelo ou código de barras"
+                   placeholder="Usuário"
                    autofocus
                    style="height: 82%">
             <button class="btn btn-info text-light mb-2 ms-2" type="submit">
