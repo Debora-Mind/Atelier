@@ -15,5 +15,5 @@ function excluir(tipo, modelo, id) {
 }
 
 function cancelar(caminho) {
-    window.location.href = caminho
+    window.location.href = '/' + caminho
 }

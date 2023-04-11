@@ -91,7 +91,7 @@
         </div>
         <div class="position-absolute">
             <button class="btn btn-success mt-2 fixed">Confirmar</button>
-            <button type="button" onclick="window.location.href='/modelos'"
+            <button type="button" onclick="cancelar('modelos')"
                     class="btn btn-danger mt-2 fixed">Cancelar</button>
         </div>
     </form>
