@@ -9,7 +9,7 @@ use Dam\Atelier\Entity\Usuario\Usuario;
 
 trait Funcoes
 {
-    public function buscarModelos(array $modelos, $busca)
+    public function buscarModelos($modelos, $busca)
     {
         $modelosFiltrados = array_filter($modelos, function($modelo) use ($busca) {
             if (!($modelo instanceof Modelo)) {

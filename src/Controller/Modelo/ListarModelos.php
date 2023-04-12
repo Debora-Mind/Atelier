@@ -90,10 +90,36 @@ class ListarModelos implements RequestHandlerInterface
         $busca = $this->tratarBusca($request);
         $semana = $this->obterSemana($request);
         $modelos = $this->entityManager->getRepository(Modelo::class)->findAll();
-        $modelos = $this->filtrarModelos($modelos, $filtro, $semana);
+        $modelosFiltrados = $this->filtrarModelos($modelos, $filtro, $semana)->toArray();
 
-        //Ordenação da lista
-        $array = $modelos->toArray();
+        if (!empty($busca)) {
+            $modelosFiltrados = $this->modelos->buscarModelos($modelosFiltrados, $busca);
+        }
+
+        $modelosOrdenados = $this->ordenarLista($modelosFiltrados);
+
+        return $modelosOrdenados;
+    }
+
+    private function ordenarLista($array): array
+    {
+        usort($array, function ($a, $b) {
+            $aDate = $a->getDataEntrada();
+            $bDate = $b->getDataEntrada();
+
+            if (!isset($aDate)) {
+                return -1;
+            }
+            if (!isset($bDate)) {
+                return 1;
+            }
+            if ($aDate == $bDate) {
+                return 0;
+            }
+
+            return ($aDate > $bDate) ? 1 : -1;
+        });
+
         usort($array, function ($a, $b) {
             $aDate = $a->getDataSaida();
             $bDate = $b->getDataSaida();
@@ -110,10 +136,6 @@ class ListarModelos implements RequestHandlerInterface
 
             return ($aDate > $bDate) ? -1 : 1;
         });
-
-        if (!empty($busca)) {
-            return $this->modelos->buscarModelos($array, $busca);
-        }
 
         return $array;
     }
