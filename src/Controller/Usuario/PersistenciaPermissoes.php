@@ -56,8 +56,9 @@ class PersistenciaPermissoes implements RequestHandlerInterface
 
         $this->entityManager->merge($usuario);
         $this->defineMensagem($tipo, 'Permissões atualizadas com sucesso');
-
         $this->entityManager->flush();
+
+        $_SESSION['permissoes'] = $usuario->getPermissoes();
 
         return new Response(302, ['Location' => '/usuarios']);
     }

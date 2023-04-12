@@ -73,7 +73,7 @@ $linhas = 0;
                     <?php if (in_array(11, $_SESSION['permissoes'])) : ?>
                     <td><?= $modelo->getValor(true); ?></td>
                     <?php else :?>
-                    <td>0</td>
+                    <td>*</td>
                     <?php endif; ?>
                     <td><?= $modelo->getSemana(); ?></td>
                     <td><?= $modelo->getCodBarras(); ?></td>
@@ -102,8 +102,7 @@ $linhas = 0;
                 </tr>
             <?php
                 $valor += (in_array(11, $_SESSION['permissoes'])) ?
-                    ($modelo->getValor() * $modelo->getQuantidade()) :
-                    0;
+                    ($modelo->getValor() * $modelo->getQuantidade()) : 0;
                 $qtd += $modelo->getQuantidade();
                 $linhas += 1;
             ?>
