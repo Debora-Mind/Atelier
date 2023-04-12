@@ -59,7 +59,7 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getProducao(): ?string
+    public function getProducao(): string|null
     {
         if ($this->producao === '0') {
             return null;
@@ -73,7 +73,7 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getSublote(): ?string
+    public function getSublote(): string|null
     {
         if ($this->sublote === '0') {
             return null;
@@ -87,7 +87,7 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getQuantidade(): ?string
+    public function getQuantidade(): string|null
     {
         if ($this->quantidade === '0') {
             return null;
@@ -101,7 +101,7 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getValor(bool $virgula = false): ?string
+    public function getValor(bool $virgula = false): string|null
     {
         if ($this->valor === '0') {
             return null;
@@ -118,8 +118,11 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getSemana(): string
+    public function getSemana(): string|null
     {
+        if ($this->semana === '0') {
+            return null;
+        }
         return $this->semana;
     }
 
