@@ -4,6 +4,7 @@ include __DIR__ . '/../Componentes/navbar.php';
 $valor = 0;
 $qtd = 0;
 $linhas = 0;
+$calcula = new \Dam\Atelier\Model\Funcoes\Calcular();
 ?>
 <div class="">
     <div class="d-flex align-items-center align-items-stretch busca">
@@ -46,7 +47,7 @@ $linhas = 0;
         </div>
     </div>
     <div class="list-group">
-        <table class="table table-primary table-striped bg-light">
+        <table class="table table-primary bg-light">
             <thead class="" style="background-color: black;">
             <tr>
                 <th scope="col" style="width: 4%">#</th>
@@ -62,9 +63,9 @@ $linhas = 0;
                 <th colspan="3" style="width: 10%" scope="col" class="text-center">Ações</th>
             </tr>
             </thead>
-            <tbody class="table table-striped">
+            <tbody class="table">
             <?php foreach ($modelos as $modelo): ?>
-                <tr>
+                <tr <?=  $calcula->corDaLinha($modelo); ?>>
                     <th scope="row"><?= $modelo->getId(); ?></th>
                     <td><?= $modelo->getModelo(); ?></td>
                     <td><?= $modelo->getProducao(); ?></td>

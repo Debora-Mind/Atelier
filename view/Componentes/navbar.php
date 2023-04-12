@@ -34,6 +34,11 @@
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link active" href="/config">
+                        <i class="bi bi-gear"></i>
+                        Configuração
+                    </a>
+                </li>                <li class="nav-item">
                     <a class="nav-link active" href="/login">
                         <i class="bi bi-box-arrow-right"></i>
                         Sair
