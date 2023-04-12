@@ -2,6 +2,7 @@
 
 namespace Dam\Atelier\Controller\Configuracao;
 
+use Dam\Atelier\Entity\Configuracao\ConfiguracaoGeral;
 use Dam\Atelier\Entity\Usuario\Permissoes;
 use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
@@ -12,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class ConfiguracaoGeral implements RequestHandlerInterface
+class ListarConfiguracoesGerais implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
     use VerificarPermissoesTrait;

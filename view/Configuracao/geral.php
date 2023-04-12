@@ -2,7 +2,7 @@
 include __DIR__ . '/../Componentes/inicio-html.php';
 include __DIR__ . '/../Componentes/navbar.php';
 ?>
-    <form action="/salvar-configuracoes<?= '?id=' . $usuario->getId() ?>" method="post">
+    <form action="/salvar-configuracoes" method="post">
         <div class="display-6">Configurações Gerais</div>
         <hr>
 
@@ -10,9 +10,9 @@ include __DIR__ . '/../Componentes/navbar.php';
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch"
                        id="<?= $configuracao->getId() ?>"
-                       name="permissao[]" value="<?= $configuracao->getId() ?>"
-                    <?= in_array($cofiguracao->getId(), $usuario->getPermissoes()) ? 'checked' : '' ?>>
-                <label class="form-check-label" for="<?= $configuracao->getId() ?>"><?= $configuracao->getNome() ?></label>
+                       value="<?= $configuracao->getId() ?>"
+                    <?= $configuracao->getAtivo() ? 'checked' : '' ?>>
+                <label class="form-check-label" for="<?= $configuracao->getId() ?>"><?= $configuracao->getDescricao() ?></label>
             </div>
         <?php endforeach ?>
 
