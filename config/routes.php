@@ -1,6 +1,7 @@
 <?php
 
-use Dam\Atelier\Controller\{IndexController,
+use Dam\Atelier\Controller\{Configuracao\ConfiguracaoGeral,
+    IndexController,
     Login\FormularioLogin,
     Login\RealizaLogin,
     Modelo\ExcluirModelo,
@@ -34,4 +35,5 @@ return [
     '/alterar-usuario' => FormularioEdicaoUsuario::class,
     '/alterar-permissoes' => FormularioPermissoes::class,
     '/salvar-permissoes' => PersistenciaPermissoes::class,
+    '/configuracoes' => ConfiguracaoGeral::class,
 ];
