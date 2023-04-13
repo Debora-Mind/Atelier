@@ -22,9 +22,9 @@ class PersistenciaPermissoes implements RequestHandlerInterface
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
-{
-    $this->entityManager = $entityManager;
-}
+    {
+        $this->entityManager = $entityManager;
+    }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {

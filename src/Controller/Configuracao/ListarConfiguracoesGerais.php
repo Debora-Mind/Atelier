@@ -21,17 +21,17 @@ class ListarConfiguracoesGerais implements RequestHandlerInterface
     private $configuracoes;
 
     public function __construct(EntityManagerInterface $entityManager)
-{
-    $this->configuracoes = $entityManager
-        ->getRepository(ConfiguracaoGeral::class);
-}
+    {
+        $this->configuracoes = $entityManager
+            ->getRepository(ConfiguracaoGeral::class);
+    }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
-{
-    $this->verificarPermissoes([12]);
-    $id = filter_var(
-        $request->getQueryParams()['id'],
-        FILTER_VALIDATE_INT
+    {
+        $this->verificarPermissoes([12]);
+        $id = filter_var(
+            $request->getQueryParams()['id'],
+            FILTER_VALIDATE_INT
     );
 
     $configuracoes = $this->configuracoes->findAll();

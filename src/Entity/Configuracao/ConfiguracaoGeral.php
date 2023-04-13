@@ -19,7 +19,7 @@ class ConfiguracaoGeral
     #[ORM\Column(type: "boolean")]
     private $ativo = false;
 
-    #[ORM\Column(type: "integer")]
+    #[ORM\Column(type: "integer", nullable: true)]
     private $numero = 0;
 
     public function getId(): ?int

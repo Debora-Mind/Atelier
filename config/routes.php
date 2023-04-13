@@ -1,6 +1,7 @@
 <?php
 
 use Dam\Atelier\Controller\{Configuracao\ListarConfiguracoesGerais,
+    Configuracao\SalvarConfiguracoes,
     IndexController,
     Login\FormularioLogin,
     Login\RealizaLogin,
@@ -36,4 +37,5 @@ return [
     '/alterar-permissoes' => FormularioPermissoes::class,
     '/salvar-permissoes' => PersistenciaPermissoes::class,
     '/configuracoes' => ListarConfiguracoesGerais::class,
+    '/salvar-configuracoes' => SalvarConfiguracoes::class,
 ];
