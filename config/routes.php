@@ -2,6 +2,9 @@
 
 use Dam\Atelier\Controller\{Configuracao\ListarConfiguracoesGerais,
     Configuracao\SalvarConfiguracoes,
+    Funcao\FormularioFuncao,
+    Funcao\ListarFuncoes,
+    Funcao\PersistirFuncao,
     IndexController,
     Login\FormularioLogin,
     Login\RealizaLogin,
@@ -38,4 +41,7 @@ return [
     '/salvar-permissoes' => PersistenciaPermissoes::class,
     '/configuracoes' => ListarConfiguracoesGerais::class,
     '/salvar-configuracoes' => SalvarConfiguracoes::class,
+    '/funcoes' => ListarFuncoes::class,
+    '/nova-funcao' => FormularioFuncao::class,
+    '/salvar-funcao' => PersistirFuncao::class,
 ];

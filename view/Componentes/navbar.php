@@ -13,7 +13,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/modelos">Modelos</a></li>
                         <li><a class="dropdown-item disabled" href="#">Funcionários</a></li>
-                        <li><a class="dropdown-item disabled" href="#">Funções</a></li>
+                        <li><a class="dropdown-item" href="/funcoes">Funções</a></li>
                         <li><a class="dropdown-item" href="/usuarios">Usuários</a></li>
                     </ul>
                 </li>

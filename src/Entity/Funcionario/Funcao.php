@@ -14,6 +14,12 @@ class Funcao implements \JsonSerializable
     #[Column]
     private string $descricao;
 
+    public function setId($id): Funcao
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function getId(): int
     {
         return $this->id;

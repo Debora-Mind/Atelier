@@ -155,9 +155,10 @@ class Modelo implements \JsonSerializable
 
     public function getDataSaida(bool $formatado = false): mixed
     {
-        if ($formatado === true){
-            $data = new \DateTime($this->data_saida);
-            return $data->format('Y-m-d\TH:i:s');
+        if ($formatado === true) {
+            $timestamp = strtotime(str_replace('/', '-', $this->data_saida));
+            $data_formatada = date('Y-m-d\TH:i:s', $timestamp);
+            return $data_formatada;
         }
         return $this->data_saida;
     }

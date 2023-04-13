@@ -43,6 +43,7 @@ class FormularioPermissoes implements RequestHandlerInterface
         'permissoes' => $permissoes,
         'usuario' => $usuario,
     ]);
+
     return new Response(200, [], $html);
 }
 }
