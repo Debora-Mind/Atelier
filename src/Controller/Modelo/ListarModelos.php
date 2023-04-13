@@ -144,6 +144,7 @@ class ListarModelos implements RequestHandlerInterface
     {
         return $this->renderizaHtml('Modelos/listar-modelos.php', [
             'modelos' => $modelos,
+            'entityManager' => $this->entityManager,
         ]);
     }
 }

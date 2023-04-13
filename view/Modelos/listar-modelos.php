@@ -65,7 +65,7 @@ $calcula = new \Dam\Atelier\Model\Funcoes\Calcular();
             </thead>
             <tbody class="table">
             <?php foreach ($modelos as $modelo): ?>
-                <tr <?=  $calcula->corDaLinha($modelo); ?>>
+                <tr <?=  $calcula->corDaLinha($modelo, $entityManager); ?>>
                     <th scope="row"><?= $modelo->getId(); ?></th>
                     <td><?= $modelo->getModelo(); ?></td>
                     <td><?= $modelo->getProducao(); ?></td>
