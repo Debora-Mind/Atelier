@@ -24,7 +24,7 @@ class Funcionario implements \JsonSerializable
     private string $matricula;
 
     #[ManyToOne(targetEntity: Funcao::class)]
-    #[JoinColumn(name: 'funcao_id', referencedColumnName: 'id')]
+    #[JoinColumn(name: 'funcao_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private Funcao $funcao;
 
     #[Column(type: 'float', nullable: true)]
