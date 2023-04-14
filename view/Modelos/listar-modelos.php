@@ -115,36 +115,33 @@ $paginacao = new Paginacao($modelos);
             </tbody>
             <tfoot class="text-start">
                 <td colspan="13" class="justify-content-between">
-                    <span class="mx-2 ms-3">
+                    <span class="float-start mx-2">
                         <strong>Total nesta página: </strong>
                         <?= number_format($paginacao->getTotalItensPagina(),0, ',', '.'); ?> registros
                     </span>
-                    <span class="mx-2">
+                    <span class="float-start mx-2">
                         <strong>Quantidade total nesta página: </strong>
                         <?= in_array(11, $_SESSION['permissoes'])
                             ? number_format($qtd,0, ',', '.')
                             : '*' ?>
                     </span>
-                    <span class="mx-2 me-5">
+                    <span class="float-start mx-2">
                         <strong>Valor total nesta página: </strong>
                         <?= number_format($paginacao->getValorTotalItensPagina(), 2, ',', '.'); ?>
                     </span>
-                    <span>
-                        <strong>|</strong>
+                    <span class="float-end mx-2">
+                        <strong>Valor Total: </strong>
+                        <?= in_array(11, $_SESSION['permissoes'])
+                            ? number_format($paginacao->getValorTotalItens(), 2, ',', '.')
+                            : '*' ?>
                     </span>
-                    <span class="mx-2 ms-5">
-                        <strong>Total: </strong>
-                        <?= number_format($paginacao->getTotalItens(),0, ',', '.'); ?> registros
-                    </span>
-                    <span class="mx-2">
+                    <span class="float-end mx-2">
                         <strong>Quantidade Total: </strong>
                         <?= number_format($paginacao->getQuantidadeTotal(),0, ',', '.'); ?>
                     </span>
-                    <span class="mx-2">
-                        <strong>Valor Total: </strong>
-                        <?= in_array(11, $_SESSION['permissoes'])
-                        ? number_format($paginacao->getValorTotalItens(), 2, ',', '.')
-                        : '*' ?>
+                    <span class="float-end mx-2">
+                        <strong>Total: </strong>
+                        <?= number_format($paginacao->getTotalItens(),0, ',', '.'); ?> registros
                     </span>
                 </td>
             </tfoot>

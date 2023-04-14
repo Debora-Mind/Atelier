@@ -35,7 +35,7 @@ $paginacao = new Paginacao($funcoes);
             <tr>
                 <th scope="col" style="width: 4%">#</th>
                 <th scope="col">Função</th>
-                <th colspan="3" style="width: 8%" scope="col" class="text-center">Ações</th>
+                <th colspan="2" style="width: 8%" scope="col" class="text-center">Ações</th>
             </tr>
             </thead>
             <tbody class="table table-striped">
@@ -43,23 +43,16 @@ $paginacao = new Paginacao($funcoes);
                 <tr>
                     <th scope="row"><?= $funcao->getId(); ?></th>
                     <td><?= $funcao->getDescricao(); ?></td>
-                    <td class="text-right px-0">
+                    <td class="text-center px-0">
                         <button style="border: none; padding: 0;">
-                            <a title="Permissões" href="/alterar-permissoes?id=<?= $funcao->getId(); ?>">
-                                <i class="bi bi-list-check" style="color: black;"></i>
-                            </a>
-                        </button>
-                    </td>
-                    <td class="text-right px-0">
-                        <button style="border: none; padding: 0;">
-                            <a title="Editar" href="/alterar-usuario?id=<?= $funcao->getId(); ?>">
+                            <a title="Editar" href="/alterar-funcao?id=<?= $funcao->getId(); ?>">
                                 <i class="bi bi-pencil-square" style="color: black;"></i>
                             </a>
                         </button>
                     </td>
-                    <td class="text-right px-0">
+                    <td class="text-center px-0">
                         <button title="Excluir?"
-                                onclick="excluir('usuario',
+                                onclick="excluir('funcao',
                                     '<?= $funcao->getDescricao() ?>',
                                     '<?= $funcao->getId(); ?>')"
                                 style="border: none; padding: 0;">
