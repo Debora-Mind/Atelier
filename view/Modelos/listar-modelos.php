@@ -1,10 +1,14 @@
 <?php
+
+use Dam\Atelier\Model\Funcoes\Calcular;
+use Dam\Atelier\Model\Funcoes\Paginacao;
+
 include __DIR__ . '/../Componentes/inicio-html.php';
 include __DIR__ . '/../Componentes/navbar.php';
-$valor = 0;
+
 $qtd = 0;
-$linhas = 0;
-$calcula = new \Dam\Atelier\Model\Funcoes\Calcular();
+$calcula = new Calcular();
+$paginacao = new Paginacao($modelos);
 ?>
 <div class="">
     <div class="d-flex align-items-center align-items-stretch busca">
@@ -21,9 +25,6 @@ $calcula = new \Dam\Atelier\Model\Funcoes\Calcular();
                    placeholder="Semana"
                    style="height: 82%;width: 5rem"
             class="ms-2">
-            <button class="btn btn-info text-light mb-2 ms-2" type="submit">
-                <i class="bi bi-search"></i> Buscar
-            </button>
             <select type="button" name="filtro-saida" id="filtro-saida"
                     class="btn btn-toolbar btn-info text-light ms-2 mb-2">
                 <option value="1" selected class="dropdown-item bg-white text-start">
@@ -36,6 +37,9 @@ $calcula = new \Dam\Atelier\Model\Funcoes\Calcular();
                     Sem saída
                 </option>
             </select>
+            <button class="btn btn-info text-light mb-2 ms-2" type="submit">
+                <i class="bi bi-search"></i> Buscar
+            </button>
         </form>
         <div id="menssagem-listar-modelos" class="flex-fill">
             <?php include __DIR__ . '/../Componentes/mensagens.php';?>
@@ -64,7 +68,7 @@ $calcula = new \Dam\Atelier\Model\Funcoes\Calcular();
             </tr>
             </thead>
             <tbody class="table">
-            <?php foreach ($modelos as $modelo): ?>
+            <?php foreach ($paginacao->paginate()['itens'] as $modelo): ?>
                 <tr <?=  $calcula->corDaLinha($modelo, $entityManager); ?>>
                     <th scope="row"><?= $modelo->getId(); ?></th>
                     <td><?= $modelo->getModelo(); ?></td>
@@ -89,46 +93,80 @@ $calcula = new \Dam\Atelier\Model\Funcoes\Calcular();
                         </button>
                     </td>
                     <td class="text-center px-0">
-                        <a title="Editar" href="/alterar-modelo?id=<?= $modelo->getId(); ?>">
-                            <i class="bi bi-pencil-square" style="color: black;"></i>
-                        </a>
+                        <button style="border: none; padding: 0;">
+                            <a title="Editar" href="/alterar-modelo?id=<?= $modelo->getId(); ?>">
+                                <i class="bi bi-pencil-square" style="color: black;"></i>
+                            </a>
+                        </button>
                     </td>
                     <td class="text-center px-0">
                         <button title="Excluir?"
                                 onclick="excluir('modelo', '<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
-                                style="border: none; padding: 0;">
+                                style="border: none; padding: 0;"
+                                class="mx-2">
                             <i class="bi bi-trash3-fill" style="color: black;"></i>
                         </button>
                     </td>
                 </tr>
             <?php
-                $valor += (in_array(11, $_SESSION['permissoes'])) ?
-                    ($modelo->getValor() * $modelo->getQuantidade()) : 0;
                 $qtd += $modelo->getQuantidade();
-                $linhas += 1;
             ?>
             <?php endforeach; ?>
-            <tfoot class="text-start">
-            <tr>
-                <td></td>
-                <td colspan="3">
-                    <strong>Total: </strong>
-                    <?= number_format($linhas,0, ',', '.'); ?> registros
-                </td>
-                <td colspan="3">
-                    <strong>Quantidade Total: </strong>
-                    <?= number_format($qtd,0, ',', '.'); ?>
-                </td>
-                <td></td>
-                <td colspan="4" class="text-end">
-                    <strong>Valor Total: </strong>
-                    <?= number_format($valor, 2, ',', '.'); ?>
-                </td>
-                <td></td>
-            </tr>
-            </tfoot>
             </tbody>
+            <tfoot class="text-start">
+                <td colspan="13" class="justify-content-between">
+                    <span class="mx-2 ms-3">
+                        <strong>Total nesta página: </strong>
+                        <?= number_format($paginacao->getTotalItensPagina(),0, ',', '.'); ?> registros
+                    </span>
+                    <span class="mx-2">
+                        <strong>Quantidade total nesta página: </strong>
+                        <?= in_array(11, $_SESSION['permissoes'])
+                            ? number_format($qtd,0, ',', '.')
+                            : '*' ?>
+                    </span>
+                    <span class="mx-2 me-5">
+                        <strong>Valor total nesta página: </strong>
+                        <?= number_format($paginacao->getValorTotalItensPagina(), 2, ',', '.'); ?>
+                    </span>
+                    <span>
+                        <strong>|</strong>
+                    </span>
+                    <span class="mx-2 ms-5">
+                        <strong>Total: </strong>
+                        <?= number_format($paginacao->getTotalItens(),0, ',', '.'); ?> registros
+                    </span>
+                    <span class="mx-2">
+                        <strong>Quantidade Total: </strong>
+                        <?= number_format($paginacao->getQuantidadeTotal(),0, ',', '.'); ?>
+                    </span>
+                    <span class="mx-2">
+                        <strong>Valor Total: </strong>
+                        <?= in_array(11, $_SESSION['permissoes'])
+                        ? number_format($paginacao->getValorTotalItens(), 2, ',', '.')
+                        : '*' ?>
+                    </span>
+                </td>
+            </tfoot>
         </table>
+        <nav class="position-sticky">
+            <ul class="pagination justify-content-center">
+                <?php if ($paginacao->paginate()['paginaAtual'] > 1): ?>
+                    <li class="page-item"><a class="page-link text-info border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']-1); ?>">Anterior</a></li>
+                <?php endif; ?>
+                <?php for($i=1;$i<=$paginacao->paginate()['totalPaginas'];$i++): ?>
+                    <li class="page-item <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'active' : ''; ?>">
+                        <a class="page-link bg-info border-secondary
+                        <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'text-light' : 'text-secondary'; ?>"
+                           href="?pagina=<?= $i; ?>"><?= $i; ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <?php if ($paginacao->paginate()['paginaAtual'] < $paginacao->paginate()['totalPaginas']): ?>
+                    <li class="page-item"><a class="page-link text-info border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']+1); ?>">Próximo</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
     </div>
 </div>
 

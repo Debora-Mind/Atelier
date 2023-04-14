@@ -1,7 +1,11 @@
 <?php
+
+use Dam\Atelier\Model\Funcoes\Paginacao;
+
 include __DIR__ . '/../Componentes/inicio-html.php';
 include __DIR__ . '/../Componentes/navbar.php';
-$linhas = 0;
+
+$paginacao = new Paginacao($funcoes);
 ?>
 
     <div class="d-flex align-items-center align-items-stretch">
@@ -40,14 +44,18 @@ $linhas = 0;
                     <th scope="row"><?= $funcao->getId(); ?></th>
                     <td><?= $funcao->getDescricao(); ?></td>
                     <td class="text-right px-0">
-                        <a title="Permissões" href="/alterar-permissoes?id=<?= $funcao->getId(); ?>">
-                            <i class="bi bi-list-check" style="color: black;"></i>
-                        </a>
+                        <button style="border: none; padding: 0;">
+                            <a title="Permissões" href="/alterar-permissoes?id=<?= $funcao->getId(); ?>">
+                                <i class="bi bi-list-check" style="color: black;"></i>
+                            </a>
+                        </button>
                     </td>
                     <td class="text-right px-0">
-                        <a title="Editar" href="/alterar-usuario?id=<?= $funcao->getId(); ?>">
-                            <i class="bi bi-pencil-square" style="color: black;"></i>
-                        </a>
+                        <button style="border: none; padding: 0;">
+                            <a title="Editar" href="/alterar-usuario?id=<?= $funcao->getId(); ?>">
+                                <i class="bi bi-pencil-square" style="color: black;"></i>
+                            </a>
+                        </button>
                     </td>
                     <td class="text-right px-0">
                         <button title="Excluir?"
@@ -59,19 +67,42 @@ $linhas = 0;
                         </button>
                     </td>
                 </tr>
-                <?php $linhas += 1; ?>
             <?php endforeach; ?>
             </tbody>
             <tfoot>
-            <tr>
-                <td></td>
-                <td colspan="5">
-                    <strong>Total: </strong>
-                    <?= number_format($linhas,0, ',', '.'); ?> registros
-                </td>
-            </tr>
+            <td colspan="6" class="">
+                <div class="d-inline-block mx-2">
+                    <strong>Total nesta página: </strong>
+                    <?= number_format($paginacao->getTotalItensPagina(),0, ',', '.'); ?>
+                    registros
+                </div>
+                <span><span>
+                    <div class="d-inline-flex float-end mx-2">
+                        <strong>Total: </strong>
+                        <?= number_format($paginacao->getTotalItens(),0, ',', '.'); ?>
+                        registros
+                    </div>
+            </td>
             </tfoot>
         </table>
+        <nav class="position-sticky">
+            <ul class="pagination justify-content-center">
+                <?php if ($paginacao->paginate()['paginaAtual'] > 1): ?>
+                    <li class="page-item"><a class="page-link text-info border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']-1); ?>">Anterior</a></li>
+                <?php endif; ?>
+                <?php for($i=1;$i<=$paginacao->paginate()['totalPaginas'];$i++): ?>
+                    <li class="page-item <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'active' : ''; ?>">
+                        <a class="page-link bg-info border-secondary
+                        <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'text-light' : 'text-secondary'; ?>"
+                           href="?pagina=<?= $i; ?>"><?= $i; ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <?php if ($paginacao->paginate()['paginaAtual'] < $paginacao->paginate()['totalPaginas']): ?>
+                    <li class="page-item"><a class="page-link text-info border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']+1); ?>">Próximo</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
     </div>
 
 <?php include __DIR__ . '/../Componentes/fim-html.php';
