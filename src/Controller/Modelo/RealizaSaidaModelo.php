@@ -32,14 +32,30 @@ class RealizaSaidaModelo implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $this->verificarPermissoes([6, 10]);
-        $id = filter_var(
-            $request->getQueryParams()['id'] ?? false,
-            FILTER_VALIDATE_INT
-        );
+        $this->verificarPermissoes([10]);
+        $modalSaida = $cod_barras = filter_var(
+            $request->getParsedBody()['codigo-barras-saida'],
+            FILTER_SANITIZE_NUMBER_INT
+        ) ?? null;
 
-        $modelo = $this->repositorioDeModelos->findOneBy(['id' => $id]);
-        $modelo->setDataSaida();
+        if ($modalSaida) {
+            $modelo = $this->repositorioDeModelos->findOneBy(['cod_barras' => $modalSaida]);
+            $_SESSION['modelo'] = $modelo->getModelo();
+            $_SESSION['quantidade'] = $modelo->getQuantidade();
+            $_SESSION['semana'] = $modelo->getSemana();
+            $_SESSION['entrada'] = $modelo->getDataEntrada()->format('d/m/Y');
+            $modelo->setDataSaida();
+            $_SESSION['saida'] = $modelo->getDataSaida();
+            $redireciona = '/formulario-saida';
+        } else {
+            $id = filter_var(
+                $request->getQueryParams()['id'] ?? false,
+                FILTER_VALIDATE_INT
+            );
+            $modelo = $this->repositorioDeModelos->findOneBy(['id' => $id]);
+            $modelo->setDataSaida();
+            $redireciona = '/modelos';
+        }
 
         $tipo = 'success';
 
@@ -47,6 +63,6 @@ class RealizaSaidaModelo implements RequestHandlerInterface
         $this->defineMensagem($tipo, 'Saída realizada com sucesso');
         $this->entityManager->flush();
 
-        return new Response(302, ['Location' => '/modelos']);
+        return new Response(302, ['Location' => $redireciona]);
     }
 }

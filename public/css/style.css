@@ -89,5 +89,13 @@
 
 .table td, .table th {
 
+    font-size: 0.8rem;
+}
+
+.btn {
+    font-size: 0.9rem;
+}
+
+.pagination {
     font-size: 0.9rem;
 }

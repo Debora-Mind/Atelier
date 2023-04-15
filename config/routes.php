@@ -2,6 +2,7 @@
 
 use Dam\Atelier\Controller\{Configuracao\ListarConfiguracoesGerais,
     Configuracao\SalvarConfiguracoes,
+    DarSaida\DarSaida,
     Funcao\ExcluirFuncao,
     Funcao\FormularioEdicaoFuncao,
     Funcao\FormularioFuncao,
@@ -48,4 +49,5 @@ return [
     '/alterar-funcao' => FormularioEdicaoFuncao::class,
     '/salvar-funcao' => PersistirFuncao::class,
     '/excluir-funcao' => ExcluirFuncao::class,
+    '/formulario-saida' => DarSaida::class,
 ];
