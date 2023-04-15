@@ -26,7 +26,7 @@ $paginacao = new Paginacao($modelos);
                    style="height: 82%;width: 5rem"
             class="ms-2">
             <select type="button" name="filtro-saida" id="filtro-saida"
-                    class="btn btn-toolbar btn-info text-light ms-2 mb-2">
+                    class="btn btn-toolbar btn-primary text-light ms-2 mb-2">
                 <option value="1" selected class="dropdown-item bg-white text-start">
                     Todos
                 </option>
@@ -37,7 +37,7 @@ $paginacao = new Paginacao($modelos);
                     Sem saída
                 </option>
             </select>
-            <button class="btn btn-info text-light mb-2 ms-2" type="submit">
+            <button class="btn btn-primary text-light mb-2 ms-2" type="submit">
                 <i class="bi bi-search"></i> Buscar
             </button>
         </form>
@@ -45,13 +45,13 @@ $paginacao = new Paginacao($modelos);
             <?php include __DIR__ . '/../Componentes/mensagens.php';?>
         </div>
         <div>
-            <a type="button" href="/novo-modelo" class="btn btn-info text-light mb-2">
+            <a type="button" href="/novo-modelo" class="btn btn-primary text-light mb-2">
                 <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
             </a>
         </div>
     </div>
-    <div class="list-group">
-        <table class="table table-primary bg-light">
+    <div class="">
+        <table class="table table-primary">
             <thead class="" style="background-color: black;">
             <tr>
                 <th scope="col" style="width: 4%">#</th>
@@ -149,18 +149,18 @@ $paginacao = new Paginacao($modelos);
         <nav class="position-sticky">
             <ul class="pagination justify-content-center">
                 <?php if ($paginacao->paginate()['paginaAtual'] > 1): ?>
-                    <li class="page-item"><a class="page-link text-info border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']-1); ?>">Anterior</a></li>
+                    <li class="page-item"><a class="page-link text-primary border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']-1); ?>">Anterior</a></li>
                 <?php endif; ?>
                 <?php for($i=1;$i<=$paginacao->paginate()['totalPaginas'];$i++): ?>
                     <li class="page-item <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'active' : ''; ?>">
-                        <a class="page-link bg-info border-secondary
+                        <a class="page-link bg-primary border-secondary
                         <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'text-light' : 'text-secondary'; ?>"
                            href="?pagina=<?= $i; ?>"><?= $i; ?></a>
                     </li>
                 <?php endfor; ?>
 
                 <?php if ($paginacao->paginate()['paginaAtual'] < $paginacao->paginate()['totalPaginas']): ?>
-                    <li class="page-item"><a class="page-link text-info border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']+1); ?>">Próximo</a></li>
+                    <li class="page-item"><a class="page-link text-primary border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']+1); ?>">Próximo</a></li>
                 <?php endif; ?>
             </ul>
         </nav>

@@ -14,7 +14,7 @@ include __DIR__ . '/../Componentes/navbar.php';
                        autofocus
                        class="my-3 input-group-lg">
                 <div class="m-3">
-                    <button class="btn btn-lg btn-info">Confirmar</button>
+                    <button class="btn btn-lg btn-primary">Confirmar</button>
                 </div>
             </div>
         </form>

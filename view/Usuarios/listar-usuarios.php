@@ -16,7 +16,7 @@ $paginacao = new Paginacao($usuarios);
                    placeholder="Usuário"
                    autofocus
                    style="height: 82%">
-            <button class="btn btn-info text-light mb-2 ms-2" type="submit">
+            <button class="btn btn-primary text-light mb-2 ms-2" type="submit">
                 <i class="bi bi-search"></i> Buscar
             </button>
         </form>
@@ -24,7 +24,7 @@ $paginacao = new Paginacao($usuarios);
             <?php include __DIR__ . '/../Componentes/mensagens.php';?>
         </div>
         <div>
-            <a type="button" href="/novo-usuario" class="btn btn-info text-light mb-2">
+            <a type="button" href="/novo-usuario" class="btn btn-primary text-light mb-2">
                 <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
             </a>
         </div>
@@ -90,18 +90,18 @@ $paginacao = new Paginacao($usuarios);
         <nav class="position-sticky">
             <ul class="pagination justify-content-center">
                 <?php if ($paginacao->paginate()['paginaAtual'] > 1): ?>
-                    <li class="page-item"><a class="page-link text-info border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']-1); ?>">Anterior</a></li>
+                    <li class="page-item"><a class="page-link text-primary border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']-1); ?>">Anterior</a></li>
                 <?php endif; ?>
                 <?php for($i=1;$i<=$paginacao->paginate()['totalPaginas'];$i++): ?>
                     <li class="page-item <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'active' : ''; ?>">
-                        <a class="page-link bg-info border-secondary
+                        <a class="page-link bg-primary border-secondary
                         <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'text-light' : 'text-secondary'; ?>"
                            href="?pagina=<?= $i; ?>"><?= $i; ?></a>
                     </li>
                 <?php endfor; ?>
 
                 <?php if ($paginacao->paginate()['paginaAtual'] < $paginacao->paginate()['totalPaginas']): ?>
-                    <li class="page-item"><a class="page-link text-info border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']+1); ?>">Próximo</a></li>
+                    <li class="page-item"><a class="page-link text-primary border-secondary" href="?pagina=<?= ($paginacao->paginate()['paginaAtual']+1); ?>">Próximo</a></li>
                 <?php endif; ?>
             </ul>
         </nav>

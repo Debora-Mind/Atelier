@@ -1,72 +1,59 @@
 /* CSS personalizado */
 :root {
     --primary: #007bff;
-    --secondary: #6c757d;
-    --success: #28a745;
-    --info: #17a2b8;
+    --secondary: rgba(138, 43, 226, 0.5);
+    --success: #17962f;
+    --info: #339ade;
     --warning: #ffc107;
-    --danger: #dc3545;
+    --danger: #ff1e1e;
     --light: #f8f9fa;
     --dark: #343a40;
     --white: #ffffff;
-
-    --bs-gray: #6c757d;
-
-    --btn-primary-bg: var(--primary);
-    --btn-primary-border-color: var(--primary);
-    --btn-secondary-bg: var(--secondary);
-    --btn-secondary-border-color: var(--secondary);
-    --btn-success-bg: var(--success);
-    --btn-success-border-color: var(--success);
-    --btn-info-bg: var(--info);
-    --btn-info-border-color: var(--info);
-    --btn-warning-bg: var(--warning);
-    --btn-warning-border-color: var(--warning);
-    --btn-danger-bg: var(--danger);
-    --btn-danger-border-color: var(--danger);
-    --btn-light-bg: var(--light);
-    --btn-light-border-color: var(--light);
-    --btn-dark-bg: var(--dark);
-    --btn-dark-border-color: var(--dark);
-
-    --table-primary-bg: var(--primary);
-    --table-primary-border: var(--primary);
-    --table-secondary-bg: var(--secondary);
-    --table-secondary-border: var(--secondary);
-    --table-success-bg: var(--success);
-    --table-success-border: var(--success);
-    --table-info-bg: var(--info);
-    --table-info-border: var(--info);
-    --table-warning-bg: var(--warning);
-    --table-warning-border: var(--warning);
-    --table-danger-bg: var(--danger);
-    --table-danger-border: var(--danger);
-    --table-light-bg: var(--light);
-    --table-light-border: var(--light);
-    --table-dark-bg: var(--dark);
-    --table-dark-border: var(--dark);
-
-    --form-group-border-color: #ced4da;
-    --form-control-focus-border-color: #86b7fe;
-    --form-control-border-radius: 0.25rem;
-    --form-control-border-color: #ced4da;
-    --form-control-bg: #fff;
-    --form-control-color: #495057;
-
-    --input-group-addon-bg: #e9ecef;
-    --input-group-addon-border-color: #ced4da;
-
-    --badge-pill-border-radius: 10rem;
-
-    --nav-pills-border-radius: 0.25rem;
-    --nav-pills-active-color: #fff;
-    --nav-pills-active-bg: var(--primary);
-
-    --alert-border-radius: 0.25rem;
-
-    --progress-bg: var(--primary);
+    --table: #8cc9d7;
+    --table-sucess: rgb(166, 255, 160);
+    --table-warning: rgb(244, 255, 146);
+    --table-danger: rgb(255, 113, 113);
 }
 
+.bg-light {
+    background-color: var(--light);
+}
+.bg-primary {
+    background-color: var(--primary);
+}
+.text-primary {
+    color: var(--primary);
+}
+.text-secondary {
+    color: var(--secondary);
+}
+.btn-primary {
+    background-color: var(--primary);
+}
+.btn-primary:hover {
+    background-color: var(--info);
+}
+.btn-success {
+    background-color: var(--success);
+}
+.btn-danger {
+    background-color: var(--danger);
+}
+.table thead * {
+    background-color: var(--table);
+}
+.table tfoot * {
+    background-color: var(--table);
+}
+tr.table-success *{
+    background-color: var(--table-sucess);
+}
+tr.table-warning * {
+    background: var(--table-warning);
+}
+tr.table-danger * {
+    background: var(--table-danger);
+}
 
 #logo {
     background-image: url("../img/logo.png");
