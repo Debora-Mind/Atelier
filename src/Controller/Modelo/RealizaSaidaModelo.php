@@ -39,7 +39,7 @@ class RealizaSaidaModelo implements RequestHandlerInterface
         ) ?? null;
 
         if ($modalSaida) {
-            $modelo = $this->repositorioDeModelos->findOneBy(['cod_barras' => $modalSaida]);
+            $modelo = $this->verificaExistencia($modalSaida);
             $_SESSION['modelo'] = $modelo->getModelo();
             $_SESSION['quantidade'] = $modelo->getQuantidade();
             $_SESSION['semana'] = $modelo->getSemana();
@@ -64,5 +64,16 @@ class RealizaSaidaModelo implements RequestHandlerInterface
         $this->entityManager->flush();
 
         return new Response(302, ['Location' => $redireciona]);
+    }
+
+    private function verificaExistencia($modalSaida)
+    {
+        if ($this->repositorioDeModelos->findOneBy(['cod_barras' => $modalSaida]) !== null) {
+            return $this->repositorioDeModelos->findOneBy(['cod_barras' => $modalSaida]);
+        }
+        $tipo = 'danger';
+        $this->defineMensagem($tipo, 'Código de barras não localizado');
+        header('Location: /formulario-saida');
+        exit();
     }
 }

@@ -8,6 +8,7 @@
                 <label for="usuario">Usuário</label>
                 <input type="text"
                        autofocus
+                       required
                        id="usuario"
                        name="usuario"
                        class="form-control"
@@ -19,7 +20,8 @@
                     <input type="password"
                            id="senha"
                            name="senha"
-                           class="form-control">
+                           class="form-control"
+                           required>
                 </div>
             </div>
             <div class="col col-md-auto">
@@ -27,7 +29,8 @@
                 <input type="password"
                        id="senha-repitida"
                        name="senha-repitida"
-                       class="form-control">
+                       class="form-control"
+                       required>
             </div>
             <div class="col col-md-auto">
                 <label for="funcionario">Funcionário</label>

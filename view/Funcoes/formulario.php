@@ -11,6 +11,7 @@
                        id="funcao"
                        name="funcao"
                        class="form-control"
+                       required
                        value="<?= ($_SESSION['usuario']) ?? (isset($funcao) ? $funcao->getDescricao() : ''); ?>">
             </div>
         </div>

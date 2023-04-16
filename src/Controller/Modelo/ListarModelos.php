@@ -103,6 +103,7 @@ class ListarModelos implements RequestHandlerInterface
 
     private function ordenarLista($array): array
     {
+
         usort($array, function ($a, $b) {
             $aDate = $a->getDataEntrada();
             $bDate = $b->getDataEntrada();

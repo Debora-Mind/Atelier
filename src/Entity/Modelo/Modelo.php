@@ -165,6 +165,7 @@ class Modelo implements \JsonSerializable
 
     public function setDataSaida(): Modelo
     {
+        date_default_timezone_set('America/Sao_Paulo');
         $data = new \DateTime();
         $this->data_saida = $data->format('d/m/Y H:i');
         return $this;

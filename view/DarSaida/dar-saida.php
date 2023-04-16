@@ -1,17 +1,22 @@
 <?php
 include __DIR__ . '/../Componentes/inicio-html.php';
 include __DIR__ . '/../Componentes/navbar.php';
-?>
+ ?>
+
+<div class="position-absolute w-auto">
+    <?php include __DIR__ . '/../Componentes/mensagens.php' ?>
+</div>
 <div class="container-xl mt-5 bg-dark w-100 py-3 float-start">
     <div class="float-start w-50 d-inline pe-2">
         <form action="/dar-saida" class="form-control" method="post">
             <div class="text-center">
                 <div class="my-3 display-5">Dar saída:</div>
-                <input type="text"
+                <input type="number"
                        name="codigo-barras-saida"
                        id="codigo-barras-saida"
                        placeholder="Código de barras"
                        autofocus
+                       required
                        class="my-3 input-group-lg">
                 <div class="m-3">
                     <button class="btn btn-lg btn-primary">Confirmar</button>

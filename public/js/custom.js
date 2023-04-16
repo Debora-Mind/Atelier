@@ -62,3 +62,20 @@ function paginate(items, currentPage, itemsPerPage) {
     return items.slice(startIndex, endIndex);
 }
 
+function exibirMensagem() {
+    const mensagemDiv = document.querySelector('.alert');
+
+    const removerMensagem = () => {
+        mensagemDiv.style.display = 'none';
+    }
+
+    mensagemDiv.style.position = 'fixed';
+    mensagemDiv.style.top = '0';
+    mensagemDiv.style.right = '0';
+
+    setTimeout(removerMensagem, 5000);
+}
+
+exibirMensagem();
+
+

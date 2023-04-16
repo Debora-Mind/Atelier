@@ -8,6 +8,7 @@
                 <label for="modelo">Modelo</label>
                 <input type="text"
                        autofocus
+                       required
                        id="modelo"
                        name="modelo"
                        class="form-control"
@@ -51,6 +52,7 @@
                 <input type="number"
                        id="semana"
                        name="semana"
+                       required
                        class="form-control"
                        value="<?= isset($modelo) ? $modelo->getValor() : ''; ?>">
             </div>
@@ -60,6 +62,7 @@
                        id="cod-barras"
                        name="cod-barras"
                        class="form-control"
+                       required
                        value="<?= isset($modelo) ? $modelo->getCodBarras() : ''; ?>">
             </div>
             <div class="col col-md-3 mx-5">
@@ -69,6 +72,7 @@
                        id="data-entrada"
                        name="data-entrada"
                        class="form-control"
+                       required
                        value="<?= isset($modelo) ?
                            $modelo->getDataEntrada()->format('Y-m-d') :
                            $dataAtual->format('Y-m-d') ?>"
