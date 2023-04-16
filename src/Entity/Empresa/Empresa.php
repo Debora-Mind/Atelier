@@ -1,15 +1,12 @@
 <?php
 
-namespace Dam\Atelier\Entity\Configuracao;
+namespace Dam\Atelier\Entity\Empresa;
 
-use Dam\Atelier\Entity\Empresa\Empresa;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\ManyToOne;
 
 #[ORM\Entity]
-#[ORM\Table(name: "configuracoes")]
-class ConfiguracaoGeral
+#[ORM\Table(name: "empresa")]
+class Empresa
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "AUTO")]
@@ -23,11 +20,10 @@ class ConfiguracaoGeral
     private $ativo = false;
 
     #[ORM\Column(type: "integer", nullable: true)]
-    private $numero = 0;
+    private $tema = 1;
 
-    #[ManyToOne(targetEntity: Empresa::class)]
-    #[JoinColumn(name: 'empresa_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    private Empresa $empresa;
+    #[ORM\Column(type: "blob", nullable: true)]
+    private $logo;
 
     public function getId(): ?int
     {
@@ -69,14 +65,25 @@ class ConfiguracaoGeral
         return $this;
     }
 
-    public function getEmpresa(): Empresa
+    public function getTema(): int
     {
-        return $this->empresa;
+        return $this->tema;
     }
 
-    public function setEmpresa(Empresa $empresa): ConfiguracaoGeral
+    public function setTema(int $tema): Empresa
     {
-        $this->empresa = $empresa;
+        $this->tema = $tema;
+        return $this;
+    }
+
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
         return $this;
     }
 }

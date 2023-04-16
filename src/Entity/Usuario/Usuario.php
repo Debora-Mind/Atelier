@@ -2,6 +2,7 @@
 
 namespace Dam\Atelier\Entity\Usuario;
 
+use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Funcionario\Funcionario;
 use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, JoinColumn, ManyToOne, Table};
 
@@ -24,6 +25,10 @@ class Usuario
 
     #[Column(type: 'json', nullable: true)]
     private $permissoes = [];
+
+    #[ManyToOne(targetEntity: Empresa::class)]
+    #[JoinColumn(name: 'empresa_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private Empresa $empresa;
 
     public function getId(): int
     {
@@ -95,6 +100,17 @@ class Usuario
     public function removePermissoes()
     {
         $this->permissoes = [];
+    }
+
+    public function getEmpresa(): Empresa
+    {
+        return $this->empresa;
+    }
+
+    public function setEmpresa(Empresa $empresa): Usuario
+    {
+        $this->empresa = $empresa;
+        return $this;
     }
 
 }

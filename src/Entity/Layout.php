@@ -2,7 +2,8 @@
 
 namespace Dam\Atelier\Entity;
 
-use Doctrine\ORM\Mapping\{Entity, OneToOne, Table, Id, Column, GeneratedValue};
+use Dam\Atelier\Entity\Empresa\Empresa;
+use Doctrine\ORM\Mapping\{Entity, JoinColumn, ManyToOne, OneToOne, Table, Id, Column, GeneratedValue};
 
 #[Entity]
 #[Table(name: "layout")]
@@ -18,6 +19,10 @@ class Layout implements \JsonSerializable
 
     #[OneToOne(mappedBy: 'layout', targetEntity: Relacao::class)]
     private Relacao $relacao;
+
+    #[ManyToOne(targetEntity: Empresa::class)]
+    #[JoinColumn(name: 'empresa_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private Empresa $empresa;
 
     public function __construct()
     {
@@ -48,6 +53,17 @@ class Layout implements \JsonSerializable
     public function addRelacao($relacao)
     {
         $this->relacao->addRelacao($relacao);
+    }
+
+    public function getEmpresa(): Empresa
+    {
+        return $this->empresa;
+    }
+
+    public function setEmpresa(Empresa $empresa): self
+    {
+        $this->empresa = $empresa;
+        return $this;
     }
 
     public function jsonSerialize()

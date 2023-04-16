@@ -2,7 +2,8 @@
 
 namespace Dam\Atelier\Entity\Funcionario;
 
-use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, Table};
+use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, JoinColumn, ManyToOne, Table};
+use Dam\Atelier\Entity\Empresa\Empresa;
 
 #[Entity]
 #[Table(name: "funcao")]
@@ -13,6 +14,10 @@ class Funcao implements \JsonSerializable
 
     #[Column]
     private string $descricao;
+
+    #[ManyToOne(targetEntity: Empresa::class)]
+    #[JoinColumn(name: 'empresa_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private Empresa $empresa;
 
     public function setId($id): Funcao
     {
@@ -33,6 +38,17 @@ class Funcao implements \JsonSerializable
     public function setDescricao(string $descricao): Funcao
     {
         $this->descricao = $descricao;
+        return $this;
+    }
+
+    public function getEmpresa(): Empresa
+    {
+        return $this->empresa;
+    }
+
+    public function setEmpresa(Empresa $empresa): Funcao
+    {
+        $this->empresa = $empresa;
         return $this;
     }
 

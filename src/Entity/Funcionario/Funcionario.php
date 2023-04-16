@@ -3,6 +3,7 @@
 namespace Dam\Atelier\Entity\Funcionario;
 
 use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, JoinColumn, ManyToOne, OneToOne, Table};
+use Dam\Atelier\Entity\Empresa\Empresa;
 
 #[Entity]
 #[Table(name: "funcionario")]
@@ -23,9 +24,9 @@ class Funcionario implements \JsonSerializable
     #[Column(nullable: true)]
     private string $matricula;
 
-    #[ManyToOne(targetEntity: Funcao::class)]
-    #[JoinColumn(name: 'funcao_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    private Funcao $funcao;
+    #[ManyToOne(targetEntity: Empresa::class)]
+    #[JoinColumn(name: 'empresa_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private Empresa $empresa;
 
     #[Column(type: 'float', nullable: true)]
     private float $valor_hora;
@@ -116,6 +117,17 @@ class Funcionario implements \JsonSerializable
     public function setValorHora(?float $valor_hora): self
     {
         $this->valor_hora = $valor_hora;
+        return $this;
+    }
+
+    public function getEmpresa(): Empresa
+    {
+        return $this->empresa;
+    }
+
+    public function setEmpresa(Empresa $empresa): self
+    {
+        $this->empresa = $empresa;
         return $this;
     }
 

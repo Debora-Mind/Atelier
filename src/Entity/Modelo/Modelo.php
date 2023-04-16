@@ -2,7 +2,8 @@
 
 namespace Dam\Atelier\Entity\Modelo;
 
-use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, Table};
+use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, JoinColumn, ManyToOne, Table};
+use Dam\Atelier\Entity\Empresa\Empresa;
 
 #[Entity]
 #[Table(name: "modelo")]
@@ -37,6 +38,10 @@ class Modelo implements \JsonSerializable
 
     #[Column(nullable: true)]
     private ? string $data_saida;
+
+    #[ManyToOne(targetEntity: Empresa::class)]
+    #[JoinColumn(name: 'empresa_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private Empresa $empresa;
 
     public function getId(): int
     {
@@ -168,6 +173,17 @@ class Modelo implements \JsonSerializable
         date_default_timezone_set('America/Sao_Paulo');
         $data = new \DateTime();
         $this->data_saida = $data->format('d/m/Y H:i');
+        return $this;
+    }
+
+    public function getEmpresa(): Empresa
+    {
+        return $this->empresa;
+    }
+
+    public function setEmpresa(Empresa $empresa): self
+    {
+        $this->empresa = $empresa;
         return $this;
     }
 
