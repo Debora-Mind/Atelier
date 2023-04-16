@@ -82,14 +82,19 @@
             <?php if(isset($modelo) && $modelo->getDataSaida() != null) : ?>
             <div class="col col-md-3 mx-5">
                 <label for="data-entrada">Saída</label>
-                <div>
+                <div class="input-group">
                     <input type="datetime-local"
                            id="data-saida"
                            name="data-saida"
                            class="form-control"
                            value="<?= $modelo->getDataSaida(true) ?>"
-                           style="width: 100%; height: 2.4rem">
+                           style="height: 2.4rem">
+                    <button type="button" class="input-group-text btn btn-outline-dark border-secondary" onclick="limparConteudo()">
+                        <i class='bi-eraser-fill d-inline d-flex float-end'></i>
+                    </button>
                 </div>
+
+
             </div>
             <?php endif;?>
         </div>

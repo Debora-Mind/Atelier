@@ -62,6 +62,11 @@ function paginate(items, currentPage, itemsPerPage) {
     return items.slice(startIndex, endIndex);
 }
 
+function limparConteudo() {
+    document.getElementById('data-saida').value = ''; //limpa o valor do input
+}
+
+
 function exibirMensagem() {
     const mensagemDiv = document.querySelector('.alert');
 
