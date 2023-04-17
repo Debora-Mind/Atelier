@@ -11,6 +11,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use function DI\string;
 
 class ListarModelos implements RequestHandlerInterface
 {
@@ -89,7 +90,7 @@ class ListarModelos implements RequestHandlerInterface
         $filtro = $this->obterFiltro($request);
         $busca = $this->tratarBusca($request);
         $semana = $this->obterSemana($request);
-        $modelos = $this->entityManager->getRepository(Modelo::class)->findAll();
+        $modelos = $this->entityManager->getRepository(Modelo::class)->findBy(['empresa' => $_SESSION['empresa']]);
         $modelosFiltrados = $this->filtrarModelos($modelos, $filtro, $semana)->toArray();
 
         if (!empty($busca)) {

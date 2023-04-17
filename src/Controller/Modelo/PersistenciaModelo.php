@@ -2,6 +2,7 @@
 
 namespace Dam\Atelier\Controller\Modelo;
 
+use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,6 +76,8 @@ class PersistenciaModelo implements RequestHandlerInterface
         );
         $data_entrada = new \DateTime($data_entrada);
 
+        $empresa = $this->entityManager->getRepository(Empresa::class)->find($_SESSION['empresa']);
+
         $modelo = new Modelo();
         $modelo->setModelo($descricaoModelo)
             ->setProducao($producao)
@@ -83,7 +86,8 @@ class PersistenciaModelo implements RequestHandlerInterface
             ->setValor($valor)
             ->setSemana($semana)
             ->setCodBarras($cod_barras)
-            ->setDataEntrada($data_entrada);
+            ->setDataEntrada($data_entrada)
+            ->setEmpresa($empresa);
 
         $id = filter_var(
             $request->getQueryParams()['id'] ?? false,

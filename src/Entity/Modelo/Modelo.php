@@ -148,9 +148,10 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function setDataEntrada(\DateTime $data_entrada): void
+    public function setDataEntrada(\DateTime $data_entrada): self
     {
         $this->data_entrada = $data_entrada;
+        return $this;
     }
 
     public function getDataEntrada(): \DateTime
