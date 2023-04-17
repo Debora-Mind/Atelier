@@ -64,7 +64,7 @@ class ListarUsuarios implements RequestHandlerInterface
     {
         $filtro = $this->obterFiltro($request);
         $busca = $this->tratarBusca($request);
-        $usuarios = $this->entityManager->getRepository(Usuario::class)->findAll();
+        $usuarios = $this->entityManager->getRepository(Usuario::class)->findBy(['empresa' => $_SESSION['empresa']]);
         $listaUsuarios = new ArrayCollection($usuarios);
 
         //Ordenação da lista

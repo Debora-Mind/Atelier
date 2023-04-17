@@ -2,6 +2,7 @@
 
 namespace Dam\Atelier\Controller\Usuario;
 
+use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Funcionario\Funcionario;
 use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\FlashMessageTrait;
@@ -47,6 +48,8 @@ class PersistenciaUsuario implements RequestHandlerInterface
             FILTER_SANITIZE_SPECIAL_CHARS
         );
 
+        $empresa = $this->entityManager->getRepository(Empresa::class)->find($_SESSION['empresa']);
+
         $repositoioFuncionarios = $this->entityManager->getRepository(Funcionario::class);
         $funcionario = $repositoioFuncionarios->find($funcionario);
 
@@ -58,7 +61,8 @@ class PersistenciaUsuario implements RequestHandlerInterface
         $novoUsuario->setUsuario($usuario)
             ->setSenha($senhaCriptografada)
             ->setPermissoes($permissoes)
-            ->setFuncionario($funcionario);
+            ->setFuncionario($funcionario)
+            ->setEmpresa($empresa);
 
         $id = filter_var(
             $request->getQueryParams()['id'] ?? false,
