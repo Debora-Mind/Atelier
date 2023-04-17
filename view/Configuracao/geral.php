@@ -11,14 +11,14 @@ include __DIR__ . '/../Componentes/navbar.php';
                 <input class="form-check-input" type="checkbox" role="switch"
                        id="switch<?= $configuracao->getId() ?>"
                        name="switch<?= $configuracao->getId() ?>"
-                    <?= $configuracao->getAtivo() ? 'checked' : '' ?>>
+                    <?= $empresa->getConfiguracoes()[$configuracao->getId()][0] ? 'checked' : '' ?>>
                 <label class="form-check-label" for="<?= $configuracao->getId() ?>"><?= $configuracao->getDescricao() ?></label>
                 <input class="form-control form-control-sm number-input d-inline"
                        id="numero<?= $configuracao->getId() ?>"
                        name="numero<?= $configuracao->getId() ?>"
                        type="number"
                        style="width: 3rem"
-                       value="<?= $configuracao->getNumero() == 0 ? '' : $configuracao->getNumero() ?>">
+                       value="<?= $empresa->getConfiguracoes()[$configuracao->getId()][1] ?? '' ?>">
                 <span class="input-text"> dias</span>
             </div>
         <?php endforeach ?>

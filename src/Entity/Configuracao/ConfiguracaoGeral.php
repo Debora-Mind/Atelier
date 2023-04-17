@@ -25,10 +25,6 @@ class ConfiguracaoGeral
     #[ORM\Column(type: "integer", nullable: true)]
     private $numero = 0;
 
-    #[ManyToOne(targetEntity: Empresa::class)]
-    #[JoinColumn(name: 'empresa_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    private Empresa $empresa;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -66,17 +62,6 @@ class ConfiguracaoGeral
     public function setNumero(int $numero): self
     {
         $this->numero = $numero;
-        return $this;
-    }
-
-    public function getEmpresa(): Empresa
-    {
-        return $this->empresa;
-    }
-
-    public function setEmpresa(Empresa $empresa): ConfiguracaoGeral
-    {
-        $this->empresa = $empresa;
         return $this;
     }
 }

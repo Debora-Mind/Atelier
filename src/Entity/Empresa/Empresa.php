@@ -25,6 +25,9 @@ class Empresa
     #[ORM\Column(type: "blob", nullable: true)]
     private $logo;
 
+    #[ORM\Column(type: "json", nullable: true)]
+    private $configuracoes;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,4 +89,22 @@ class Empresa
         $this->logo = $logo;
         return $this;
     }
+
+    public function getConfiguracoes()
+    {
+        return $this->configuracoes;
+    }
+
+    public function setConfiguracoes(int $configuracao, ?bool $ativo, ?int $numero)
+    {
+        if ($this->configuracoes === null) {
+            $this->configuracoes = [$configuracao => [$ativo ?? false, $numero ?? 0]];
+        } elseif (array_key_exists($configuracao, $this->configuracoes)) {
+            $this->configuracoes[$configuracao] = [$ativo, $numero];
+        } else {
+            $this->configuracoes += [$configuracao => [$ativo, $numero]];
+        }
+        return $this;
+    }
+
 }

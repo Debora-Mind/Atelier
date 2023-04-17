@@ -3,6 +3,7 @@
 namespace Dam\Atelier\Controller\Configuracao;
 
 use Dam\Atelier\Entity\Configuracao\ConfiguracaoGeral;
+use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Usuario\Permissoes;
 use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
@@ -29,6 +30,8 @@ class SalvarConfiguracoes implements RequestHandlerInterface
     {
         $configuracoes = $this->entityManager->getRepository(ConfiguracaoGeral::class);
         $repositorios = $configuracoes->findAll();
+        $empresa = $this->entityManager->getRepository(Empresa::class);
+        $empresa = $empresa->find($_SESSION['empresa']);
 
         foreach ($repositorios as $repositorio) {
             $id = $repositorio->getId();
@@ -42,11 +45,10 @@ class SalvarConfiguracoes implements RequestHandlerInterface
                 FILTER_SANITIZE_NUMBER_INT
             );
 
-            $config = $configuracoes->find($id);
-            $config->setAtivo($switch);
-            $config->setNumero($numero);
+            $config = $configuracoes->find($id)->getId();
+            $empresa->setConfiguracoes($config, $switch, $numero);
 
-            $this->entityManager->merge($config);
+            $this->entityManager->merge($empresa);
         }
 
         $tipo = 'success';
