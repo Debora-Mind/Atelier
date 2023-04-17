@@ -52,7 +52,7 @@ class ListarFuncoes implements RequestHandlerInterface
     private function obterLista($request)
     {
         $busca = $this->tratarBusca($request);
-        $funcoes = $this->entityManager->getRepository(Funcao::class)->findAll();
+        $funcoes = $this->entityManager->getRepository(Funcao::class)->findBy(['empresa' => $_SESSION['empresa']]);
         $listaFuncoes = new ArrayCollection($funcoes);
 
         //Ordenação da lista

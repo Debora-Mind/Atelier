@@ -2,6 +2,7 @@
 
 namespace Dam\Atelier\Controller\Funcao;
 
+use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Funcionario\Funcao;
 use Dam\Atelier\Entity\Funcionario\Funcionario;
 use Dam\Atelier\Entity\Usuario\Usuario;
@@ -33,13 +34,17 @@ class PersistirFuncao implements RequestHandlerInterface
             FILTER_SANITIZE_SPECIAL_CHARS
         );
 
+        $empresa = $this->entityManager->getRepository(Empresa::class)->find($_SESSION['empresa']);
+
         $novaFuncao = new Funcao();
-        $novaFuncao->setDescricao($funcao);
+        $novaFuncao->setDescricao($funcao)
+            ->setEmpresa($empresa);
 
         $id = filter_var(
             $request->getQueryParams()['id'] ?? false,
             FILTER_VALIDATE_INT
         );
+
 
         $_SESSION['funcao'] = $funcao;
 
