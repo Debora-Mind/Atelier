@@ -84,7 +84,7 @@ class RealizaSaidaModelo implements RequestHandlerInterface
         $codBarrasArray = array_filter(array_map(function($modelo) {
             return $modelo->getDataSaida() !== null ? $modelo->getCodBarras() : null;
         }, $modelos));
-        
+
         if(in_array($codBarras, $codBarrasArray)) {
             $tipo = 'danger';
             $this->defineMensagem($tipo, 'Saída já realizada neste código de barras');
