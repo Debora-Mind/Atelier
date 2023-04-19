@@ -45,6 +45,10 @@ class PersistirEmpresa implements RequestHandlerInterface
             $empresa->setLogo($logo);
         }
 
+        if ($nome == '') {
+            $nome = $empresa->getDescricao();
+        }
+
         $empresa->setDescricao($nome)->setTema($tema);
         $this->entityManager->merge($empresa);
 
