@@ -1,6 +1,7 @@
 <?php
 namespace Dam\Atelier\Controller\Modelo;
 
+use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Dam\Atelier\Helper\VerificarPermissoesTrait;
@@ -20,11 +21,13 @@ class ListarModelos implements RequestHandlerInterface
 
     private $entityManager;
     private $modelos;
+    private $empresa;
 
     public function __construct(EntityManagerInterface $entityManager, BuscarModelos $modelos)
     {
         $this->entityManager = $entityManager;
         $this->modelos = $modelos;
+        $this->empresa = $entityManager->getRepository(Empresa::class)->find($_SESSION['empresa']);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -147,6 +150,7 @@ class ListarModelos implements RequestHandlerInterface
         return $this->renderizaHtml('Modelos/listar-modelos.php', [
             'modelos' => $modelos,
             'entityManager' => $this->entityManager,
+            'empresa' => $this->empresa,
         ]);
     }
 }

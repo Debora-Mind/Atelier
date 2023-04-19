@@ -3,7 +3,7 @@
         'name' => 'dam/atelier',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '06570ab57bd1a51bf449b47404ce243fbc3d7c71',
+        'reference' => '165f5bed5b39162eea1b8b8ce2315cd24c02f7e1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'dam/atelier' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '06570ab57bd1a51bf449b47404ce243fbc3d7c71',
+            'reference' => '165f5bed5b39162eea1b8b8ce2315cd24c02f7e1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

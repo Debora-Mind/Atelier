@@ -17,6 +17,7 @@
             <div class="col col-md-3 mx-5">
                 <label for="producao">Rel.Produção</label>
                 <input type="number"
+                       required
                        id="producao"
                        name="producao"
                        class="form-control"
@@ -25,6 +26,7 @@
             <div class="col col-md-3 mx-5">
                 <label for="sublote">Sublote</label>
                 <input type="number"
+                       required
                        id="sublote"
                        name="sublote"
                        class="form-control"
@@ -50,15 +52,16 @@
             <div class="col col-md-3 mx-5">
                 <label for="semana">Semana</label>
                 <input type="number"
+                       required
                        id="semana"
                        name="semana"
-                       required
                        class="form-control"
                        value="<?= isset($modelo) ? $modelo->getValor() : ''; ?>">
             </div>
             <div class="col col-md-3 me-5">
                 <label for="cod-barras">Cod.Barras</label>
                 <input type="number"
+                       required
                        id="cod-barras"
                        name="cod-barras"
                        class="form-control"
@@ -69,6 +72,7 @@
                 <label for="data-entrada">Entrada</label>
                 <div>
                 <input type="date"
+                       required
                        id="data-entrada"
                        name="data-entrada"
                        class="form-control"

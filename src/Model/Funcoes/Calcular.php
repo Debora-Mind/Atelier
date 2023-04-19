@@ -3,6 +3,7 @@
 namespace Dam\Atelier\Model\Funcoes;
 
 use Dam\Atelier\Entity\Configuracao\ConfiguracaoGeral;
+use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Model\Funcoes;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,17 +12,15 @@ class Calcular
 {
     use Funcoes;
 
-    public function corDaLinha(Modelo $modelo, EntityManagerInterface $entityManager): string
+    public function corDaLinha(Modelo $modelo, Empresa $empresa, EntityManagerInterface $entityManager): string
     {
         $configuracoes = $entityManager->getRepository(ConfiguracaoGeral::class);
         $dataModelo = $modelo->getDataEntrada();
         $dataAtual = new \DateTime();
         $intervalo = $dataAtual->diff($dataModelo)->days - 1;
 
-        $diasAtencao = $configuracoes->find(1);
-        $diasAtencao = $diasAtencao->getAtivo() ? $diasAtencao->getNumero() : null;
-        $diasCautela = $configuracoes->find(2);
-        $diasCautela = $diasCautela->getAtivo() ? $diasCautela->getNumero() : null;
+        $diasAtencao = $empresa->getConfiguracoes()['1'][0] ? $empresa->getConfiguracoes()['1'][1] : null;
+        $diasCautela = $empresa->getConfiguracoes()['2'][0] ? $empresa->getConfiguracoes()['2'][1] : null;
 
         if ($modelo->getDataSaida()) {
             return "class='table-success'";

@@ -69,7 +69,7 @@ $paginacao = new Paginacao($modelos);
             </thead>
             <tbody class="table">
             <?php foreach ($paginacao->paginate()['itens'] as $modelo): ?>
-                <tr <?=  $calcula->corDaLinha($modelo, $entityManager); ?>>
+                <tr <?=  $calcula->corDaLinha($modelo, $empresa, $entityManager); ?>>
                     <th scope="row"><?= $modelo->getId(); ?></th>
                     <td><?= $modelo->getModelo(); ?></td>
                     <td><?= $modelo->getProducao(); ?></td>
