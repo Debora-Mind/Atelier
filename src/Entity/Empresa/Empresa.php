@@ -19,8 +19,8 @@ class Empresa
     #[ORM\Column(type: "boolean")]
     private $ativo = false;
 
-    #[ORM\Column(type: "integer", nullable: true)]
-    private $tema = 1;
+    #[ORM\Column(type: "text", nullable: true)]
+    private $tema = 'Claro';
 
     #[ORM\Column(type: "blob", nullable: true)]
     private $logo;
@@ -57,23 +57,12 @@ class Empresa
         return $this;
     }
 
-    public function getNumero(): int
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(int $numero): self
-    {
-        $this->numero = $numero;
-        return $this;
-    }
-
-    public function getTema(): int
+    public function getTema(): string
     {
         return $this->tema;
     }
 
-    public function setTema(int $tema): Empresa
+    public function setTema(string $tema): Empresa
     {
         $this->tema = $tema;
         return $this;

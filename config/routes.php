@@ -3,6 +3,8 @@
 use Dam\Atelier\Controller\{Configuracao\ListarConfiguracoesGerais,
     Configuracao\SalvarConfiguracoes,
     DarSaida\DarSaida,
+    Empresa\ListarConfiguracoesEmpresa,
+    Empresa\PersistirEmpresa,
     Funcao\ExcluirFuncao,
     Funcao\FormularioEdicaoFuncao,
     Funcao\FormularioFuncao,
@@ -50,4 +52,6 @@ return [
     '/salvar-funcao' => PersistirFuncao::class,
     '/excluir-funcao' => ExcluirFuncao::class,
     '/formulario-saida' => DarSaida::class,
+    '/empresa' => ListarConfiguracoesEmpresa::class,
+    '/salvar-empresa' => PersistirEmpresa::class,
 ];

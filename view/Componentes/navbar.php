@@ -11,10 +11,11 @@
                         Cadastros
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/modelos">Modelos</a></li>
-                        <li><a class="dropdown-item disabled" href="#">Funcionários</a></li>
-                        <li><a class="dropdown-item" href="/funcoes">Funções</a></li>
+                        <li><a class="dropdown-item" href="/empresa">Empresa</a></li>
                         <li><a class="dropdown-item" href="/usuarios">Usuários</a></li>
+                        <li><a class="dropdown-item" href="/funcoes">Funções</a></li>
+                        <li><a class="dropdown-item disabled" href="#">Funcionários</a></li>
+                        <li><a class="dropdown-item" href="/modelos">Modelos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

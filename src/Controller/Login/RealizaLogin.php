@@ -62,6 +62,7 @@ class RealizaLogin implements RequestHandlerInterface
         $_SESSION['permissoes'] = $usuario->getPermissoes();
         $_SESSION['empresa'] = $usuario->getEmpresa()->getId();
         $_SESSION['pagina_anterior'] = '/';
+        $_SESSION['usuario'] = $usuario->getId();
 
         return new Response(302, ['Location' => '/']);
     }

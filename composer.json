@@ -23,6 +23,7 @@
         "php-di/php-di": "^7.0",
         "ext-json": "^8.1",
         "symfony/cache": "^6.2",
-        "doctrine/annotations": "^1.0"
+        "doctrine/annotations": "^1.0",
+        "ext-gd": "*"
     }
 }
