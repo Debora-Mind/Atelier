@@ -49,4 +49,4 @@ include __DIR__ . '/../Componentes/navbar.php';
     </div>
 </div>
 
-<?php include __DIR__ . '/../Componentes/fim-html.php';
+<?php include __DIR__ . '/../Componentes/fim-html.php'; ?>

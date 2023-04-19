@@ -44,7 +44,7 @@ class FormularioEdicaoModelo implements RequestHandlerInterface
 
         $modelo = $this->repositorioModelos->find($id);
 
-        $modelos = $this->repositorioModelos->findAll();
+        $modelos = $this->repositorioModelos->findBy(['empresa' => $_SESSION['empresa']]);
         $codBarrasArray = array_map(function($modelo) {
             return $modelo->getCodBarras();
         }, $modelos);

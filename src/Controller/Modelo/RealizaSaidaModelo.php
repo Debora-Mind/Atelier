@@ -37,6 +37,7 @@ class RealizaSaidaModelo implements RequestHandlerInterface
             $request->getParsedBody()['codigo-barras-saida'],
             FILTER_SANITIZE_NUMBER_INT
         ) ?? null;
+        $this->verificaSaida($cod_barras);
 
         if ($modalSaida) {
             $modelo = $this->verificaExistencia($modalSaida);
@@ -75,5 +76,20 @@ class RealizaSaidaModelo implements RequestHandlerInterface
         $this->defineMensagem($tipo, 'Código de barras não localizado');
         header('Location: /formulario-saida');
         exit();
+    }
+
+    private function verificaSaida($codBarras)
+    {
+        $modelos = $this->repositorioDeModelos->findBy(['empresa' => $_SESSION['empresa']]);
+        $codBarrasArray = array_filter(array_map(function($modelo) {
+            return $modelo->getDataSaida() !== null ? $modelo->getCodBarras() : null;
+        }, $modelos));
+        
+        if(in_array($codBarras, $codBarrasArray)) {
+            $tipo = 'danger';
+            $this->defineMensagem($tipo, 'Saída já realizada neste código de barras');
+            header('Location: /formulario-saida');
+            exit();
+        }
     }
 }

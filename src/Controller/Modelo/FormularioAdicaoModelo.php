@@ -28,7 +28,7 @@ class FormularioAdicaoModelo implements RequestHandlerInterface
     {
         $this->verificarPermissoes([6, 7]);
 
-        $modelos = $this->repositorioModelos->findAll();
+        $modelos = $this->repositorioModelos->findBy(['empresa' => $_SESSION['empresa']]);
         $codBarrasArray = array_map(function($modelo) {
             return $modelo->getCodBarras();
         }, $modelos);
