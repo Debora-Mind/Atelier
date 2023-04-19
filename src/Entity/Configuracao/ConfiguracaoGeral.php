@@ -19,27 +19,9 @@ class ConfiguracaoGeral
     #[ORM\Column(type: "text")]
     private $descricao;
 
-    #[ORM\Column(type: "boolean")]
-    private $ativo = false;
-
-    #[ORM\Column(type: "integer", nullable: true)]
-    private $numero = 0;
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAtivo(): bool
-    {
-        return $this->ativo;
-    }
-
-    public function setAtivo(string $ativo): self
-    {
-        $this->ativo = $ativo;
-
-        return $this;
     }
 
     public function getDescricao(): ?string
@@ -51,17 +33,6 @@ class ConfiguracaoGeral
     {
         $this->descricao = $descricao;
 
-        return $this;
-    }
-
-    public function getNumero(): int
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(int $numero): self
-    {
-        $this->numero = $numero;
         return $this;
     }
 }

@@ -44,9 +44,15 @@ class FormularioEdicaoModelo implements RequestHandlerInterface
 
         $modelo = $this->repositorioModelos->find($id);
 
+        $modelos = $this->repositorioModelos->findAll();
+        $codBarrasArray = array_map(function($modelo) {
+            return $modelo->getCodBarras();
+        }, $modelos);
+
         $html = $this->renderizaHtml('Modelos/formulario.php', [
             'modelo' => $modelo,
             'titulo' => 'Alterar modelo ' . $modelo->getModelo(),
+            'listaCodigoBarras' => $codBarrasArray
         ]);
 
         return new Response(200, [], $html);

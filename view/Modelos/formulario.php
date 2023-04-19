@@ -65,7 +65,6 @@
                        id="cod-barras"
                        name="cod-barras"
                        class="form-control"
-                       required
                        value="<?= isset($modelo) ? $modelo->getCodBarras() : ''; ?>">
             </div>
             <div class="col col-md-3 mx-5">
@@ -76,7 +75,6 @@
                        id="data-entrada"
                        name="data-entrada"
                        class="form-control"
-                       required
                        value="<?= isset($modelo) ?
                            $modelo->getDataEntrada()->format('Y-m-d') :
                            $dataAtual->format('Y-m-d') ?>"
@@ -109,4 +107,17 @@
         </div>
     </form>
 
-<?php include __DIR__ . '/../Componentes/fim-html.php';
+<?php include __DIR__ . '/../Componentes/fim-html.php'; ?>
+
+    <script>
+        var listaCodigoBarras = <?= json_encode($listaCodigoBarras) ?>;
+        var input = document.getElementById('cod-barras');
+        input.addEventListener('input', function() {
+            var valor = this.value;
+            if (listaCodigoBarras.indexOf(valor) !== -1) {
+                this.setCustomValidity('Código de barras já cadastrado');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+    </script>
