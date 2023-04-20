@@ -43,7 +43,7 @@ include __DIR__ . '/../Componentes/navbar.php';
             </div>
             <div>
                 <button class="btn btn-success mt-2 fixed">Confirmar</button>
-                <button type="button" onclick="cancelar('/')"
+                <button type="button" onclick="cancelar('')"
                         class="btn btn-danger mt-2 fixed">Cancelar</button>
             </div>
         </div>

@@ -12,7 +12,7 @@
                        id="usuario"
                        name="usuario"
                        class="form-control"
-                       value="<?= ($_SESSION['usuario']) ?? (isset($usuario) ? $usuario->getUsuario() : ''); ?>">
+                       value="<?= (isset($usuario) ? $usuario->getUsuario() : ''); ?>">
             </div>
             <div class="form-group">
                 <label for="senha">Senha</label>

@@ -19,6 +19,6 @@
     </div>
 </form>
 <div class="position-absolute translate-middle top-50" style="left: 28%">
-    <img src="img/logo.png" class="" alt="logo da empresa">
+    <img src="img/MeuLogo1.svg" style="width: 30rem" alt="logo da empresa">
 </div>
 <?php include __DIR__ . '/../Componentes/fim-html.php'; ?>

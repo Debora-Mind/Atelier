@@ -12,7 +12,7 @@
                        name="funcao"
                        class="form-control"
                        required
-                       value="<?= ($_SESSION['usuario']) ?? (isset($funcao) ? $funcao->getDescricao() : ''); ?>">
+                       value="<?= (isset($funcao) ? $funcao->getDescricao() : ''); ?>">
             </div>
         </div>
         <div class="position-absolute">
