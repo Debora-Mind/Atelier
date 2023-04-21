@@ -1,5 +1,5 @@
 <?php
-namespace Dam\Atelier\Controller\Modelo;
+namespace Dam\Atelier\Controller\Modelo\Talao;
 
 use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Modelo\Modelo;
@@ -15,7 +15,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use function DI\string;
 
-class ListarModelos implements RequestHandlerInterface
+class ListarTaloes implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
     use VerificarPermissoesTrait;
@@ -150,7 +150,7 @@ class ListarModelos implements RequestHandlerInterface
 
     private function renderizarTemplate(mixed $modelos): string
     {
-        return $this->renderizaHtml('Modelos/listar-modelos.php', [
+        return $this->renderizaHtml('Modelos/Talao/listar-modelos.php', [
             'modelos' => $modelos,
             'entityManager' => $this->entityManager,
             'empresa' => $this->empresa,

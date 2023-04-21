@@ -1,6 +1,6 @@
 <?php
 
-namespace Dam\Atelier\Controller\Modelo;
+namespace Dam\Atelier\Controller\Modelo\Talao;
 
 use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Entity\Modelo\Talao\Talao;
@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class FormularioAdicaoModelo implements RequestHandlerInterface
+class FormularioAdicaoTalao implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
     use VerificarPermissoesTrait;
@@ -39,7 +39,7 @@ class FormularioAdicaoModelo implements RequestHandlerInterface
             return $modelo->getCodBarras();
         }, $taloes);
 
-        $html = $this->renderizaHtml('Modelos/formulario.php', [
+        $html = $this->renderizaHtml('Modelos/Talao/formulario.php', [
             'listaCodigoBarras' => $codBarrasArray,
             'modelos' => $this->repositorioModelos->findBy(['empresa' => $_SESSION['empresa']]),
         ]);

@@ -4,6 +4,7 @@ namespace Dam\Atelier\Entity\Modelo;
 
 use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, JoinColumn, ManyToOne, Table};
 use Dam\Atelier\Entity\Empresa\Empresa;
+use Doctrine\ORM\Mapping as ORM;
 
 #[Entity]
 #[Table(name: "modelo")]
@@ -15,33 +16,21 @@ class Modelo implements \JsonSerializable
     #[Column]
     private string $modelo;
 
-    #[Column]
-    private string $producao;
-
-    #[Column(type: 'integer')]
-    private string $sublote;
-
-    #[Column(type: 'integer')]
-    private string $quantidade;
+    #[Column(type: 'float')]
+    private string $valorEntrada;
 
     #[Column(type: 'float')]
-    private string $valor;
-
-    #[Column(type: 'integer')]
-    private string $semana;
-
-    #[Column]
-    private string $cod_barras;
-
-    #[Column(type: 'date')]
-    private \DateTime $data_entrada;
-
-    #[Column(nullable: true)]
-    private ? string $data_saida;
+    private string $valorSaida;
 
     #[ManyToOne(targetEntity: Empresa::class)]
     #[JoinColumn(name: 'empresa_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private Empresa $empresa;
+
+    #[ORM\Column(type: "blob", nullable: true)]
+    private $fotoModelo;
+
+    #[ORM\Column(type: "blob", nullable: true)]
+    private $roteiro;
 
     public function getId(): int
     {
@@ -64,116 +53,37 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getProducao(): string|null
+    public function getValorEntrada(bool $virgula = false): string|null
     {
-        if ($this->producao === '0') {
-            return null;
-        }
-        return $this->producao;
-    }
-
-    public function setProducao(string $producao): Modelo
-    {
-        $this->producao = $producao;
-        return $this;
-    }
-
-    public function getSublote(): string|null
-    {
-        if ($this->sublote === '0') {
-            return null;
-        }
-        return $this->sublote;
-    }
-
-    public function setSublote(string $sublote): Modelo
-    {
-        $this->sublote = $sublote;
-        return $this;
-    }
-
-    public function getQuantidade(): string|null
-    {
-        if ($this->quantidade === '0') {
-            return null;
-        }
-        return $this->quantidade;
-    }
-
-    public function setQuantidade(string $quantidade): Modelo
-    {
-        $this->quantidade = $quantidade;
-        return $this;
-    }
-
-    public function getValor(bool $virgula = false): string|null
-    {
-        if ($this->valor === '0') {
+        if ($this->valorEntrada === '0') {
             return null;
         }
         if ($virgula){
-            return str_replace('.', ',',$this->valor);
+            return str_replace('.', ',',$this->valorEntrada);
         }
-        return $this->valor;
+        return $this->valorEntrada;
     }
 
-    public function setValor(string $valor): Modelo
+    public function setValorEntrada(string $valor): Modelo
     {
-        $this->valor = $valor;
+        $this->valorEntrada = $valor;
         return $this;
     }
 
-    public function getSemana(): string|null
+    public function getValorSaida(bool $virgula = false): string|null
     {
-        if ($this->semana === '0') {
+        if ($this->valorSaida === '0') {
             return null;
         }
-        return $this->semana;
-    }
-
-    public function setSemana(string $semana): Modelo
-    {
-        $this->semana = $semana;
-        return $this;
-    }
-
-    public function getCodBarras(): string
-    {
-        return $this->cod_barras;
-    }
-
-    public function setCodBarras(string $cod_barras): Modelo
-    {
-        $this->cod_barras = $cod_barras;
-        return $this;
-    }
-
-    public function setDataEntrada(\DateTime $data_entrada): self
-    {
-        $this->data_entrada = $data_entrada;
-        return $this;
-    }
-
-    public function getDataEntrada(): \DateTime
-    {
-        return $this->data_entrada;
-    }
-
-    public function getDataSaida(bool $formatado = false): mixed
-    {
-        if ($formatado === true) {
-            $timestamp = strtotime(str_replace('/', '-', $this->data_saida));
-            $data_formatada = date('Y-m-d\TH:i:s', $timestamp);
-            return $data_formatada;
+        if ($virgula){
+            return str_replace('.', ',',$this->valorSaida);
         }
-        return $this->data_saida;
+        return $this->valorSaida;
     }
 
-    public function setDataSaida(): Modelo
+    public function setValorEntradaSaida(string $valor): Modelo
     {
-        date_default_timezone_set('America/Sao_Paulo');
-        $data = new \DateTime();
-        $this->data_saida = $data->format('d/m/Y H:i');
+        $this->valorSaida = $valor;
         return $this;
     }
 
@@ -188,28 +98,26 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function cor()
+    public function getFotoModelo()
     {
-        if (isset($this->data_saida)) {
-            return 'green';
-        }
-        return 'black';
+        return $this->logo;
     }
 
-    public function button()
+    public function setFotoModelo($logo)
     {
-        if (isset($this->data_saida)) {
-            return 'bi bi-check-square';
-        }
-        return 'bi bi-square';
+        $this->logo = $logo;
+        return $this;
     }
 
-    public function disabled()
+    public function getRoteiro()
     {
-        if (isset($this->data_saida)) {
-            return 'disabled';
-        }
-        return '';
+        return $this->logo;
+    }
+
+    public function setRoteiro($logo)
+    {
+        $this->logo = $logo;
+        return $this;
     }
 
     public function jsonSerialize(): array
@@ -217,13 +125,8 @@ class Modelo implements \JsonSerializable
         return [
             'id' => $this->id,
             'modelo' => $this->modelo,
-            'producao' => $this->producao,
-            'sublote' => $this->sublote,
-            'quantidade' => $this->quantidade,
-            'valor' => $this->valor,
-            'cod_barras' => $this->cod_barras,
-            'data_entrada' => $this->data_entrada->format('d/m/y H:i'),
-            'data_saida' => $this->data_saida,
+            'valorEntrada' => $this->valorEntrada,
+            'valorSaida' => $this->valorSaida,
         ];
     }
 }

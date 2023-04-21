@@ -1,5 +1,5 @@
-<?php include __DIR__ . '/../Componentes/inicio-html.php'; ?>
-<?php include __DIR__ . '/../Componentes/navbar.php'; ?>
+<?php include __DIR__ . '/../../Componentes/inicio-html.php'; ?>
+<?php include __DIR__ . '/../../Componentes/navbar.php'; ?>
 
     <form action="/salvar-modelo<?= isset($modelo) ? '?id=' . $modelo->getId() : ''; ?>"
           method="post" class="justify-content">
@@ -42,15 +42,6 @@
                        value="<?= isset($modelo) ? $modelo->getQuantidade() : ''; ?>">
             </div>
             <div class="col col-md-3 mx-5">
-                <label for="valor">Valor</label>
-                <input type="number"
-                       step="0.01"
-                       id="valor"
-                       name="valor"
-                       class="form-control"
-                       value="<?= isset($modelo) ? $modelo->getValor() : ''; ?>">
-            </div>
-            <div class="col col-md-3 mx-5">
                 <label for="semana">Semana</label>
                 <input type="number"
                        required
@@ -59,7 +50,7 @@
                        class="form-control"
                        value="<?= isset($modelo) ? $modelo->getValor() : ''; ?>">
             </div>
-            <div class="col col-md-3 me-5">
+            <div class="col col-md-3 mx-5">
                 <label for="cod-barras">Cod.Barras</label>
                 <input type="number"
                        required
@@ -68,7 +59,7 @@
                        class="form-control"
                        value="<?= isset($modelo) ? $modelo->getCodBarras() : ''; ?>">
             </div>
-            <div class="col col-md-3 mx-5">
+            <div class="col col-md-3 me-5">
                 <label for="data-entrada">Entrada</label>
                 <div>
                 <input type="date"
@@ -108,7 +99,7 @@
         </div>
     </form>
 
-<?php include __DIR__ . '/../Componentes/fim-html.php'; ?>
+<?php include __DIR__ . '/../../Componentes/fim-html.php'; ?>
 
     <script>
         var listaCodigoBarras = <?= json_encode($listaCodigoBarras) ?>;
