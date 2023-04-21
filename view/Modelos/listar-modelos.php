@@ -25,18 +25,6 @@ $paginacao = new Paginacao($modelos);
                    placeholder="Semana"
                    style="height: 82%;width: 5rem"
             class="ms-2">
-            <select type="button" name="filtro-saida" id="filtro-saida"
-                    class="btn btn-toolbar btn-primary text-light ms-2 mb-2">
-                <option value="1" selected class="dropdown-item bg-white text-start">
-                    Todos
-                </option>
-                <option value="2" class="dropdown-item bg-white text-start">
-                    Com saída
-                </option>
-                <option value="3" class="dropdown-item bg-white text-start">
-                    Sem saída
-                </option>
-            </select>
             <button class="btn btn-primary text-light mb-2 ms-2" type="submit">
                 <i class="bi bi-search"></i> Buscar
             </button>
@@ -55,43 +43,19 @@ $paginacao = new Paginacao($modelos);
             <thead class="" style="background-color: black;">
             <tr>
                 <th scope="col" style="width: 4%">#</th>
-                <th scope="col" style="width: 10%">Modelo</th>
-                <th scope="col" style="width: 8%">Rel.Produção</th>
-                <th scope="col" style="width: 8%">Sublote</th>
-                <th scope="col" style="width: 8%">Quantidade</th>
-                <th scope="col" style="width: 7%">Valor</th>
-                <th scope="col" style="width: 7%">Semana</th>
-                <th scope="col" style="width: 16%">Cod.Barras</th>
-                <th scope="col" style="width: 12%">Entrada</th>
-                <th scope="col" style="width: 17%">Saída</th>
-                <th colspan="3" style="width: 10%" scope="col" class="text-center">Ações</th>
+                <th scope="col">Modelo</th>
+                <th scope="col" style="width: 15%">V.Entrada</th>
+                <th scope="col" style="width: 15%">V.Saída</th>
+                <th colspan="3" style="width: 8%" scope="col" class="text-center">Ações</th>
             </tr>
             </thead>
-            <tbody class="table">
+            <tbody class="table table-light">
             <?php foreach ($paginacao->paginate()['itens'] as $modelo): ?>
-                <tr <?=  $calcula->corDaLinha($modelo, $empresa, $entityManager); ?>>
+                <tr>
                     <th scope="row"><?= $modelo->getId(); ?></th>
                     <td><?= $modelo->getModelo(); ?></td>
-                    <td><?= $modelo->getProducao(); ?></td>
-                    <td><?= $modelo->getSublote(); ?></td>
-                    <td><?= $modelo->getQuantidade(); ?></td>
-                    <?php if (in_array(11, $_SESSION['permissoes'])) : ?>
-                    <td><?= $modelo->getValor(true); ?></td>
-                    <?php else :?>
-                    <td>*</td>
-                    <?php endif; ?>
-                    <td><?= $modelo->getSemana(); ?></td>
-                    <td><?= $modelo->getCodBarras(); ?></td>
-                    <td><?= $modelo->getDataEntrada()->format('d/m/Y'); ?></td>
-                    <td><?= $modelo->getDataSaida() ? $modelo->getDataSaida() : ''; ?></td>
-                    <td class="text-center px-0">
-                        <button title="Dar saída"
-                            <?= $modelo->disabled() ?>
-                                onclick="darSaida('<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
-                                style="border: none; padding: 0;">
-                            <i class="<?= $modelo->button() ?>" style="color: <?= $modelo->cor() ?>"></i>
-                        </button>
-                    </td>
+                    <td><?= $modelo->getValorEntrada(true); ?></td>
+                    <td><?= $modelo->getValorSaida(true); ?></td>
                     <td class="text-center px-0">
                         <button style="border: none; padding: 0;">
                             <a title="Editar" href="/alterar-modelo?id=<?= $modelo->getId(); ?>">
@@ -108,37 +72,10 @@ $paginacao = new Paginacao($modelos);
                         </button>
                     </td>
                 </tr>
-            <?php
-                $qtd += $modelo->getQuantidade();
-            ?>
             <?php endforeach; ?>
             </tbody>
             <tfoot class="text-start">
                 <td colspan="13" class="justify-content-between">
-                    <span class="float-start mx-2">
-                        <strong>Total nesta página: </strong>
-                        <?= number_format($paginacao->getTotalItensPagina(),0, ',', '.'); ?> registros
-                    </span>
-                    <span class="float-start mx-2">
-                        <strong>Quantidade total nesta página: </strong>
-                        <?= in_array(11, $_SESSION['permissoes'])
-                            ? number_format($qtd,0, ',', '.')
-                            : '*' ?>
-                    </span>
-                    <span class="float-start mx-2">
-                        <strong>Valor total nesta página: </strong>
-                        <?= number_format($paginacao->getValorTotalItensPagina(), 2, ',', '.'); ?>
-                    </span>
-                    <span class="float-end mx-2">
-                        <strong>Valor Total: </strong>
-                        <?= in_array(11, $_SESSION['permissoes'])
-                            ? number_format($paginacao->getValorTotalItens(), 2, ',', '.')
-                            : '*' ?>
-                    </span>
-                    <span class="float-end mx-2">
-                        <strong>Quantidade Total: </strong>
-                        <?= number_format($paginacao->getQuantidadeTotal(),0, ',', '.'); ?>
-                    </span>
                     <span class="float-end mx-2">
                         <strong>Total: </strong>
                         <?= number_format($paginacao->getTotalItens(),0, ',', '.'); ?> registros

@@ -5,21 +5,21 @@ namespace Dam\Atelier\Model\Funcoes;
 class Paginacao
 {
     private $itens;
-    private mixed $itemsPorPagina;
+    private mixed $itensPorPagina;
 
-    public function __construct($items, $itemsPorPagina = 10)
+    public function __construct($itens, $itensPorPagina = 10)
     {
-        $this->itens = $items;
-        $this->itemsPorPagina = $itemsPorPagina;
+        $this->itens = $itens;
+        $this->itensPorPagina = $itensPorPagina;
     }
 
     function paginate(): array
     {
         $totalItems = count($this->itens);
-        $totalPaginas = ceil($totalItems / $this->itemsPorPagina);
+        $totalPaginas = ceil($totalItems / $this->itensPorPagina);
         $paginaAtual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-        $primeiroItem = ($paginaAtual - 1) * $this->itemsPorPagina;
-        $itemsPaginados = array_slice($this->itens, $primeiroItem, $this->itemsPorPagina);
+        $primeiroItem = ($paginaAtual - 1) * $this->itensPorPagina;
+        $itemsPaginados = array_slice($this->itens, $primeiroItem, $this->itensPorPagina);
 
         return [
             'itens' => $itemsPaginados,
@@ -37,28 +37,26 @@ class Paginacao
         return count($this->paginate()['itens']);
     }
 
-    public function getValorTotalItens(): float
+    public function getValorTotalEntrada(): float
     {
-        $total = 0;
+        $totalEntrada = 0;
 
         foreach ($this->itens as $item) {
-            $total += $item->getValor() * $item->getQuantidade();
+            $totalEntrada += $item->getModelo()->getValorEntrada() * $item->getQuantidade();
         }
 
-        return $total;
+        return $totalEntrada;
     }
 
-    public function getValorTotalItensPagina(): float
+    public function getValorTotalSaida(): float
     {
-        $itemsPaginados = $this->paginate()['itens'];
+        $totalSaida = 0;
 
-        $total = 0;
-
-        foreach ($itemsPaginados as $item) {
-            $total += $item->getValor() * $item->getQuantidade();
+        foreach ($this->itens as $item) {
+            $totalSaida += $item->getModelo()->getValorSaida() * $item->getQuantidade();
         }
 
-        return $total;
+        return $totalSaida;
     }
 
     public function getQuantidadeTotal(): int

@@ -4,6 +4,7 @@ namespace Dam\Atelier\Controller\Modelo\Talao;
 
 use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Modelo\Modelo;
+use Dam\Atelier\Entity\Modelo\Talao\Talao;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
@@ -28,9 +29,11 @@ class PersistenciaTalao implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $descricaoModelo = filter_var(
-            $request->getParsedBody()['modelo'],
+            $request->getParsedBody()['modelo-filtro'],
             FILTER_SANITIZE_SPECIAL_CHARS
         );
+
+        $modelo = $this->entityManager->getRepository(Modelo::class)->findBy(['modelo' => $descricaoModelo])[0];
 
         $producao = filter_var(
             $request->getParsedBody()['producao'],
@@ -47,19 +50,6 @@ class PersistenciaTalao implements RequestHandlerInterface
             FILTER_SANITIZE_NUMBER_INT
         );
 
-        $valor = $request->getParsedBody()['valor'];
-
-        if ($valor !== '') {
-            $valor = filter_var(
-                $valor,
-                FILTER_SANITIZE_NUMBER_FLOAT,
-                FILTER_FLAG_ALLOW_FRACTION
-            );
-        } else {
-            // Define um valor padrão, como zero
-            $valor = 0;
-        }
-
         $semana = filter_var(
             $request->getParsedBody()['semana'],
             FILTER_SANITIZE_NUMBER_INT
@@ -70,24 +60,25 @@ class PersistenciaTalao implements RequestHandlerInterface
             FILTER_SANITIZE_NUMBER_INT
         );
 
+        $nota = filter_var(
+            $request->getParsedBody()['nota'],
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
         $data_entrada = filter_var(
             $request->getParsedBody()['data-entrada'],
             FILTER_SANITIZE_SPECIAL_CHARS
         );
         $data_entrada = new \DateTime($data_entrada);
-
-        $empresa = $this->entityManager->getRepository(Empresa::class)->find($_SESSION['empresa']);
-
-        $modelo = new Modelo();
-        $modelo->setModelo($descricaoModelo)
+        $talao = new Talao();
+        $talao->setModelo($modelo)
             ->setProducao($producao)
             ->setSublote($sublote)
             ->setQuantidade($quantidade)
-            ->setValor($valor)
             ->setSemana($semana)
             ->setCodBarras($cod_barras)
             ->setDataEntrada($data_entrada)
-            ->setEmpresa($empresa);
+            ->setNotaFiscal($nota);
 
         $id = filter_var(
             $request->getQueryParams()['id'] ?? false,
@@ -96,16 +87,16 @@ class PersistenciaTalao implements RequestHandlerInterface
 
         $tipo = 'success';
         if (!is_null($id) && $id !== false) {
-            $modelo->setId($id);
-            $this->entityManager->merge($modelo);
-            $this->defineMensagem($tipo, 'Modelo atualizado com sucesso');
+            $talao->setId($id);
+            $this->entityManager->merge($talao);
+            $this->defineMensagem($tipo, 'Talão atualizado com sucesso');
         } else {
-            $this->entityManager->persist($modelo);
-            $this->defineMensagem($tipo, 'Modelo inserido com sucesso');
+            $this->entityManager->persist($talao);
+            $this->defineMensagem($tipo, 'Talão inserido com sucesso');
         }
 
         $this->entityManager->flush();
 
-        return new Response(302, ['Location' => '/modelos']);
+        return new Response(302, ['Location' => '/taloes']);
     }
 }

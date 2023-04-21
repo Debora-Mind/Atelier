@@ -49,7 +49,7 @@ class FormularioEdicaoTalao implements RequestHandlerInterface
             return $modelo->getCodBarras();
         }, $modelos);
 
-        $html = $this->renderizaHtml('Modelos/Talao/formulario.php', [
+        $html = $this->renderizaHtml('Modelos/Taloes/formulario.php', [
             'modelo' => $modelo,
             'titulo' => 'Alterar modelo ' . $modelo->getModelo(),
             'listaCodigoBarras' => $codBarrasArray

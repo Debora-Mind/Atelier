@@ -3,16 +3,16 @@
 use Dam\Atelier\Model\Funcoes\Calcular;
 use Dam\Atelier\Model\Funcoes\Paginacao;
 
-include __DIR__ . '/../Componentes/inicio-html.php';
-include __DIR__ . '/../Componentes/navbar.php';
+include __DIR__ . '/../../Componentes/inicio-html.php';
+include __DIR__ . '/../../Componentes/navbar.php';
 
 $qtd = 0;
 $calcula = new Calcular();
-$paginacao = new Paginacao($modelos);
+$paginacao = new Paginacao($taloes);
 ?>
 <div class="">
     <div class="d-flex align-items-center align-items-stretch busca">
-        <form action="/modelos" method="post" class="d-flex">
+        <form action="/taloes" method="post" class="d-flex">
             <input type="text"
                    name="busca"
                    id="busca"
@@ -42,10 +42,10 @@ $paginacao = new Paginacao($modelos);
             </button>
         </form>
         <div id="menssagem-listar-modelos" class="flex-fill">
-            <?php include __DIR__ . '/../Componentes/mensagens.php';?>
+            <?php include __DIR__ . '/../../Componentes/mensagens.php';?>
         </div>
         <div>
-            <a type="button" href="/novo-modelo" class="btn btn-primary text-light mb-2">
+            <a type="button" href="/novo-talao" class="btn btn-primary text-light mb-2">
                 <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
             </a>
         </div>
@@ -54,54 +54,62 @@ $paginacao = new Paginacao($modelos);
         <table class="table table-primary">
             <thead class="" style="background-color: black;">
             <tr>
-                <th scope="col" style="width: 4%">#</th>
-                <th scope="col" style="width: 10%">Modelo</th>
-                <th scope="col" style="width: 8%">Rel.Produção</th>
-                <th scope="col" style="width: 8%">Sublote</th>
-                <th scope="col" style="width: 8%">Quantidade</th>
-                <th scope="col" style="width: 7%">Valor</th>
-                <th scope="col" style="width: 7%">Semana</th>
-                <th scope="col" style="width: 16%">Cod.Barras</th>
-                <th scope="col" style="width: 12%">Entrada</th>
-                <th scope="col" style="width: 17%">Saída</th>
-                <th colspan="3" style="width: 10%" scope="col" class="text-center">Ações</th>
+                <th scope="col" style="width: 3%">#</th>
+                <th scope="col" style="width: 8%">Modelo</th>
+                <th scope="col" style="width: 6%">R.Produção</th>
+                <th scope="col" style="width: 6%">Sublote</th>
+                <th scope="col" style="width: 6%">Quantidade</th>
+                <?php if (in_array(11, $_SESSION['permissoes'])) : ?>
+                <th scope="col" style="width: 7%">V.Entrada</th>
+                <th scope="col" style="width: 7%">T.Entrada</th>
+                <th scope="col" style="width: 7%">V.Saída</th>
+                <th scope="col" style="width: 7%">T.Saída</th>
+                <?php endif;?>
+                <th scope="col" style="width: 5%">Semana</th>
+                <th scope="col" style="width: 10%">Cod.Barras</th>
+                <th scope="col" style="width: 6%">Entrada</th>
+                <th scope="col" style="width: 9%">Saída</th>
+                <th scope="col">Nota</th>
+                <th colspan="3" style="width: 3%" scope="col" class="text-center">Ações</th>
             </tr>
             </thead>
             <tbody class="table">
-            <?php foreach ($paginacao->paginate()['itens'] as $modelo): ?>
-                <tr <?=  $calcula->corDaLinha($modelo, $empresa, $entityManager); ?>>
-                    <th scope="row"><?= $modelo->getId(); ?></th>
-                    <td><?= $modelo->getModelo(); ?></td>
-                    <td><?= $modelo->getProducao(); ?></td>
-                    <td><?= $modelo->getSublote(); ?></td>
-                    <td><?= $modelo->getQuantidade(); ?></td>
+            <?php foreach ($paginacao->paginate()['itens'] as $talao): ?>
+                <tr <?=  $calcula->corDaLinha($talao, $empresa, $entityManager); ?>>
+                    <th scope="row"><?= $talao->getId(); ?></th>
+                    <td><?= $talao->getModelo()->getModelo(); ?></td>
+                    <td><?= $talao->getProducao(); ?></td>
+                    <td><?= $talao->getSublote(); ?></td>
+                    <td><?= $talao->getQuantidade(); ?></td>
                     <?php if (in_array(11, $_SESSION['permissoes'])) : ?>
-                    <td><?= $modelo->getValor(true); ?></td>
-                    <?php else :?>
-                    <td>*</td>
+                    <td><?= $talao->getModelo()->getValorEntrada(true); ?></td>
+                    <td><?= $talao->getModelo()->getValorEntrada(true) * $talao->getQuantidade(); ?></td>
+                    <td><?= $talao->getModelo()->getValorSaida(true); ?></td>
+                    <td><?= $talao->getModelo()->getValorSaida(true) * $talao->getQuantidade(); ?></td>
                     <?php endif; ?>
-                    <td><?= $modelo->getSemana(); ?></td>
-                    <td><?= $modelo->getCodBarras(); ?></td>
-                    <td><?= $modelo->getDataEntrada()->format('d/m/Y'); ?></td>
-                    <td><?= $modelo->getDataSaida() ? $modelo->getDataSaida() : ''; ?></td>
+                    <td><?= $talao->getSemana(); ?></td>
+                    <td><?= $talao->getCodBarras(); ?></td>
+                    <td><?= $talao->getDataEntrada()->format('d/m/Y'); ?></td>
+                    <td><?= $talao->getDataSaida() ? $talao->getDataSaida() : ''; ?></td>
+                    <td><?= $talao->getNotaFiscal(); ?></td>
                     <td class="text-center px-0">
                         <button title="Dar saída"
-                            <?= $modelo->disabled() ?>
-                                onclick="darSaida('<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
+                            <?= $talao->disabled() ?>
+                                onclick="darSaida('<?= $talao->getModelo()->getModelo() ?>', '<?= $talao->getId(); ?>')"
                                 style="border: none; padding: 0;">
-                            <i class="<?= $modelo->button() ?>" style="color: <?= $modelo->cor() ?>"></i>
+                            <i class="<?= $talao->button() ?>" style="color: <?= $talao->cor() ?>"></i>
                         </button>
                     </td>
                     <td class="text-center px-0">
                         <button style="border: none; padding: 0;">
-                            <a title="Editar" href="/alterar-modelo?id=<?= $modelo->getId(); ?>">
+                            <a title="Editar" href="/alterar-talao?id=<?= $talao->getId(); ?>">
                                 <i class="bi bi-pencil-square" style="color: black;"></i>
                             </a>
                         </button>
                     </td>
                     <td class="text-center px-0">
                         <button title="Excluir?"
-                                onclick="excluir('modelo', '<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
+                                onclick="excluir('talao', '<?= $talao->getModelo()->getModelo() ?>', '<?= $talao->getId(); ?>')"
                                 style="border: none; padding: 0;"
                                 class="mx-2">
                             <i class="bi bi-trash3-fill" style="color: black;"></i>
@@ -109,39 +117,27 @@ $paginacao = new Paginacao($modelos);
                     </td>
                 </tr>
             <?php
-                $qtd += $modelo->getQuantidade();
+                $qtd += $talao->getQuantidade();
             ?>
             <?php endforeach; ?>
             </tbody>
             <tfoot class="text-start">
-                <td colspan="13" class="justify-content-between">
-                    <span class="float-start mx-2">
-                        <strong>Total nesta página: </strong>
-                        <?= number_format($paginacao->getTotalItensPagina(),0, ',', '.'); ?> registros
-                    </span>
-                    <span class="float-start mx-2">
-                        <strong>Quantidade total nesta página: </strong>
+                <td colspan="17" class="justify-content-between">
+                    <span class="float-start me-3">
+                        <strong>Valor Total Entrada: </strong>
                         <?= in_array(11, $_SESSION['permissoes'])
-                            ? number_format($qtd,0, ',', '.')
+                            ? number_format($paginacao->getValorTotalEntrada(), 2, ',', '.')
                             : '*' ?>
                     </span>
-                    <span class="float-start mx-2">
-                        <strong>Valor total nesta página: </strong>
-                        <?= number_format($paginacao->getValorTotalItensPagina(), 2, ',', '.'); ?>
-                    </span>
-                    <span class="float-end mx-2">
-                        <strong>Valor Total: </strong>
+                    <span class="float-start mx-3">
+                        <strong>Valor Total Saída: </strong>
                         <?= in_array(11, $_SESSION['permissoes'])
-                            ? number_format($paginacao->getValorTotalItens(), 2, ',', '.')
+                            ? number_format($paginacao->getValorTotalSaida(), 2, ',', '.')
                             : '*' ?>
                     </span>
-                    <span class="float-end mx-2">
+                    <span class="float-start mx-3">
                         <strong>Quantidade Total: </strong>
                         <?= number_format($paginacao->getQuantidadeTotal(),0, ',', '.'); ?>
-                    </span>
-                    <span class="float-end mx-2">
-                        <strong>Total: </strong>
-                        <?= number_format($paginacao->getTotalItens(),0, ',', '.'); ?> registros
                     </span>
                 </td>
             </tfoot>
@@ -167,4 +163,4 @@ $paginacao = new Paginacao($modelos);
     </div>
 </div>
 
-<?php include __DIR__ . '/../Componentes/fim-html.php';
+<?php include __DIR__ . '/../../Componentes/fim-html.php';

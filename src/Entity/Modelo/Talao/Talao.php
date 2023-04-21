@@ -29,7 +29,7 @@ class Talao implements \JsonSerializable
     #[Column(type: 'integer')]
     private string $semana;
 
-    #[Column(type: 'integer')]
+    #[Column(type: 'string')]
     private string $cod_barras;
 
     #[Column(type: 'date')]
@@ -38,7 +38,7 @@ class Talao implements \JsonSerializable
     #[Column(nullable: true)]
     private ? string $data_saida;
 
-    #[Column(type: 'integer')]
+    #[Column(type: 'string')]
     private string $notaFiscal;
 
     public function getId(): int
@@ -101,23 +101,6 @@ class Talao implements \JsonSerializable
     public function setQuantidade(string $quantidade): self
     {
         $this->quantidade = $quantidade;
-        return $this;
-    }
-
-    public function getValor(bool $virgula = false): string|null
-    {
-        if ($this->valor === '0') {
-            return null;
-        }
-        if ($virgula){
-            return str_replace('.', ',',$this->valor);
-        }
-        return $this->valor;
-    }
-
-    public function setValor(string $valor): self
-    {
-        $this->valor = $valor;
         return $this;
     }
 

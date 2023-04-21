@@ -2,11 +2,16 @@
 <?php include __DIR__ . '/../Componentes/navbar.php'; ?>
 
     <form action="/salvar-modelo<?= isset($modelo) ? '?id=' . $modelo->getId() : ''; ?>"
-          method="post" class="justify-content">
+          method="post" class="justify-content" enctype="multipart/form-data">
         <div class="form-group justify-content-start row">
             <div class="col col-md-3 me-5">
                 <label for="modelo-filtro">Modelo</label>
-                <input type="text" id="modelo-filtro" class="form-control" list="modelo-lista" required>
+                <input type="text"
+                       id="modelo-filtro"
+                       class="form-control"
+                       list="modelo-lista"
+                       required
+                       autofocus>
                 <datalist id="modelo-lista" class="translate-middle-x">
                     <?php foreach ($modelos as $item) : ?>
                         <option value="<?= $item->getModelo() ?>">
@@ -16,90 +21,37 @@
                 </datalist>
             </div>
             <div class="col col-md-3 mx-5">
-                <label for="producao">Rel.Produção</label>
+                <label for="valor-entrada">Valor Entrada</label>
                 <input type="text"
                        required
-                       id="producao"
-                       name="producao"
+                       id="valor-entrada"
+                       name="valor-entrada"
                        class="form-control"
-                       value="<?= isset($modelo) ? $modelo->getProducao() : ''; ?>">
+                       value="<?= isset($modelo) ? $modelo->getValorEntrada() : ''; ?>">
             </div>
             <div class="col col-md-3 mx-5">
-                <label for="sublote">Sublote</label>
-                <input type="number"
+                <label for="valor-saida">Valor Saída</label>
+                <input type="text"
                        required
-                       id="sublote"
-                       name="sublote"
+                       id="valor-saida"
+                       name="valor-saida"
                        class="form-control"
-                       value="<?= isset($modelo) ? $modelo->getSublote() : ''; ?>">
+                       value="<?= isset($modelo) ? $modelo->getValorSaida() : ''; ?>">
             </div>
-            <div class="col col-md-3 me-5">
-                <label for="quantidade">Quantidade</label>
-                <input type="number"
-                       id="quantidade"
-                       name="quantidade"
-                       class="form-control"
-                       value="<?= isset($modelo) ? $modelo->getQuantidade() : ''; ?>">
+            <div class="col col-md-7 me-5">
+                <label for="foto">Foto do Modelo</label>
+                <input type="file"
+                       id="foto"
+                       name="foto"
+                       class="form-control">
             </div>
-            <div class="col col-md-3 mx-5">
-                <label for="valor">Valor</label>
-                <input type="number"
-                       step="0.01"
-                       id="valor"
-                       name="valor"
-                       class="form-control"
-                       value="<?= isset($modelo) ? $modelo->getValor() : ''; ?>">
+            <div class="col col-md-7 me-5">
+                <label for="roteiro">Roteiro</label>
+                <input type="file"
+                       id="roteiro"
+                       name="roteiro"
+                       class="form-control">
             </div>
-            <div class="col col-md-3 mx-5">
-                <label for="semana">Semana</label>
-                <input type="number"
-                       required
-                       id="semana"
-                       name="semana"
-                       class="form-control"
-                       value="<?= isset($modelo) ? $modelo->getValor() : ''; ?>">
-            </div>
-            <div class="col col-md-3 me-5">
-                <label for="cod-barras">Cod.Barras</label>
-                <input type="number"
-                       required
-                       id="cod-barras"
-                       name="cod-barras"
-                       class="form-control"
-                       value="<?= isset($modelo) ? $modelo->getCodBarras() : ''; ?>">
-            </div>
-            <div class="col col-md-3 mx-5">
-                <label for="data-entrada">Entrada</label>
-                <div>
-                <input type="date"
-                       required
-                       id="data-entrada"
-                       name="data-entrada"
-                       class="form-control"
-                       value="<?= isset($modelo) ?
-                           $modelo->getDataEntrada()->format('Y-m-d') :
-                           $dataAtual->format('Y-m-d') ?>"
-                       style="width: 100%; height: 2.4rem">
-                </div>
-            </div>
-            <?php if(isset($modelo) && $modelo->getDataSaida() != null) : ?>
-            <div class="col col-md-3 mx-5">
-                <label for="data-entrada">Saída</label>
-                <div class="input-group">
-                    <input type="datetime-local"
-                           id="data-saida"
-                           name="data-saida"
-                           class="form-control"
-                           value="<?= $modelo->getDataSaida(true) ?>"
-                           style="height: 2.4rem">
-                    <button type="button" class="input-group-text btn btn-outline-dark border-secondary" onclick="limparConteudo()">
-                        <i class='bi-eraser-fill d-inline d-flex float-end'></i>
-                    </button>
-                </div>
-
-
-            </div>
-            <?php endif;?>
         </div>
         <div class="position-absolute">
             <button class="btn btn-success mt-2 fixed">Confirmar</button>
@@ -109,16 +61,3 @@
     </form>
 
 <?php include __DIR__ . '/../Componentes/fim-html.php'; ?>
-
-    <script>
-        var listaCodigoBarras = <?= json_encode($listaCodigoBarras) ?>;
-        var input = document.getElementById('cod-barras');
-        input.addEventListener('input', function() {
-            var valor = this.value;
-            if (listaCodigoBarras.indexOf(valor) !== -1) {
-                this.setCustomValidity('Código de barras já cadastrado');
-            } else {
-                this.setCustomValidity('');
-            }
-        });
-    </script>

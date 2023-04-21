@@ -12,17 +12,17 @@ class Calcular
 {
     use Funcoes;
 
-    public function corDaLinha(Modelo $modelo, Empresa $empresa, EntityManagerInterface $entityManager): string
+    public function corDaLinha($objeto, Empresa $empresa, EntityManagerInterface $entityManager): string
     {
         $configuracoes = $entityManager->getRepository(ConfiguracaoGeral::class);
-        $dataModelo = $modelo->getDataEntrada();
+        $dataModelo = $objeto->getDataEntrada();
         $dataAtual = new \DateTime();
         $intervalo = $dataAtual->diff($dataModelo)->days - 1;
 
         $diasAtencao = $empresa->getConfiguracoes()['1'][0] ? $empresa->getConfiguracoes()['1'][1] : null;
         $diasCautela = $empresa->getConfiguracoes()['2'][0] ? $empresa->getConfiguracoes()['2'][1] : null;
 
-        if ($modelo->getDataSaida()) {
+        if ($objeto->getDataSaida()) {
             return "class='table-success'";
         } elseif ($diasAtencao && $intervalo >= $diasAtencao) {
             return "class='table-danger'";

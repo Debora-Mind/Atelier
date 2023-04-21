@@ -148,10 +148,10 @@ class ListarTaloes implements RequestHandlerInterface
         return $array;
     }
 
-    private function renderizarTemplate(mixed $modelos): string
+    private function renderizarTemplate(mixed $taloes): string
     {
-        return $this->renderizaHtml('Modelos/Talao/listar-modelos.php', [
-            'modelos' => $modelos,
+        return $this->renderizaHtml('Modelos/Taloes/listar-taloes.php', [
+            'taloes' => $taloes,
             'entityManager' => $this->entityManager,
             'empresa' => $this->empresa,
         ]);
