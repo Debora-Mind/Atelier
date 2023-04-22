@@ -32,7 +32,6 @@ class PersistenciaTalao implements RequestHandlerInterface
             $request->getParsedBody()['modelo-filtro'],
             FILTER_SANITIZE_SPECIAL_CHARS
         );
-
         $modelo = $this->entityManager->getRepository(Modelo::class)->findBy(['modelo' => $descricaoModelo])[0];
 
         $producao = filter_var(

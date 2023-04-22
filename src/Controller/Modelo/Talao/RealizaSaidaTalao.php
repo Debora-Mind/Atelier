@@ -3,6 +3,7 @@
 namespace Dam\Atelier\Controller\Modelo\Talao;
 
 use Dam\Atelier\Entity\Modelo\Modelo;
+use Dam\Atelier\Entity\Modelo\Talao\Talao;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Dam\Atelier\Helper\VerificarPermissoesTrait;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,18 +17,20 @@ class RealizaSaidaTalao implements RequestHandlerInterface
     use FlashMessageTrait;
     use VerificarPermissoesTrait;
 
-    private $repositorioDeModelos;
-
     /**
      * @var \Doctrine\ORM\EntityManagerInterface
      */
+    private $repositorioTaloes;
+    private $repositorioModelos;
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
-        $this->repositorioDeModelos = $entityManager
+        $this->repositorioTaloes = $entityManager
+            ->getRepository(Talao::class);
+        $this->repositorioModelos = $entityManager
             ->getRepository(Modelo::class);
+        $this->entityManager = $entityManager;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -40,27 +43,27 @@ class RealizaSaidaTalao implements RequestHandlerInterface
         $this->verificaSaida($cod_barras);
 
         if ($modalSaida) {
-            $modelo = $this->verificaExistencia($modalSaida);
-            $_SESSION['modelo'] = $modelo->getModelo();
-            $_SESSION['quantidade'] = $modelo->getQuantidade();
-            $_SESSION['semana'] = $modelo->getSemana();
-            $_SESSION['entrada'] = $modelo->getDataEntrada()->format('d/m/Y');
-            $modelo->setDataSaida();
-            $_SESSION['saida'] = $modelo->getDataSaida();
+            $talao = $this->verificaExistencia($modalSaida);
+            $_SESSION['modelo'] = $talao->getModelo()->getModelo();
+            $_SESSION['quantidade'] = $talao->getQuantidade();
+            $_SESSION['semana'] = $talao->getSemana();
+            $_SESSION['entrada'] = $talao->getDataEntrada()->format('d/m/Y');
+            $talao->setDataSaida();
+            $_SESSION['saida'] = $talao->getDataSaida();
             $redireciona = '/formulario-saida';
         } else {
             $id = filter_var(
                 $request->getQueryParams()['id'] ?? false,
                 FILTER_VALIDATE_INT
             );
-            $modelo = $this->repositorioDeModelos->findOneBy(['id' => $id]);
-            $modelo->setDataSaida();
-            $redireciona = '/modelos';
+            $talao = $this->repositorioTaloes->findOneBy(['id' => $id]);
+            $talao->setDataSaida();
+            $redireciona = '/taloes';
         }
 
         $tipo = 'success';
 
-        $this->entityManager->merge($modelo);
+        $this->entityManager->merge($talao);
         $this->defineMensagem($tipo, 'Saída realizada com sucesso');
         $this->entityManager->flush();
 
@@ -69,8 +72,8 @@ class RealizaSaidaTalao implements RequestHandlerInterface
 
     private function verificaExistencia($modalSaida)
     {
-        if ($this->repositorioDeModelos->findOneBy(['cod_barras' => $modalSaida]) !== null) {
-            return $this->repositorioDeModelos->findOneBy(['cod_barras' => $modalSaida]);
+        if ($this->repositorioTaloes->findOneBy(['cod_barras' => $modalSaida]) !== null) {
+            return $this->repositorioTaloes->findOneBy(['cod_barras' => $modalSaida]);
         }
         $tipo = 'danger';
         $this->defineMensagem($tipo, 'Código de barras não localizado');
@@ -80,10 +83,12 @@ class RealizaSaidaTalao implements RequestHandlerInterface
 
     private function verificaSaida($codBarras)
     {
-        $modelos = $this->repositorioDeModelos->findBy(['empresa' => $_SESSION['empresa']]);
-        $codBarrasArray = array_filter(array_map(function($modelo) {
-            return $modelo->getDataSaida() !== null ? $modelo->getCodBarras() : null;
-        }, $modelos));
+        $taloes = $this->repositorioTaloes
+            ->findBy([ 'modelo' => $this->repositorioModelos
+            ->findBy(['empresa' => $_SESSION['empresa']])]);
+        $codBarrasArray = array_filter(array_map(function($talao) {
+            return $talao->getDataSaida() !== null ? $talao->getCodBarras() : null;
+        }, $taloes));
 
         if(in_array($codBarras, $codBarrasArray)) {
             $tipo = 'danger';

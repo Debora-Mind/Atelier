@@ -17,7 +17,7 @@ class Calcular
         $configuracoes = $entityManager->getRepository(ConfiguracaoGeral::class);
         $dataModelo = $objeto->getDataEntrada();
         $dataAtual = new \DateTime();
-        $intervalo = $dataAtual->diff($dataModelo)->days - 1;
+        $intervalo = $dataAtual->diff($dataModelo)->days;
 
         $diasAtencao = $empresa->getConfiguracoes()['1'][0] ? $empresa->getConfiguracoes()['1'][1] : null;
         $diasCautela = $empresa->getConfiguracoes()['2'][0] ? $empresa->getConfiguracoes()['2'][1] : null;

@@ -55,7 +55,7 @@ $paginacao = new Paginacao($taloes);
             <thead class="" style="background-color: black;">
             <tr>
                 <th scope="col" style="width: 3%">#</th>
-                <th scope="col" style="width: 8%">Modelo</th>
+                <th scope="col">Modelo</th>
                 <th scope="col" style="width: 6%">R.Produção</th>
                 <th scope="col" style="width: 6%">Sublote</th>
                 <th scope="col" style="width: 6%">Quantidade</th>
@@ -66,10 +66,10 @@ $paginacao = new Paginacao($taloes);
                 <th scope="col" style="width: 7%">T.Saída</th>
                 <?php endif;?>
                 <th scope="col" style="width: 5%">Semana</th>
-                <th scope="col" style="width: 10%">Cod.Barras</th>
+                <th scope="col" style="width: 8%">Cod.Barras</th>
                 <th scope="col" style="width: 6%">Entrada</th>
-                <th scope="col" style="width: 9%">Saída</th>
-                <th scope="col">Nota</th>
+                <th scope="col" style="width: 10%">Saída</th>
+                <th scope="col" style="width: 10%">Nota</th>
                 <th colspan="3" style="width: 3%" scope="col" class="text-center">Ações</th>
             </tr>
             </thead>
@@ -97,7 +97,7 @@ $paginacao = new Paginacao($taloes);
                             <?= $talao->disabled() ?>
                                 onclick="darSaida('<?= $talao->getModelo()->getModelo() ?>', '<?= $talao->getId(); ?>')"
                                 style="border: none; padding: 0;">
-                            <i class="<?= $talao->button() ?>" style="color: <?= $talao->cor() ?>"></i>
+                            <i class="<?= $talao->button() ?> me-2" style="color: <?= $talao->cor() ?>"></i>
                         </button>
                     </td>
                     <td class="text-center px-0">
@@ -142,6 +142,9 @@ $paginacao = new Paginacao($taloes);
                 </td>
             </tfoot>
         </table>
+        <div class="text-center text-secondary">
+            <?= $paginacao->getPrimeiroRegistro() ?> - <?= $paginacao->getUltimoRegistro() ?> de <?= $paginacao->getTotalItens() ?>
+        </div>
         <nav class="position-sticky">
             <ul class="pagination justify-content-center">
                 <?php if ($paginacao->paginate()['paginaAtual'] > 1): ?>

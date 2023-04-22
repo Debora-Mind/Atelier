@@ -62,22 +62,10 @@ $paginacao = new Paginacao($funcoes);
                 </tr>
             <?php endforeach; ?>
             </tbody>
-            <tfoot>
-            <td colspan="6" class="">
-                <div class="d-inline-block mx-2">
-                    <strong>Total nesta página: </strong>
-                    <?= number_format($paginacao->getTotalItensPagina(),0, ',', '.'); ?>
-                    registros
-                </div>
-                <span><span>
-                    <div class="d-inline-flex float-end mx-2">
-                        <strong>Total: </strong>
-                        <?= number_format($paginacao->getTotalItens(),0, ',', '.'); ?>
-                        registros
-                    </div>
-            </td>
-            </tfoot>
         </table>
+        <div class="text-center text-secondary">
+            <?= $paginacao->getPrimeiroRegistro() ?> - <?= $paginacao->getUltimoRegistro() ?> de <?= $paginacao->getTotalItens() ?>
+        </div>
         <nav class="position-sticky">
             <ul class="pagination justify-content-center">
                 <?php if ($paginacao->paginate()['paginaAtual'] > 1): ?>

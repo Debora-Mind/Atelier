@@ -68,5 +68,16 @@ class Paginacao
         return $quantidade;
     }
 
+    public function getPrimeiroRegistro(): int
+    {
+        return (($this->paginate()['paginaAtual'] - 1) * $this->itensPorPagina) + 1;
+    }
+
+    public function getUltimoRegistro(): int
+    {
+        $ultimoRegistro = $this->paginate()['paginaAtual'] * $this->itensPorPagina;
+        return ($ultimoRegistro > $this->getTotalItens()) ? $this->getTotalItens() : $ultimoRegistro;
+    }
+
 }
 

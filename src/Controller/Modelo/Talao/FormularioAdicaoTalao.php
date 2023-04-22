@@ -42,7 +42,7 @@ class FormularioAdicaoTalao implements RequestHandlerInterface
         $html = $this->renderizaHtml('Modelos/Taloes/formulario.php', [
             'listaCodigoBarras' => $codBarrasArray,
             'modelos' => $this->repositorioModelos->findBy(['empresa' => $_SESSION['empresa']]),
-            'taloes' => $taloes,
+            'taloes' => $taloes
         ]);
         return new Response(200, [], $html);
     }

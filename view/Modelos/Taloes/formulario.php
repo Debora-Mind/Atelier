@@ -8,13 +8,15 @@
                 <label for="modelo-filtro">Modelo</label>
                 <input type="text"
                        id="modelo-filtro"
+                       name="modelo-filtro"
                        class="form-control"
                        list="modelo-lista"
                        required
-                       autofocus>
+                       autofocus
+                       value="<?= isset($talao) ? $talao->getModelo()->getModelo() : ''; ?>">
                 <datalist id="modelo-lista" class="translate-middle-x">
                     <?php foreach ($modelos as $item) : ?>
-                        <option value="<?= $item->getModelo() ?>"></option>
+                        <option value="<?= $item->getModelo()?>"></option>
                     <?php endforeach; ?>
                 </datalist>
             </div>

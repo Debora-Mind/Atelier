@@ -77,6 +77,9 @@ $paginacao = new Paginacao($modelos);
                 </td>
             </tfoot>
         </table>
+        <div class="text-center text-secondary">
+            <?= $paginacao->getPrimeiroRegistro() ?> - <?= $paginacao->getUltimoRegistro() ?> de <?= $paginacao->getTotalItens() ?>
+        </div>
         <nav class="position-sticky">
             <ul class="pagination justify-content-center">
                 <?php if ($paginacao->paginate()['paginaAtual'] > 1): ?>

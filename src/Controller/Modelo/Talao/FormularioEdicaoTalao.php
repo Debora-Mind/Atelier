@@ -3,6 +3,7 @@
 namespace Dam\Atelier\Controller\Modelo\Talao;
 
 use Dam\Atelier\Entity\Modelo\Modelo;
+use Dam\Atelier\Entity\Modelo\Talao\Talao;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Dam\Atelier\Helper\VerificarPermissoesTrait;
@@ -20,10 +21,13 @@ class FormularioEdicaoTalao implements RequestHandlerInterface
     /**
      * @var \Doctrine\Common\Persistence\ObjectRepository
      */
+    private $repositorioTaloes;
     private $repositorioModelos;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->repositorioTaloes = $entityManager
+            ->getRepository(Talao::class);
         $this->repositorioModelos = $entityManager
             ->getRepository(Modelo::class);
     }
@@ -36,22 +40,25 @@ class FormularioEdicaoTalao implements RequestHandlerInterface
             FILTER_VALIDATE_INT
         );
 
-        $resposta = new Response(302, ['Location' => '/modelos']);
+        $resposta = new Response(302, ['Location' => '/taloes']);
         if (is_null($id) || $id === false) {
-            $this->defineMensagem('danger', 'ID do modelo inválido');
+            $this->defineMensagem('danger', 'ID do talão inválido');
             return $resposta;
         }
 
-        $modelo = $this->repositorioModelos->find($id);
+        $talao = $this->repositorioTaloes->find($id);
 
-        $modelos = $this->repositorioModelos->findBy(['empresa' => $_SESSION['empresa']]);
-        $codBarrasArray = array_map(function($modelo) {
-            return $modelo->getCodBarras();
-        }, $modelos);
+        $taloes = $this->repositorioTaloes
+            ->findBy([ 'modelo' => $this->repositorioModelos
+            ->findBy(['empresa' => $_SESSION['empresa']])]);
+        $codBarrasArray = array_map(function($talao) {
+            return $talao->getCodBarras();
+        }, $taloes);
 
         $html = $this->renderizaHtml('Modelos/Taloes/formulario.php', [
-            'modelo' => $modelo,
-            'titulo' => 'Alterar modelo ' . $modelo->getModelo(),
+            'talao' => $talao,
+            'modelos' => $this->repositorioModelos->findBy(['empresa' => $_SESSION['empresa']]),
+            'titulo' => 'Alterar modelo ' . $talao->getModelo()->getModelo(),
             'listaCodigoBarras' => $codBarrasArray
         ]);
 
