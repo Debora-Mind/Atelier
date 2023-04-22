@@ -10,6 +10,9 @@ class Paginacao
     public function __construct($itens, $itensPorPagina = 10)
     {
         $this->itens = $itens;
+        if (isset($_SESSION['itens'])) {
+            $this->itens = $_SESSION['itens'];
+        }
         $this->itensPorPagina = $itensPorPagina;
     }
 

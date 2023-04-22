@@ -91,6 +91,9 @@ class ListarTaloes implements RequestHandlerInterface
 
     private function obterListaDeModelos($request)
     {
+        if (isset($_GET['pagina'])) {
+            return $_SESSION['itens'];
+        }
         $filtro = $this->obterFiltro($request);
         $busca = $this->tratarBusca($request);
         $semana = $this->obterSemana($request);
@@ -104,6 +107,8 @@ class ListarTaloes implements RequestHandlerInterface
         }
 
         $taloesOrdenados = $this->ordenarLista($taloesFiltrados);
+
+        $_SESSION['itens'] = $taloesOrdenados;
 
         return $taloesOrdenados;
     }

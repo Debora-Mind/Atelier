@@ -9,6 +9,8 @@ include __DIR__ . '/../../Componentes/navbar.php';
 $qtd = 0;
 $calcula = new Calcular();
 $paginacao = new Paginacao($taloes);
+$paginado = $paginacao->paginate();
+
 ?>
 <div class="">
     <div class="d-flex align-items-center align-items-stretch busca">
@@ -74,7 +76,7 @@ $paginacao = new Paginacao($taloes);
             </tr>
             </thead>
             <tbody class="table">
-            <?php foreach ($paginacao->paginate()['itens'] as $talao): ?>
+            <?php foreach ($paginado['itens'] as $talao): ?>
                 <tr <?=  $calcula->corDaLinha($talao, $empresa, $entityManager); ?>>
                     <th scope="row"><?= $talao->getId(); ?></th>
                     <td><?= $talao->getModelo()->getModelo(); ?></td>
@@ -154,7 +156,8 @@ $paginacao = new Paginacao($taloes);
                     <li class="page-item <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'active' : ''; ?>">
                         <a class="page-link bg-primary border-secondary
                         <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'text-light' : 'text-secondary'; ?>"
-                           href="?pagina=<?= $i; ?>"><?= $i; ?></a>
+                           href="?pagina=<?= $i; ?>"
+                            onclick="<?php $_SESSION['pagina'] = true ?>"><?= $i; ?></a>
                     </li>
                 <?php endfor; ?>
 

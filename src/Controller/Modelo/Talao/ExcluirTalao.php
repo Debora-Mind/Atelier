@@ -3,6 +3,7 @@
 namespace Dam\Atelier\Controller\Modelo\Talao;
 
 use Dam\Atelier\Entity\Modelo\Modelo;
+use Dam\Atelier\Entity\Modelo\Talao\Talao;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Dam\Atelier\Helper\VerificarPermissoesTrait;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,19 +35,19 @@ class ExcluirTalao implements RequestHandlerInterface
             FILTER_VALIDATE_INT
         );
 
-        $resposta = new Response(302, ['Location' => '/modelos']);
+        $resposta = new Response(302, ['Location' => '/taloes']);
         if (is_null($id) || $id === false) {
-            $this->defineMensagem('danger', 'Modelo inexistente');
+            $this->defineMensagem('danger', 'Talão inexistente');
             return $resposta;
         }
 
-        $modelo = $this->entityManager->getReference(
-            Modelo::class,
+        $talao = $this->entityManager->getReference(
+            Talao::class,
             $id
         );
-        $this->entityManager->remove($modelo);
+        $this->entityManager->remove($talao);
         $this->entityManager->flush();
-        $this->defineMensagem('success', 'Modelo excluído com sucesso');
+        $this->defineMensagem('success', 'Talão excluído com sucesso');
 
         return $resposta;
     }
