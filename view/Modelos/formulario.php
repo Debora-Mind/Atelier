@@ -2,27 +2,28 @@
 <?php include __DIR__ . '/../Componentes/navbar.php'; ?>
 
     <form action="/salvar-modelo<?= isset($modelo) ? '?id=' . $modelo->getId() : ''; ?>"
-          method="post" class="justify-content" enctype="multipart/form-data">
+          method="post" class="justify-content" enctype="multipart/form-data" id="persistir-modelo">
         <div class="form-group justify-content-start row">
             <div class="col col-md-3 me-5">
                 <label for="modelo-filtro">Modelo</label>
                 <input type="text"
                        id="modelo-filtro"
+                       name="modelo-filtro"
                        class="form-control"
                        list="modelo-lista"
                        required
-                       autofocus>
+                       autofocus
+                       value="<?= isset($modelo) ? $modelo->getModelo() : ''; ?>">
                 <datalist id="modelo-lista" class="translate-middle-x">
                     <?php foreach ($modelos as $item) : ?>
-                        <option value="<?= $item->getModelo() ?>">
-                            <?= $item->getModelo() ?>
-                        </option>
+                        <option value="<?= $item->getModelo() ?>"></option>
                     <?php endforeach; ?>
                 </datalist>
             </div>
             <div class="col col-md-3 mx-5">
                 <label for="valor-entrada">Valor Entrada</label>
-                <input type="text"
+                <input type="number"
+                       step="0.01"
                        required
                        id="valor-entrada"
                        name="valor-entrada"
@@ -31,7 +32,8 @@
             </div>
             <div class="col col-md-3 mx-5">
                 <label for="valor-saida">Valor Saída</label>
-                <input type="text"
+                <input type="number"
+                       step="0.01"
                        required
                        id="valor-saida"
                        name="valor-saida"
@@ -61,3 +63,41 @@
     </form>
 
 <?php include __DIR__ . '/../Componentes/fim-html.php'; ?>
+
+<script>
+    function setCustomValidate() {
+        var modeloInput = document.getElementById('modelo-filtro');
+        var modelosList = document.getElementById('modelo-lista');
+
+        modeloInput.addEventListener('input', function() {
+            var modeloValue = this.value;
+            for (var i = 0; i < modelosList.options.length; i++) {
+                if (modelosList.options[i].value === modeloValue) {
+                    this.setCustomValidity('O modelo já existe.');
+                    return;
+                }
+            }
+            this.setCustomValidity('');
+        });
+
+        document.getElementById('persistir-modelo').addEventListener('submit', function(event) {
+            var modeloInput = document.getElementById('modelo-filtro');
+            var modelosList = document.getElementById('modelo-lista');
+
+            for (var i = 0; i < modelosList.options.length; i++) {
+                if (modelosList.options[i].value === modeloInput.value) {
+                    modeloInput.setCustomValidity('O modelo já existe.');
+                    break;
+                }
+            }
+
+            if (!this.checkValidity()) {
+                event.preventDefault();
+            }
+        });
+    }
+
+    window.addEventListener('load', function() {
+        setCustomValidate();
+    });
+</script>

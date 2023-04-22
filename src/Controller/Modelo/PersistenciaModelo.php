@@ -27,66 +27,36 @@ class PersistenciaModelo implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $modelo = new Modelo();
+
         $descricaoModelo = filter_var(
-            $request->getParsedBody()['modelo'],
+            $request->getParsedBody()['modelo-filtro'],
             FILTER_SANITIZE_SPECIAL_CHARS
         );
 
-        $producao = filter_var(
-            $request->getParsedBody()['producao'],
-            FILTER_SANITIZE_NUMBER_INT
-        );
+        $valorEntrada = $_POST['valor-entrada'];
+        $valorEntrada = preg_replace('/[^0-9.,]/', '', $valorEntrada);
+        $valorEntrada = filter_var($valorEntrada, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-        $sublote = filter_var(
-            $request->getParsedBody()['sublote'],
-            FILTER_SANITIZE_NUMBER_INT
-        );
+        $valorSaida = $_POST['valor-saida'];
+        $valorSaida = preg_replace('/[^0-9.,]/', '', $valorSaida);
+        $valorSaida = filter_var($valorSaida, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-        $quantidade = filter_var(
-            $request->getParsedBody()['quantidade'],
-            FILTER_SANITIZE_NUMBER_INT
-        );
-
-        $valor = $request->getParsedBody()['valor'];
-
-        if ($valor !== '') {
-            $valor = filter_var(
-                $valor,
-                FILTER_SANITIZE_NUMBER_FLOAT,
-                FILTER_FLAG_ALLOW_FRACTION
-            );
-        } else {
-            // Define um valor padrão, como zero
-            $valor = 0;
+        if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            $foto = file_get_contents($_FILES['foto']['tmp_name']);
+            $modelo->setFotoModelo($foto);
         }
 
-        $semana = filter_var(
-            $request->getParsedBody()['semana'],
-            FILTER_SANITIZE_NUMBER_INT
-        );
-
-        $cod_barras = filter_var(
-            $request->getParsedBody()['cod-barras'],
-            FILTER_SANITIZE_NUMBER_INT
-        );
-
-        $data_entrada = filter_var(
-            $request->getParsedBody()['data-entrada'],
-            FILTER_SANITIZE_SPECIAL_CHARS
-        );
-        $data_entrada = new \DateTime($data_entrada);
+        if ($_FILES['roteiro']['error'] === UPLOAD_ERR_OK) {
+            $roteiro = file_get_contents($_FILES['roteiro']['tmp_name']);
+            $modelo->setRoteiro($roteiro);
+        }
 
         $empresa = $this->entityManager->getRepository(Empresa::class)->find($_SESSION['empresa']);
 
-        $modelo = new Modelo();
         $modelo->setModelo($descricaoModelo)
-            ->setProducao($producao)
-            ->setSublote($sublote)
-            ->setQuantidade($quantidade)
-            ->setValor($valor)
-            ->setSemana($semana)
-            ->setCodBarras($cod_barras)
-            ->setDataEntrada($data_entrada)
+            ->setValorEntrada($valorEntrada)
+            ->setValorSaida($valorSaida)
             ->setEmpresa($empresa);
 
         $id = filter_var(

@@ -81,7 +81,7 @@ class Modelo implements \JsonSerializable
         return $this->valorSaida;
     }
 
-    public function setValorEntradaSaida(string $valor): Modelo
+    public function setValorSaida(string $valor): Modelo
     {
         $this->valorSaida = $valor;
         return $this;
