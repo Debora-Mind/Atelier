@@ -5,20 +5,30 @@ namespace Dam\Atelier\Model;
 use Dam\Atelier\Entity\Funcionario\Funcao;
 use Dam\Atelier\Entity\Funcionario\Funcionario;
 use Dam\Atelier\Entity\Modelo\Modelo;
+use Dam\Atelier\Entity\Modelo\Talao\Talao;
 use Dam\Atelier\Entity\Usuario\Usuario;
 
 trait Funcoes
 {
-    public function buscarModelos($modelos, $busca)
+    public function buscar($objeto, $busca, $tipo)
     {
-        $modelosFiltrados = array_filter($modelos, function($modelo) use ($busca) {
-            if (!($modelo instanceof Modelo)) {
-                return false;
-            }
-            return $modelo->getCodBarras() == $busca || strpos($modelo->getModelo(), $busca) !== false;
-        });
+        if ($tipo == 'talao'){
+            $objetoFiltrado = array_filter($objeto, function ($objeto) use ($busca) {
+                if (!($objeto instanceof Talao)) {
+                    return false;
+                }
+                return $objeto->getCodBarras() == $busca || strpos($objeto->getModelo()->getModelo(), $busca) !== false;
+            });
+        } elseif ($tipo == 'modelo') {
+            $objetoFiltrado = array_filter($objeto, function ($objeto) use ($busca) {
+                if (!($objeto instanceof Modelo)) {
+                    return false;
+                }
+                return strpos($objeto->getModelo(), $busca) !== false;
+            });
+        }
 
-        return $modelosFiltrados;
+        return $objetoFiltrado;
     }
 
     public function buscarUsuarios(array $usuarios, $busca)

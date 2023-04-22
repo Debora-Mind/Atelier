@@ -53,7 +53,7 @@ class ListarModelos implements RequestHandlerInterface
         $modelos = $this->entityManager->getRepository(Modelo::class)
                 ->findBy(['empresa' => $_SESSION['empresa']]);
         if (!empty($busca)) {
-            $modelos = $this->modelos->buscarModelos($modelos, $busca);
+            $modelos = $this->modelos->buscar($modelos, $busca, 'modelo');
         }
 
         return $modelos;

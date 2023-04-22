@@ -16,15 +16,9 @@ $paginacao = new Paginacao($modelos);
             <input type="text"
                    name="busca"
                    id="busca"
-                   placeholder="Digite o modelo ou código de barras"
+                   placeholder="Digite o modelo"
                    autofocus
                    style="height: 82%; width: 18rem">
-            <input type="number"
-                   name="semana"
-                   id="semana"
-                   placeholder="Semana"
-                   style="height: 82%;width: 5rem"
-            class="ms-2">
             <button class="btn btn-primary text-light mb-2 ms-2" type="submit">
                 <i class="bi bi-search"></i> Buscar
             </button>
@@ -46,7 +40,7 @@ $paginacao = new Paginacao($modelos);
                 <th scope="col">Modelo</th>
                 <th scope="col" style="width: 15%">V.Entrada</th>
                 <th scope="col" style="width: 15%">V.Saída</th>
-                <th colspan="3" style="width: 8%" scope="col" class="text-center">Ações</th>
+                <th colspan="3" style="width: 5%" scope="col" class="text-center">Ações</th>
             </tr>
             </thead>
             <tbody class="table table-light">
@@ -59,7 +53,7 @@ $paginacao = new Paginacao($modelos);
                     <td class="text-center px-0">
                         <button style="border: none; padding: 0;">
                             <a title="Editar" href="/alterar-modelo?id=<?= $modelo->getId(); ?>">
-                                <i class="bi bi-pencil-square" style="color: black;"></i>
+                                <i class="bi bi-pencil-square ms-2" style="color: black;"></i>
                             </a>
                         </button>
                     </td>

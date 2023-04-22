@@ -10,7 +10,7 @@ class BuscarModelos
 
     public function busca($repositorio, $pesquisa)
     {
-        $modelos = $this->buscarModelos($repositorio, $pesquisa);
+        $modelos = $this->buscar($repositorio, $pesquisa);
     }
 
 }

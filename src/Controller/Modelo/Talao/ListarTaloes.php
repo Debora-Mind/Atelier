@@ -100,7 +100,7 @@ class ListarTaloes implements RequestHandlerInterface
         $taloesFiltrados = $this->filtrarModelos($taloes, $filtro, $semana)->toArray();
 
         if (!empty($busca)) {
-            $taloesFiltrados = $this->taloes->buscarModelos($taloesFiltrados, $busca);
+            $taloesFiltrados = $this->taloes->buscar($taloesFiltrados, $busca, 'talao');
         }
 
         $taloesOrdenados = $this->ordenarLista($taloesFiltrados);
