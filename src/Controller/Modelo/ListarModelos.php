@@ -1,4 +1,5 @@
 <?php
+
 namespace Dam\Atelier\Controller\Modelo;
 
 use Dam\Atelier\Entity\Empresa\Empresa;
@@ -24,7 +25,8 @@ class ListarModelos implements RequestHandlerInterface
     private $modelos;
     private $empresa;
 
-    public function __construct(EntityManagerInterface $entityManager, BuscarModelos $modelos)
+    public function __construct(EntityManagerInterface $entityManager,
+                                BuscarModelos $modelos)
     {
         $this->entityManager = $entityManager;
         $this->modelos = $modelos;
@@ -34,7 +36,7 @@ class ListarModelos implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $this->verificarPermissoes([6]);
-        $modelos = $this->obterListaDeModelos($request);
+        $modelos = $this->obterLista($request);
         $html = $this->renderizarTemplate($modelos);
 
         return new Response(200, [], $html);
@@ -47,14 +49,20 @@ class ListarModelos implements RequestHandlerInterface
         return filter_var($busca, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
-    private function obterListaDeModelos($request)
+    private function obterLista($request)
     {
+        if (isset($_GET['pagina'])) {
+            return $_SESSION['itens'];
+        }
+
         $busca = $this->tratarBusca($request);
         $modelos = $this->entityManager->getRepository(Modelo::class)
-                ->findBy(['empresa' => $_SESSION['empresa']]);
+            ->findBy(['empresa' => $_SESSION['empresa']], ['modelo' => 'ASC']);
         if (!empty($busca)) {
             $modelos = $this->modelos->buscar($modelos, $busca, 'modelo');
         }
+
+        $_SESSION['itens'] = $modelos;
 
         return $modelos;
     }

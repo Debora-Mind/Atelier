@@ -6,6 +6,7 @@ include __DIR__ . '/../Componentes/inicio-html.php';
 include __DIR__ . '/../Componentes/navbar.php';
 
 $paginacao = new Paginacao($funcoes);
+$paginado = $paginacao->paginate();
 ?>
 
     <div class="d-flex align-items-center align-items-stretch">
@@ -39,7 +40,7 @@ $paginacao = new Paginacao($funcoes);
             </tr>
             </thead>
             <tbody class="table table-striped">
-            <?php foreach ($funcoes as $funcao): ?>
+            <?php foreach ($paginado['itens'] as $funcao): ?>
                 <tr>
                     <th scope="row"><?= $funcao->getId(); ?></th>
                     <td><?= $funcao->getDescricao(); ?></td>

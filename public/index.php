@@ -15,7 +15,9 @@ if (!array_key_exists($caminho, $rotas)) {
     exit();
 }
 
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 $ehRotaDeLogin = stripos($caminho, 'login');
 if ((!isset($_SESSION['logado']) || $_SESSION['logado'] === false) && $ehRotaDeLogin === false) {

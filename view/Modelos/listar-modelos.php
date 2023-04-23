@@ -9,6 +9,7 @@ include __DIR__ . '/../Componentes/navbar.php';
 $qtd = 0;
 $calcula = new Calcular();
 $paginacao = new Paginacao($modelos);
+$paginado = $paginacao->paginate();
 ?>
 <div class="">
     <div class="d-flex align-items-center align-items-stretch busca">
@@ -44,7 +45,7 @@ $paginacao = new Paginacao($modelos);
             </tr>
             </thead>
             <tbody class="table table-light">
-            <?php foreach ($paginacao->paginate()['itens'] as $modelo): ?>
+            <?php foreach ($paginado['itens'] as $modelo): ?>
                 <tr>
                     <th scope="row"><?= $modelo->getId(); ?></th>
                     <td><?= $modelo->getModelo(); ?></td>
@@ -59,7 +60,9 @@ $paginacao = new Paginacao($modelos);
                     </td>
                     <td class="text-center px-0">
                         <button title="Excluir?"
-                                onclick="excluir('modelo', '<?= $modelo->getModelo() ?>', '<?= $modelo->getId(); ?>')"
+                                onclick="excluir('modelo',
+                                    '<?= $modelo->getModelo() ?>',
+                                    '<?= $modelo->getId(); ?>')"
                                 style="border: none; padding: 0;"
                                 class="mx-2">
                             <i class="bi bi-trash3-fill" style="color: black;"></i>

@@ -2,6 +2,7 @@
 
 namespace Dam\Atelier\Controller\Usuario;
 
+use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Dam\Atelier\Helper\VerificarPermissoesTrait;
@@ -24,6 +25,7 @@ class ListarUsuarios implements RequestHandlerInterface
     private $usuarios;
     private $funcoes;
     private $funcionarios;
+    private $empresa;
 
 
     public function __construct(EntityManagerInterface $entityManager,
@@ -35,6 +37,8 @@ class ListarUsuarios implements RequestHandlerInterface
         $this->usuarios = $usuarios;
         $this->funcoes = $funcoes;
         $this->funcionarios = $funcionarios;
+        $this->empresa = $entityManager->getRepository(Empresa::class)->find($_SESSION['empresa']);
+
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -53,30 +57,21 @@ class ListarUsuarios implements RequestHandlerInterface
         return filter_var($busca, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
-
-    private function obterFiltro(ServerRequestInterface $request): int
-    {
-        $filtro = $request->getParsedBody()['filtro-funcao'] ?? 0;
-        return (int)$filtro;
-    }
-
     private function obterLista($request)
     {
-        $filtro = $this->obterFiltro($request);
+        if (isset($_GET['pagina'])) {
+            return $_SESSION['itens'];
+        }
         $busca = $this->tratarBusca($request);
-        $usuarios = $this->entityManager->getRepository(Usuario::class)->findBy(['empresa' => $_SESSION['empresa']]);
-        $listaUsuarios = new ArrayCollection($usuarios);
-
-        //Ordenação da lista
-        $array = $listaUsuarios->toArray();
-        usort($array, function ($a, $b) {
-            return strcmp($a->getId(), $b->getId());
-        });
+        $usuarios = $this->entityManager->getRepository(Usuario::class)
+            ->findBy(['empresa' => $_SESSION['empresa']], ['usuario' => 'ASC']);
 
         if (!empty($busca)) {
-            return $this->usuarios->buscarUsuarios($array, $busca);
+            $usuarios = $this->usuarios->buscar($usuarios, $busca, 'usuario');
         }
 
+        $_SESSION['itens'] = $usuarios;
+        
         return $usuarios;
     }
 

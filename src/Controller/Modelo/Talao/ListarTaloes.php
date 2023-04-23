@@ -34,7 +34,7 @@ class ListarTaloes implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $this->verificarPermissoes([6]);
-        $taloes = $this->obterListaDeModelos($request);
+        $taloes = $this->obterListaDeTaloes($request);
         $html = $this->renderizarTemplate($taloes);
 
         return new Response(200, [], $html);
@@ -64,7 +64,7 @@ class ListarTaloes implements RequestHandlerInterface
         return $semana;
     }
 
-    private function filtrarModelos($repositorio, $filtro, $semana)
+    private function filtrarTaloes($repositorio, $filtro, $semana)
     {
         $semanaValida = array_filter($repositorio, function ($item) use ($semana) {
             return $item->getSemana() == $semana;
@@ -89,7 +89,7 @@ class ListarTaloes implements RequestHandlerInterface
         return $resultados;
     }
 
-    private function obterListaDeModelos($request)
+    private function obterListaDeTaloes($request)
     {
         if (isset($_GET['pagina'])) {
             return $_SESSION['itens'];
@@ -100,7 +100,7 @@ class ListarTaloes implements RequestHandlerInterface
         $taloes = $this->entityManager->getRepository(Talao::class)
                 ->findBy([ 'modelo' => $this->entityManager->getRepository(Modelo::class)
                 ->findBy(['empresa' => $_SESSION['empresa']])]);
-        $taloesFiltrados = $this->filtrarModelos($taloes, $filtro, $semana)->toArray();
+        $taloesFiltrados = $this->filtrarTaloes($taloes, $filtro, $semana)->toArray();
 
         if (!empty($busca)) {
             $taloesFiltrados = $this->taloes->buscar($taloesFiltrados, $busca, 'talao');

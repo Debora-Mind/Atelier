@@ -2,14 +2,11 @@
 
 namespace Dam\Atelier\Controller\Funcao;
 
+use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Funcionario\Funcao;
-use Dam\Atelier\Entity\Usuario\Usuario;
 use Dam\Atelier\Helper\RenderizadorDeHtmlTrait;
 use Dam\Atelier\Helper\VerificarPermissoesTrait;
-use Dam\Atelier\Model\Funcionarios\BuscarFuncionarios;
-use Dam\Atelier\Model\Funcoes\BuscarFuncoes;
-use Dam\Atelier\Model\Usuario\BuscarUsuarios;
-use Doctrine\Common\Collections\ArrayCollection;
+use Dam\Atelier\Model\Modelos\BuscarModelos;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -23,13 +20,13 @@ class ListarFuncoes implements RequestHandlerInterface
 
     private $entityManager;
     private $funcoes;
+    private $empresa;
 
-    public function __construct(EntityManagerInterface $entityManager,
-                                BuscarFuncoes $funcoes,
-    )
+    public function __construct(EntityManagerInterface $entityManager, BuscarModelos $funcoes)
     {
         $this->entityManager = $entityManager;
         $this->funcoes = $funcoes;
+        $this->empresa = $entityManager->getRepository(Empresa::class)->find($_SESSION['empresa']);
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -48,22 +45,20 @@ class ListarFuncoes implements RequestHandlerInterface
         return filter_var($busca, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
-
     private function obterLista($request)
     {
+        if (isset($_GET['pagina'])) {
+            return $_SESSION['itens'];
+        }
         $busca = $this->tratarBusca($request);
-        $funcoes = $this->entityManager->getRepository(Funcao::class)->findBy(['empresa' => $_SESSION['empresa']]);
-        $listaFuncoes = new ArrayCollection($funcoes);
-
-        //Ordenação da lista
-        $array = $listaFuncoes->toArray();
-        usort($array, function ($a, $b) {
-            return strcmp($a->getId(), $b->getId());
-        });
+        $funcoes = $this->entityManager->getRepository(Funcao::class)
+                ->findBy(['empresa' => $_SESSION['empresa']], ['descricao' => 'ASC']);
 
         if (!empty($busca)) {
-            return $this->funcoes->buscarFuncoes($array, $busca);
+            $funcoes = $this->funcoes->buscar($funcoes, $busca, 'funcao');
         }
+
+        $_SESSION['itens'] = $funcoes;
 
         return $funcoes;
     }
@@ -72,6 +67,8 @@ class ListarFuncoes implements RequestHandlerInterface
     {
         return $this->renderizaHtml('Funcoes/listar-funcoes.php', [
             'funcoes' => $funcoes,
+            'entityManager' => $this->entityManager,
+            'empresa' => $this->empresa,
         ]);
     }
 }
