@@ -40,16 +40,19 @@ class PersistirEmpresa implements RequestHandlerInterface
             FILTER_SANITIZE_SPECIAL_CHARS
         );
 
-        if ($_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+        if (($_FILES['logo']['error'] === UPLOAD_ERR_OK) && ($_FILES['foto']['name'] != "")) {
             $logo = file_get_contents($_FILES['logo']['tmp_name']);
-            $empresa->setLogo($logo);
+        } else {
+            $logo = $empresa->getLogo();
         }
 
         if ($nome == '') {
             $nome = $empresa->getDescricao();
         }
 
-        $empresa->setDescricao($nome)->setTema($tema);
+        $empresa->setDescricao($nome)
+            ->setTema($tema)
+            ->setLogo($logo);
         $this->entityManager->merge($empresa);
 
         $tipo = 'success';
