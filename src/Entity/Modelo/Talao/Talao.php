@@ -64,7 +64,7 @@ class Talao implements \JsonSerializable
 
     public function getProducao(): string|null
     {
-        if ($this->producao === '0') {
+        if ($this->producao === '') {
             return null;
         }
         return $this->producao;

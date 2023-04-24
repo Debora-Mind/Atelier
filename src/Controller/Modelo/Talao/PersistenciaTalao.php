@@ -36,7 +36,7 @@ class PersistenciaTalao implements RequestHandlerInterface
 
         $producao = filter_var(
             $request->getParsedBody()['producao'],
-            FILTER_SANITIZE_NUMBER_INT
+            FILTER_SANITIZE_SPECIAL_CHARS
         );
 
         $sublote = filter_var(
