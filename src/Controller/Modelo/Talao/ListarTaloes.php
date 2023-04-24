@@ -33,7 +33,7 @@ class ListarTaloes implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $this->verificarPermissoes([6]);
+        $this->verificarPermissoes([18]);
         $taloes = $this->obterListaDeTaloes($request);
         $html = $this->renderizarTemplate($taloes);
 

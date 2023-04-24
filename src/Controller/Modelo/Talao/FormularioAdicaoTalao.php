@@ -30,7 +30,7 @@ class FormularioAdicaoTalao implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $this->verificarPermissoes([6, 7]);
+        $this->verificarPermissoes([18, 19]);
 
         $taloes = $this->repositorioTaloes
             ->findBy([ 'modelo' => $this->repositorioModelos

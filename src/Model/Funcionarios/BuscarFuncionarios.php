@@ -2,11 +2,11 @@
 
 namespace Dam\Atelier\Model\Funcionarios;
 
-use Dam\Atelier\Model\Funcoes;
+use Dam\Atelier\Model\FuncaoTrait;
 
 class BuscarFuncionarios
 {
-    use Funcoes;
+    use FuncaoTrait;
 
     public function busca($repositorio, $pesquisa)
     {

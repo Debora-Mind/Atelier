@@ -65,7 +65,7 @@ class ListarFuncoes implements RequestHandlerInterface
 
     private function renderizarTemplate(mixed $funcoes): string
     {
-        return $this->renderizaHtml('Funcoes/listar-funcoes.php', [
+        return $this->renderizaHtml('FuncaoTrait/listar-funcoes.php', [
             'funcoes' => $funcoes,
             'entityManager' => $this->entityManager,
             'empresa' => $this->empresa,

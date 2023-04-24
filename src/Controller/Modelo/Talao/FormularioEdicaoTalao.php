@@ -34,7 +34,7 @@ class FormularioEdicaoTalao implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $this->verificarPermissoes([6, 8]);
+        $this->verificarPermissoes([18, 20]);
         $id = filter_var(
             $request->getQueryParams()['id'],
             FILTER_VALIDATE_INT

@@ -1,5 +1,8 @@
 <?php include __DIR__ . '/../Componentes/inicio-html.php'; ?>
 <?php include __DIR__ . '/../Componentes/navbar.php'; ?>
+<?php
+use Dam\Atelier\Model\FuncaoTrait;
+?>
 
     <form action="/salvar-modelo<?= isset($modelo) ? '?id=' . $modelo->getId() : ''; ?>"
           method="post" class="justify-content" enctype="multipart/form-data">
@@ -46,7 +49,11 @@
                        id="foto"
                        name="foto"
                        class="form-control">
+                <?php if (isset($modelo) && $modelo->getImagemModelo()): ?>
+                <?php endif; ?>
             </div>
+
+
             <div class="col col-md-7 me-5">
                 <label for="roteiro">Roteiro</label>
                 <input type="file"

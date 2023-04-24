@@ -8,7 +8,7 @@ use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Entity\Modelo\Talao\Talao;
 use Dam\Atelier\Entity\Usuario\Usuario;
 
-trait Funcoes
+trait FuncaoTrait
 {
     public function buscar($objeto, $busca, $tipo)
     {
@@ -31,7 +31,7 @@ trait Funcoes
                 break;
             case 'funcao':
                 $objetoFiltrado = array_filter($objeto, function ($objeto) use ($busca) {
-                    if (!($objeto instanceof Funcao)) {
+                    if (!($objeto instanceof FuncaoTrait)) {
                         return false;
                     }
                     return strpos($objeto->getDescricao(), $busca) !== false;
@@ -56,5 +56,11 @@ trait Funcoes
         }
 
         return $objetoFiltrado;
+    }
+
+    public function exibirImagem($imagem)
+    {
+        return stream_get_contents($imagem);
+
     }
 }

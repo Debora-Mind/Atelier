@@ -5,12 +5,12 @@ namespace Dam\Atelier\Model\Funcoes;
 use Dam\Atelier\Entity\Configuracao\ConfiguracaoGeral;
 use Dam\Atelier\Entity\Empresa\Empresa;
 use Dam\Atelier\Entity\Modelo\Modelo;
-use Dam\Atelier\Model\Funcoes;
+use Dam\Atelier\Model\FuncaoTrait;
 use Doctrine\ORM\EntityManagerInterface;
 
 class Calcular
 {
-    use Funcoes;
+    use FuncaoTrait;
 
     public function corDaLinha($objeto, Empresa $empresa, EntityManagerInterface $entityManager): string
     {

@@ -41,7 +41,7 @@ $paginado = $paginacao->paginate();
                 <th scope="col">Modelo</th>
                 <th scope="col" style="width: 15%">V.Entrada</th>
                 <th scope="col" style="width: 15%">V.Saída</th>
-                <th colspan="3" style="width: 5%" scope="col" class="text-center">Ações</th>
+                <th colspan="4" style="width: 5%" scope="col" class="text-center">Ações</th>
             </tr>
             </thead>
             <tbody class="table table-light">
@@ -51,6 +51,40 @@ $paginado = $paginacao->paginate();
                     <td><?= $modelo->getModelo(); ?></td>
                     <td><?= $modelo->getValorEntrada(true); ?></td>
                     <td><?= $modelo->getValorSaida(true); ?></td>
+                    <td class="text-center px-0">
+                        <button
+                            <?php if ($modelo->getRoteiro() !== null) :?>
+                                title="Ver roteiro"
+                                class="mx-1"
+                                onclick="window.open('visualizar-documento?id=<?= $modelo->getId(); ?>')"
+                                style="border: none; padding: 0;">
+                            <i class="bi bi-eye-fill" style="color: black;"></i>
+                            <?php else: ?>
+                                disabled
+                                class="mx-1"
+                                title="O roteiro não foi inserido"
+                                style="border: none; padding: 0;">
+                                <i class="bi bi-eye-slash" style="color: black;"></i>
+                            <?php endif;?>
+                        </button>
+                    </td>
+                    <td class="text-center px-0">
+                        <button
+                            <?php if ($modelo->getImagemModelo() !== null) :?>
+                                title="Ver foto"
+                                class="mx-1"
+                                onclick="window.open('visualizar-imagem?id=<?= $modelo->getId(); ?>')"
+                                style="border: none; padding: 0;">
+                            <i class="bi bi-image" style="color: black;"></i>
+                            <?php else: ?>
+                                disabled
+                                class="mx-1"
+                                title="A imagem não foi inserida"
+                                style="border: none; padding: 0;">
+                                <i class="bi bi-x-lg" style="color: black;"></i>
+                            <?php endif;?>
+                        </button>
+                    </td>
                     <td class="text-center px-0">
                         <button style="border: none; padding: 0;">
                             <a title="Editar" href="/alterar-modelo?id=<?= $modelo->getId(); ?>">
@@ -72,7 +106,7 @@ $paginado = $paginacao->paginate();
             <?php endforeach; ?>
             </tbody>
             <tfoot class="text-start">
-                <td colspan="13" class="justify-content-between">
+                <td colspan="8" class="justify-content-between">
                     <span class="float-end mx-2">
                         <strong>Total: </strong>
                         <?= number_format($paginacao->getTotalItens(),0, ',', '.'); ?> registros

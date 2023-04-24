@@ -29,7 +29,7 @@ class ExcluirTalao implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $this->verificarPermissoes([6, 9]);
+        $this->verificarPermissoes([18, 21]);
         $id = filter_var(
             $request->getQueryParams()['id'],
             FILTER_VALIDATE_INT
