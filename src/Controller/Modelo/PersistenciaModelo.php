@@ -46,7 +46,6 @@ class PersistenciaModelo implements RequestHandlerInterface
         if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
             $foto = file_get_contents($_FILES['foto']['tmp_name']);
             $modelo->setImagemModelo($foto);
-            $modelo->setTipoImagem($_FILES['foto']['type']);
         }
 
         if ($_FILES['roteiro']['error'] === UPLOAD_ERR_OK) {

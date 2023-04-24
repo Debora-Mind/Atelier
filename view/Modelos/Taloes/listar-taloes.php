@@ -57,21 +57,21 @@ $paginado = $paginacao->paginate();
             <thead class="" style="background-color: black;">
             <tr>
                 <th scope="col" style="width: 3%">#</th>
-                <th scope="col">Modelo</th>
-                <th scope="col" style="width: 6%">R.Produção</th>
-                <th scope="col" style="width: 6%">Sublote</th>
-                <th scope="col" style="width: 6%">Quantidade</th>
+                <th scope="col" style="width: 6%">Modelo</th>
+                <th scope="col" style="width: 5%">R.Produção</th>
+                <th scope="col" style="width: 5%">Sublote</th>
+                <th scope="col" style="width: 5%">Quantidade</th>
                 <?php if (in_array(11, $_SESSION['permissoes'])) : ?>
-                <th scope="col" style="width: 7%">V.Entrada</th>
-                <th scope="col" style="width: 7%">T.Entrada</th>
-                <th scope="col" style="width: 7%">V.Saída</th>
-                <th scope="col" style="width: 7%">T.Saída</th>
+                    <th scope="col" style="width: 5%">V.Entrada</th>
+                    <th scope="col" style="width: 5%">T.Entrada</th>
+                    <th scope="col" style="width: 5%">V.Saída</th>
+                    <th scope="col" style="width: 5%">T.Saída</th>
                 <?php endif;?>
                 <th scope="col" style="width: 5%">Semana</th>
                 <th scope="col" style="width: 8%">Cod.Barras</th>
                 <th scope="col" style="width: 6%">Entrada</th>
                 <th scope="col" style="width: 10%">Saída</th>
-                <th scope="col" style="width: 10%">Nota</th>
+                <th scope="col">Nota</th>
                 <th colspan="5" style="width: 3%" scope="col" class="text-center">Ações</th>
             </tr>
             </thead>
@@ -84,10 +84,10 @@ $paginado = $paginacao->paginate();
                     <td><?= $talao->getSublote(); ?></td>
                     <td><?= $talao->getQuantidade(); ?></td>
                     <?php if (in_array(11, $_SESSION['permissoes'])) : ?>
-                    <td><?= $talao->getModelo()->getValorEntrada(true); ?></td>
-                    <td><?= $talao->getModelo()->getValorEntrada(true) * $talao->getQuantidade(); ?></td>
-                    <td><?= $talao->getModelo()->getValorSaida(true); ?></td>
-                    <td><?= $talao->getModelo()->getValorSaida(true) * $talao->getQuantidade(); ?></td>
+                    <td><?= number_format((float)$talao->getModelo()->getValorEntrada(), 2, ',', '.'); ?></td>
+                    <td><?= number_format((float) $talao->getModelo()->getValorEntrada() * (float) $talao->getQuantidade(), 2, ',', '.'); ?></td>
+                    <td><?= number_format((float)$talao->getModelo()->getValorSaida(true), 2, ',', '.'); ?></td>
+                    <td><?= number_format((float) $talao->getModelo()->getValorSaida() * (float) $talao->getQuantidade(), 2, ',', '.'); ?></td>
                     <?php endif; ?>
                     <td><?= $talao->getSemana(); ?></td>
                     <td><?= $talao->getCodBarras(); ?></td>

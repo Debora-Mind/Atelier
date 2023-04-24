@@ -30,9 +30,6 @@ class Modelo implements \JsonSerializable
     #[ORM\Column(type: "blob", nullable: true)]
     private $imagemModelo;
 
-    #[ORM\Column(type: "string", length: 255, nullable: true)]
-    private $tipoImagem;
-
     #[ORM\Column(type: "blob", nullable: true)]
     private $roteiro;
 
@@ -116,23 +113,6 @@ class Modelo implements \JsonSerializable
     public function getRoteiro()
     {
         return $this->roteiro;
-    }
-
-    public function setTipoImagem($tipo): self
-    {
-        $this->tipoImagem = $tipo;
-        return $this;
-    }
-
-    public function getTipoImagem(): ?string
-    {
-        $tipo = null;
-        $imagem = imagecreatefromstring($this->getImagemModelo());
-        if ($imagem !== false) {
-            $tipo = image_type_to_mime_type(exif_imagetype($this->getImagemModelo()));
-        }
-        imagedestroy($imagem);
-        return $tipo;
     }
 
     public function setRoteiro($uploadedFile): self
