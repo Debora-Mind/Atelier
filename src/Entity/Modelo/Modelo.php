@@ -5,6 +5,7 @@ namespace Dam\Atelier\Entity\Modelo;
 use Doctrine\ORM\Mapping\{Column, Entity, GeneratedValue, Id, JoinColumn, ManyToOne, Table};
 use Dam\Atelier\Entity\Empresa\Empresa;
 use Doctrine\ORM\Mapping as ORM;
+use Nyholm\Psr7\UploadedFile;
 
 #[Entity]
 #[Table(name: "modelo")]
@@ -27,7 +28,10 @@ class Modelo implements \JsonSerializable
     private Empresa $empresa;
 
     #[ORM\Column(type: "blob", nullable: true)]
-    private $fotoModelo;
+    private $imagemModelo;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private $tipoImagem;
 
     #[ORM\Column(type: "blob", nullable: true)]
     private $roteiro;
@@ -98,25 +102,42 @@ class Modelo implements \JsonSerializable
         return $this;
     }
 
-    public function getFotoModelo()
+    public function getImagemModelo()
     {
-        return $this->logo;
+        return $this->imagemModelo;
     }
 
-    public function setFotoModelo($logo)
+    public function setImagemModelo($foto): self
     {
-        $this->logo = $logo;
+        $this->imagemModelo = $foto;
         return $this;
     }
 
     public function getRoteiro()
     {
-        return $this->logo;
+        return $this->roteiro;
     }
 
-    public function setRoteiro($logo)
+    public function setTipoImagem($tipo): self
     {
-        $this->logo = $logo;
+        $this->tipoImagem = $tipo;
+        return $this;
+    }
+
+    public function getTipoImagem(): ?string
+    {
+        $tipo = null;
+        $imagem = imagecreatefromstring($this->getImagemModelo());
+        if ($imagem !== false) {
+            $tipo = image_type_to_mime_type(exif_imagetype($this->getImagemModelo()));
+        }
+        imagedestroy($imagem);
+        return $tipo;
+    }
+
+    public function setRoteiro($uploadedFile): self
+    {
+        $this->roteiro = $uploadedFile;
         return $this;
     }
 

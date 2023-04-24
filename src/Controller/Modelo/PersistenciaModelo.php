@@ -7,6 +7,7 @@ use Dam\Atelier\Entity\Modelo\Modelo;
 use Dam\Atelier\Helper\FlashMessageTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
+use Nyholm\Psr7\UploadedFile;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -44,7 +45,8 @@ class PersistenciaModelo implements RequestHandlerInterface
 
         if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
             $foto = file_get_contents($_FILES['foto']['tmp_name']);
-            $modelo->setFotoModelo($foto);
+            $modelo->setImagemModelo($foto);
+            $modelo->setTipoImagem($_FILES['foto']['type']);
         }
 
         if ($_FILES['roteiro']['error'] === UPLOAD_ERR_OK) {

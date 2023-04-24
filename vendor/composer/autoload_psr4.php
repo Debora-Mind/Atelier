@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
@@ -18,8 +19,9 @@ return array(
     'Symfony\\Component\\String\\' => array($vendorDir . '/symfony/string'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Symfony\\Component\\Cache\\' => array($vendorDir . '/symfony/cache'),
+    'Slim\\' => array($vendorDir . '/slim/slim/Slim'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
-    'Psr\\Http\\Server\\' => array($vendorDir . '/psr/http-server-handler/src'),
+    'Psr\\Http\\Server\\' => array($vendorDir . '/psr/http-server-handler/src', $vendorDir . '/psr/http-server-middleware/src'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
@@ -27,7 +29,10 @@ return array(
     'Nyholm\\Psr7Server\\' => array($vendorDir . '/nyholm/psr7-server/src'),
     'Laravel\\SerializableClosure\\' => array($vendorDir . '/laravel/serializable-closure/src'),
     'Invoker\\' => array($vendorDir . '/php-di/invoker/src'),
+    'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),
     'Http\\Message\\' => array($vendorDir . '/php-http/message-factory/src'),
+    'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
+    'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
     'Doctrine\\Persistence\\' => array($vendorDir . '/doctrine/persistence/src/Persistence'),
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/lib/Doctrine/ORM'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),

@@ -43,6 +43,14 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-exporter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-di/php-di" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/setasign/fpdi" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/setasign/fpdf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/intervention/image" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nikic/fast-route" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-server-middleware" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/slim/slim" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

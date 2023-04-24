@@ -72,7 +72,7 @@ $paginado = $paginacao->paginate();
                 <th scope="col" style="width: 6%">Entrada</th>
                 <th scope="col" style="width: 10%">Saída</th>
                 <th scope="col" style="width: 10%">Nota</th>
-                <th colspan="3" style="width: 3%" scope="col" class="text-center">Ações</th>
+                <th colspan="5" style="width: 3%" scope="col" class="text-center">Ações</th>
             </tr>
             </thead>
             <tbody class="table">
@@ -98,12 +98,47 @@ $paginado = $paginacao->paginate();
                         <button title="Dar saída"
                             <?= $talao->disabled() ?>
                                 onclick="darSaida('<?= $talao->getModelo()->getModelo() ?>', '<?= $talao->getId(); ?>')"
-                                style="border: none; padding: 0;">
-                            <i class="<?= $talao->button() ?> me-2" style="color: <?= $talao->cor() ?>"></i>
+                                style="border: none; padding: 0;"
+                                class="mx-1">
+                            <i class="<?= $talao->button() ?>" style="color: <?= $talao->cor() ?>"></i>
                         </button>
                     </td>
                     <td class="text-center px-0">
-                        <button style="border: none; padding: 0;">
+                        <button
+                        <?php if ($talao->getModelo()->getRoteiro() !== null) :?>
+                                title="Ver roteiro"
+                                class="mx-1"
+                                onclick="window.open('visualizar-documento?id=<?= $talao->getModelo()->getId(); ?>')"
+                                style="border: none; padding: 0;">
+                            <i class="bi bi-eye-fill" style="color: black;"></i>
+                        <?php else: ?>
+                                disabled
+                                class="mx-1"
+                                title="O roteiro não foi inserido"
+                                style="border: none; padding: 0;">
+                            <i class="bi bi-eye-slash" style="color: black;"></i>
+                        <?php endif;?>
+                        </button>
+                    </td>
+                    <td class="text-center px-0">
+                        <button
+                            <?php if ($talao->getModelo()->getImagemModelo() !== null) :?>
+                                title="Ver foto"
+                                class="mx-1"
+                                onclick="window.open('visualizar-imagem?id=<?= $talao->getModelo()->getId(); ?>')"
+                                style="border: none; padding: 0;">
+                            <i class="bi bi-image" style="color: black;"></i>
+                            <?php else: ?>
+                                disabled
+                                class="mx-1"
+                                title="A imagem não foi inserida"
+                                style="border: none; padding: 0;">
+                                <i class="bi bi-x-lg" style="color: black;"></i>
+                            <?php endif;?>
+                        </button>
+                    </td>
+                    <td class="text-center px-0">
+                        <button style="border: none; padding: 0;" class="mx-1">
                             <a title="Editar" href="/alterar-talao?id=<?= $talao->getId(); ?>">
                                 <i class="bi bi-pencil-square" style="color: black;"></i>
                             </a>
@@ -113,7 +148,7 @@ $paginado = $paginacao->paginate();
                         <button title="Excluir?"
                                 onclick="excluir('talao', '<?= $talao->getModelo()->getModelo() ?>', '<?= $talao->getId(); ?>')"
                                 style="border: none; padding: 0;"
-                                class="mx-2">
+                                class="mx-1">
                             <i class="bi bi-trash3-fill" style="color: black;"></i>
                         </button>
                     </td>
@@ -124,7 +159,7 @@ $paginado = $paginacao->paginate();
             <?php endforeach; ?>
             </tbody>
             <tfoot class="text-start">
-                <td colspan="17" class="justify-content-between">
+                <td colspan="19" class="justify-content-between">
                     <span class="float-start me-3">
                         <strong>Valor Total Entrada: </strong>
                         <?= in_array(11, $_SESSION['permissoes'])

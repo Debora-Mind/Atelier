@@ -2,7 +2,7 @@
 <?php include __DIR__ . '/../Componentes/navbar.php'; ?>
 
     <form action="/salvar-modelo<?= isset($modelo) ? '?id=' . $modelo->getId() : ''; ?>"
-          method="post" class="justify-content" enctype="multipart/form-data" id="persistir-modelo">
+          method="post" class="justify-content" enctype="multipart/form-data">
         <div class="form-group justify-content-start row">
             <div class="col col-md-3 me-5">
                 <label for="modelo-filtro">Modelo</label>

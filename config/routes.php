@@ -3,6 +3,9 @@
 use Dam\Atelier\Controller\{Configuracao\ListarConfiguracoesGerais,
     Configuracao\SalvarConfiguracoes,
     DarSaida\DarSaida,
+    Documentos\VisualizarDocumentos,
+    Documentos\VisualizarImagens,
+    Documentos\VisualizarLogo,
     Empresa\ListarConfiguracoesEmpresa,
     Empresa\PersistirEmpresa,
     Funcao\ExcluirFuncao,
@@ -64,4 +67,7 @@ return [
     '/formulario-saida' => DarSaida::class,
     '/empresa' => ListarConfiguracoesEmpresa::class,
     '/salvar-empresa' => PersistirEmpresa::class,
+    '/visualizar-documento' => VisualizarDocumentos::class,
+    '/visualizar-imagem' => VisualizarImagens::class,
+    '/visualizar-logo' => VisualizarLogo::class,
 ];
