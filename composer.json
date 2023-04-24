@@ -32,7 +32,7 @@
       "ext-exif": "*",
         "guzzlehttp/psr7": "^2.5",
         "ext-fileinfo": "*",
-        "slim/slim": "^4.0"
-
+        "slim/slim": "^4.0",
+      "ext-pdo": "*"
     }
 }

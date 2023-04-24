@@ -10,6 +10,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 
 class ExcluirModelo implements RequestHandlerInterface
 {
@@ -44,10 +45,22 @@ class ExcluirModelo implements RequestHandlerInterface
             Modelo::class,
             $id
         );
-        $this->entityManager->remove($modelo);
-        $this->entityManager->flush();
+
         $this->defineMensagem('success', 'Modelo excluído com sucesso');
 
+        try {
+            $this->entityManager->remove($modelo);
+            $this->entityManager->flush();
+        } catch (ForeignKeyConstraintViolationException $e) {
+            if ($e->getCode() == '1451') {
+                $this->defineMensagem('danger',
+                    'O modelo possuí vinculos e por isso não pode ser excluído');
+            } else {
+                $this->defineMensagem('danger',
+                    'Erro: ' . $e->getCode() . '. Contate o suporte');
+            }
+        }
+        
         return $resposta;
     }
 }

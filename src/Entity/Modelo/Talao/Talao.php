@@ -14,7 +14,7 @@ class Talao implements \JsonSerializable
     private int $id;
 
     #[ManyToOne(targetEntity: Modelo::class)]
-    #[JoinColumn(name: 'modelo_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    #[JoinColumn(name: 'modelo_id', referencedColumnName: 'id', onDelete: 'RESTRICT')]
     private Modelo $modelo;
 
     #[Column(type: 'string')]
