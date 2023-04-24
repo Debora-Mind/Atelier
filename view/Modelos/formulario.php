@@ -49,11 +49,7 @@ use Dam\Atelier\Model\FuncaoTrait;
                        id="foto"
                        name="foto"
                        class="form-control">
-                <?php if (isset($modelo) && $modelo->getImagemModelo()): ?>
-                <?php endif; ?>
             </div>
-
-
             <div class="col col-md-7 me-5">
                 <label for="roteiro">Roteiro</label>
                 <input type="file"

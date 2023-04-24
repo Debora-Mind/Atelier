@@ -30,6 +30,13 @@ class PersistenciaModelo implements RequestHandlerInterface
     {
         $modelo = new Modelo();
 
+        $id = filter_var($request->getQueryParams()['id'] ?? null,
+            FILTER_VALIDATE_INT);
+        $modelo = $id
+            ? $this->entityManager->getRepository(Modelo::class)
+                    ->find($request->getQueryParams()['id'])
+            : new Modelo();
+
         $descricaoModelo = filter_var(
             $request->getParsedBody()['modelo-filtro'],
             FILTER_SANITIZE_SPECIAL_CHARS
@@ -43,14 +50,16 @@ class PersistenciaModelo implements RequestHandlerInterface
         $valorSaida = preg_replace('/[^0-9.,]/', '', $valorSaida);
         $valorSaida = filter_var($valorSaida, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-        if ($_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        if (($_FILES['foto']['error'] === UPLOAD_ERR_OK) && ($_FILES['foto']['name'] != "")) {
             $foto = file_get_contents($_FILES['foto']['tmp_name']);
-            $modelo->setImagemModelo($foto);
+        } else {
+            $foto = $modelo->getImagemModelo();
         }
 
-        if ($_FILES['roteiro']['error'] === UPLOAD_ERR_OK) {
+        if ($_FILES['roteiro']['error'] === UPLOAD_ERR_OK && (!empty($_FILES['roteiro']))) {
             $roteiro = file_get_contents($_FILES['roteiro']['tmp_name']);
-            $modelo->setRoteiro($roteiro);
+        } else {
+            $roteiro = $modelo->getRoteiro();
         }
 
         $empresa = $this->entityManager->getRepository(Empresa::class)->find($_SESSION['empresa']);
@@ -58,12 +67,9 @@ class PersistenciaModelo implements RequestHandlerInterface
         $modelo->setModelo($descricaoModelo)
             ->setValorEntrada($valorEntrada)
             ->setValorSaida($valorSaida)
-            ->setEmpresa($empresa);
-
-        $id = filter_var(
-            $request->getQueryParams()['id'] ?? false,
-            FILTER_VALIDATE_INT
-        );
+            ->setEmpresa($empresa)
+            ->setImagemModelo($foto)
+            ->setRoteiro($roteiro);
 
         $tipo = 'success';
         if (!is_null($id) && $id !== false) {
