@@ -31,7 +31,7 @@ trait FuncaoTrait
                 break;
             case 'funcao':
                 $objetoFiltrado = array_filter($objeto, function ($objeto) use ($busca) {
-                    if (!($objeto instanceof FuncaoTrait)) {
+                    if (!($objeto instanceof Funcao)) {
                         return false;
                     }
                     return strpos($objeto->getDescricao(), $busca) !== false;

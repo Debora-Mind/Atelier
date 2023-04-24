@@ -33,7 +33,7 @@ class ListarFuncoes implements RequestHandlerInterface
     {
         $this->verificarPermissoes([13]);
         $funcoes = $this->obterLista($request);
-        $html = $this->renderizarTemplate($funcoes);
+        $html = $this->renderizarTemplate($funcoes);;
 
         return new Response(200, [], $html);
     }
@@ -65,7 +65,7 @@ class ListarFuncoes implements RequestHandlerInterface
 
     private function renderizarTemplate(mixed $funcoes): string
     {
-        return $this->renderizaHtml('FuncaoTrait/listar-funcoes.php', [
+        return $this->renderizaHtml('Funcoes/listar-funcoes.php', [
             'funcoes' => $funcoes,
             'entityManager' => $this->entityManager,
             'empresa' => $this->empresa,

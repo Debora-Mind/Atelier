@@ -8,9 +8,9 @@ class BuscarModelos
 {
     use FuncaoTrait;
 
-    public function busca($repositorio, $pesquisa)
+    public function busca($repositorio, $pesquisa, $tipo)
     {
-        $modelos = $this->buscar($repositorio, $pesquisa);
+        $modelos = $this->buscar($repositorio, $pesquisa, $tipo);
     }
 
 }

@@ -30,7 +30,7 @@ class FormularioFuncao implements RequestHandlerInterface
         $this->verificarPermissoes([13, 14]);
         $funcoes = $this->funcoes->findAll();
 
-        $html = $this->renderizaHtml('FuncaoTrait/formulario.php', [
+        $html = $this->renderizaHtml('Funcoes/formulario.php', [
             'funcoes' => $funcoes,
         ]);
         return new Response(200, [], $html);

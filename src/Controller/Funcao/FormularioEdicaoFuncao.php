@@ -46,7 +46,7 @@ class FormularioEdicaoFuncao implements RequestHandlerInterface
 
         $funcao = $this->repositorioFuncoes->find($id);
 
-        $html = $this->renderizaHtml('FuncaoTrait/formulario.php', [
+        $html = $this->renderizaHtml('Funcoes/formulario.php', [
             'funcao' => $funcao,
             'titulo' => 'Alterar função ' . $funcao->getDescricao(),
         ]);
