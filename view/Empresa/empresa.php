@@ -4,7 +4,10 @@ include __DIR__ . '/../Componentes/navbar.php';
 ?>
     <form action="/salvar-empresa" method="post" enctype="multipart/form-data">
         <div class="barra-rolagem px-1">
-            <div class="display-6"><?= $empresa->getDescricao()?></div>
+            <div class="display-6 d-inline-flex"><?= $empresa->getDescricao()?></div>
+            <div class="d-inline-flex">
+            <?php include __DIR__ . '/../Componentes/mensagens.php'?>
+            </div>
             <hr>
             <div class="row d-inline-block">
                 <div class="col col-md-auto col-4">
@@ -38,7 +41,8 @@ include __DIR__ . '/../Componentes/navbar.php';
                     <input type="file"
                            id="logo"
                            name="logo"
-                           class="form-control">
+                           class="form-control"
+                           accept=".png,.jpg,.jpeg,.svg">
                 </div>
             </div>
             <div>

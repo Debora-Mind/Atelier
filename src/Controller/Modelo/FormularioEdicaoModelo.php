@@ -35,6 +35,7 @@ class FormularioEdicaoModelo implements RequestHandlerInterface
             $request->getQueryParams()['id'],
             FILTER_VALIDATE_INT
         );
+        $_SESSION['pagina_anterior'] = '/alterar-modelo?id=' . $id;
 
         $resposta = new Response(302, ['Location' => '/modelos']);
         if (is_null($id) || $id === false) {

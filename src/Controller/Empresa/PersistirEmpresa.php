@@ -40,10 +40,19 @@ class PersistirEmpresa implements RequestHandlerInterface
             FILTER_SANITIZE_SPECIAL_CHARS
         );
 
-        if (($_FILES['logo']['error'] === UPLOAD_ERR_OK) && ($_FILES['foto']['name'] != "")) {
+        $allowedExtensions = ['png', 'jpg', 'jpeg', 'svg'];
+
+        if (($_FILES['logo']['error'] === UPLOAD_ERR_OK) && ($_FILES['logo']['name'] != "")) {
+            $nomeArquivo = $_FILES['logo']['name'];
+            $extension = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
+            if (!in_array($extension, $allowedExtensions)) {
+                $this->defineMensagem('danger', 'Apenas arquivos PNG, JPG, JPEG e SVG são permitidos');
+                header('location: /empresa');
+                exit();
+            }
             $logo = file_get_contents($_FILES['logo']['tmp_name']);
-        } else {
-            $logo = $empresa->getLogo();
+        }  else {
+        $logo = $empresa->getLogo();
         }
 
         if ($nome == '') {

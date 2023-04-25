@@ -31,7 +31,7 @@ class FormularioAdicaoModelo implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $this->verificarPermissoes([6, 7]);
-
+        $_SESSION['pagina_anterior'] = '/novo-modelo';
         $taloes = $this->repositorioTaloes
             ->findBy([ 'modelo' => $this->repositorioModelos
             ->findBy(['empresa' => $_SESSION['empresa']])]);

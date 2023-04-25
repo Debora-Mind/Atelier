@@ -3,7 +3,9 @@
 <?php
 use Dam\Atelier\Model\FuncaoTrait;
 ?>
-
+<div class="d-inline-flex">
+    <?php include __DIR__ . '/../Componentes/mensagens.php'?>
+</div>
     <form action="/salvar-modelo<?= isset($modelo) ? '?id=' . $modelo->getId() : ''; ?>"
           method="post" class="justify-content" enctype="multipart/form-data">
         <div class="form-group justify-content-start row">
@@ -48,14 +50,16 @@ use Dam\Atelier\Model\FuncaoTrait;
                 <input type="file"
                        id="foto"
                        name="foto"
-                       class="form-control">
+                       class="form-control"
+                       accept=".png,.jpg,.jpeg,.svg">
             </div>
             <div class="col col-md-7 me-5">
                 <label for="roteiro">Roteiro</label>
                 <input type="file"
                        id="roteiro"
                        name="roteiro"
-                       class="form-control">
+                       class="form-control"
+                       accept=".pdf">
             </div>
         </div>
         <div class="position-absolute">

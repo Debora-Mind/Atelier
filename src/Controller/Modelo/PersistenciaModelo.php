@@ -51,12 +51,28 @@ class PersistenciaModelo implements RequestHandlerInterface
         $valorSaida = filter_var($valorSaida, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
         if (($_FILES['foto']['error'] === UPLOAD_ERR_OK) && ($_FILES['foto']['name'] != "")) {
+            $allowedExtensions = ['png', 'jpg', 'jpeg', 'svg'];
+            $nomeArquivo = $_FILES['foto']['name'];
+            $extension = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
+            if (!in_array($extension, $allowedExtensions)) {
+                $this->defineMensagem('danger', 'Apenas arquivos PNG, JPG, JPEG e SVG são permitidos');
+                header('location: ' . $_SESSION['pagina_anterior']);
+                exit();
+            }
             $foto = file_get_contents($_FILES['foto']['tmp_name']);
         } else {
             $foto = $modelo->getImagemModelo();
         }
 
         if ($_FILES['roteiro']['error'] === UPLOAD_ERR_OK && (!empty($_FILES['roteiro']))) {
+            $allowedExtensions = ['pdf'];
+            $nomeArquivo = $_FILES['roteiro']['name'];
+            $extension = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
+            if (!in_array($extension, $allowedExtensions)) {
+                $this->defineMensagem('danger', 'Apenas arquivos PDF são permitidos');
+                header('location: ' . $_SESSION['pagina_anterior']);
+                exit();
+            }
             $roteiro = file_get_contents($_FILES['roteiro']['tmp_name']);
         } else {
             $roteiro = $modelo->getRoteiro();
