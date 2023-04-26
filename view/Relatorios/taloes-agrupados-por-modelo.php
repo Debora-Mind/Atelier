@@ -84,6 +84,11 @@ $paginacao = new Paginacao($taloes);
                 <tfoot class="text-start table relatorio">
                     <td colspan="8" class="justify-content-between">
                         <span class="float-end mx-2">
+                            <strong>Quantidade Total: </strong>
+                            <?= number_format($paginacao->getQuantidadeTotal(),
+                                0, ',', '.'); ?>
+                        </span>
+                        <span class="float-end mx-2">
                             <strong>Total: </strong>
                             <?= number_format($paginacao->getTotalItens(),
                                 0, ',', '.'); ?>
