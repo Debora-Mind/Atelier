@@ -3,9 +3,7 @@
 <?php
 use Dam\Atelier\Model\FuncaoTrait;
 ?>
-<div class="d-inline-flex">
-    <?php include __DIR__ . '/../Componentes/mensagens.php'?>
-</div>
+
     <form action="/salvar-modelo<?= isset($modelo) ? '?id=' . $modelo->getId() : ''; ?>"
           method="post" class="justify-content" enctype="multipart/form-data">
         <div class="form-group justify-content-start row">

@@ -29,10 +29,10 @@
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.3",
         "intervention/image": "^2.7",
-      "ext-exif": "*",
         "guzzlehttp/psr7": "^2.5",
         "ext-fileinfo": "*",
         "slim/slim": "^4.0",
-      "ext-pdo": "*"
+        "ext-pdo": "*",
+        "exif/exif": "1.1.0",
     }
 }

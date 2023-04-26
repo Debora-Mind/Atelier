@@ -56,11 +56,12 @@ tr.table-danger * {
 }
 
 #logo {
-    background-image: url("../img/logo.png");
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y: 87%;
     background-attachment: fixed;
+    z-index: -1;
+    background-size: 40%;
 }
 
 #conteudo {
@@ -108,5 +109,40 @@ tr.table-danger * {
 
 .barra-rolagem::-webkit-scrollbar-thumb:hover {
     background: #555; /* Cor da barra de rolagem ao passar o mouse */
+}
+
+.hide {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+#flash-message {
+    position: fixed;
+    top: 7%;
+    right: 0;
+    padding: 1rem 4rem 1rem 2rem;
+    animation: flash-message 12s !important;
+    margin: 1rem 0 1rem 1rem;
+    max-width: 30%;
+    z-index: 9999;
+}
+
+@keyframes flash-message {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    10% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    90% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
 }
 

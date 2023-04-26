@@ -23,13 +23,18 @@ class VisualizarLogo implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $id = $_SESSION['empresa'];
+        $id = $request->getQueryParams()['id'];
         $imagem = stream_get_contents($this->entityManager
             ->getRepository(Empresa::class)
             ->find($id)->getLogo());
 
         $response = new Response();
+
+        $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
+        $contentType = $fileInfo->buffer($imagem);
+
         $response->getBody()->write($imagem);
-        return $response->withHeader('Content-Type', 'image/png, image/jpeg, image/svg');
+        return $response->withHeader('Content-Type', $contentType);
     }
+
 }

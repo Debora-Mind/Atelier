@@ -1,10 +1,7 @@
-<?php
-    if (isset($_SESSION['mensagem'])): ?>
-    <div class="d-flex align-items-center alert alert-<?= $_SESSION['tipo_mensagem']; ?> mx-2 my-0" style="height: 38px;">
+<?php if (isset($_SESSION['mensagem'])): ?>
+    <div id="flash-message" class="hide d-flex alert alert-<?= $_SESSION['tipo_mensagem']; ?>">
         <?= $_SESSION['mensagem']; ?>
     </div>
-    <?php
-    unset($_SESSION['mensagem']);
-    unset($_SESSION['tipo_mensagem']);
-    endif;
-?>
+    <?php unset($_SESSION['mensagem']); unset($_SESSION['tipo_mensagem']); ?>
+<?php endif; ?>
+

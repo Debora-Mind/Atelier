@@ -58,12 +58,6 @@
             <button type="button" onclick="cancelar('usuarios')"
                     class="btn btn-danger mt-2 fixed">Cancelar</button>
         </div>
-        <div class="flex-fill fixed-bottom m-5 px-5">
-            <div class="">
-                <?php include __DIR__ . '/../Componentes/mensagens.php';?>
-            </div>
-        </div>
-
     </form>
 
 <?php include __DIR__ . '/../Componentes/fim-html.php';

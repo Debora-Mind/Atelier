@@ -30,26 +30,16 @@ class VisualizarImagens implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        // Recupera o ID da imagem a ser exibida
         $id = $request->getQueryParams()['id'];
+
         $imagem = stream_get_contents($this->entityManager->getRepository(Modelo::class)->find($id)->getImagemModelo());
 
-        $response = $this->responseFactory->createResponse();
+        $response = new Response();
 
-        // Define o conteúdo da página HTML
-        $html = '<!DOCTYPE html>';
-        $html .= '<html lang="pt-br">';
-        $html .= '<head>';
-        $html .= '<meta charset="UTF-8">';
-        $html .= '<title>Visualizar Imagem</title>';
-        $html .= '</head>';
-        $html .= '<body>';
-        $html .= '<img src="data:image/png;base64,' . base64_encode($imagem) . '">';
-        $html .= '</body>';
-        $html .= '</html>';
+        $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
+        $contentType = $fileInfo->buffer($imagem);
 
-        $response->getBody()->write($html);
-
-        return $response;
+        $response->getBody()->write($imagem);
+        return $response->withHeader('Content-Type', $contentType);
     }
 }

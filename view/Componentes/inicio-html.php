@@ -14,7 +14,13 @@
 </head>
 <body>
 
+<?php include __DIR__ . '/../Componentes/mensagens.php';?>
 <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] === true): ?>
-<div id="logo" class="fixed-bottom h-100">
+    <?=
+    "<div id='logo' 
+        class='fixed-bottom h-100' 
+        style='background-image: url(/visualizar-logo?id={$_SESSION["empresa"]})'>
+    </div>"
+    ?>
 <?php endif; ?>
 <?php $dataAtual = new DateTime();?>

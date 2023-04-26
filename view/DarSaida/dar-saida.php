@@ -3,9 +3,6 @@ include __DIR__ . '/../Componentes/inicio-html.php';
 include __DIR__ . '/../Componentes/navbar.php';
  ?>
 
-<div class="position-absolute w-auto">
-    <?php include __DIR__ . '/../Componentes/mensagens.php' ?>
-</div>
 <div class="container-xl mt-5 bg-dark w-100 py-3 float-start">
     <div class="float-start w-50 d-inline pe-2">
         <form action="/dar-saida" class="form-control" method="post">

@@ -21,9 +21,6 @@ $paginado = $paginacao->paginate();
                 <i class="bi bi-search"></i> Buscar
             </button>
         </form>
-        <div class="flex-fill">
-            <?php include __DIR__ . '/../Componentes/mensagens.php';?>
-        </div>
         <div>
             <a type="button" href="/novo-usuario" class="btn btn-primary text-light mb-2">
                 <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>

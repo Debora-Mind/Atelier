@@ -40,20 +40,19 @@ document.addEventListener('DOMContentLoaded', function() {
             numberInput.setAttribute('disabled', 'disabled');
         }
     }
+        // define as variáveis switches e switchElement
+        const switches = document.querySelectorAll('.form-check-input');
+        let switchElement;
 
-    // define as variáveis switches e switchElement
-    const switches = document.querySelectorAll('.form-check-input');
-    let switchElement;
-
-    // itera sobre cada switch e adiciona um evento change
-    for (let i = 0; i < switches.length; i++) {
-        switchElement = switches[i];
-        toggleNumberInput(switchElement); // inicializa a exibição do input
-        switchElement.addEventListener('change', function() {
-            toggleNumberInput(this);
-        });
-    }
-});
+        // itera sobre cada switch e adiciona um evento change
+        for (let i = 0; i < switches.length; i++) {
+            switchElement = switches[i];
+            toggleNumberInput(switchElement); // inicializa a exibição do input
+            switchElement.addEventListener('change', function () {
+                toggleNumberInput(this);
+            });
+        }
+    })
 
 function paginate(items, currentPage, itemsPerPage) {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -65,23 +64,6 @@ function paginate(items, currentPage, itemsPerPage) {
 function limparConteudo() {
     document.getElementById('data-saida').value = ''; //limpa o valor do input
 }
-
-
-function exibirMensagem() {
-    const mensagemDiv = document.querySelector('.alert');
-
-    const removerMensagem = () => {
-        mensagemDiv.style.display = 'none';
-    }
-
-    mensagemDiv.style.position = 'fixed';
-    mensagemDiv.style.top = '0';
-    mensagemDiv.style.right = '0';
-
-    setTimeout(removerMensagem, 5000);
-}
-
-exibirMensagem();
 
 (function() {
     const input = document.getElementById("modelo-filtro");
@@ -119,5 +101,3 @@ exibirMensagem();
         input.value = "";
     });
 })();
-
-
