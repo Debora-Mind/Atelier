@@ -13,7 +13,7 @@ $paginado = $paginacao->paginate();
 
 ?>
 <div class="">
-    <div class="d-flex align-items-center align-items-stretch busca">
+    <div class="d-flex justify-content-between align-items-stretch busca">
         <form action="/taloes" method="post" class="d-flex">
             <input type="text"
                    name="busca"

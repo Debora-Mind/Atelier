@@ -9,7 +9,7 @@ $paginacao = new Paginacao($funcoes);
 $paginado = $paginacao->paginate();
 ?>
 
-    <div class="d-flex align-items-center align-items-stretch">
+    <div class="d-flex justify-content-between align-items-stretch">
         <form action="/funcoes" method="post" class="d-flex">
             <input type="text"
                    name="busca"
