@@ -44,8 +44,11 @@ $paginado = $paginacao->paginate();
             </button>
         </form>
         <div>
+            <a type="button" href="/imprimir-taloes" class="btn btn-primary text-light mb-2" target="_blank">
+                <i class="bi bi-printer primary bi-align-middle"></i> Imprimir
+            </a>
             <a type="button" href="/novo-talao" class="btn btn-primary text-light mb-2">
-                <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
+                <i class="bi bi-plus-circle-fill primary bi-align-middle"></i> Novo
             </a>
         </div>
     </div>

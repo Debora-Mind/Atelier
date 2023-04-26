@@ -10,6 +10,7 @@
     --dark: #343a40;
     --white: #ffffff;
     --table: #8cc9d7;
+    --table-relatorio: rgba(146, 146, 147, 0.85);
     --table-sucess: rgb(166, 255, 160);
     --table-warning: rgb(244, 255, 146);
     --table-danger: rgb(255, 137, 137);
@@ -53,6 +54,12 @@ tr.table-warning * {
 }
 tr.table-danger * {
     background: var(--table-danger);
+}
+table thead.relatorio *{
+    background-color: var(--table-relatorio);
+}
+table tfoot.relatorio *{
+    background-color: var(--table-relatorio);
 }
 
 #logo {
