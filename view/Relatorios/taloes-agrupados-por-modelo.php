@@ -7,7 +7,7 @@ use Dam\Atelier\Model\Funcoes\Paginacao;
 
 include __DIR__ . '/../Componentes/inicio-html.php';
 
-$paginacao = new Paginacao($taloes);
+$paginacao = new Paginacao($_SESSION['itens']);
 ?>
     <div class="container">
     <div class="text-start my-3 mx-3">
