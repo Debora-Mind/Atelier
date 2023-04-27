@@ -11,7 +11,7 @@ $paginacao = new Paginacao($taloes);
 ?>
     <div class="container">
     <div class="text-start my-3 mx-3">
-        <img class='float-end'
+        <img class='float-end mb-2'
              style="max-height: 10rem; max-width: 15rem"
              src='/visualizar-logo?id=<?=$_SESSION["empresa"]?>}'>
         Relatório de talões
@@ -19,46 +19,43 @@ $paginacao = new Paginacao($taloes);
         <b><?=$empresa->getDescricao()?></b>
         - <?= $dataAtual->format('d/m/Y H:i') ?>
     </div>
-    <hr>
-    <table class="table table-sm table-bordered">
+    <table class="table table-sm table-bordered border-dark">
         <thead class="table relatorio">
             <tr>
                 <th scope="col" style="width: 10%">Modelo</th>
                 <th scope="col">Talão</th>
             </tr>
         </thead>
-    <tbody>
+    <tbody class="relatorio-body">
 <?php foreach ($modelos as $modelo) :?>
     <tr>
-        <td class="text-center">
-            <b><?= $modelo->getModelo() ?></b>
-            <?php if ($modelo->getImagemModelo() !== null) :?>
-            <br>
-            <img style="max-height: 10rem; max-width: 15rem" src='/visualizar-img?id=<?=$modelo->getId()?>}'>
+        <td class="text-center align-middle">
+            <div><?php if ($modelo->getImagemModelo() !== null) :?></div>
+            <img style="max-height: 10rem; max-width: 15rem" src='/visualizar-img?id=<?=$modelo->getId()?>}' class="mt-1">
+            <b class="mb-1"><?= $modelo->getModelo() ?></b>
             <?php endif ?>
         </td>
         <td>
-            <table class="table table-striped table-sm m-0 table-bordered">
+            <table class="table table-striped table-sm my-1 table-bordered">
                 <thead class="table relatorio">
                 <tr>
                     <th scope="col" style="width: 5%">#</th>
-                    <th scope="col" style="width: 10%">Quantidade</th>
+                    <th scope="col" style="width: 5%">Rel.Prod.</th>
+                    <th scope="col" style="width: 5%">Sub.Lote</th>
                     <th scope="col" style="width: 10%">Semana</th>
-                    <th scope="col" style="width: 10%">Entrada</th>
-                    <th scope="col" style="width: 20%">Saída</th>
                     <th scope="col">Nota</th>
                     <th style="width: 3%" scope="col" class="text-center">Saída?</th>
+                    <th scope="col" style="width: 5%" class="text-end">Qtd</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="relatorio-body">
                     <?php $qtd = 0; foreach ($taloes as $talao): ?>
                     <?php if($modelo->getId() == $talao->getModelo()->getId()) : ?>
                     <tr>
                         <td scope="row"><?= $talao->getId(); ?></td>
-                        <td><?= $talao->getQuantidade(); ?></td>
+                        <td><?= $talao->getProducao(); ?></td>
+                        <td><?= $talao->getSubLote(); ?></td>
                         <td><?= $talao->getSemana(); ?></td>
-                        <td><?= $talao->getDataEntrada()->format('d/m/Y'); ?></td>
-                        <td><?= $talao->getDataSaida(); ?></td>
                         <td><?= $talao->getNotaFiscal() ?></td>
                         <td class="text-center">
                             <?php $qtd += $talao->getQuantidade();
@@ -68,6 +65,7 @@ $paginacao = new Paginacao($taloes);
                                 Não
                             <?php endif; ?>
                         </td>
+                        <td class="text-end"><?= $talao->getQuantidade(); ?></td>
                     </tr>
                     <?php endif;?>
                     <?php endforeach; ?>

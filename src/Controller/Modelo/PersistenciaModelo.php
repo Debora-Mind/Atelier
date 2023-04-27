@@ -99,6 +99,6 @@ class PersistenciaModelo implements RequestHandlerInterface
 
         $this->entityManager->flush();
 
-        return new Response(302, ['Location' => '/modelos']);
+        return new Response(302, ['Location' => '/novo-modelo']);
     }
 }

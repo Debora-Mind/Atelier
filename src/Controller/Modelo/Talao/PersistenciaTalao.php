@@ -29,13 +29,13 @@ class PersistenciaTalao implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $descricaoModelo = filter_var(
-            $request->getParsedBody()['modelo-filtro'],
+            mb_strtoupper($request->getParsedBody()['modelo-filtro']),
             FILTER_SANITIZE_SPECIAL_CHARS
         );
         $modelo = $this->entityManager->getRepository(Modelo::class)->findBy(['modelo' => $descricaoModelo])[0];
 
         $producao = filter_var(
-            $request->getParsedBody()['producao'],
+            mb_strtoupper($request->getParsedBody()['producao']),
             FILTER_SANITIZE_SPECIAL_CHARS
         );
 
@@ -96,6 +96,6 @@ class PersistenciaTalao implements RequestHandlerInterface
 
         $this->entityManager->flush();
 
-        return new Response(302, ['Location' => '/taloes']);
+        return new Response(302, ['Location' => '/novo-talao']);
     }
 }

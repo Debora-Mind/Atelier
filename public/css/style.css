@@ -57,9 +57,20 @@ tr.table-danger * {
 }
 table thead.relatorio *{
     background-color: var(--table-relatorio);
+    padding-bottom: 1px;
+    padding-top: 1px;
+    border-color: #333333;
 }
 table tfoot.relatorio *{
     background-color: var(--table-relatorio);
+    padding-bottom: 1px;
+    padding-top: 1px;
+    border-color: #333333;
+}
+table tbody.relatorio-body *{
+    padding-bottom: 0;
+    padding-top: 0;
+    border-color: #333333;
 }
 
 #logo {
@@ -125,11 +136,12 @@ table tfoot.relatorio *{
 
 #flash-message {
     position: fixed;
-    top: 7%;
+    bottom: 0%;
     right: 0;
     padding: 1rem 4rem 1rem 2rem;
     animation: flash-message 12s !important;
-    margin: 1rem 0 1rem 1rem;
+    margin: 1rem 0 0 1rem;
+    min-width: 20%;
     max-width: 30%;
     z-index: 9999;
 }
