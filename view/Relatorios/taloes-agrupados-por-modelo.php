@@ -32,8 +32,7 @@ $paginacao = new Paginacao($_SESSION['itens']);
     <tr>
         <td class="text-center align-middle">
             <div><?php if ($modelo->getImagemModelo() !== null) :?></div>
-            <img style="max-height: 10rem; max-width: 15rem" src='/visualizar-img?id=<?=$modelo->getId()?>}' class="mt-1">
-            <b class="mb-1"><?= $modelo->getModelo() ?></b>
+            <img style="max-height: 10rem; max-width: 15rem" src='/visualizar-img?id=<?=$modelo->getId()?>}' class="my-1">
             <?php endif ?>
         </td>
         <td>
@@ -41,10 +40,10 @@ $paginacao = new Paginacao($_SESSION['itens']);
                 <thead class="table relatorio">
                 <tr>
                     <th scope="col" style="width: 5%">#</th>
+                    <th scope="col" style="width: 5%">Referência</th>
                     <th scope="col" style="width: 5%">Rel.Prod.</th>
                     <th scope="col" style="width: 5%">Sub.Lote</th>
                     <th scope="col" style="width: 10%">Semana</th>
-                    <th scope="col">Nota</th>
                     <th style="width: 3%" scope="col" class="text-center">Saída?</th>
                     <th scope="col" style="width: 5%" class="text-end">Qtd</th>
                 </tr>
@@ -54,10 +53,10 @@ $paginacao = new Paginacao($_SESSION['itens']);
                     <?php if($modelo->getId() == $talao->getModelo()->getId()) : ?>
                     <tr>
                         <td scope="row"><?= $talao->getId(); ?></td>
+                        <td><?= $talao->getModelo()->getModelo(); ?></td>
                         <td><?= $talao->getProducao(); ?></td>
                         <td><?= $talao->getSubLote(); ?></td>
                         <td><?= $talao->getSemana(); ?></td>
-                        <td><?= $talao->getNotaFiscal() ?></td>
                         <td class="text-center">
                             <?php $qtd += $talao->getQuantidade();
                             if ($talao->getDataSaida() != null): ?>
@@ -73,7 +72,7 @@ $paginacao = new Paginacao($_SESSION['itens']);
                 </tbody>
             <tfoot class="table relatorio">
             <td colspan="7" class="text-end">
-                Total: <?= $qtd ?>
+                <b> Total: </b><?= $qtd ?>
             </td>
             </tfoot>
             </table>

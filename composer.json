@@ -33,6 +33,6 @@
         "ext-fileinfo": "*",
         "slim/slim": "^4.0",
         "ext-pdo": "*",
-        "exif/exif": "1.1.0",
+        "exif/exif": "1.1.0"
     }
 }

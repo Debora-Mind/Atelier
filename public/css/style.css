@@ -1,16 +1,16 @@
 /* CSS personalizado */
 :root {
-    --primary: #007bff;
+    --primary: rgb(12, 183, 242);
     --secondary: rgba(138, 43, 226, 0.5);
-    --success: #17962f;
+    --success: #10a91a;
     --info: #339ade;
     --warning: #ffc107;
-    --danger: #ff1e1e;
+    --danger: #fd3e3e;
     --light: #f8f9fa;
     --dark: #343a40;
     --white: #ffffff;
-    --table: #8cc9d7;
-    --table-relatorio: rgba(146, 146, 147, 0.85);
+    --table: rgba(177, 243, 241, 0.85);
+    --table-relatorio: rgba(194, 194, 196, 0.85);
     --table-sucess: rgb(166, 255, 160);
     --table-warning: rgb(244, 255, 146);
     --table-danger: rgb(255, 137, 137);
@@ -30,9 +30,14 @@
 }
 .btn-primary {
     background-color: var(--primary);
+    border-color: var(--primary);
+    box-sizing: border-box;
 }
+
 .btn-primary:hover {
-    background-color: var(--info);
+    background-color: var(--primary);
+    border-color: var(--primary);
+    opacity: 75%;
 }
 .btn-success {
     background-color: var(--success);
