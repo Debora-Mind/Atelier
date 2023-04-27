@@ -115,43 +115,29 @@ class ListarTaloes implements RequestHandlerInterface
 
     private function ordenarLista($array): array
     {
-
         usort($array, function ($a, $b) {
-            $aDate = $a->getDataEntrada();
-            $bDate = $b->getDataEntrada();
+            $aDateEntrada = $a->getDataEntrada();
+            $bDateEntrada = $b->getDataEntrada();
+            $aDateSaida = $a->getDataSaida();
+            $bDateSaida = $b->getDataSaida();
 
-            if (!isset($aDate)) {
+            if ($aDateSaida === null && $bDateSaida !== null) {
                 return -1;
             }
-            if (!isset($bDate)) {
+            if ($aDateSaida !== null && $bDateSaida === null) {
                 return 1;
             }
-            if ($aDate == $bDate) {
-                return 0;
+            if ($aDateSaida === null && $bDateSaida === null) {
+                return $aDateEntrada <=> $bDateEntrada;
             }
-
-            return ($aDate > $bDate) ? 1 : -1;
-        });
-
-        usort($array, function ($a, $b) {
-            $aDate = $a->getDataSaida();
-            $bDate = $b->getDataSaida();
-
-            if (!isset($aDate)) {
-                return -1;
-            }
-            if (!isset($bDate)) {
-                return 1;
-            }
-            if ($aDate == $bDate) {
-                return 0;
-            }
-
-            return ($aDate > $bDate) ? -1 : 1;
+            return $bDateSaida <=> $aDateSaida ?: $aDateEntrada <=> $bDateEntrada;
         });
 
         return $array;
     }
+
+
+
 
     private function renderizarTemplate(mixed $taloes): string
     {

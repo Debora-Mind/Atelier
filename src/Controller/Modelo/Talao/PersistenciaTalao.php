@@ -69,7 +69,18 @@ class PersistenciaTalao implements RequestHandlerInterface
             FILTER_SANITIZE_SPECIAL_CHARS
         );
         $data_entrada = new \DateTime($data_entrada);
+
+        $data_saida = filter_var(
+            $request->getParsedBody()['data-saida'],
+            FILTER_SANITIZE_SPECIAL_CHARS
+        ) ?? null;
+
         $talao = new Talao();
+
+        if ($data_saida) {
+            $talao->setDataSaida();
+        }
+
         $talao->setModelo($modelo)
             ->setProducao($producao)
             ->setSublote($sublote)

@@ -16,14 +16,6 @@ class DarSaida implements RequestHandlerInterface
     use RenderizadorDeHtmlTrait;
     use VerificarPermissoesTrait;
 
-    private $repositorioModelos;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->repositorioModelos = $entityManager
-            ->getRepository(Modelo::class);
-    }
-
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $this->verificarPermissoes([16]);

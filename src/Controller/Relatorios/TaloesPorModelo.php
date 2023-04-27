@@ -37,7 +37,8 @@ class TaloesPorModelo implements RequestHandlerInterface
         $this->verificarPermissoes([18]);
         $taloes = $this->obterListaDeTaloes($request);
         $modelos = $this->obterModelos($taloes);
-        $html = $this->renderizarTemplate($taloes, $modelos);
+        $modelosId = $this->listaIdModelos();
+        $html = $this->renderizarTemplate($taloes, $modelos, $modelosId);
 
         return new Response(200, [], $html);
     }
@@ -94,11 +95,12 @@ class TaloesPorModelo implements RequestHandlerInterface
         return $array;
     }
 
-    private function renderizarTemplate(mixed $taloes, $modelos): string
+    private function renderizarTemplate(mixed $taloes, $modelos, $modelosId): string
     {
         return $this->renderizaHtml('Relatorios/taloes-agrupados-por-modelo.php', [
             'taloes' => $taloes,
             'modelos' => $modelos,
+            'modelosId' => $modelosId,
             'entityManager' => $this->entityManager,
             'empresa' => $this->empresa,
         ]);
@@ -117,6 +119,17 @@ class TaloesPorModelo implements RequestHandlerInterface
             }
         }
         return $listaModelos;
+    }
+
+    private function listaIdModelos()
+    {
+        $lista = [];
+        if (isset($_SESSION['itens'])){
+            foreach ($_SESSION['itens'] as $talao) {
+                $lista [] = $talao->getModelo()->getId();
+            }
+        }
+        return $lista;
     }
 
 }

@@ -28,6 +28,7 @@ $paginacao = new Paginacao($taloes);
         </thead>
     <tbody class="relatorio-body">
 <?php foreach ($modelos as $modelo) :?>
+<?php if(in_array($modelo->getId(), $modelosId)) :?>
     <tr>
         <td class="text-center align-middle">
             <div><?php if ($modelo->getImagemModelo() !== null) :?></div>
@@ -49,7 +50,7 @@ $paginacao = new Paginacao($taloes);
                 </tr>
                 </thead>
                 <tbody class="relatorio-body">
-                    <?php $qtd = 0; foreach ($taloes as $talao): ?>
+                    <?php $qtd = 0; foreach ($_SESSION['itens'] as $talao): ?>
                     <?php if($modelo->getId() == $talao->getModelo()->getId()) : ?>
                     <tr>
                         <td scope="row"><?= $talao->getId(); ?></td>
@@ -59,7 +60,7 @@ $paginacao = new Paginacao($taloes);
                         <td><?= $talao->getNotaFiscal() ?></td>
                         <td class="text-center">
                             <?php $qtd += $talao->getQuantidade();
-                            if ($talao->getDataSaida()): ?>
+                            if ($talao->getDataSaida() != null): ?>
                                 Sim
                             <?php else: ?>
                                 Não
@@ -77,23 +78,24 @@ $paginacao = new Paginacao($taloes);
             </tfoot>
             </table>
         </td>
-            <?php endforeach; ?>
-            </tbody>
-                <tfoot class="text-start table relatorio">
-                    <td colspan="8" class="justify-content-between">
-                        <span class="float-end mx-2">
-                            <strong>Quantidade Total: </strong>
-                            <?= number_format($paginacao->getQuantidadeTotal(),
-                                0, ',', '.'); ?>
-                        </span>
-                        <span class="float-end mx-2">
-                            <strong>Total: </strong>
-                            <?= number_format($paginacao->getTotalItens(),
-                                0, ',', '.'); ?>
-                                registros
-                        </span>
-                    </td>
-                </tfoot>
-            </table>
-            </div>
-            <?php include __DIR__ . '/../Componentes/fim-html.php'; ?>
+    <?php endif; ?>
+    <?php endforeach; ?>
+        </tbody>
+            <tfoot class="text-start table relatorio">
+                <td colspan="8" class="justify-content-between">
+                    <span class="float-end mx-2">
+                        <strong>Quantidade Total: </strong>
+                        <?= number_format($paginacao->getQuantidadeTotal(),
+                            0, ',', '.'); ?>
+                    </span>
+                    <span class="float-end mx-2">
+                        <strong>Total: </strong>
+                        <?= number_format($paginacao->getTotalItens(),
+                            0, ',', '.'); ?>
+                            registros
+                    </span>
+                </td>
+            </tfoot>
+        </table>
+        </div>
+        <?php include __DIR__ . '/../Componentes/fim-html.php'; ?>
