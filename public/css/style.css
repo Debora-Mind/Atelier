@@ -1,43 +1,49 @@
 /* CSS personalizado */
 :root {
-    --primary: rgb(12, 183, 242);
+    --primary: rgb(0, 100, 148);
     --secondary: rgba(138, 43, 226, 0.5);
-    --success: #10a91a;
+    --success: #43a945;
     --info: #339ade;
     --warning: #ffc107;
-    --danger: #fd3e3e;
-    --light: #f8f9fa;
+    --danger: #af2323;
+    --light: #e8f1f2;
     --dark: #343a40;
     --white: #ffffff;
-    --table: rgba(177, 243, 241, 0.85);
+    --table: rgb(103, 168, 205);
     --table-relatorio: rgba(194, 194, 196, 0.85);
-    --table-sucess: rgb(166, 255, 160);
-    --table-warning: rgb(244, 255, 146);
-    --table-danger: rgb(255, 137, 137);
+    --table-sucess: rgb(133, 232, 150);
+    --table-warning: rgb(252, 255, 173);
+    --table-danger: rgb(255, 175, 175);
+    --border: #363738FF;
+    --t1: #e8f1f2;
+    --t2: #1B98E0;
+    --t3: #247BA0;
+    --t4: #006494;
+    --t5: #757575;
+    --pt: #333333;
 }
 
 .bg-light {
-    background-color: var(--light);
+    background-color: var(--t1);
 }
 .bg-primary {
-    background-color: var(--primary);
+    background-color: var(--t4);
 }
 .text-primary {
-    color: var(--primary);
+    color: var(--pt);
 }
 .text-secondary {
     color: var(--secondary);
 }
 .btn-primary {
-    background-color: var(--primary);
-    border-color: var(--primary);
+    background-color: var(--t4);
+    border-color: var(--t3);
     box-sizing: border-box;
 }
 
 .btn-primary:hover {
-    background-color: var(--primary);
-    border-color: var(--primary);
-    opacity: 75%;
+    background-color: var(--t3);
+    border-color: var(--t4);
 }
 .btn-success {
     background-color: var(--success);
@@ -46,11 +52,19 @@
     background-color: var(--danger);
 }
 .table thead * {
-    background-color: var(--table);
+    background-color: var(--t3);
+    border-color: var(--t5);
+    color: #ffffff;
 }
 .table tfoot * {
-    background-color: var(--table);
+    background-color: var(--t3);
+    color: #ffffff;
 }
+.table tbody * {
+    background-color: var(--t1);
+    color: var(--pt);
+}
+
 tr.table-success *{
     background-color: var(--table-sucess);
 }
@@ -78,6 +92,32 @@ table tbody.relatorio-body *{
     border-color: #333333;
 }
 
+li.page-item{
+    border-color: #43a945;
+    outline: #43a945;
+    color: #43a945;
+    box-sizing: border-box;
+}
+
+li.page-item:hover{
+    outline: var(--pt);
+}
+li.page-item a.page {
+    background-color: var(--t3);
+    border-color: var(--pt);
+    color: var(--pt);
+}
+
+li.page-item a.page:active{
+    background-color: var(--t1);
+    border-color: var(--t1);
+    color: rgba(164,215,169,0.85);
+}
+
+.text-secondary {
+    color: var(--pt);
+}
+
 #logo {
     background-repeat: no-repeat;
     background-position-x: 95%;
@@ -87,14 +127,38 @@ table tbody.relatorio-body *{
     background-size: 40%;
 }
 
-#conteudo {
-    background-color: rgba(255,255,255,0.90);
+html body {
+    background-color: var(--light);
 }
 
+.form-group .form-group,
+.form-group .form-control,
+.form-group .form-control-sm {
+    border: 1px solid var(--t5);
+    background-color: #ffffff;}
+
+.form-group .form-group:focus,
+.form-group .form-control:focus,
+.form-group .form-control-sm:focus {
+    border-color: var(--t5);
+    background-color: var(--t1);
+    box-shadow: 0px 0px 10px 0px var(--t4);
+    transition: box-shadow 0.5s ease;
+}
+.form-group .form-group:required,
+.form-group .form-control:required,
+.form-group .form-control-sm:required {
+    border-color: var(--t5);
+}
+
+.form-group .form-group:valid,
+.form-group .form-control:valid,
+.form-group .form-control-sm:valid  {
+    border-color: var(--t5);
+}
 .busca {
     position: sticky;
     top: 0;
-    background-color: #fff;
     z-index: 1;
 }
 
@@ -170,3 +234,21 @@ table tbody.relatorio-body *{
     }
 }
 
+@keyframes select-input {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    10% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    90% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}

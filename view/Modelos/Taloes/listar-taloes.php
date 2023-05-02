@@ -14,19 +14,20 @@ $paginado = $paginacao->paginate();
 ?>
 <div class="">
     <div class="d-flex justify-content-between align-items-stretch busca">
-        <form action="/taloes" method="post" class="d-flex">
+        <form action="/taloes" method="post" class="d-flex form-group">
             <input type="text"
                    name="busca"
                    id="busca"
                    placeholder="Digite o modelo ou código de barras"
                    autofocus
+                   class="form-control-sm"
                    style="height: 82%; width: 18rem">
             <input type="number"
                    name="semana"
                    id="semana"
                    placeholder="Semana"
-                   style="height: 82%;width: 5rem"
-            class="ms-2">
+                   class="form-control ms-2"
+                   style="height: 82%;width: 6rem">
             <select type="button" name="filtro-saida" id="filtro-saida"
                     class="btn btn-toolbar btn-primary text-light ms-2 mb-2">
                 <option value="1" selected class="dropdown-item bg-white text-start">
@@ -70,7 +71,7 @@ $paginado = $paginacao->paginate();
                 <th scope="col" style="width: 5%">Semana</th>
                 <th scope="col" style="width: 8%">Cod.Barras</th>
                 <th scope="col" style="width: 6%">Entrada</th>
-                <th scope="col" style="width: 10%">Saída</th>
+                <th scope="col" style="width: 20%">Saída</th>
                 <th scope="col">Nota</th>
                 <th colspan="5" style="width: 3%" scope="col" class="text-center">Ações</th>
             </tr>
@@ -99,7 +100,7 @@ $paginado = $paginacao->paginate();
                             <?= $talao->disabled() ?>
                                 onclick="darSaida('<?= $talao->getModelo()->getModelo() ?>', '<?= $talao->getId(); ?>')"
                                 style="border: none; padding: 0;"
-                                class="mx-1">
+                                class="me-1">
                             <i class="<?= $talao->button() ?>" style="color: <?= $talao->cor() ?>"></i>
                         </button>
                     </td>
@@ -107,13 +108,13 @@ $paginado = $paginacao->paginate();
                         <button
                         <?php if ($talao->getModelo()->getRoteiro() !== null) :?>
                                 title="Ver roteiro"
-                                class="mx-1"
+                                class="me-1"
                                 onclick="window.open('visualizar-documento?id=<?= $talao->getModelo()->getId(); ?>')"
                                 style="border: none; padding: 0;">
                             <i class="bi bi-eye-fill" style="color: black;"></i>
                         <?php else: ?>
                                 disabled
-                                class="mx-1"
+                                class="me-1"
                                 title="O roteiro não foi inserido"
                                 style="border: none; padding: 0;">
                             <i class="bi bi-eye-slash" style="color: black;"></i>
@@ -124,13 +125,13 @@ $paginado = $paginacao->paginate();
                         <button
                             <?php if ($talao->getModelo()->getImagemModelo() !== null) :?>
                                 title="Ver foto"
-                                class="mx-1"
+                                class="me-1"
                                 onclick="window.open('visualizar-imagem?id=<?= $talao->getModelo()->getId(); ?>')"
                                 style="border: none; padding: 0;">
                             <i class="bi bi-image" style="color: black;"></i>
                             <?php else: ?>
                                 disabled
-                                class="mx-1"
+                                class="me-1"
                                 title="A imagem não foi inserida"
                                 style="border: none; padding: 0;">
                                 <i class="bi bi-x-lg" style="color: black;"></i>
@@ -138,7 +139,7 @@ $paginado = $paginacao->paginate();
                         </button>
                     </td>
                     <td class="text-center px-0">
-                        <button style="border: none; padding: 0;" class="mx-1">
+                        <button style="border: none; padding: 0;" class="me-1">
                             <a title="Editar" href="/alterar-talao?id=<?= $talao->getId(); ?>">
                                 <i class="bi bi-pencil-square" style="color: black;"></i>
                             </a>
@@ -148,7 +149,7 @@ $paginado = $paginacao->paginate();
                         <button title="Excluir?"
                                 onclick="excluir('talao', '<?= $talao->getModelo()->getModelo() ?>', '<?= $talao->getId(); ?>')"
                                 style="border: none; padding: 0;"
-                                class="mx-1">
+                                class="me-1">
                             <i class="bi bi-trash3-fill" style="color: black;"></i>
                         </button>
                     </td>

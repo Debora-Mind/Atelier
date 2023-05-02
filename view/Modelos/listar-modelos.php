@@ -13,12 +13,13 @@ $paginado = $paginacao->paginate();
 ?>
 <div class="">
     <div class="d-flex justify-content-between align-items-stretch busca">
-        <form action="/modelos" method="post" class="d-flex">
+        <form action="/modelos" method="post" class="d-flex form-group">
             <input type="text"
                    name="busca"
                    id="busca"
                    placeholder="Digite o modelo"
                    autofocus
+                   class="form-control-sm"
                    style="height: 82%; width: 18rem">
             <button class="btn btn-primary text-light mb-2 ms-2" type="submit">
                 <i class="bi bi-search"></i> Buscar
@@ -121,7 +122,7 @@ $paginado = $paginacao->paginate();
                 <?php endif; ?>
                 <?php for($i=1;$i<=$paginacao->paginate()['totalPaginas'];$i++): ?>
                     <li class="page-item <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'active' : ''; ?>">
-                        <a class="page-link bg-primary border-secondary
+                        <a class="page-link page
                         <?= ($i==$paginacao->paginate()['paginaAtual']) ? 'text-light' : 'text-secondary'; ?>"
                            href="?pagina=<?= $i; ?>"><?= $i; ?></a>
                     </li>

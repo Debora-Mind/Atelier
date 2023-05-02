@@ -2,7 +2,7 @@
 include __DIR__ . '/../Componentes/inicio-html.php';
 include __DIR__ . '/../Componentes/navbar.php';
 ?>
-    <form action="/salvar-empresa" method="post" enctype="multipart/form-data">
+    <form action="/salvar-empresa" method="post" enctype="multipart/form-data" class="form-group">
         <div class="barra-rolagem px-1">
             <div class="display-6 d-inline-flex"><?= $empresa->getDescricao()?></div>
             <hr>
@@ -20,7 +20,7 @@ include __DIR__ . '/../Componentes/navbar.php';
                 <div class="col col-md-auto col-4">
                     <label for="funcionario">Tema</label>
                     <select type="button" name="tema" id="tema"
-                            class="btn btn-toolbar border mb-2">
+                            class="btn btn-toolbar mb-2 form-group">
                         <option selected class="dropdown-item bg-white text-start"
                                 value="<?= $empresa->getTema()?>">
                             <?= $empresa->getTema()?>

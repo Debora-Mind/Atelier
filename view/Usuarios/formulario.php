@@ -2,8 +2,8 @@
 <?php include __DIR__ . '/../Componentes/navbar.php'; ?>
 
     <form action="/salvar-usuario<?= isset($usuario) ? '?id=' . $usuario->getId() : ''; ?>"
-          method="post">
-        <div class="form-group gx-2 justify-content-md-start col-3">
+          method="post" class="form-group">
+        <div class="gx-2 justify-content-md-start col-3">
             <div class="col col-md-auto">
                 <label for="usuario">Usuário</label>
                 <input type="text"
@@ -14,7 +14,7 @@
                        class="form-control"
                        value="<?= (isset($usuario) ? $usuario->getUsuario() : ''); ?>">
             </div>
-            <div class="form-group">
+            <div>
                 <label for="senha">Senha</label>
                 <div class="d-flex">
                     <input type="password"
@@ -35,7 +35,7 @@
             <div class="col col-md-auto">
                 <label for="funcionario">Funcionário</label>
                 <select type="button" name="funcionario" id="funcionario"
-                        class="btn btn-toolbar border mb-2">
+                        class="btn btn-toolbar mb-2 form-group">
                     <option selected class="dropdown-item bg-white text-start"
                         <?php if(isset($usuario)) : ?>
                             value=<?= $usuario->getFuncionario() == null ? '0' : $usuario->getFuncionario()->getId()?>>

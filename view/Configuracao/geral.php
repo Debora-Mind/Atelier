@@ -2,7 +2,7 @@
 include __DIR__ . '/../Componentes/inicio-html.php';
 include __DIR__ . '/../Componentes/navbar.php';
 ?>
-    <form action="/salvar-configuracoes" method="post">
+    <form action="/salvar-configuracoes" method="post" class="form-group">
         <div class="display-6">Configurações Gerais</div>
         <hr>
 
@@ -13,11 +13,11 @@ include __DIR__ . '/../Componentes/navbar.php';
                        name="switch<?= $configuracao->getId() ?>"
                     <?= $empresa->getConfiguracoes()[$configuracao->getId()][0] ? 'checked' : '' ?>>
                 <label class="form-check-label" for="<?= $configuracao->getId() ?>"><?= $configuracao->getDescricao() ?></label>
-                <input class="form-control form-control-sm number-input d-inline"
+                <input class="form-control-sm number-input d-inline"
                        id="numero<?= $configuracao->getId() ?>"
                        name="numero<?= $configuracao->getId() ?>"
                        type="number"
-                       style="width: 3rem"
+                       style="width: 4rem"
                        value="<?= $empresa->getConfiguracoes()[$configuracao->getId()][1] ?? '' ?>">
                 <span class="input-text"> dias</span>
             </div>

@@ -10,13 +10,14 @@ $paginado = $paginacao->paginate();
 ?>
 
     <div class="d-flex justify-content-between align-items-stretch">
-        <form action="/usuarios" method="post" class="d-flex">
+        <form action="/usuarios" method="post" class="d-flex form-group">
             <input type="text"
                    name="busca"
                    id="busca"
                    placeholder="Usuário"
                    autofocus
-                   style="height: 82%">
+                   style="height: 82%"
+                   class="form-control-sm">
             <button class="btn btn-primary text-light mb-2 ms-2" type="submit">
                 <i class="bi bi-search"></i> Buscar
             </button>
