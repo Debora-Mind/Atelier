@@ -1,53 +1,67 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+// Check PHP version.
+$minPhpVersion = '7.4'; // If you update this, don't forget to update `spark`.
+if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
+    $message = sprintf(
+        'Your PHP version must be %s or higher to run CodeIgniter. Current version: %s',
+        $minPhpVersion,
+        PHP_VERSION
+    );
 
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7Server\ServerRequestCreator;
-use Psr\Container\ContainerInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-
-$caminho = $_SERVER['PATH_INFO'] ?? '/';
-
-$rotas = require __DIR__ . '/../config/routes.php';
-if (!array_key_exists($caminho, $rotas)) {
-    http_response_code(404);
-    exit();
+    exit($message);
 }
 
-if (!isset($_SESSION)) {
-    session_start();
-}
+// Path to the front controller (this file)
+define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
-$ehRotaDeLogin = stripos($caminho, 'login');
-if ((!isset($_SESSION['logado']) || $_SESSION['logado'] === false) && $ehRotaDeLogin === false) {
-    header('Location: /login');
-    exit();
-}
+// Ensure the current directory is pointing to the front controller's directory
+chdir(FCPATH);
 
-$psr17Factory = new Psr17Factory();
+/*
+ *---------------------------------------------------------------
+ * BOOTSTRAP THE APPLICATION
+ *---------------------------------------------------------------
+ * This process sets up the path constants, loads and registers
+ * our autoloader, along with Composer's, loads our constants
+ * and fires up an environment-specific bootstrapping.
+ */
 
-$creator = new ServerRequestCreator(
-    $psr17Factory, // ServerRequestFactory
-    $psr17Factory, // UriFactory
-    $psr17Factory, // UploadedFileFactory
-    $psr17Factory  // StreamFactory
-);
+// Load our paths config file
+// This is the line that might need to be changed, depending on your folder structure.
+require FCPATH . '../app/Config/Paths.php';
+// ^^^ Change this line if you move your application folder
 
-$serverRequest = $creator->fromGlobals();
+$paths = new Config\Paths();
 
-$classeControladora = $rotas[$caminho];
-/** @var ContainerInterface $container */
-$container = require __DIR__ . '/../config/dependencies.php';
-/** @var RequestHandlerInterface $controlador */
-$controlador = $container->get($classeControladora);
+// Location of the framework bootstrap file.
+require rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
-$resposta = $controlador->handle($serverRequest);
+// Load environment settings from .env files into $_SERVER and $_ENV
+require_once SYSTEMPATH . 'Config/DotEnv.php';
+(new CodeIgniter\Config\DotEnv(ROOTPATH))->load();
 
-foreach ($resposta->getHeaders() as $name => $values) {
-    foreach ($values as $value) {
-        header(sprintf('%s: %s', $name, $value), false);
-    }
-}
+/*
+ * ---------------------------------------------------------------
+ * GRAB OUR CODEIGNITER INSTANCE
+ * ---------------------------------------------------------------
+ *
+ * The CodeIgniter class contains the core functionality to make
+ * the application run, and does all of the dirty work to get
+ * the pieces all working together.
+ */
 
-echo $resposta->getBody();
+$app = Config\Services::codeigniter();
+$app->initialize();
+$context = is_cli() ? 'php-cli' : 'web';
+$app->setContext($context);
+
+/*
+ *---------------------------------------------------------------
+ * LAUNCH THE APPLICATION
+ *---------------------------------------------------------------
+ * Now that everything is setup, it's time to actually fire
+ * up the engines and make this app do its thang.
+ */
+
+$app->run();
