@@ -9,10 +9,11 @@ class Login extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Login'
+            'title' => 'Do-And-Make - Login',
+            'msg' => []
         ];
         echo view('backend/templates/html-header', $data);
-        echo view('backend/pages/login');
+        echo view('backend/pages/login/login');
         echo view('backend/templates/html-footer');
     }
 
