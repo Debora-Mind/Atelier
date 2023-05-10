@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\EmpresasModel;
 use App\Models\UsuariosModel;
 
 class Login extends BaseController
@@ -28,11 +29,14 @@ class Login extends BaseController
             'usuarios' => $model->getUsuario($usuario)
         ];
 
+        $modelEmpresa = new EmpresasModel();
+        $empresa = $modelEmpresa->getEmpresas($data['usuarios']['empresa_id']);
+
         if ($data['usuarios'] && password_verify($senha, $data['usuarios']['senha'])) {
             $sessionData = [
-                'usuario' => $data['usuarios']['usuario'],
+                'usuario' => $data['usuarios'],
                 'logged_in' => true,
-                'empresa' => $data['usuarios']['empresa_id'],
+                'empresa' => $empresa,
             ];
 
             session()->set($sessionData);

@@ -83,12 +83,9 @@
 <!-- Background - Logo -->
 <div style="height: 1rem"></div>
 <div id="conteudo" class="container-xl mt-5 bg-transparent w-100" style="max-width: 90%">
-
-    <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] === true): ?>
-    <?=
-    "<div id='logo' 
-            class='fixed-bottom h-100' 
-            style='background-image: url(/visualizar-logo?id={$_SESSION["empresa"]})'>
-        </div>"
-    ?>
+<?php if (isset(session()->get('empresa')['img'])): ?>
+<div id='logo'
+    class='fixed-bottom h-100'
+    style='background-image: url("img/<?= session()->get('empresa')['img'] ?>")'>
+</div>
 <?php endif; ?>
