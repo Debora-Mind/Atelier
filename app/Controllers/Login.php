@@ -30,13 +30,14 @@ class Login extends BaseController
 
         if ($data['usuarios'] && password_verify($senha, $data['usuarios']['senha'])) {
             $sessionData = [
-                'user' => $data['usuarios']['user'],
+                'usuario' => $data['usuarios']['usuario'],
                 'logged_in' => true,
+                'empresa' => $data['usuarios']['empresa_id'],
             ];
 
             session()->set($sessionData);
 
-            return redirect()->to(base_url('admin'));
+            return redirect()->to(base_url('/sistema'));
         }
         else {
             return redirect()->to(base_url('login'));

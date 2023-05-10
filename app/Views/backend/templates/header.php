@@ -68,7 +68,7 @@
                             Configuração
                         </a>
                     </li>                <li class="nav-item">
-                        <a class="nav-link active" href="/login">
+                        <a class="nav-link active" href="<?= base_url('login/logout') ?>">
                             <i class="bi bi-box-arrow-right"></i>
                             Sair
                         </a>

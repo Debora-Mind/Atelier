@@ -9,6 +9,7 @@
         <label for="senha" class="form-label">Senha</label>
         <input type="password" class="form-control mb-3" id="senha" name="senha" aria-describedby="basic-addon3">
     </div>
+    <?= csrf_field(); ?>
     <div class="mb-5 d-grid">
         <button class="btn btn-primary btn-lg text-light mb-5">Login</button>
     </div>
