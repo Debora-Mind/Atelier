@@ -24,6 +24,10 @@ class Usuarios extends Migration
             'senha' => [
                 'type'          => 'TEXT',
             ],
+            'tipo' => [
+                'type'          => "ENUM('', 'admin', 'tec')",
+                'default'       => '',
+            ],
             'permissoes' => [
                 'type'          => 'JSON'
             ],

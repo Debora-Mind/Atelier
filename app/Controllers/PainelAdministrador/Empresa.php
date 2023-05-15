@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\SistemaUsuario;
+namespace App\Controllers\PainelAdministrador;
 
 use App\Controllers\BaseController;
 use App\Models\EmpresasModel;
@@ -8,7 +8,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Empresa extends BaseController
 {
-    public function index()
+    public function date()
     {
         $empresa = new EmpresasModel();
         $empresa = $empresa->getEmpresas(session()->get('empresa')['id']);
@@ -19,14 +19,14 @@ class Empresa extends BaseController
             'msg' => []
         ];
 
-        $this->exibir($data, 'empresa/configuracoes');
+        $this->exibir($data, 'empresa/cadastro');
     }
 
     public function exibir($data, $pagina)
     {
         echo view('backend/templates/html-header', $data);
-        echo view('backend/templates/header');
-        echo view('backend/pages/' . $pagina, $data);
+        echo view('backend/templates/header-admin');
+        echo view('backend/admin/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }

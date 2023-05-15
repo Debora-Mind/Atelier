@@ -1,4 +1,4 @@
-    <form action="<?= base_url('sistema/empresa/salvar-empresa') ?>" method="post" enctype="multipart/form-data" class="form-group">
+    <form action="<?= base_url('admin/empresa/salvar-empresa') ?>" method="post" enctype="multipart/form-data" class="form-group">
         <div class="barra-rolagem px-1">
             <div class="display-6 d-inline-flex"><?= $empresas['descricao']?></div>
             <hr>

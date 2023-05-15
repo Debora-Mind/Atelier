@@ -1,8 +1,9 @@
 </div>
+</div>
 <!-- Fim do Container -->
 
 <!-- Footer -->
-<footer class="sticky-footer bg-white fixed-bottom mb-2">
+<footer class="sticky-footer bg-white mb-2">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
             <span>Copyright &copy; Do-And-Make Desenvolvimento de Sistemas</span>
