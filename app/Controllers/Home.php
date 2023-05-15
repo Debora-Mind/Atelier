@@ -10,8 +10,15 @@ class Home extends BaseController
             'title' => 'ATELIER',
             'msg' => []
         ];
+
+        $tipo = session('usuario')['tipo'];
+
         echo view('backend/templates/html-header', $data);
-        echo view('backend/templates/header', $data);
+        if ($tipo):
+            echo view('backend/templates/header-' . $tipo, $data);
+        else:
+            echo view('backend/templates/header', $data);
+        endif;
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }
