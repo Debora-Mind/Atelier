@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-body">
                     <form action="<?= base_url('admin/noticias/gravar') ?>" method="post"
-                          enctype="multipart/form-data">
+                      enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>

@@ -1,36 +1,25 @@
-<?php
-
-use Dam\Atelier\Model\Funcoes\Calcular;
-use Dam\Atelier\Model\Funcoes\Paginacao;
-
-include __DIR__ . '/../Componentes/inicio-html.php';
-include __DIR__ . '/../Componentes/navbar.php';
-
-$qtd = 0;
-$calcula = new Calcular();
-$paginacao = new Paginacao($modelos);
-$paginado = $paginacao->paginate();
-?>
-<div class="">
-    <div class="d-flex justify-content-between align-items-stretch busca">
-        <form action="/modelos" method="post" class="d-flex form-group">
-            <input type="text"
-                   name="busca"
-                   id="busca"
-                   placeholder="Digite o modelo"
-                   autofocus
-                   class="form-control-sm"
-                   style="height: 82%; width: 18rem">
-            <button class="btn btn-primary text-light mb-2 ms-2" type="submit">
-                <i class="bi bi-search"></i> Buscar
-            </button>
-        </form>
-        <div>
-            <a type="button" href="/novo-modelo" class="btn btn-primary text-light mb-2">
-                <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
-            </a>
+<div class="col-md-12">
+    <div class="card shadow mb-4">
+        <div class="d-flex justify-content-between align-items-stretch card-header">
+            <form action="/sistema/modelos" method="post" class="d-flex">
+                <input type="text"
+                       name="busca"
+                       id="busca"
+                       placeholder="Digite o modelo"
+                       autofocus
+                       style="height: 82%"
+                       class="form-control-sm">
+                <?= csrf_field(); ?>
+                <button class="btn btn-primary text-light mb-2 ms-2" type="submit">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </form>
+            <div>
+                <a type="button" href="/sistema/novo-usuario" class="btn btn-primary text-light mb-2">
+                    <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
+                </a>
+            </div>
         </div>
-    </div>
     <div class="">
         <table class="table table-primary">
             <thead class="" style="background-color: black;">

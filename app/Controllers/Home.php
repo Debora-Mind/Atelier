@@ -11,6 +11,13 @@ class Home extends BaseController
             'msg' => []
         ];
 
+        $this->exibir($data, '');
+
+
+    }
+
+    public function exibir($data, $page)
+    {
         $tipo = session('usuario')['tipo'];
 
         echo view('backend/templates/html-header', $data);

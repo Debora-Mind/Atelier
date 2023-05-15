@@ -5,11 +5,11 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('admin') ?>">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('sistema') ?>">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">ADMIN<sup>1.0.0</sup></div>
+            <div class="sidebar-brand-text mx-3">TÉCNICO<sup>1.0.0</sup></div>
         </a>
 
         <!-- Divider -->
@@ -98,7 +98,7 @@
             <div id="collapseUsuario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Visualizar</a>
+                    <a class="collapse-item" href="<?= base_url('admin/usuarios') ?>">Visualizar</a>
                     <a class="collapse-item" href="register.html">Permissões</a>
                     <a class="collapse-item" href="forgot-password.html">Cadastrar</a>
                     <a class="collapse-item" href="forgot-password.html">Remover</a>
@@ -234,4 +234,4 @@
 
             </nav>
             <!-- End of Topbar -->
-            <div class="container-fluid">
+            <div class="container-fluid row">

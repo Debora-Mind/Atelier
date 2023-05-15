@@ -7,7 +7,7 @@ use App\Models\UsuariosModel;
 
 class Usuarios extends BaseController
 {
-    public function index()
+    public function list()
     {
         $model = new UsuariosModel();
 
@@ -18,14 +18,20 @@ class Usuarios extends BaseController
             'msg' => ''
         ];
 
-        $this->exibir($data);
+        $this->exibir($data, 'listar-usuarios');
     }
 
-    public function exibir($data)
+    public function exibir($data, $page)
     {
+        $tipo = session('usuario')['tipo'];
+
         echo view('backend/templates/html-header', $data);
-        echo view('backend/templates/header');
-        echo view('backend/pages/usuarios', $data);
+        if ($tipo):
+            echo view('backend/templates/header-' . $tipo, $data);
+        else:
+            echo view('backend/templates/header', $data);
+        endif;
+        echo view('backend/admin/usuarios/' . $page, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }
