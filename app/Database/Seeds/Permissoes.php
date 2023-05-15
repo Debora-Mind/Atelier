@@ -36,22 +36,22 @@ class Permissoes extends Seeder
             ],
             [
                 'id' => 6,
-                'descricao' => 'Visualizar Modelos',
+                'descricao' => 'Visualizar modelos',
                 'definicao' => 'Visualiza os modelos cadastrados',
             ],
             [
                 'id' => 7,
-                'descricao' => 'Criar Modelos',
+                'descricao' => 'Criar modelos',
                 'definicao' => 'Pode criar novos modelos',
             ],
             [
                 'id' => 8,
-                'descricao' => 'Editar Modelos',
+                'descricao' => 'Editar modelos',
                 'definicao' => 'Pode editar modelos existentes',
             ],
             [
                 'id' => 9,
-                'descricao' => 'Excluir Modelos',
+                'descricao' => 'Excluir modelos',
                 'definicao' => 'Pode excluir modelos existentes',
             ],
             [
@@ -61,7 +61,7 @@ class Permissoes extends Seeder
             ],
             [
                 'id' => 11,
-                'descricao' => 'Visualizar valores em Modelos',
+                'descricao' => 'Visualizar valores em modelos',
                 'definicao' => 'Visualiza o valor de unitário de cada modelos',
             ],
             [

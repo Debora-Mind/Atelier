@@ -239,7 +239,7 @@ tinymce.addI18n('pt_BR',{
 "Footer": "Rodap\u00e9",
 "Border color": "Cor da borda",
 "Insert template...": "Inserir modelo...",
-"Templates": "Modelos",
+"Templates": "modelos",
 "Template": "Modelo",
 "Text color": "Cor do texto",
 "Background color": "Cor do fundo",

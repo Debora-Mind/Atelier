@@ -6,7 +6,7 @@
         <div class="container-fluid">
 
             <!-- Navbar - Brand -->
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="<?= base_url('sistema') ?>">
                 <img src="/img/MeuLogo2.svg" alt="Logo Do-And-Make" style="height: 1.7rem">
             </a>
             <button value="" class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -27,12 +27,12 @@
                         </a>
                         <!-- Nav Item - Dropdown -->
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/empresa">Empresa</a></li>
-                            <li><a class="dropdown-item" href="/usuarios">Usuários</a></li>
-                            <li><a class="dropdown-item" href="/funcoes">Funções</a></li>
-                            <li><a class="dropdown-item disabled" href="#">Funcionários</a></li>
-                            <li><a class="dropdown-item" href="/modelos">Modelos</a></li>
-                            <li><a class="dropdown-item" href="/taloes">Talões</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('sistema/cadastrar/empresa') ?>">Empresa</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('sistema/cadastrar/usuarios') ?>">Usuários</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('sistema/cadastrar/funcoes') ?>">Funções</a></li>
+                            <li><a class="dropdown-item disabled" href="<?= base_url('sistema/cadastrar/funcionarios') ?>">Funcionários</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('sistema/cadastrar/modelos') ?>">Modelos</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('sistema/cadastrar/taloes') ?>">Talões</a></li>
                         </ul>
                     </li>
 
@@ -44,8 +44,8 @@
                         </a>
                         <!-- Nav Item - Dropdown -->
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/formulario-saida">Dar Saída</a></li>
-                            <li><a class="dropdown-item disabled" href="#">Montar Layout</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('sistema/producao/saidas') ?>">Dar Saída</a></li>
+                            <li><a class="dropdown-item disabled" href="<?= base_url('sistema/producao/layout') ?>">Montar Layout</a></li>
                         </ul>
                     </li>
 

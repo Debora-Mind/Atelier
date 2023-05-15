@@ -14,7 +14,7 @@ class Login extends BaseController
             'msg' => []
         ];
         echo view('backend/templates/html-header', $data);
-        echo view('backend/pages/login/login');
+        echo view('backend/pages/login');
         echo view('backend/templates/html-footer');
     }
 

@@ -11,11 +11,11 @@ class Configuracoes extends Seeder
         $data = [
             [
                 'id' => 1,
-                'descricao' => 'Modelos em destaque vermelho quando atingir',
+                'descricao' => 'modelos em destaque vermelho quando atingir',
             ],
             [
                 'id' => 2,
-                'descricao' => 'Modelos em destaque amarelo quando atingir',
+                'descricao' => 'modelos em destaque amarelo quando atingir',
             ]
         ];
 

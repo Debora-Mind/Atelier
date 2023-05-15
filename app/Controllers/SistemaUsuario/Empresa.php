@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\PainelAdministrador;
+namespace App\Controllers\SistemaUsuario;
 
 use App\Controllers\BaseController;
 use App\Models\EmpresasModel;
@@ -10,90 +10,130 @@ class Empresa extends BaseController
 {
     public function index()
     {
-        $model = new EmpresasModel();
-
+        $empresa = new EmpresasModel();
+        $empresa = $empresa->getEmpresas(session()->get('empresa')['id']);
+        helper('session');
         $data = [
             'title' => 'Empresa',
-            'empresas' => $model->getEmpresas($this->session['empresa']),
+            'empresas' => $empresa,
             'msg' => []
         ];
 
-        $this->exibir($data, 'configuracoes');
+        $this->exibir($data, 'empresa/configuracoes');
     }
 
     public function exibir($data, $pagina)
     {
         echo view('backend/templates/html-header', $data);
         echo view('backend/templates/header');
-        echo view('backend/pages/empresa/' . $pagina, $data);
+        echo view('backend/pages/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }
 
     public function gravar()
     {
-        $model = new CategoriasModel();
+        $model = new EmpresasModel();
 
         helper('form');
 
         if ($this->validate([
-            'titulo' => [
-                'label' => 'Título',
-                'rules' => 'required|min_length[3]'],
-            'resumo' => [
-                'label' => 'Resumo',
+            'descricao' => [
+                'label' => 'Nome',
                 'rules' => 'required|min_length[3]'],
         ])) {
             $id = $this->request->getVar('id');
-            $titulo = $this->request->getVar('titulo');
-            $resumo = $this->request->getVar('resumo');
+            $descricao = $this->request->getVar('descricao');
+            $tema = $this->request->getVar('tema');
+            $img = $this->request->getFile('logo');
 
-            $model->save([
-                'id'     => $id,
-                'titulo' => $titulo,
-                'resumo' => $resumo,
-            ]);
+            if (!$img->isValid()) {
+                $model->save([
+                    'id'        => $id,
+                    'descricao' => $descricao,
+                    'tema'      => $tema,
+                ]);
+            }
+            else {
+                $validacaoImg = $this->validate([
+                    'logo' => [
+                        'uploaded[logo]',
+                        'mime_in[logo,image/jpg,image/jpeg,image/gif,image/png,image/webp]',
+                        'max_size[logo, 4096]',
+                    ]
+                ]);
+
+                if ($validacaoImg) {
+                    $novoNome = $descricao . '_' . $img->getRandomName();
+                    $img->move('img/empresas', $novoNome);
+
+                    $model->save([
+                        'id'        => $id,
+                        'descricao' => $descricao,
+                        'tema'      => $tema,
+                        'logo'       => $novoNome,
+                    ]);
+                }
+                else {
+
+                    $data = [
+                        'title' => 'Empresa',
+                        'empresas' => session()->get('empresa'),
+                        'msg' => [
+                            'mensagem'   => 'Erro ao validar logo!',
+                            'tipo'       => 'danger',
+                        ],
+                    ];
+                }
+            }
             $data = [
-                'title' => 'Categorias',
-                'categorias' => $model->paginate(10),
-                'pager' => $model->pager,
-                'msg' => 'Categoria cadastrada!'
+                'title' => 'Empresa',
+                'empresas' => session()->get('empresa'),
+                'msg' => [
+                    'mensagem'   => 'Empresa atualizada!',
+                    'tipo'      => 'success'
+                ],
             ];
         }
         else {
-
             $data = [
-                'title' => 'Categorias',
-                'categorias' => $model->paginate(10),
-                'pager' => $model->pager,
-                'msg' => 'Erro ao cadastrar categoria!'
+                'title' => 'Empresa',
+                'empresas' => session()->get('empresa'),
+                'msg' => [
+                    'mensagem'   => 'Erro ao atualizar empresa!',
+                    'tipo'      => 'danger'
+                ],
             ];
         }
 
-        $this->exibir($data, 'categorias');
+        return redirect('sistema');
     }
 
     public function excluir($id = null)
     {
-        $model = new CategoriasModel();
+        helper('filesystem');
+        $model = new EmpresasModel();
+        $img = $model->getEmpresas($id)['logo'];
+        delete_files(__DIR__ . 'img/' . $img);
+
         $model->delete($id);
 
-        return redirect()->to(base_url('admin/categorias'));
+        return redirect()->to(base_url('sistema'));
     }
 
     public function editar($id = null)
     {
-        $model = new CategoriasModel();
+        $model = new EmpresasModel();
         $data = [
-            'title' => 'Editar Categorias',
-            'categorias' => $model->getCategoria($id),
-            'msg' => ''
+            'title' => 'Editar Empresa',
+            'empresa' => session()->get('empresa'),
+            'msg' => []
         ];
 
-        if (empty($data['categorias'])) {
-            throw new PageNotFoundException('Não é possível encontrar a categoria com id: ' . $id);
+        if (empty($data['empresa'])) {
+            throw new PageNotFoundException('Não é possível encontrar a empresa com id: ' . $id);
         }
 
-        $this->exibir($data, 'categorias-editar');
+        $this->exibir($data, 'empresa/editar-empresa');
     }
 }
