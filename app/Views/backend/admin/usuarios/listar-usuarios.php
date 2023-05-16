@@ -36,7 +36,7 @@
                     <th><?= $usuario['id']; ?></th>
                     <td><?= $usuario['usuario']; ?></td>
                     <td><?= $usuario['funcionario']['nome'] ?? '' ?></td>
-                    <td class="text-right px-0">
+                    <td class="text-center px-0">
                         <a href="/admin/alterar-permissoes?id=<?= $usuario['id'] ?>" ><i class="fas fa-list"></i></a>
                         <a href="/admin/alterar-usuario?id=<?= $usuario['id'] ?>" ><i class="fas fa-edit"></i></a>
                         <a href="/admin/excluir-usuario?id=<?= $usuario['id'] ?>" onclick="return confirm('Deseja mesmo excluir a usuário <?= $usuario['usuario'] ?>?')"><i class="fas fa-trash"></i></a>
