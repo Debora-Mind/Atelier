@@ -14,10 +14,10 @@
         <?= \Config\Services::validation()->listErrors(); ?>
     </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
+    <div class="row-cols-sm-auto">
+        <div class="col-sm-6">
+            <div class="card shadow mb-sm-4">
+                <div class="card-header py-sm-3">
                     <h6 class="m-0 font-weight-bold text-primary">Inserir Usuários</h6>
                 </div>
                 <div class="card-body">
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Usuários Cadastrados</h6>
