@@ -15,8 +15,7 @@
           rel="stylesheet">
 
     <!-- Estilos personalizados para este projeto -->
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/sb-admin-2.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 </head>

@@ -2,7 +2,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('sistema') ?>">
@@ -32,51 +32,51 @@
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFaturamento" aria-expanded="true">
+            <a class="nav-link collapsed py-sm-1" href="#" data-toggle="collapse" data-target="#collapseFaturamento" aria-expanded="true">
                 <i class="fas fa-fw fa-dollar-sign"></i>
                 <span>Faturamento</span>
             </a>
             <div id="collapseFaturamento" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="buttons.html">Visão Geral</a>
-                    <a class="collapse-item" href="cards.html">Relatórios</a>
+                    <h6 class="collapse-header py-sm-1">Custom Components:</h6>
+                    <a class="collapse-item py-sm-1" href="buttons.html">Visão Geral</a>
+                    <a class="collapse-item py-sm-1" href="cards.html">Relatórios</a>
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNotas" aria-expanded="true">
+            <a class="nav-link collapsed py-sm-1" href="#" data-toggle="collapse" data-target="#collapseNotas" aria-expanded="true">
                 <i class="fas fa-fw fa-scroll"></i>
                 <span>Notas</span>
             </a>
             <div id="collapseNotas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="utilities-color.html">Entrada de Nota</a>
-                    <a class="collapse-item" href="utilities-border.html">Saída de Nota</a>
-                    <a class="collapse-item" href="utilities-other.html">Consultar Nota</a>
-                    <a class="collapse-item" href="utilities-animation.html">Carta de Correção</a>
-                    <a class="collapse-item" href="utilities-animation.html">Cancelar Nota</a>
+                    <a class="collapse-item py-sm-1" href="utilities-color.html">Entrada de Nota</a>
+                    <a class="collapse-item py-sm-1" href="utilities-border.html">Saída de Nota</a>
+                    <a class="collapse-item py-sm-1" href="utilities-other.html">Consultar Nota</a>
+                    <a class="collapse-item py-sm-1" href="utilities-animation.html">Carta de Correção</a>
+                    <a class="collapse-item py-sm-1" href="utilities-animation.html">Cancelar Nota</a>
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducao" aria-expanded="true">
+            <a class="nav-link collapsed py-sm-1" href="#" data-toggle="collapse" data-target="#collapseProducao" aria-expanded="true">
                 <i class="fas fa-fw fa-box-open"></i>
                 <span>Produção</span>
             </a>
             <div id="collapseProducao" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="utilities-color.html">Visão Geral</a>
-                    <a class="collapse-item" href="utilities-border.html">Entrada de Talão</a>
-                    <a class="collapse-item" href="utilities-border.html">Saída de Talão</a>
-                    <a class="collapse-item" href="utilities-border.html">Montar Layout</a>
-                    <a class="collapse-item" href="utilities-other.html">Relatórios</a>
+                    <a class="collapse-item py-sm-1" href="utilities-color.html">Visão Geral</a>
+                    <a class="collapse-item py-sm-1" href="utilities-border.html">Entrada de Talão</a>
+                    <a class="collapse-item py-sm-1" href="utilities-border.html">Saída de Talão</a>
+                    <a class="collapse-item py-sm-1" href="utilities-border.html">Montar Layout</a>
+                    <a class="collapse-item py-sm-1" href="utilities-other.html">Relatórios</a>
                 </div>
             </div>
         </li>
@@ -91,58 +91,58 @@
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuario" aria-expanded="true">
+            <a class="nav-link collapsed py-sm-1" href="#" data-toggle="collapse" data-target="#collapseUsuario" aria-expanded="true">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Usuários</span>
             </a>
             <div id="collapseUsuario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="<?= base_url('admin/usuarios') ?>">Visualizar</a>
-                    <a class="collapse-item" href="register.html">Permissões</a>
-                    <a class="collapse-item" href="forgot-password.html">Cadastrar</a>
-                    <a class="collapse-item" href="forgot-password.html">Remover</a>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('admin/usuarios') ?>">Visualizar</a>
+                    <a class="collapse-item py-sm-1" href="register.html">Permissões</a>
+                    <a class="collapse-item py-sm-1" href="forgot-password.html">Cadastrar</a>
+                    <a class="collapse-item py-sm-1" href="forgot-password.html">Remover</a>
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmpresa" aria-expanded="true">
+            <a class="nav-link collapsed py-sm-1" href="#" data-toggle="collapse" data-target="#collapseEmpresa" aria-expanded="true">
                 <i class="fas fa-fw fa-industry"></i>
                 <span>Empresa</span>
             </a>
             <div id="collapseEmpresa" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="<?= base_url('admin/empresa') ?>">Dados Cadastrais</a>
-                    <a class="collapse-item" href="register.html">Configurações</a>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('admin/empresa') ?>">Dados Cadastrais</a>
+                    <a class="collapse-item py-sm-1" href="register.html">Configurações</a>
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFuncionario" aria-expanded="true">
+            <a class="nav-link collapsed py-sm-1" href="#" data-toggle="collapse" data-target="#collapseFuncionario" aria-expanded="true">
                 <i class="fas fa-fw fa-briefcase"></i>
                 <span>Funcionários</span>
             </a>
             <div id="collapseFuncionario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Visualizar</a>
-                    <a class="collapse-item" href="register.html">Cadastrar</a>
-                    <a class="collapse-item" href="forgot-password.html">Remover</a>
+                    <a class="collapse-item py-sm-1" href="login.html">Visualizar</a>
+                    <a class="collapse-item py-sm-1" href="register.html">Cadastrar</a>
+                    <a class="collapse-item py-sm-1" href="forgot-password.html">Remover</a>
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item active" href="blank.html">Relatórios</a>
+                    <a class="collapse-item active py-sm-1" href="blank.html">Relatórios</a>
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link py-sm-1" href="tables.html">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Tables</span></a>
         </li>

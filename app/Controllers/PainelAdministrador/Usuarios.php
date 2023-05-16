@@ -21,7 +21,7 @@ class Usuarios extends BaseController
         $this->exibir($data, 'listar-usuarios');
     }
 
-    public function exibir($data, $page)
+    public function exibir($data, $pagina)
     {
         $tipo = session('usuario')['tipo'];
 
@@ -31,7 +31,7 @@ class Usuarios extends BaseController
         else:
             echo view('backend/templates/header', $data);
         endif;
-        echo view('backend/admin/usuarios/' . $page, $data);
+        echo view('backend/admin/usuarios/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }
