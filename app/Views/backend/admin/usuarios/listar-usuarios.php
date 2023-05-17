@@ -15,9 +15,11 @@
                 </button>
             </form>
             <div>
-                <button type="button" href="/admin/novo-usuario" class="btn-sm btn-primary text-light mb-sm-2">
-                    <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
-                </button>
+                <a href="/admin/usuarios/formulario">
+                    <button class="btn-sm btn-primary text-light mb-sm-2">
+                        <i class="bi bi-plus-circle-fill primary bi-align-middle"> Novo</i>
+                    </button>
+                </a>
             </div>
         </div>
     <div class="card-body">
@@ -37,9 +39,9 @@
                     <td><?= $usuario['usuario']; ?></td>
                     <td><?= $usuario['funcionario']['nome'] ?? '' ?></td>
                     <td class="text-center px-0">
-                        <a href="/admin/alterar-permissoes?id=<?= $usuario['id'] ?>" ><i class="fas fa-list"></i></a>
-                        <a href="/admin/alterar-usuario?id=<?= $usuario['id'] ?>" ><i class="fas fa-edit"></i></a>
-                        <a href="/admin/excluir-usuario?id=<?= $usuario['id'] ?>" onclick="return confirm('Deseja mesmo excluir a usuário <?= $usuario['usuario'] ?>?')"><i class="fas fa-trash"></i></a>
+                        <a href="/admin/usuarios/alterar-permissoes?id=<?= $usuario['id'] ?>" ><i class="fas fa-list"></i></a>
+                        <a href="/admin/usuarios/formulario?id=<?= $usuario['id'] ?>" ><i class="fas fa-edit"></i></a>
+                        <a href="/admin/usuarios/excluir-usuario?id=<?= $usuario['id'] ?>" onclick="return confirm('Deseja mesmo excluir a usuário <?= $usuario['usuario'] ?>?')"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -3,11 +3,13 @@
 namespace App\Controllers\PainelAdministrador;
 
 use App\Controllers\BaseController;
+use App\Database\Migrations\Funcionarios;
+use App\Models\FuncionariosModel;
 use App\Models\UsuariosModel;
 
 class Usuarios extends BaseController
 {
-    public function list()
+    public function listar()
     {
         $model = new UsuariosModel();
 
@@ -21,7 +23,7 @@ class Usuarios extends BaseController
         $this->exibir($data, 'listar-usuarios');
     }
 
-    public function exibir($data, $pagina)
+    public function exibir($data, $pagina = '')
     {
         $tipo = session('usuario')['tipo'];
 
@@ -36,8 +38,10 @@ class Usuarios extends BaseController
         echo view('backend/templates/html-footer');
     }
 
-    public function gravar()
+    public function novo()
     {
+        $model = new FuncionariosModel();
+        $funcionarios = $model->getFuncionario();
         $model = new UsuariosModel();
 
         helper('form');
@@ -45,38 +49,49 @@ class Usuarios extends BaseController
         if ($this->validate([
             'usuario' => [
                 'label' => 'Usuários',
-                'rules' => 'required|min_length[3]|is_unique[usuarios.user]'],
+                'rules' => 'required|min_length[3]|is_unique[usuarios.usuario]'],
             'senha' => [
                 'label' => 'Senha',
                 'rules' => 'required|min_length[3]'],
         ])) {
             $usuario = $this->request->getVar('usuario');
             $senha = $this->request->getVar('senha');
+            $empresa = session()->get('empresa')['id'];
 
             $senhaCripto = password_hash($senha, PASSWORD_ARGON2I);
 
             $model->save([
-                'user' => $usuario,
+                'usuario' => $usuario,
                 'senha' => $senhaCripto,
+                'empresa_id' => $empresa,
             ]);
-            $data = [
-                'title' => 'Usuários',
-                'usuarios' => $model->paginate(10),
-                'pager' => $model->pager,
-                'msg' => 'Usuário cadastrado!'
+
+            $data ['msg'] = [
+                    'mensagem' => 'Usuário cadastrado!',
+                    'tipo'=> 'success',
             ];
         }
         else {
-
             $data = [
                 'title' => 'Usuários',
-                'usuarios' => $model->paginate(10),
-                'pager' => $model->pager,
-                'msg' => 'Erro ao cadastrar o usuário!'
+                'funcionarios' => $funcionarios,
+                'msg' =>
+                [
+                    'mensagem' => 'Erro ao cadastrar o usuário!',
+                    'tipo'=> 'danger',
+                    ]
             ];
-        }
 
-        $this->exibir($data);
+            $this->exibir($data,'formulario');
+            exit();
+        }
+        $data += [
+            'title' => 'Usuários',
+            'usuarios' => $model->paginate(10),
+            'pager' => $model->pager,
+            ];
+
+        $this->exibir($data, 'listar-usuarios');
     }
 
     public function excluir($id = null)
@@ -85,6 +100,27 @@ class Usuarios extends BaseController
         $model->delete($id);
 
         return redirect()->to(base_url('admin/usuarios'));
+    }
+
+    public function formulario()
+    {
+        $model = new UsuariosModel();
+        $id = $this->request->getGetPost('id');
+        $usuario = $model->getUsuarios($id);
+
+        $model = new FuncionariosModel();
+        $funcionarios = $model->getFuncionario();
+
+        $title = $usuario ? 'Editar' : 'Novo';
+
+        $data = [
+            'title' => $title . ' usuário',
+            'usuario' => $usuario,
+            'funcionarios' => $funcionarios,
+            'msg' => []
+        ];
+
+        $this->exibir($data, 'formulario');
     }
 
     public function editar()

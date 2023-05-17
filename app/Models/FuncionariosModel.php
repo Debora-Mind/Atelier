@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsuariosModel extends Model
+class FuncionariosModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'usuarios';
+    protected $table            = 'funcionarios';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['usuario', 'senha', 'funcionario', 'empresa_id'];
+    protected $allowedFields    = ['nome', 'cpf', 'data_nascimento', 'matricula', 'valor_hora', 'empresa_id'];
 
     // Dates
     protected $useTimestamps = false;
@@ -40,17 +40,14 @@ class UsuariosModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getUsuarios($usuario)
+    public function getFuncionario($funcionario = null)
     {
-        return $this->asArray()
-            ->where(['id' => $usuario])
-            ->first();
-    }
+        if ($funcionario):
+            return $this->asArray()
+                ->where(['funcionario' => $funcionario])
+                ->first();
+        endif;
 
-    public function getUsuario($usuario)
-    {
-        return $this->asArray()
-            ->where(['usuario' => $usuario])
-            ->first();
+        return $this->asArray()->findAll();
     }
 }

@@ -1,63 +1,69 @@
-<?php include __DIR__ . '/../Componentes/inicio-html.php'; ?>
-<?php include __DIR__ . '/../Componentes/navbar.php'; ?>
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-    <form action="/salvar-usuario<?= isset($usuario) ? '?id=' . $usuario->getId() : ''; ?>"
-          method="post" class="form-group">
-        <div class="gx-2 justify-content-md-start col-3">
-            <div class="col col-md-auto">
-                <label for="usuario">Usuário</label>
-                <input type="text"
-                       autofocus
-                       required
-                       id="usuario"
-                       name="usuario"
-                       class="form-control"
-                       value="<?= (isset($usuario) ? $usuario->getUsuario() : ''); ?>">
-            </div>
-            <div>
-                <label for="senha">Senha</label>
-                <div class="d-flex">
-                    <input type="password"
-                           id="senha"
-                           name="senha"
-                           class="form-control"
-                           required>
+<!--    MELHORAR VISUALIZAÇÃO DE VALIDAÇÕES -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card shadow mb-sm-4">
+                <div class="card-body">
+                    <form action="/admin/usuarios/salvar-usuario" <?= isset($usuario) ? 'method="post"' : ''; ?>>
+                        <div class="form-group">
+                            <label for="usuario" class="form-label">Usuário</label>
+                            <input class="form-control w-auto" name="usuario" id="usuario" value="<?= $usuario['usuario'] ?? '' ?>" autofocus/>
+                            <small class="text-danger position-absolute">
+                                <?= \Config\Services::validation()->getError('usuario') ?>
+                            </small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="funcionario" class="form-label">Funcionário<small> (Opcional)</small></label>
+                            <select type="button" name="funcionario" id="funcionario"
+                                    class="btn-sm btn-toolbar mb-2 form-control-sm col-auto">
+                                <option selected class="dropdown-item bg-white text-start"
+                                    <?php if(isset($usuario)) : ?>
+                                        value=<?= !isset($usuario['funcionario_id']) ? '0' : $usuario['funcionario_id']?>>
+                                    <?= $usuario['funcionario_id'] == null ? 'Selecione' : $usuario['funcionario_id']['nome']?>
+                                    <?php else: ?>
+                                        value=0>
+                                        Selecione
+                                    <?php endif; ?>
+                                </option>
+                                <?php foreach ($funcionarios as $funcionario) : ?>
+                                    <option value="<?= $funcionario['id']; ?>" class="dropdown-item bg-white text-start">
+                                        <?= $funcionario['nome']; ?>
+                                    </option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input class="form-control w-auto" name="senha" id="senha" type="password"/>
+                            <small class="text-danger position-absolute">
+                                <?= \Config\Services::validation()->getError('senha') ?>
+                            </small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="senha-repitida">Repita a senha</label>
+                            <input class="form-control w-auto" name="senha-repitida" id="senha-repitida" type="password"/>
+                            <small class="text-danger position-absolute">
+                                <?= \Config\Services::validation()->getError('senha-repetida') ?>
+                            </small>
+                        </div>
+
+                        <input type="hidden" value="<?= $usuario['id'] ?? '' ?>" name="id">
+                        <?= csrf_field(); ?>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-end">
+                                <button type="button" onclick="cancelar('usuarios')" class="btn btn-danger" style="margin-right: 1rem;">Cancelar</button>
+                                <button class="btn btn-success">Confirmar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="col col-md-auto">
-                <label for="senha-repitida">Repita a senha</label>
-                <input type="password"
-                       id="senha-repitida"
-                       name="senha-repitida"
-                       class="form-control"
-                       required>
-            </div>
-            <div class="col col-md-auto">
-                <label for="funcionario">Funcionário</label>
-                <select type="button" name="funcionario" id="funcionario"
-                        class="btn btn-toolbar mb-2 form-group">
-                    <option selected class="dropdown-item bg-white text-start"
-                        <?php if(isset($usuario)) : ?>
-                            value=<?= $usuario->getFuncionario() == null ? '0' : $usuario->getFuncionario()->getId()?>>
-                            <?= $usuario->getFuncionario() == null ? 'Selecione' : $usuario->getFuncionario()->getNome()?>
-                        <?php else: ?>
-                            value=0>
-                            Selecione
-                        <?php endif; ?>
-                    </option>
-                    <?php foreach ($funcionarios as $funcionario) : ?>
-                        <option value="<?= $funcionario->getId(); ?>" class="dropdown-item bg-white text-start">
-                            <?= $funcionario->getNome(); ?>
-                        </option>
-                    <?php endforeach;?>
-                </select>
-            </div>
         </div>
-        <div class="position-absolute">
-            <button class="btn btn-success mt-2 fixed">Confirmar</button>
-            <button type="button" onclick="cancelar('usuarios')"
-                    class="btn btn-danger mt-2 fixed">Cancelar</button>
-        </div>
-    </form>
-
-<?php include __DIR__ . '/../Componentes/fim-html.php';
+    </div>
+</div>
+<!-- /.container-fluid -->
