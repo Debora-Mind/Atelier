@@ -27,6 +27,7 @@
 
 <!-- Plugin JavaScript-->
 <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/js/custom.js"></script>
 
 <!-- Scripts Customizados Para Todas as Páginas -->
 <script src="/js/sb-admin-2.min.js"></script>

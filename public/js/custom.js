@@ -54,13 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
 
-function paginate(items, currentPage, itemsPerPage) {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    return items.slice(startIndex, endIndex);
-}
-
 function limparConteudo() {
     document.getElementById('data-saida').value = ''; //limpa o valor do input
 }

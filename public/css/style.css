@@ -131,31 +131,6 @@ html body {
     background-color: var(--light);
 }
 
-.form-group .form-group,
-.form-group .form-control,
-.form-group .form-control-sm {
-    border: 1px solid var(--t5);
-    background-color: #ffffff;}
-
-.form-group .form-group:focus,
-.form-group .form-control:focus,
-.form-group .form-control-sm:focus {
-    border-color: var(--t5);
-    background-color: var(--t1);
-    box-shadow: 0px 0px 10px 0px var(--t4);
-    transition: box-shadow 0.5s ease;
-}
-.form-group .form-group:required,
-.form-group .form-control:required,
-.form-group .form-control-sm:required {
-    border-color: var(--t5);
-}
-
-.form-group .form-group:valid,
-.form-group .form-control:valid,
-.form-group .form-control-sm:valid  {
-    border-color: var(--t5);
-}
 .busca {
     position: sticky;
     top: 0;
@@ -205,7 +180,7 @@ html body {
 
 #flash-message {
     position: fixed;
-    bottom: 0%;
+    top: 9%;
     right: 0;
     padding: 1rem 4rem 1rem 2rem;
     animation: flash-message 12s !important;
