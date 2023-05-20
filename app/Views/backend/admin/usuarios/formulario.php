@@ -45,8 +45,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="senha-repitida">Repita a senha</label>
-                            <input class="form-control w-auto" name="senha-repitida" id="senha-repitida" type="password"/>
+                            <label for="senha-repetida">Repita a senha</label>
+                            <input class="form-control w-auto" name="senha-repetida" id="senha-repetida" type="password"/>
                             <small class="text-danger position-absolute">
                                 <?= \Config\Services::validation()->getError('senha-repetida') ?>
                             </small>

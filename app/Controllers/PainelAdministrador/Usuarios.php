@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Database\Migrations\Funcionarios;
 use App\Models\FuncionariosModel;
 use App\Models\UsuariosModel;
+use Config\Services;
 
 class Usuarios extends BaseController
 {
@@ -53,12 +54,39 @@ class Usuarios extends BaseController
             'senha' => [
                 'label' => 'Senha',
                 'rules' => 'required|min_length[3]'],
+            'senha-repetida' => [
+                'label' => 'Senha repetida',
+                'rules' => 'required'
+            ]
         ])) {
             $usuario = $this->request->getVar('usuario');
             $senha = $this->request->getVar('senha');
+            $senhaRepetida = $this->request->getVar('senha-repetida');
             $empresa = session()->get('empresa')['id'];
 
+            if ($senha !== $senhaRepetida) {
+                $this->validator->setError('senha-repetida', 'As senhas devem ser iguais');
+            }
+
             $senhaCripto = password_hash($senha, PASSWORD_ARGON2I);
+
+            if ($senha == '') {
+
+                $data = [
+                    'title' => 'Usuários',
+                    'funcionarios' => $funcionarios,
+                    'msg' =>
+                        [
+                            'mensagem' => 'Usuário salvo com sucesso!',
+                            'tipo'=> 'success',
+                        ]];
+                    $model->save([
+                        'usuario' => $usuario,
+                        'senha' => $senhaCripto,
+                        'empresa_id' => $empresa,
+                    ]);
+                    $this->exibir($data, 'listar-usuarios');
+            }
 
             $model->save([
                 'usuario' => $usuario,
@@ -71,6 +99,7 @@ class Usuarios extends BaseController
                     'tipo'=> 'success',
             ];
         }
+
         else {
             $data = [
                 'title' => 'Usuários',
@@ -125,16 +154,40 @@ class Usuarios extends BaseController
 
     public function editar()
     {
+        $model = new FuncionariosModel();
+        $funcionarios = $model->getFuncionario();
         $model = new UsuariosModel();
 
         $id = $this->request->getVar('id');
-
         $data = [
             'senha' => password_hash($this->request->getVar('senha'), PASSWORD_ARGON2I),
         ];
 
+        if ($this->validate([
+            'usuario' => [
+                'label' => 'Usuários',
+                'rules' => 'required|min_length[3]'],
+            'senha' => [
+                'label' => 'Senha',
+                'rules' => 'required|min_length[3]'],
+        ])) {
+
         $model->update($id, $data);
 
         return redirect()->to(base_url('admin/usuarios'));
+        } else {
+            $data = [
+                'title' => 'Usuários',
+                'funcionarios' => $funcionarios,
+                'msg' =>
+                    [
+                        'mensagem' => 'Erro ao cadastrar o usuário!',
+                        'tipo'=> 'danger',
+                    ]
+            ];
+
+            $this->exibir($data,'formulario');
+            exit();
+        }
     }
 }
