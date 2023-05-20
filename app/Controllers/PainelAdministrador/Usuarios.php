@@ -123,8 +123,9 @@ class Usuarios extends BaseController
         $this->exibir($data, 'listar-usuarios');
     }
 
-    public function excluir($id = null)
+    public function excluir()
     {
+        $id = $this->request->getVar('id');
         $model = new UsuariosModel();
         $model->delete($id);
 
