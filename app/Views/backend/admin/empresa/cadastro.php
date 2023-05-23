@@ -38,7 +38,6 @@
                             <div class="col col-sm-4 form-group">
                                 <label for="razao_social" class="col-form-label-sm">Razão Social</label>
                                 <input type="text"
-                                       autofocus
                                        required
                                        id="razao_social"
                                        name="razao_social"
@@ -68,7 +67,6 @@
                                 <label for="cep" class="col-form-label-sm">Cep</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           autofocus
                                            required
                                            id="cep"
                                            name="cep"
@@ -85,7 +83,6 @@
                             <div class="col col-sm-3 form-group">
                                 <label for="logradouro" class="col-form-label-sm">Endereço</label>
                                 <input type="text"
-                                       autofocus
                                        required
                                        id="logradouro"
                                        name="logradouro"
@@ -110,7 +107,6 @@
                             <div class="col col-sm-2 form-group">
                                 <label for="emitentexCpl" class="col-form-label-sm">Complemmento</label>
                                 <input type="text"
-                                       autofocus
                                        required
                                        id="emitentexCpl"
                                        name="emitentexCpl"
@@ -125,7 +121,6 @@
                             <div class="col col-sm-2 form-group">
                                 <label for="bairro" class="col-form-label-sm">Bairro</label>
                                 <input type="text"
-                                       autofocus
                                        required
                                        id="bairro"
                                        name="bairro"
@@ -174,7 +169,6 @@
                             <div class="col col-sm-4 form-group">
                                 <label for="cnpj" class="col-form-label-sm">CNPJ</label>
                                 <input type="text"
-                                       autofocus
                                        required
                                        id="cnpj"
                                        name="cnpj"
@@ -189,7 +183,6 @@
                             <div class="col col-sm-2 form-group">
                                 <label for="ie" class="col-form-label-sm">Inscrição Estadual</label>
                                 <input type="text"
-                                       autofocus
                                        required
                                        id="ie"
                                        name="ie"
@@ -202,7 +195,6 @@
                             <div class="col col-sm-2 form-group">
                                 <label for="im" class="col-form-label-sm">Inscrição Municipal</label>
                                 <input type="text"
-                                       autofocus
                                        required
                                        id="im"
                                        name="im"
@@ -217,7 +209,6 @@
                             <div class="col col-sm-3 form-group">
                                 <label for="CNAE" class="col-form-label-sm">CNAE</label>
                                 <input type="text"
-                                       autofocus
                                        required
                                        id="CNAE"
                                        name="CNAE"
@@ -230,7 +221,6 @@
                             <div class="col col-sm-2 form-group">
                                 <label for="CRT_ID" class="col-form-label-sm">Regime Tributário</label>
                                 <input type="text"
-                                       autofocus
                                        required
                                        id="CRT_ID"
                                        name="CRT_ID"
@@ -254,39 +244,32 @@
                                 </small>
                             </div>
                             <div class="col col-sm-2 form-group">
-                                <label for="password" class="col-form-label-sm">Senha</label>
+                                <label for="senha_centificado" class="col-form-label-sm">Senha</label>
                                 <input type="text"
-                                       autofocus
                                        required
-                                       id="password"
-                                       name="password"
+                                       id="senha_centificado"
+                                       name="senha_centificado"
                                        class="form-control"
-                                       value="<?= $empresas['password'] ?? '' ?>">
+                                       value="<?= $empresas['senha_centificado'] ?? '' ?>">
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('password') ?>
+                                    <?= \Config\Services::validation()->getError('senha_centificado') ?>
                                 </small>
                             </div>
                         </div>
                     </div>
                     <!--  Configurações  -->
-                    <div id="aba4" class="tab-pane fade">
-                        <div class="row d-inline w-100">
+                    <div id="aba4" class="tab-pane fade m-3">
+                        <div class="row">
                             <div class="col col-sm-4 form-group">
-                                <label for="ambiente">Ambiente</label>
-                                <!-- MELHORAR -->
-                                <select type="button" name="ambiente" id="ambiente"
-                                        class="custom-select">
-                                    <option selected class="dropdown-item"
-                                            value="<?= $empresas['ambiente'] ?? '' ?>">
-                                        <?= $empresas[''] ?? 'Selecione'?>
-                                    </option>
-                                    <option value="Claro" class="dropdown-item">
-                                        Homologação
-                                    </option>
-                                    <option value="Escuro" class="dropdown-item">
-                                        Produção
-                                    </option>
-                                </select>
+                                <label class="col-form-label-sm" for="ambiente">Ambiente</label>
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="ambiente" id="ambiente-homologacao">Homologação
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="ambiente" id="ambiente-producao">Produção
+                                    </label>
+                                </div>
                                 <small class="text-danger position-absolute">
                                     <?= \Config\Services::validation()->getError('ambiente') ?>
                                 </small>
