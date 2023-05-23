@@ -62,7 +62,7 @@ class ControleNFe extends Migration
             'id',
             'CASCADE');
 
-        $this->forge->createTable('produatos', true);
+        $this->forge->createTable('controle_NFe', true);
     }
 
     public function down()

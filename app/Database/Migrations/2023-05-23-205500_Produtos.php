@@ -291,7 +291,7 @@ class Produtos extends Migration
             'id',
             'CASCADE');
 
-        $this->forge->createTable('produatos', true);
+        $this->forge->createTable('produtos', true);
     }
 
     public function down()
