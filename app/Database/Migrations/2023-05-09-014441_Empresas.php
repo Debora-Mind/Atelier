@@ -94,181 +94,224 @@ class Empresas extends Migration
                 'type'          => 'VARCHAR',
                 'constraint'    => 2,
                 'default'       => 'RS',
+                'null'          => true,
             ],
             'CST_CSOSN_padrao' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 4,
+                'null'          => true,
             ],
             'CST_COFINS_padrao' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 3,
+                'null'          => true,
             ],
             'CST_PIS_padrao' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 3,
+                'null'          => true,
             ],
             'CST_IPI_padrao' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 3,
+                'null'          => true,
             ],
             'frete_padrao' => [
                 'type'          => 'INT',
                 'constraint'    => 20,
+                'null'          => true,
             ],
             'tipo_pagamento_padrao' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 2,
+                'null'          => true,
             ],
             'nat_op_padrao' => [
                 'type'          => 'INT',
                 'constraint'    => 10,
+                'null'          => true,
             ],
             'CNAE' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 20,
+                'null'          => true,
             ],
             'CRT_ID' => [
                 'type'          => 'INT',
                 'constraint'    => 10,
                 'default'       => 1,
+                'null'          => true,
             ],
             'ambiente' => [
                 'type'          => 'INT',
                 'constraint'    => 10,
+                'null'          => true,
             ],
             'cUF' => [
                 'type'          => 'INT',
                 'constraint'    => 2,
                 'default'       =>  43,
+                'null'          => true,
             ],
             'numero_serie_nfe' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 3,
+                'null'          => true,
             ],
             'numero_serie_nfce' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 3,
+                'null'          => true,
             ],
             'ultimo_numero_nfe' => [
                 'type'          => 'INT',
                 'constraint'    => 10,
+                'null'          => true,
             ],
             'ultimo_numero_nfce' => [
                 'type'          => 'INT',
                 'constraint'    => 10,
+                'null'          => true,
             ],
             'ultimo_numero_cte' => [
                 'type'          => 'INT',
                 'constraint'    => 10,
+                'null'          => true,
             ],
             'ultimo_numero_mdfe' => [
                 'type'          => 'INT',
                 'constraint'    => 10,
+                'null'          => true,
             ],
             'csc' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 60,
+                'null'          => true,
             ],
             'csc_id' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 10,
+                'null'          => true,
             ],
             'tokenIBPT' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 255,
+                'null'          => true,
             ],
             'certificado_a3' => [
                 'type'          => 'TEXT',
+                'null'          => true,
             ],
             'ibge' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  20
+                'constraint'    =>  20,
+                'null'          => true,
             ],
             'senha_centificado' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  50
+                'constraint'    =>  50,
+                'null'          => true,
             ],
             'replyName' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  255
+                'constraint'    =>  255,
+                'null'          => true,
             ],
             'host' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  100
+                'constraint'    =>  100,
+                'null'          => true,
             ],
             'user' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  100
+                'constraint'    =>  100,
+                'null'          => true,
             ],
             'password' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  100
+                'constraint'    =>  100,
+                'null'          => true,
             ],
             'secure' => [
                 'type'          => 'VARCHAR',
                 'constraint'    =>  1,
                 'default'       =>  'tls',
+                'null'          => true,
             ],
             'port' => [
                 'type'          => 'VARCHAR',
                 'constraint'    =>  4,
                 'default'       =>  '587',
+                'null'          => true,
             ],
             'fantasy' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  60
+                'constraint'    =>  60,
+                'null'          => true,
             ],
             'replyTo' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  100
+                'constraint'    =>  100,
+                'null'          => true,
             ],
             'logamarca' => [
                 'type'          => 'VARCHAR',
                 'constraint'    =>  255,
                 'default'       =>  'logocliente/logo_padrao.png',
+                'null'          => true,
             ],
             'system_unit_id' => [
                 'type'          => 'INT',
-                'constraint'    =>  10
+                'constraint'    =>  10,
+                'null'          => true,
             ],
             'path_site' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  100
+                'constraint'    =>  100,
+                'null'          => true,
             ],
             'url_dominio' => [
                 'type'          => 'TEXT',
+                'null'          => true,
             ],
             'validade_certificado' => [
                 'type'          => 'TIMESTAMP',
+                'null'          => true,
             ],
             'situacao_cnpj' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  50
+                'constraint'    =>  50,
+                'null'          => true,
             ],
             'cfop_padrao' => [
                 'type'          => 'INT',
                 'constraint'    =>  10,
                 'default'       =>  0,
+                'null'          => true,
             ],
             'ambiante_nfe' => [
                 'type'          => 'INT',
                 'constraint'    =>  10,
-                'default'       =>  3
+                'default'       =>  3,
+                'null'          => true,
             ],
             'ativo' => [
                 'type'          => 'BOOLEAN',
                 'default'       => true,
+                'null'          => true,
             ],
             'tema' => [
                 'type'          => "ENUM('Claro', 'Escuro')",
                 'default'       => 'Claro',
+                'null'          => true,
             ],
             'logo' => [
                 'type'          => 'TEXT',
                 'null'          => true,
             ],
             'configuracoes' => [
-                'type'          => 'JSON'
+                'type'          => 'JSON',
+                'null'          => true,
             ],
             'created_at' => [
                 'type'          => 'TIMESTAMP',
