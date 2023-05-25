@@ -16,9 +16,8 @@ class ControleNFe extends Migration
                 'auto_increment'=> true,
             ],
             'serie' => [
-                'type'          => 'VARACHAR',
+                'type'          => 'VARCHAR',
                 'constraint'    => 10,
-                'unsigned'      => true,
                 'null'          => true,
             ],
             'ultimonumero' => [

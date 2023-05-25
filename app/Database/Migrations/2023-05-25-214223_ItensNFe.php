@@ -17,6 +17,8 @@ class ItensNFe extends Migration
             ],
             'nfe_temp_id' => [
                 'type'          => 'INT',
+                'constraint'    =>  9,
+                'unsigned'      => true,
             ],
             'prod_cProd' => [
                 'type'          => 'VARCHAR',
@@ -190,9 +192,13 @@ class ItensNFe extends Migration
             ],
             'produto_id' => [
                 'type'          => 'INT',
+                'constraint'    =>  9,
+                'unsigned'      => true,
             ],
             'empresa_id' => [
                 'type'          => 'INT',
+                'constraint'    =>  9,
+                'unsigned'      => true,
             ],
         ]);
 

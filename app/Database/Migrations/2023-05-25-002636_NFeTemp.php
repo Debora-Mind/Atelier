@@ -31,6 +31,13 @@ class NFeTemp extends Migration
                 'unsigned'      => true,
                 'null'          => true,
             ],
+            'cliente_id' => [
+                'type'          => 'INT',
+                'constraint'    =>  9,
+                'unsigned'      => true,
+                'null'          => true,
+                'default'       =>  0,
+            ],
             'numero_nfe' => [
                 'type'          => 'INT',
                 'unsigned'      => true,
@@ -332,101 +339,121 @@ class NFeTemp extends Migration
             ],
             'tot_vBC' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vICMS' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vICMSDeson' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vFCP' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vBCST' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vST' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vFCPST' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vFCPSTRet' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vProd' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vFrete' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vSeg' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vDesc' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vII' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vIPI' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vIPIDevol' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vPIS' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vCOFINS' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vOutro' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vNF' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'tot_vTotTrib' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
@@ -447,11 +474,13 @@ class NFeTemp extends Migration
             ],
             'fat_vDesc' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'fat_vLiq' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
@@ -466,6 +495,7 @@ class NFeTemp extends Migration
             ],
             'dup_vDup' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
@@ -476,11 +506,13 @@ class NFeTemp extends Migration
             ],
             'detPag_vPag' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
             'detPag_vTroco' => [
                 'type'          => 'DOUBLE',
+                'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
             ],
@@ -589,11 +621,6 @@ class NFeTemp extends Migration
             'qrcodenfce' => [
                 'type'          => 'TEXT',
                 'null'          => true,
-            ],
-            'cliente_id ' => [
-                'type'          => 'INT',
-                'null'          => true,
-                'default'       =>  0,
             ],
             ]);
 

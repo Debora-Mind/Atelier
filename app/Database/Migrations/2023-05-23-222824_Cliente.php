@@ -167,6 +167,11 @@ class Cliente extends Migration
                 'constraint'    =>  1,
                 'null'          => true,
             ],
+            'empresa_id' => [
+                'type'          => 'INT',
+                'unsigned'      => true,
+                'coment'        =>  'Se refere a empresa que cadastrou o cliente',
+            ],
         ]);
 
         $this->forge->addPrimaryKey('id');

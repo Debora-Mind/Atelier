@@ -180,12 +180,12 @@ class Produtos extends Migration
             ],
             'tPIS_aliq' => [
                 'type'          => 'DOUBLE',
-                'constraint'    => '(10,2)',
+                'constraint'    => '10,2',
                 'comment'       => '* Aliquota do PIS',
                 'null'          => true,
             ],
             'tCOFINS_cst' => [
-                'type'          => 'VARACHAR',
+                'type'          => 'VARCHAR',
                 'constraint'    => 11,
                 'comment'       => '* Situação Tributária do COFINS',
                 'null'          => true,
@@ -198,7 +198,7 @@ class Produtos extends Migration
             ],
             'tCOFINS_aliq' => [
                 'type'          => 'DOUBLE',
-                'constraint'    => '(10,2)',
+                'constraint'    => '10,2',
                 'comment'       => '* Aliquota do COFINS',
                 'null'          => true,
             ],
@@ -218,13 +218,13 @@ class Produtos extends Migration
                 'null'          => true,
             ],
             'tICMS_cst_A' => [
-                'type'          => 'VARACHAR',
+                'type'          => 'VARCHAR',
                 'constraint'    => 2,
                 'comment'       => '* Situação Tributária do ICMS - Parte A',
                 'null'          => true,
             ],
             'tICMS_cst' => [
-                'type'          => 'VARACHAR',
+                'type'          => 'VARCHAR',
                 'constraint'    => 2,
                 'comment'       => '* Situação Tributária do ICMS - Parte B',
                 'null'          => true,
@@ -237,7 +237,7 @@ class Produtos extends Migration
             ],
             'tICMS_aliq' => [
                 'type'          => 'DOUBLE',
-                'constraint'    => '(10,2)',
+                'constraint'    => '10,2',
                 'comment'       => '* Aliquota do ICMS',
                 'null'          => true,
             ],
@@ -248,7 +248,7 @@ class Produtos extends Migration
             ],
             'tICMS_mva' => [
                 'type'          => 'DOUBLE',
-                'constraint'    => '(10,2)',
+                'constraint'    => '10,2',
                 'comment'       => '* Percentual da MVA Original, quando o produto for ST',
                 'null'          => true,
             ],
