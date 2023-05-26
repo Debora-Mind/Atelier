@@ -56,7 +56,7 @@ class Usuarios extends BaseController
                 'rules' => 'required|min_length[3]'],
             'senha-repetida' => [
                 'label' => 'Senha repetida',
-                'rules' => 'required'
+                'rules' => 'required|matches[senha]'
             ]
         ])) {
             $usuario = $this->request->getVar('usuario');
@@ -161,21 +161,40 @@ class Usuarios extends BaseController
 
         $id = $this->request->getVar('id');
         $data = [
-            'senha' => password_hash($this->request->getVar('senha'), PASSWORD_ARGON2I),
+            'usuario' => $this->request->getVar('usuario')
         ];
 
-        if ($this->validate([
-            'usuario' => [
-                'label' => 'Usuários',
-                'rules' => 'required|min_length[3]'],
-            'senha' => [
-                'label' => 'Senha',
-                'rules' => 'required|min_length[3]'],
-        ])) {
+        $senha = $this->request->getVar('senha');
+        $senhaRepetida = $this->request->getVar('senha-repetida');
 
-        $model->update($id, $data);
+        $rules['usuario'] = [
+            'label' => 'Usuários',
+            'rules' => 'required|min_length[3]'
+        ];
+        if (!empty($senha)):
+            $rules['senha'] = [
+                    'label' => 'Senha',
+                    'rules' => 'required|min_length[3]'];
+            $rules['senha-repetida'] = [
+                    'label' => 'Senha repetida',
+                    'rules' => 'required|matches[senha]'];
 
-        return redirect()->to(base_url('admin/usuarios'));
+            $data['senha'] = password_hash($this->request->getVar('senha'), PASSWORD_ARGON2I);
+        endif;
+
+        if($this->validate($rules)) {
+
+            if ($senhaRepetida == null) {
+                $this->validator->setError('senha-repetida', 'A senha não pode estar vazia');
+            }
+
+            if ($senha != $senhaRepetida) {
+                $this->validator->setError('senha-repetida', 'teste');
+            }
+
+            $model->update($id, $data);
+
+            return redirect()->to(base_url('admin/usuarios'));
         } else {
             $data = [
                 'title' => 'Usuários',

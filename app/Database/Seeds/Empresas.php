@@ -10,7 +10,7 @@ class Empresas extends Seeder
     {
         $data = [
             'id' => 1,
-            'descricao' => 'Administrador',
+            'nome_fantasia' => 'Administrador',
             'ativo' => true,
         ];
 

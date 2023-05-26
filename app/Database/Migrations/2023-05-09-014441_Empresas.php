@@ -234,7 +234,7 @@ class Empresas extends Migration
             ],
             'secure' => [
                 'type'          => 'VARCHAR',
-                'constraint'    =>  1,
+                'constraint'    =>  3,
                 'default'       =>  'tls',
                 'null'          => true,
             ],

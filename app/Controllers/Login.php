@@ -44,7 +44,7 @@ class Login extends BaseController
             return redirect()->to(base_url('/sistema'));
         }
         else {
-            return redirect()->to(base_url('login'));
+            return redirect()->to(base_url('/'));
         }
     }
 

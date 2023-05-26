@@ -16,7 +16,7 @@ class StatusNFe extends Seeder
             ],
             [
             'id' => 2,
-            'titulo' => 'FATURAdA',
+            'titulo' => 'FATURADA',
             'cor' => 'secondary',
             ],
             [
@@ -31,6 +31,6 @@ class StatusNFe extends Seeder
             ],
         ];
 
-        $this->db->table('status_nfe')->insert($data);
+        $this->db->table('status_nfe')->insertBatch($data);
     }
 }

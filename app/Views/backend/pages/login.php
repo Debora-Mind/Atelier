@@ -15,7 +15,7 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Bem vindo de Volta!</h1>
                                 </div>
-                                <form action="login/entrar" method="post">
+                                <form action="<?= base_url('login/entrar') ?>" method="post">
 
                                     <div class="form-group">
                                         <label for="usuario">Usuário</label>
