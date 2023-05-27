@@ -172,6 +172,17 @@ class Cliente extends Migration
                 'unsigned'      => true,
                 'coment'        =>  'Se refere a empresa que cadastrou o cliente',
             ],
+            'created_at' => [
+                'type'          => 'TIMESTAMP',
+            ],
+            'updated_at' => [
+                'type'          => 'TIMESTAMP',
+                'null'          =>  true,
+            ],
+            'deleted_at' => [
+                'type'          => 'TIMESTAMP',
+                'null'          =>  true,
+            ],
         ]);
 
         $this->forge->addPrimaryKey('id');

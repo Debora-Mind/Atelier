@@ -54,6 +54,7 @@
             <div id="collapseNotas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Custom Components:</h6>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('admin/nfe') ?>">Notas Emitidas</a>
                     <a class="collapse-item py-sm-1" href="utilities-color.html">Entrada de Nota</a>
                     <a class="collapse-item py-sm-1" href="utilities-border.html">Saída de Nota</a>
                     <a class="collapse-item py-sm-1" href="utilities-other.html">Consultar Nota</a>

@@ -19,6 +19,7 @@
         <form action="<?= base_url('admin/empresa/salvar-empresa') ?>" method="post" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="tab-content">
+                    <!--  Geral  -->
                     <div id="aba1" class="tab-pane fade show active">
                         <input hidden value="<?= $empresas['id'] ?>" id="id" name="id">
                         <div class="row d-inline w-100">
@@ -48,14 +49,14 @@
                                 </small>
                             </div>
                             <div class="col col-sm-5">
-                                <label for="logamarca" class="col-form-label-sm">Logo</label>
+                                <label for="logomarca" class="col-form-label-sm">Logo</label>
                                 <input type="file"
-                                       id="logamarca"
-                                       name="logamarca"
+                                       id="logomarca"
+                                       name="logomarca"
                                        class="form-control-file"
                                        accept=".png,.jpg,.jpeg,.svg">
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('logamarca') ?>
+                                    <?= \Config\Services::validation()->getError('logomarca') ?>
                                 </small>
                             </div>
                         </div>
@@ -131,16 +132,16 @@
                                 </small>
                             </div>
                             <div class="col-sm-2 form-group">
-                                <label for="UF">Estado</label>
-                                <select name="UF" id="UF" class="custom-select">
-                                    <option selected value="<?= $empresas[''] ?? '' ?>">
-                                        <?= $empresas['UF'] ?? 'Selecione' ?>
+                                <label for="uf">Estado</label>
+                                <select name="uf" id="uf" class="custom-select">
+                                    <option selected value="<?= $empresas['uf'] ?? '' ?>">
+                                        <?= $empresas['uf'] ?? 'Selecione' ?>
                                     </option>
                                     <option value="RS">RS</option>
                                     <!-- Incluir outros estados aqui -->
                                 </select>
                                 <small class="text-danger">
-                                    <?= \Config\Services::validation()->getError('UF') ?>
+                                    <?= \Config\Services::validation()->getError('uf') ?>
                                 </small>
                             </div>
                             <div class="col col-sm-2 form-group">
@@ -150,7 +151,7 @@
                                         class="custom-select">
                                     <option selected class="dropdown-item"
                                             value="<?= $empresas['municipio'] ?? '' ?>">
-                                        <?= $empresas[''] ?? 'Selecione'?>
+                                        <?= $empresas['municipio'] ?? 'Selecione'?>
                                     </option>
                                     <option value="Claro" class="dropdown-item">
                                         Igrejinha
@@ -215,7 +216,7 @@
                                        class="form-control"
                                        value="<?= $empresas['CNAE'] ?? '' ?>">
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('') ?>
+                                    <?= \Config\Services::validation()->getError('CNAE') ?>
                                 </small>
                             </div>
                             <div class="col col-sm-2 form-group">
@@ -240,7 +241,7 @@
                                        class="form-control-file"
                                        accept=".png,.jpg,.jpeg,.svg">
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('') ?>
+                                    <?= \Config\Services::validation()->getError('certificado_a3') ?>
                                 </small>
                             </div>
                             <div class="col col-sm-2 form-group">

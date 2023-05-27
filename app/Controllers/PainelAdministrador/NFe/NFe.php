@@ -1,32 +1,38 @@
 <?php
 
-namespace App\Controllers\PainelAdministrador;
+namespace App\Controllers\PainelAdministrador\NFe;
 
 use App\Controllers\BaseController;
-use App\Models\CategoriasModel;
+use App\Models\NFeModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
-class Categorias extends BaseController
+class NFe extends BaseController
 {
-    public function index()
+    public function listar()
     {
-        $model = new CategoriasModel();
+        $model = new NFeModel();
 
         $data = [
-            'title' => 'Categorias',
-            'categorias' => $model->paginate(10),
+            'title' => 'NFe',
+            'nfe' => $model->paginate(10),
             'pager' => $model->pager,
             'msg' => ''
         ];
 
-        $this->exibir($data, 'categorias');
+        $this->exibir($data, 'listar-nfe');
     }
 
-    public function exibir($data, $pagina)
+    public function exibir($data, $pagina = '')
     {
+        $tipo = session('usuario')['tipo'];
+
         echo view('backend/templates/html-header', $data);
-        echo view('backend/templates/header');
-        echo view('backend/pages/' . $pagina, $data);
+        if ($tipo):
+            echo view('backend/templates/header-' . $tipo, $data);
+        else:
+            echo view('backend/templates/header', $data);
+        endif;
+        echo view('backend/admin/nfe/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }
@@ -55,7 +61,7 @@ class Categorias extends BaseController
                 'resumo' => $resumo,
             ]);
             $data = [
-                'title' => 'Categorias',
+                'title' => 'NFe',
                 'categorias' => $model->paginate(10),
                 'pager' => $model->pager,
                 'msg' => 'Categoria cadastrada!'
@@ -64,7 +70,7 @@ class Categorias extends BaseController
         else {
 
             $data = [
-                'title' => 'Categorias',
+                'title' => 'NFe',
                 'categorias' => $model->paginate(10),
                 'pager' => $model->pager,
                 'msg' => 'Erro ao cadastrar categoria!'
@@ -86,7 +92,7 @@ class Categorias extends BaseController
     {
         $model = new CategoriasModel();
         $data = [
-            'title' => 'Editar Categorias',
+            'title' => 'Editar NFe',
             'categorias' => $model->getCategoria($id),
             'msg' => ''
         ];

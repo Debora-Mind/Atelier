@@ -254,7 +254,7 @@ class Empresas extends Migration
                 'constraint'    =>  100,
                 'null'          => true,
             ],
-            'logamarca' => [
+            'logomarca' => [
                 'type'          => 'VARCHAR',
                 'constraint'    =>  255,
                 'default'       =>  'logocliente/logo_padrao.png',
@@ -319,7 +319,10 @@ class Empresas extends Migration
             'updated_at' => [
                 'type'          => 'TIMESTAMP',
                 'null'          =>  true,
-
+            ],
+            'deleted_at' => [
+                'type'          => 'TIMESTAMP',
+                'null'          =>  true,
             ],
         ]);
 

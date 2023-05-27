@@ -42,6 +42,17 @@ class Usuarios extends Migration
                 'constraint'    => 9,
                 'unsigned'      => true,
             ],
+            'created_at' => [
+                'type'          => 'TIMESTAMP',
+            ],
+            'updated_at' => [
+                'type'          => 'TIMESTAMP',
+                'null'          =>  true,
+            ],
+            'deleted_at' => [
+                'type'          => 'TIMESTAMP',
+                'null'          =>  true,
+            ],
         ]);
 
         $this->forge->addPrimaryKey('id');

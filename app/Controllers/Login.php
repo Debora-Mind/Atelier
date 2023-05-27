@@ -25,27 +25,34 @@ class Login extends BaseController
         $usuario = $this->request->getVar('usuario');
         $senha = $this->request->getVar('senha');
 
-        $data = [
-            'usuarios' => $model->getUsuario($usuario)
-        ];
+        $rules['usuario'] = [
+                'label' => 'Usuário',
+                'rules' => 'required'];
+        $rules['senha'] = [
+                'label' => 'Senha',
+                'rules' =>'required'];
 
-        $modelEmpresa = new EmpresasModel();
-        $empresa = $modelEmpresa->getEmpresas($data['usuarios']['empresa_id']);
+        $data['usuarios'] = $model->getUsuario($usuario);
 
-        if ($data['usuarios'] && password_verify($senha, $data['usuarios']['senha'])) {
-            $sessionData = [
-                'usuario' => $data['usuarios'],
-                'logged_in' => true,
-                'empresa' => $empresa,
-            ];
+        if ($this->validate($rules) && $data['usuarios']) {
+            $modelEmpresa = new EmpresasModel();
+            $empresa = $modelEmpresa->getEmpresas($data['usuarios']['empresa_id']);
 
-            session()->set($sessionData);
+            if (password_verify($senha, $data['usuarios']['senha'])) {
+                $sessionData = [
+                    'usuario' => $data['usuarios'],
+                    'logged_in' => true,
+                    'empresa' => $empresa,
+                ];
 
-            return redirect()->to(base_url('/sistema'));
+                session()->set($sessionData);
+
+                return redirect()->to(base_url('/sistema'));
+            }
         }
-        else {
-            return redirect()->to(base_url('/'));
-        }
+
+        $this->validator->setError('usuario', 'Usuário ou senha inválido...');
+        return redirect()->to(base_url('/'));
     }
 
     public function logout()
