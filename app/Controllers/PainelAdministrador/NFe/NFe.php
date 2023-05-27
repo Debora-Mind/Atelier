@@ -3,6 +3,7 @@
 namespace App\Controllers\PainelAdministrador\NFe;
 
 use App\Controllers\BaseController;
+use App\Models\ItensNFeModel;
 use App\Models\NFeModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
@@ -35,6 +36,20 @@ class NFe extends BaseController
         echo view('backend/admin/nfe/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
+    }
+
+    public function formulario()
+    {
+        $model = new ItensNFeModel();
+        $nfes = $model->getItensNFe();
+
+        $data = [
+            'title' => 'Cadastrar Nota Fiscal',
+            'itensNfe' => $nfes,
+            'msg' => []
+        ];
+
+        $this->exibir($data, 'formulario');
     }
 
     public function gravar()
@@ -80,7 +95,7 @@ class NFe extends BaseController
         $this->exibir($data, 'categorias');
     }
 
-    public function excluir($id = null)
+    public function cancelar($id = null)
     {
         $model = new CategoriasModel();
         $model->delete($id);

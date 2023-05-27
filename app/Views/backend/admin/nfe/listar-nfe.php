@@ -8,7 +8,7 @@
                 <div class="row w-100">
                     <div class="d-inline-flex col-12">
                         <div class="col-12 form-group">
-                            <label for="busca" class="col-form-label">Cliente</label>
+                            <label for="busca" class="col-form-label">Empresa</label>
                             <input type="text"
                                    name="busca"
                                    id="busca"
@@ -50,15 +50,15 @@
                         </button>
                     </div>
                     <div class="form-group">
-                        <a href="/admin/usuarios/formulario">
-                            <button class="btn-sm btn-light border-primary">
-                                <i class="bi bi-plus-circle-fill bi-align-middle"> Cadastrar</i>
+                        <a href="/admin/nfe/cadastrar">
+                            <button class="btn-sm btn-light mx-sm-3 border-primary" type="button">
+                                <i class="bi bi-plus-circle-fill bi-align-middle"></i> Cadastrar
                             </button>
                         </a>
                     </div>
                     <div class="form-group">
-                        <a href="/admin/usuarios/formulario">
-                            <button class="btn-sm btn-light mx-sm-3 border-primary">
+                        <a href="/admin/nfe/status-sefaz">
+                            <button class="btn-sm btn-light mx-sm-3 border-primary" type="button">
                                 <i class="bi bi-plus-circle-fill bi-align-middle"> STATUS SEFAZ</i>
                             </button>
                         </a>
@@ -85,9 +85,10 @@
                 <tbody class="table-sm table-striped">
                 <?php foreach ($nfes as $nfe): ?>
                     <tr>
+                        <input type="hidden" name="id" id="id" value="<?= $nfe['id'] ?>">
                         <th>
                             <select name="acoes">
-                                <option href="/admin/nfe/transmitir?id=<?= $nfe['id'] ?>">
+                                <option href="/admin/nfe/transmitir">
                                     <i class="fa-server"></i> Transmitir
                                 </option>
                             </select>
@@ -103,7 +104,6 @@
                 <?php endforeach; ?>
                 </tbody>
             </table>
-            <?= $pager->links(); ?>
         </div>
     </div>
 </div>
