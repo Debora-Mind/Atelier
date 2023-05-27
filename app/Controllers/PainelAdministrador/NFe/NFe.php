@@ -13,8 +13,8 @@ class NFe extends BaseController
         $model = new NFeModel();
 
         $data = [
-            'title' => 'NFe',
-            'nfe' => $model->paginate(10),
+            'title' => 'Notas Fiscais',
+            'nfes' => $model->paginate(10),
             'pager' => $model->pager,
             'msg' => ''
         ];
