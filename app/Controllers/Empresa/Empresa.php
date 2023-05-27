@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\PainelAdministrador;
+namespace App\Controllers\Empresa;
 
 use App\Controllers\BaseController;
 use App\Models\EmpresasModel;
@@ -32,7 +32,7 @@ class Empresa extends BaseController
         else:
             echo view('backend/templates/header', $data);
         endif;
-        echo view('backend/admin/' . $pagina, $data);
+        echo view('backend/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }

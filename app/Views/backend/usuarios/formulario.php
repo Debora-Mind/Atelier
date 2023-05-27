@@ -6,7 +6,7 @@
         <div class="col-sm-12">
             <div class="card shadow mb-sm-4">
                 <div class="card-body">
-                    <form action="/admin/usuarios/salvar-usuario" <?= isset($usuario) ? 'method="post"' : ''; ?>>
+                    <form action="<?= base_url('usuarios/salvar-usuario') ?>" <?= isset($usuario) ? 'method="post"' : ''; ?>>
                         <div class="form-group">
                             <label for="usuario" class="form-label">Usuário</label>
                             <input class="form-control w-auto" name="usuario" id="usuario" value="<?= $usuario['usuario'] ?? '' ?>" autofocus/>
@@ -56,7 +56,7 @@
                         <?= csrf_field(); ?>
                         <div class="card-footer">
                             <div class="d-flex justify-content-end">
-                                <button type="button" onclick="cancelar('admin/usuarios')"
+                                <button type="button" onclick="cancelar('usuarios')"
                                         class="btn btn-danger" style="margin-right: 1rem;">Cancelar</button>
                                 <button class="btn btn-success">Confirmar</button>
                             </div>

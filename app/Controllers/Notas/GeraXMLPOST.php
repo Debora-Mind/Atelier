@@ -177,7 +177,7 @@ class GeraXMLPOST extends BaseController
         $tagimposto = $nfe->tagimposto($stdimposto);
 
         $stdICMS = new stdClass();
-        $stdICMS->item = 1; //item da NFe
+        $stdICMS->item = 1; //item da Notas
         $stdICMS->orig = 0;
         $stdICMS->CST = '00';
         $stdICMS->modBC = 1;
@@ -187,7 +187,7 @@ class GeraXMLPOST extends BaseController
         $ICMS = $nfe->tagICMS($stdICMS);
 
         $stdPIS = new stdClass();
-        $stdPIS->item = 1; //item da NFe
+        $stdPIS->item = 1; //item da Notas
         $stdPIS->CST = '99';
         $stdPIS->vBC = 0.0;
         $stdPIS->pPIS = 0.0;
@@ -196,7 +196,7 @@ class GeraXMLPOST extends BaseController
         $pis = $nfe->tagPIS($stdPIS);
 
         $stdCOFINS = new stdClass();
-        $stdCOFINS->item = 1; //item da NFe
+        $stdCOFINS->item = 1; //item da Notas
         $stdCOFINS->CST = '99';
         $stdCOFINS->vBC = 0.0;
         $stdCOFINS->pCOFINS = 0.0;
@@ -258,7 +258,7 @@ class GeraXMLPOST extends BaseController
         $erros = $nfe->getErrors();
         $modelo = $nfe->getModelo();
 
-        // dd($nfe->dom);
+        // dd($notas->dom);
 
         /**
          * usada para criar pastas
@@ -281,7 +281,7 @@ class GeraXMLPOST extends BaseController
             mkdir($path, 0777, true);
         }
 
-        $Filename = $path . '/' . $chave . '-nfe.xml';
+        $Filename = $path . '/' . $chave . '-notas.xml';
         $response = file_put_contents($Filename, $XML);
 
         ########## GERANDO XML E SALVANDO NA PASTA #########
@@ -289,7 +289,7 @@ class GeraXMLPOST extends BaseController
         ########## ASSINANDO XML E SALVANDO NA PASTA #########
         $response_assinado = $tools->signNFe(file_get_contents($Filename ));
         $path_assinadas =  "XML/NF-e/{$stdEmit->CNPJ}/{$PastaAmbiente}/assinadas/{$data_geracao_ano}/{$data_geracao_mes}/{$data_geracao_dia}";
-        $caminho = $path_assinadas . '/' . $chave . '-nfe.xml';
+        $caminho = $path_assinadas . '/' . $chave . '-notas.xml';
         if (is_dir($path_assinadas)) {
         } else {
             mkdir($path_assinadas, 0777, true);
@@ -334,7 +334,7 @@ class GeraXMLPOST extends BaseController
             $xml_autorizado = Complements::toAuthorize($request, $response);
             //  header('Content-type: text/xml; charset=UTF-8');
             $path_autorizadas =  "XML/NF-e/{$stdEmit->CNPJ}/{$PastaAmbiente}/autorizadas/{$data_geracao_ano}/{$data_geracao_mes}/{$data_geracao_dia}";
-            $caminho_aut = $path_autorizadas . '/' . $chave . '-nfe.xml';
+            $caminho_aut = $path_autorizadas . '/' . $chave . '-notas.xml';
             if (is_dir($path_autorizadas)) {
             } else {
                 mkdir($path_autorizadas, 0777, true);

@@ -11,7 +11,7 @@ class ImprimirNFeMod55 extends BaseController
     public function store()
     {
         //VERIFICAR SE A NOTA PRECISA ESTAR AUTORIZADA
-        $xml = file_get_contents('XML/NF-e/32596049000145/homologacao/temporaria/2023/05/11/29230532596049000145551020000000011517610660-nfe.xml');
+        $xml = file_get_contents('XML/NF-e/32596049000145/homologacao/temporaria/2023/05/11/29230532596049000145551020000000011517610660-notas.xml');
 //        $logo = 'data://text/plain;base64,'. base64_encode(file_get_contents(realpath(__DIR__ . '/../images/tulipas.png')));
 //        $logo = realpath(__DIR__ . '/../images/tulipas.png');
         $logo = ''; //INFORMAR LOGO

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\PainelAdministrador;
+namespace App\Controllers\Usuarios;
 
 use App\Controllers\BaseController;
 use App\Database\Migrations\Funcionarios;
@@ -34,7 +34,7 @@ class Usuarios extends BaseController
         else:
             echo view('backend/templates/header', $data);
         endif;
-        echo view('backend/admin/usuarios/' . $pagina, $data);
+        echo view('backend/usuarios/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }
@@ -129,7 +129,7 @@ class Usuarios extends BaseController
         $model = new UsuariosModel();
         $model->delete($id);
 
-        return redirect()->to(base_url('admin/usuarios'));
+        return redirect()->to(base_url('usuarios'));
     }
 
     public function formulario()
@@ -194,7 +194,7 @@ class Usuarios extends BaseController
 
             $model->update($id, $data);
 
-            return redirect()->to(base_url('admin/usuarios'));
+            return redirect()->to(base_url('usuarios'));
         } else {
             $data = [
                 'title' => 'Usuários',

@@ -26,7 +26,7 @@ class ImprimirPost extends BaseController
         $xml = file_get_contents($nota['parh_file']);
 
         if (!$nota):
-            echo 'NFe não existe';
+            echo 'Notas não existe';
             exit();
         endif;
 

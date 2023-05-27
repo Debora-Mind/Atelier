@@ -16,7 +16,7 @@
                 </li>
             </ul>
         </div>
-        <form action="<?= base_url('admin/empresa/salvar-empresa') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('empresa/salvar-empresa') ?>" method="post" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="tab-content">
                     <!--  Geral  -->
@@ -282,7 +282,7 @@
             <?= csrf_field(); ?>
             <div class="card-footer">
                 <div class="d-flex justify-content-end">
-                    <button type="button" onclick="cancelar('')"
+                    <button type="button" onclick="cancelar('sistema')"
                             class="btn btn-danger mt-2 fixed" style="margin-right: 1rem;">Cancelar</button>
                     <button class="btn btn-success mt-2 fixed">Confirmar</button>
                 </div>

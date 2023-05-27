@@ -45,7 +45,7 @@ class CancelaNFe extends BaseController
 
     try {
         $chave = '35345678901234567890123456789012345678901234'; //  CHAVE AUTORIZADA
-        $justificativa = 'nfe com erros de digitação'; //JUSTIFICATIVA
+        $justificativa = 'notas com erros de digitação'; //JUSTIFICATIVA
         $nProt = '123456789012345'; //NUMERO PROTOCOLO AUTORIZADA
         $response = $tools->sefazCancela($chave, $justificativa, $nProt);
 

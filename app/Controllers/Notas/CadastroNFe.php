@@ -24,7 +24,7 @@ class CadastroNFe extends BaseController
                 "pedidos_id" => $this->request->getVar('pedidos_id'),
             ]);
 
-            return 'NFe cadastrada com sucesso';
+            return 'Notas cadastrada com sucesso';
         } catch (Exception $e) {
             echo $e->getMessage();
         }

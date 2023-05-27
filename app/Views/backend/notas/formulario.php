@@ -10,7 +10,7 @@
                 </li>
             </ul>
         </div>
-        <form action="<?= base_url('admin/empresa/salvar-empresa') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('empresa/salvar-empresa') ?>" method="post" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="tab-content">
                     <!--  Principal  -->
@@ -136,7 +136,7 @@
                                     <input type="hidden" name="id" id="id" value="<?= $itemNfe['id'] ?>">
                                     <th>
                                         <select name="acoes">
-                                            <option href="/admin/nfe/transmitir">
+                                            <option href="<?= base_url('notas/transmitir') ?>>
                                                 <i class="fa-server"></i> Transmitir
                                             </option>
                                         </select>
@@ -188,7 +188,7 @@
             <?= csrf_field(); ?>
             <div class="card-footer">
                 <div class="d-flex justify-content-end">
-                    <button type="button" onclick="cancelar('admin/nfe')"
+                    <button type="button" onclick="cancelar('notas')"
                             class="btn btn-light border-secondary mt-2 fixed" style="margin-right: 1rem;">
                         <i class="fa fa-arrow-left"></i></i> Voltar</button>
                     <button class="btn btn-primary mt-2 fixed"><i class="fa fa-save"></i> Salvar</button>

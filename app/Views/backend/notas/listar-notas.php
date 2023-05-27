@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-sm-between align-items-sm-stretch card-header">
             Buscar NFe
         </div>
-        <form action="/admin/nfe" method="post">
+        <form action="/notas" method="post">
             <div class="card-body">
                 <div class="row w-100">
                     <div class="d-inline-flex col-12">
@@ -50,14 +50,14 @@
                         </button>
                     </div>
                     <div class="form-group">
-                        <a href="/admin/nfe/cadastrar">
+                        <a href="<?= base_url('notas/cadastrar') ?>">
                             <button class="btn-sm btn-light mx-sm-3 border-primary" type="button">
                                 <i class="bi bi-plus-circle-fill bi-align-middle"></i> Cadastrar
                             </button>
                         </a>
                     </div>
                     <div class="form-group">
-                        <a href="/admin/nfe/status-sefaz">
+                        <a href="<?= base_url('notas/status-sefaz') ?>">
                             <button class="btn-sm btn-light mx-sm-3 border-primary" type="button">
                                 <i class="bi bi-plus-circle-fill bi-align-middle"> STATUS SEFAZ</i>
                             </button>
@@ -88,7 +88,7 @@
                         <input type="hidden" name="id" id="id" value="<?= $nfe['id'] ?>">
                         <th>
                             <select name="acoes">
-                                <option href="/admin/nfe/transmitir">
+                                <option href="<?= base_url('notas/transmitir') ?>">
                                     <i class="fa-server"></i> Transmitir
                                 </option>
                             </select>

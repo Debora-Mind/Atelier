@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\PainelAdministrador\NFe;
+namespace App\Controllers\Notas;
 
 use App\Controllers\BaseController;
 use App\Models\ItensNFeModel;
@@ -20,7 +20,7 @@ class NFe extends BaseController
             'msg' => ''
         ];
 
-        $this->exibir($data, 'listar-nfe');
+        $this->exibir($data, 'listar-notas');
     }
 
     public function exibir($data, $pagina = '')
@@ -33,7 +33,7 @@ class NFe extends BaseController
         else:
             echo view('backend/templates/header', $data);
         endif;
-        echo view('backend/admin/nfe/' . $pagina, $data);
+        echo view('backend/notas/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }
@@ -76,7 +76,7 @@ class NFe extends BaseController
                 'resumo' => $resumo,
             ]);
             $data = [
-                'title' => 'NFe',
+                'title' => 'Notas',
                 'categorias' => $model->paginate(10),
                 'pager' => $model->pager,
                 'msg' => 'Categoria cadastrada!'
@@ -85,7 +85,7 @@ class NFe extends BaseController
         else {
 
             $data = [
-                'title' => 'NFe',
+                'title' => 'Notas',
                 'categorias' => $model->paginate(10),
                 'pager' => $model->pager,
                 'msg' => 'Erro ao cadastrar categoria!'
@@ -107,7 +107,7 @@ class NFe extends BaseController
     {
         $model = new CategoriasModel();
         $data = [
-            'title' => 'Editar NFe',
+            'title' => 'Editar Notas',
             'categorias' => $model->getCategoria($id),
             'msg' => ''
         ];

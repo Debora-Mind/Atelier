@@ -54,7 +54,7 @@
             <div id="collapseNotas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item py-sm-1" href="<?= base_url('admin/nfe') ?>">Notas Emitidas</a>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('notas') ?>">Notas Emitidas</a>
                     <a class="collapse-item py-sm-1" href="utilities-color.html">Entrada de Nota</a>
                     <a class="collapse-item py-sm-1" href="utilities-border.html">Saída de Nota</a>
                     <a class="collapse-item py-sm-1" href="utilities-other.html">Consultar Nota</a>
@@ -76,6 +76,7 @@
                     <a class="collapse-item py-sm-1" href="utilities-color.html">Visão Geral</a>
                     <a class="collapse-item py-sm-1" href="utilities-border.html">Entrada de Talão</a>
                     <a class="collapse-item py-sm-1" href="utilities-border.html">Saída de Talão</a>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('producao/produtos') ?>">Produtos</a>
                     <a class="collapse-item py-sm-1" href="utilities-border.html">Montar Layout</a>
                     <a class="collapse-item py-sm-1" href="utilities-other.html">Relatórios</a>
                 </div>
@@ -99,7 +100,7 @@
             <div id="collapseUsuario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item py-sm-1" href="<?= base_url('admin/usuarios') ?>">Visualizar</a>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('usuarios') ?>">Visualizar</a>
                     <a class="collapse-item py-sm-1" href="register.html">Permissões</a>
                     <a class="collapse-item py-sm-1" href="forgot-password.html">Cadastrar</a>
                     <a class="collapse-item py-sm-1" href="forgot-password.html">Remover</a>
@@ -116,7 +117,7 @@
             <div id="collapseEmpresa" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item py-sm-1" href="<?= base_url('admin/empresa') ?>">Dados Cadastrais</a>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('empresa') ?>">Dados Cadastrais</a>
                     <a class="collapse-item py-sm-1" href="register.html">Configurações</a>
                 </div>
             </div>
