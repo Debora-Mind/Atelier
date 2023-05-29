@@ -11014,3 +11014,76 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+/* Estilo do switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 1.75rem;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #d1ecf1;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #fff;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #0d6efd;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #0d6efd;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Estilo do rótulo */
+.switch-label {
+  vertical-align: middle;
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.switch-label:before, .switch-label:after {
+  content: "";
+  display: table;
+}
+
+.switch-label:after {
+  clear: both;
+}
+
+.switch-label .label-text {
+  float: none;
+  margin-left: 5px;
+}

@@ -136,7 +136,7 @@
                                     <input type="hidden" name="id" id="id" value="<?= $itemNfe['id'] ?>">
                                     <th>
                                         <select name="acoes">
-                                            <option href="<?= base_url('notas/transmitir') ?>>
+                                            <option href="<?= base_url('notas/transmitir') ?>">
                                                 <i class="fa-server"></i> Transmitir
                                             </option>
                                         </select>
@@ -190,7 +190,7 @@
                 <div class="d-flex justify-content-end">
                     <button type="button" onclick="cancelar('notas')"
                             class="btn btn-light border-secondary mt-2 fixed" style="margin-right: 1rem;">
-                        <i class="fa fa-arrow-left"></i></i> Voltar</button>
+                        <i class="fa fa-arrow-left"></i> Voltar</button>
                     <button class="btn btn-primary mt-2 fixed"><i class="fa fa-save"></i> Salvar</button>
                 </div>
             </div>

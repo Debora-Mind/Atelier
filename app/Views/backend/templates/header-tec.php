@@ -167,7 +167,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow" style="height: 4rem">
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
@@ -234,4 +234,6 @@
             </nav>
 
             <!-- End of Topbar -->
-            <div class="container-fluid row">
+
+            <!--  Container  -->
+            <div class="container-fluid px-0 mx-0 row">

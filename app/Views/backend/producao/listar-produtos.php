@@ -50,7 +50,7 @@
                         </button>
                     </div>
                     <div class="form-group">
-                        <a href="<?= base_url('produtos/cadastrar') ?>">
+                        <a href="<?= base_url('producao/produtos/formulario') ?>">
                             <button class="btn-sm btn-light mx-sm-3 border-primary" type="button">
                                 <i class="bi bi-plus-circle-fill bi-align-middle"></i> Cadastrar
                             </button>

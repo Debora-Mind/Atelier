@@ -39,16 +39,18 @@ class Produtos extends BaseController
 
     public function formulario()
     {
-        $model = new ItensNFeModel();
-        $nfes = $model->getItensNFe();
+        $id = $this->request->getVar('id');
+
+        $model = new ProdutosModel();
+        $produto = $model->getProdutos($id);
 
         $data = [
-            'title' => 'Cadastrar Nota Fiscal',
-            'itensNfe' => $nfes,
+            'title' => 'Cadastrar Produto',
+            'produto' => $produto,
             'msg' => []
         ];
 
-        $this->exibir($data, 'formulario');
+        $this->exibir($data, 'formulario-produtos');
     }
 
     public function gravar()
