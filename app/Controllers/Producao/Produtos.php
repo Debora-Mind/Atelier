@@ -55,68 +55,71 @@ class Produtos extends BaseController
 
     public function gravar()
     {
-        $model = new CategoriasModel();
+        $model = new ProdutosModel();
+        $vars = $this->request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         helper('form');
-
         if ($this->validate([
-            'titulo' => [
-                'label' => 'Título',
-                'rules' => 'required|min_length[3]'],
-            'resumo' => [
-                'label' => 'Resumo',
-                'rules' => 'required|min_length[3]'],
+            'cod_fabrica' => [
+                'label' => 'Referência da Fabrica',
+                'rules' => 'required'],
+            'cEAN' => [
+                'label' => 'Código de Barras',
+                'rules' => 'required'],
         ])) {
-            $id = $this->request->getVar('id');
-            $titulo = $this->request->getVar('titulo');
-            $resumo = $this->request->getVar('resumo');
+            $model->save($vars);
 
-            $model->save([
-                'id'     => $id,
-                'titulo' => $titulo,
-                'resumo' => $resumo,
-            ]);
             $data = [
-                'title' => 'Notas',
-                'categorias' => $model->paginate(10),
+                'title' => 'Produtos',
+                'produtos' => $model->paginate(10),
                 'pager' => $model->pager,
-                'msg' => 'Categoria cadastrada!'
+                'msg' => [
+                    'mensagem'   => 'Produto salvo com sucesso!',
+                    'tipo'      => 'success'
+                ],
             ];
         }
         else {
 
             $data = [
-                'title' => 'Notas',
-                'categorias' => $model->paginate(10),
-                'pager' => $model->pager,
-                'msg' => 'Erro ao cadastrar categoria!'
+                'title' => 'Produtos',
+                'produto' => $vars,
+                'msg' => [
+                    'mensagem'   => 'Erro ao salvar o produto!',
+                    'tipo'      => 'danger'
+                ],
             ];
-        }
+            $this->exibir($data, 'formulario-produtos');
+            exit();
 
-        $this->exibir($data, 'categorias');
+        }
+        $this->exibir($data, 'listar-produtos');
     }
 
     public function cancelar($id = null)
     {
-        $model = new CategoriasModel();
+        $model = new ProdutosModel();
         $model->delete($id);
 
-        return redirect()->to(base_url('admin/categorias'));
+        return redirect()->to(base_url('listar-produtos'));
     }
 
     public function editar($id = null)
     {
-        $model = new CategoriasModel();
+        $model = new ProdutosModel();
         $data = [
             'title' => 'Editar Notas',
-            'categorias' => $model->getCategoria($id),
-            'msg' => ''
+            'produtos' => $model->getProdutos($id),
+            'msg' => [
+                'mensagem'   => 'Empresa atualizada!',
+                'tipo'      => 'success'
+            ],
         ];
 
-        if (empty($data['categorias'])) {
+        if (empty($data['produtos'])) {
             throw new PageNotFoundException('Não é possível encontrar a categoria com id: ' . $id);
         }
 
-        $this->exibir($data, 'categorias-editar');
+        $this->exibir($data, 'producao/produtos');
     }
 }

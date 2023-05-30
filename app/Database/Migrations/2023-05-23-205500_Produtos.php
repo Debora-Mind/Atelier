@@ -252,7 +252,7 @@ class Produtos extends Migration
                 'comment'       => '* Percentual da MVA Original, quando o produto for ST',
                 'null'          => true,
             ],
-            'tICMS_beneficio' => [
+            'ICMS_beneficio' => [
                 'type'          => 'INT',
                 'comment'       => 'Se o produto tem Beneficio Fiscal',
                 'null'          => true,

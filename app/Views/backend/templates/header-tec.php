@@ -176,7 +176,7 @@
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <span class="font-weight-bolder text-lg mx-5 text-primary"><?= $title ?></span>
+                        <span class="font-weight-bolder text-lg ml-3 text-primary"><?= $title ?></span>
                     </li>
                 </ul>
 

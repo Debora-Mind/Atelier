@@ -76,12 +76,13 @@
                 <?php foreach ($produtos as $produto): ?>
                     <tr>
                         <input type="hidden" name="id" id="id" value="<?= $produto['id'] ?>">
+                        <td><?= $produto['id']; ?></td>
                         <td><?= $produto['cod_fabrica']; ?></td>
                         <td><?= $produto['uCom_Saida']?></td>
                         <td><?= $produto['valor']?></td>
                         <td>
                             <i class="fa fa-eye text-primary"></i>
-                            <i class="fa fa-paper-plane text-primary"></i>
+                            <i class="fa fa-file-pdf text-primary"></i>
                             <i class="fa fa-edit text-primary"></i>
                             <i class="fa fa-trash text-danger"></i>
                         </td>
