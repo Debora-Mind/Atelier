@@ -96,12 +96,13 @@ class Produtos extends BaseController
         $this->exibir($data, 'listar-produtos');
     }
 
-    public function cancelar($id = null)
+    public function remover()
     {
         $model = new ProdutosModel();
+        $id = $this->request->getVar('id');
         $model->delete($id);
 
-        return redirect()->to(base_url('listar-produtos'));
+        return redirect()->to(base_url('producao/produtos'));
     }
 
     public function editar($id = null)

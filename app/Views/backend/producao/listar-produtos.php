@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-sm-between align-items-sm-stretch card-header">
                 Buscar Produto
         </div>
-        <form action="/producao/produtos" method="post">
+        <form action="<?= base_url('producao/produtos') ?>" method="post">
             <div class="card-body">
                 <div class="row w-100">
                     <div class="d-inline-flex col-12">
@@ -84,12 +84,16 @@
                             <i class="fa fa-eye text-primary"></i>
                             <i class="fa fa-file-pdf text-primary"></i>
                             <i class="fa fa-edit text-primary"></i>
-                            <i class="fa fa-trash text-danger"></i>
+                            <a href="<?= base_url('producao/produtos/remover?id=' . $produto['id']) ?> "
+                               onclick="return confirm('Deseja mesmo excluir a produto <?= $produto['cod_fabrica'] ?>?')">
+                                <i class="fa fa-trash text-danger"></i>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
+            <?= $pager->links(); ?>
         </div>
     </div>
 </div>

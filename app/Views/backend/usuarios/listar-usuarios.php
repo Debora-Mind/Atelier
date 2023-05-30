@@ -41,7 +41,10 @@
                     <td class="text-center">
                         <a href="<?= base_url('usuarios/alterar-permissoes?id=' . $usuario['id']) ?>" ><i class="fas fa-list"></i></a>
                         <a href="<?= base_url('usuarios/formulario?id=' . $usuario['id']) ?>" ><i class="fas fa-edit"></i></a>
-                        <a href="<?= base_url('usuarios/excluir-usuario?id=' . $usuario['id']) ?>" onclick="return confirm('Deseja mesmo excluir a usuário <?= $usuario['usuario'] ?>?')"><i class="fas fa-trash"></i></a>
+                        <a href="<?= base_url('usuarios/excluir-usuario?id=' . $usuario['id']) ?>"
+                           onclick="return confirm('Deseja mesmo excluir a usuário <?= $usuario['usuario'] ?>?')">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             <?php endforeach; ?>
