@@ -111,25 +111,6 @@ class Produtos extends BaseController
         return redirect()->to(base_url('producao/produtos'));
     }
 
-    public function editar($id = null)
-    {
-        $model = new ProdutosModel();
-        $data = [
-            'title' => 'Editar Notas',
-            'produtos' => $model->getProdutos($id),
-            'msg' => [
-                'mensagem'   => 'Empresa atualizada!',
-                'tipo'      => 'success'
-            ],
-        ];
-
-        if (empty($data['produtos'])) {
-            throw new PageNotFoundException('Não é possível encontrar a categoria com id: ' . $id);
-        }
-
-        $this->exibir($data, 'producao/produtos');
-    }
-
     private function validarObjeto ($dados, $img, $pdf)
     {
         if ($img){

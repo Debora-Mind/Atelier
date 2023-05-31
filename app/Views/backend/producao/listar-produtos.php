@@ -83,7 +83,9 @@
                         <td>
                             <i class="fa fa-eye text-primary"></i>
                             <i class="fa fa-file-pdf text-primary"></i>
-                            <i class="fa fa-edit text-primary"></i>
+                            <a href="<?= base_url('producao/editar-produto?id=' . $produto['id']) ?>">
+                                <i class="fa fa-edit text-primary"></i>
+                            </a>
                             <a href="<?= base_url('producao/produtos/remover?id=' . $produto['id']) ?> "
                                onclick="return confirm('Deseja mesmo excluir a produto <?= $produto['cod_fabrica'] ?>?')">
                                 <i class="fa fa-trash text-danger"></i>

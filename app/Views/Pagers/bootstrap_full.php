@@ -11,7 +11,7 @@ $pager->setSurroundCount(2);
 <nav aria-label="<?= lang('Pager.pageNavigation') ?>">
 	<ul class="pagination justify-content-sm-center">
 		<?php if ($pager->hasPrevious()) : ?>
-			<li class="page-item">
+			<li class="page-item small">
 				<a href="<?= $pager->getFirst() ?>" aria-label="<?= lang('Pager.first') ?>" class="page-link">
 					<span aria-hidden="true"><?= lang('Pager.first') ?></span>
 				</a>
