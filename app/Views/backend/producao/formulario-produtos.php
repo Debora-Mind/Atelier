@@ -79,16 +79,16 @@
                                 </small>
                             </div>
                             <div class="col-4 form-group">
-                                <label for="tICMS_beneficio" class="">Cliente</label>
+                                <label for="ICMS_beneficio" class="">Cliente</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           id="tICMS_beneficio"
-                                           name="tICMS_beneficio"
-                                           value="<?= $produto['tICMS_beneficio'] ?? ''?>"
+                                           id="ICMS_beneficio"
+                                           name="ICMS_beneficio"
+                                           value="<?= $produto['ICMS_beneficio'] ?? ''?>"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('tICMS_beneficio') ?>
+                                    <?= \Config\Services::validation()->getError('ICMS_beneficio') ?>
                                 </small>
                             </div>
                             <div class="col-sm-2 form-group">
@@ -174,47 +174,36 @@
                                 </small>
                             </div>
                             <div class="col-2 form-group" hidden>
-                                <label for="tICMS_beneficio" class="">Empresa</label>
+                                <label for="empresa_id" class="">Empresa</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           id="tICMS_beneficio"
-                                           name="tICMS_beneficio"
+                                           id="empresa_id"
+                                           name="empresa_id"
                                            value="<?= session()->get('empresa')['id'] ?>"
                                            class="form-control">
                                 </div>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('tICMS_beneficio') ?>
-                                </small>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6 form-group">
-                                <label for="tICMS_beneficio" class="">Foto</label>
+                                <label for="img" class="">Foto</label>
                                 <div class="input-group">
                                     <input type="file"
-                                           id="tICMS_beneficio"
-                                           name="tICMS_beneficio"
-                                           value="<?= $produto['tICMS_beneficio'] ?? ''?>"
+                                           id="img"
+                                           name="img"
                                            class="form-control-file">
                                 </div>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('tICMS_beneficio') ?>
-                                </small>
                             </div>
                         </div>
                         <div class="row">
                         <div class="col-6 form-group">
-                                <label for="tICMS_beneficio" class="">Roteiro</label>
+                                <label for="pdf" class="">Roteiro</label>
                                 <div class="input-group">
                                     <input type="file"
-                                           id="tICMS_beneficio"
-                                           name="tICMS_beneficio"
-                                           value="<?= $produto['tICMS_beneficio'] ?? ''?>"
+                                           id="pdf"
+                                           name="pdf"
                                            class="form-control-file">
                                 </div>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('tICMS_beneficio') ?>
-                                </small>
                             </div>
                         </div>
                     </div>
@@ -637,7 +626,7 @@
                                            value="Sim" <?= ($produto['ICMS_beneficio'] ?? '') ? 'checked' : '' ?>>
                                     <label class="slider" for="ICMS_beneficio"></label>
                                 </div>
-                                <label for="tICMS_beneficio" class="">Beneficio Fiscal</label>
+                                <label for="ICMS_beneficio" class="">Beneficio Fiscal</label>
                                 <small class="text-danger position-absolute">
                                     <?= \Config\Services::validation()->getError('ICMS_beneficio') ?>
                                 </small>

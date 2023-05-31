@@ -266,7 +266,7 @@ class Produtos extends Migration
                 'type'          => 'TEXT',
                 'null'          => true,
             ],
-            'roteiro_pdf' => [
+            'pdf' => [
                 'type'          => 'TEXT',
                 'null'          => true,
             ],

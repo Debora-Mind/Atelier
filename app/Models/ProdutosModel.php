@@ -19,7 +19,7 @@ class ProdutosModel extends Model
         'tp_item', 'grupo', 'sub_grupo', 'departamento', 'classe', 'valor_entrada', 'valor_saida', 'margem_lucro_bruto',
         'vUnCom', 'NCM', 'CEST', 'CFOP_Saida', 'CFOP_Entrada', 'tPIS_cst', 'tPIS_tpcalc', 'tPIS_aliq', 'tCOFINS_cst',
         'tCOFINS_tpcalc', 'tCOFINS_aliq', 'tIPI_cst', 'tIPI_tpcalc', 'tIPI_aliq', 'tICMS_cst_A', 'tICMS_cst',
-        'tICMS_tpcalc', 'tICMS_aliq', 'tICMS_origem', 'tICMS_mva', 'tICMS_beneficio', 'img', 'roteiro_pdf'];
+        'tICMS_tpcalc', 'tICMS_aliq', 'tICMS_origem', 'tICMS_mva', 'tICMS_beneficio', 'img', 'pdf'];
 
     // Dates
     protected $useTimestamps = true;

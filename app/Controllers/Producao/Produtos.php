@@ -5,6 +5,7 @@ namespace App\Controllers\Producao;
 use App\Controllers\BaseController;
 use App\Models\ProdutosModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use Kint\Zval\EnumValue;
 
 class Produtos extends BaseController
 {
@@ -67,6 +68,10 @@ class Produtos extends BaseController
                 'label' => 'Código de Barras',
                 'rules' => 'required'],
         ])) {
+            $img = $this->request->getFile('img');
+            $pdf = $this->request->getFile('pdf');
+
+            $vars = $this->validarObjeto($vars, $img, $pdf);
             $model->save($vars);
 
             $data = [
@@ -93,6 +98,7 @@ class Produtos extends BaseController
             exit();
 
         }
+
         $this->exibir($data, 'listar-produtos');
     }
 
@@ -122,5 +128,44 @@ class Produtos extends BaseController
         }
 
         $this->exibir($data, 'producao/produtos');
+    }
+
+    private function validarObjeto ($dados, $img, $pdf)
+    {
+        if ($img){
+            $validar = $this->validate([
+                'img' => [
+                    'uploaded[img]',
+                    'mime_in[img,image/png,image/jpeg,image/gif,image/webp]',
+                    'max_size[img,4096]',
+                    'is_image[img]'
+                ]
+            ]);
+
+            if ($validar) {
+                $novoNome =  $img->getRandomName();
+                $img->move('img/' . session()->get('empresa')['nome_fantasia'] .
+                    '/produtos/img/' . date('Y/m/d'), $novoNome);
+                $dados['img'] = $novoNome;
+            }
+        }
+
+        if ($pdf) {
+            $validar = $this->validate([
+                'img' => [
+                    'uploaded[pdf]',
+                    'ext_in[pdf,pdf]',
+                    'max_size[pdf,4096]',
+                ]
+            ]);
+            if ($validar) {
+                $novoNome = $pdf->getRandomName();
+                $pdf->move('img/' . session()->get('empresa')['nome_fantasia'] .
+                    '/produtos/pdf/' . date('Y/m/d'), $novoNome);
+                $dados['pdf'] = $novoNome;
+            }
+        }
+
+        return $dados;
     }
 }
