@@ -144,9 +144,9 @@ class Produtos extends BaseController
 
             if ($validar) {
                 $novoNome =  $img->getRandomName();
-                $img->move('img/' . session()->get('empresa')['nome_fantasia'] .
-                    '/produtos/img/' . date('Y/m/d'), $novoNome);
-                $dados['img'] = $novoNome;
+                $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/produtos/img/' . date('Y/m/d');
+                $img->move($caminho, $novoNome);
+                $dados['img'] = $caminho . $novoNome;
             }
         }
 
@@ -160,9 +160,9 @@ class Produtos extends BaseController
             ]);
             if ($validar) {
                 $novoNome = $pdf->getRandomName();
-                $pdf->move('img/' . session()->get('empresa')['nome_fantasia'] .
-                    '/produtos/pdf/' . date('Y/m/d'), $novoNome);
-                $dados['pdf'] = $novoNome;
+                $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/produtos/pdf/' . date('Y/m/d');
+                $pdf->move($caminho, $novoNome);
+                $dados['pdf'] = $caminho . $novoNome;
             }
         }
 
