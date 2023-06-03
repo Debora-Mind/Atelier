@@ -10,7 +10,8 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "laminas/laminas-escaper": "^2.9",
-        "psr/log": "^1.1"
+        "psr/log": "^1.1",
+        "ext-fileinfo": "*"
     },
     "require-dev": {
         "kint-php/kint": "^5.0.1",
@@ -45,7 +46,6 @@
         "ext-dom": "If you use TestResponse",
         "ext-libxml": "If you use TestResponse",
         "ext-xdebug": "If you use CIUnitTestCase::assertHeaderEmitted()",
-        "ext-fileinfo": "Improves mime type detection for files",
         "ext-readline": "Improves CLI::input() usability"
     },
     "config": {

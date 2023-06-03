@@ -81,8 +81,14 @@
                         <td><?= $produto['uCom_Saida']?></td>
                         <td><?= $produto['valor']?></td>
                         <td>
-                            <i class="fa fa-eye text-primary"></i>
-                            <i class="fa fa-file-pdf text-primary"></i>
+                            <a href="<?= base_url('producao/visualizar-imagem?id=' . $produto['id']) ?>"
+                                target="_blank">
+                                <i class="fa fa-eye text-primary"></i>
+                            </a>
+                            <a href="<?= base_url('producao/visualizar-pdf?id=' . $produto['id']) ?>"
+                                target="_blank">
+                                <i class="fa fa-file-pdf text-primary"></i>
+                            </a>
                             <a href="<?= base_url('producao/editar-produto?id=' . $produto['id']) ?>">
                                 <i class="fa fa-edit text-primary"></i>
                             </a>

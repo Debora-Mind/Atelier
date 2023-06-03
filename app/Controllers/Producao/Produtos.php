@@ -5,7 +5,10 @@ namespace App\Controllers\Producao;
 use App\Controllers\BaseController;
 use App\Models\ProdutosModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use CodeIgniter\HTTP\Response;
 use Kint\Zval\EnumValue;
+use CodeIgniter\Files\File;
+
 
 class Produtos extends BaseController
 {
@@ -127,26 +130,74 @@ class Produtos extends BaseController
                 $novoNome =  $img->getRandomName();
                 $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/produtos/img/' . date('Y/m/d');
                 $img->move($caminho, $novoNome);
-                $dados['img'] = $caminho . $novoNome;
+                $dados['img'] = $caminho . '/' . $novoNome;
             }
         }
 
         if ($pdf) {
-            $validar = $this->validate([
-                'img' => [
+            $validarPdf = $this->validate([
+                'pdf' => [
                     'uploaded[pdf]',
                     'ext_in[pdf,pdf]',
                     'max_size[pdf,4096]',
                 ]
             ]);
-            if ($validar) {
+
+            if ($validarPdf) {
                 $novoNome = $pdf->getRandomName();
                 $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/produtos/pdf/' . date('Y/m/d');
                 $pdf->move($caminho, $novoNome);
-                $dados['pdf'] = $caminho . $novoNome;
+                $dados['pdf'] = $caminho . '/' .  $novoNome;
             }
         }
 
         return $dados;
+    }
+
+    public function visualizarImagem()
+    {
+        $model = new ProdutosModel();
+        $id = $this->request->getVar('id');
+        $imagePath = FCPATH . $model->getProdutos($id)['img']; // Substitua pelo caminho da imagem que deseja visualizar
+
+        if (file_exists($imagePath)) {
+            $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
+            $contentType = $fileInfo->file($imagePath);
+
+            $this->response->setContentType($contentType);
+            $this->response->setBody(file_get_contents($imagePath));
+
+            return $this->response;
+        } else {
+            var_dump($imagePath);
+            echo 'Algo deu errado com a imagem...';
+            exit();
+        }
+    }
+
+    public function visualizarPDF()
+    {
+        $model = new ProdutosModel();
+        $id = $this->request->getVar('id');
+        $pdfPath = FCPATH . $model->getProdutos($id)['pdf']; // Substitua pelo caminho do arquivo PDF que deseja visualizar
+
+        if (file_exists($pdfPath)) {
+            $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
+            $contentType = $fileInfo->file($pdfPath);
+
+            if ($contentType == 'application/pdf') {
+                $this->response->setContentType($contentType);
+                $this->response->setBody(file_get_contents($pdfPath));
+
+                return $this->response;
+            } else {
+                echo 'O arquivo não é um PDF válido.';
+                exit();
+            }
+        } else {
+            var_dump($pdfPath);
+            echo 'Algo deu errado com o arquivo PDF...';
+            exit();
+        }
     }
 }
