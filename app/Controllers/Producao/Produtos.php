@@ -116,39 +116,36 @@ class Produtos extends BaseController
 
     private function validarObjeto ($dados, $img, $pdf)
     {
-        if ($img){
-            $validar = $this->validate([
-                'img' => [
-                    'uploaded[img]',
-                    'mime_in[img,image/png,image/jpeg,image/gif,image/webp]',
-                    'max_size[img,4096]',
-                    'is_image[img]'
-                ]
-            ]);
+        $validar = $this->validate([
+            'img' => [
+                'uploaded[img]',
+                'mime_in[img,image/png,image/jpeg,image/gif,image/webp]',
+                'max_size[img,4096]',
+                'is_image[img]'
+            ]
+        ]);
 
-            if ($validar) {
-                $novoNome =  $img->getRandomName();
-                $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/produtos/img/' . date('Y/m/d');
-                $img->move($caminho, $novoNome);
-                $dados['img'] = $caminho . '/' . $novoNome;
-            }
+        if ($validar) {
+            $novoNome =  $img->getRandomName();
+            $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/produtos/img/' . date('Y/m/d');
+            $img->move($caminho, $novoNome);
+            $dados['img'] = $caminho . '/' . $novoNome;
         }
+        
+        $this->validator->reset();
 
-        if ($pdf) {
-            $validarPdf = $this->validate([
-                'pdf' => [
-                    'uploaded[pdf]',
-                    'ext_in[pdf,pdf]',
-                    'max_size[pdf,4096]',
-                ]
-            ]);
+        $validarPdf = $this->validate([
+            'pdf' => [
+                'uploaded[pdf]',
+                'max_size[pdf,4096]',
+            ]
+        ]);
 
-            if ($validarPdf) {
-                $novoNome = $pdf->getRandomName();
-                $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/produtos/pdf/' . date('Y/m/d');
-                $pdf->move($caminho, $novoNome);
-                $dados['pdf'] = $caminho . '/' .  $novoNome;
-            }
+        if ($validarPdf) {
+            $novoNome = $pdf->getRandomName();
+            $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/produtos/pdf/' . date('Y/m/d');
+            $pdf->move($caminho, $novoNome);
+            $dados['pdf'] = $caminho . '/' .  $novoNome;
         }
 
         return $dados;
@@ -158,7 +155,7 @@ class Produtos extends BaseController
     {
         $model = new ProdutosModel();
         $id = $this->request->getVar('id');
-        $imagePath = FCPATH . $model->getProdutos($id)['img']; // Substitua pelo caminho da imagem que deseja visualizar
+        $imagePath = FCPATH . $model->getProdutos($id)['img'];
 
         if (file_exists($imagePath)) {
             $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
@@ -169,7 +166,6 @@ class Produtos extends BaseController
 
             return $this->response;
         } else {
-            var_dump($imagePath);
             echo 'Algo deu errado com a imagem...';
             exit();
         }
@@ -179,7 +175,7 @@ class Produtos extends BaseController
     {
         $model = new ProdutosModel();
         $id = $this->request->getVar('id');
-        $pdfPath = FCPATH . $model->getProdutos($id)['pdf']; // Substitua pelo caminho do arquivo PDF que deseja visualizar
+        $pdfPath = FCPATH . $model->getProdutos($id)['pdf'];
 
         if (file_exists($pdfPath)) {
             $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
@@ -195,7 +191,6 @@ class Produtos extends BaseController
                 exit();
             }
         } else {
-            var_dump($pdfPath);
             echo 'Algo deu errado com o arquivo PDF...';
             exit();
         }

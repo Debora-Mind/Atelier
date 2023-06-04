@@ -69,7 +69,7 @@
                         <th class="sorting" tabindex="0">Produto</th>
                         <th style="width: 10%" class="sorting" tabindex="0">Unidade</th>
                         <th style="width: 20%" class="sorting" tabindex="0">Valor</th>
-                        <th style="width: 7%" class="sorting" tabindex="0">Ações</th>
+                        <th style="width: 10%" class="sorting text-center" tabindex="0">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="table-sm table-striped">
@@ -81,20 +81,28 @@
                         <td><?= $produto['uCom_Saida']?></td>
                         <td><?= $produto['valor']?></td>
                         <td>
+                            <?php if($produto['img']): ?>
                             <a href="<?= base_url('producao/visualizar-imagem?id=' . $produto['id']) ?>"
                                 target="_blank">
-                                <i class="fa fa-eye text-primary"></i>
+                                <i class="fa fa-eye text-primary mx-1"></i>
                             </a>
+                            <?php else: ?>
+                                <i class="fa fa-eye text-secondary disabled mx-1"></i>
+                            <?php endif; ?>
+                            <?php if($produto['pdf']): ?>
                             <a href="<?= base_url('producao/visualizar-pdf?id=' . $produto['id']) ?>"
                                 target="_blank">
-                                <i class="fa fa-file-pdf text-primary"></i>
+                                <i class="fa fa-file-pdf text-primary mx-1"></i>
                             </a>
+                            <?php else: ?>
+                                <i class="fa fa-file-pdf text-secondary disabled mx-1"></i>
+                            <?php endif; ?>
                             <a href="<?= base_url('producao/editar-produto?id=' . $produto['id']) ?>">
-                                <i class="fa fa-edit text-primary"></i>
+                                <i class="fa fa-edit text-primary mx-1"></i>
                             </a>
                             <a href="<?= base_url('producao/produtos/remover?id=' . $produto['id']) ?> "
                                onclick="return confirm('Deseja mesmo excluir a produto <?= $produto['cod_fabrica'] ?>?')">
-                                <i class="fa fa-trash text-danger"></i>
+                                <i class="fa fa-trash text-danger mx-1"></i>
                             </a>
                         </td>
                     </tr>
