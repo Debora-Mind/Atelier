@@ -79,16 +79,16 @@
                                 </small>
                             </div>
                             <div class="col-4 form-group">
-                                <label for="ICMS_beneficio" class="">Cliente</label>
+                                <label for="cliente_id" class="">Cliente</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           id="ICMS_beneficio"
-                                           name="ICMS_beneficio"
-                                           value="<?= $produto['ICMS_beneficio'] ?? ''?>"
+                                           id="cliente_id"
+                                           name="cliente_id"
+                                           value="<?= $produto['cliente_id']['nome_razao_social'] ?? ''?>"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('ICMS_beneficio') ?>
+                                    <?= \Config\Services::validation()->getError('cliente_id') ?>
                                 </small>
                             </div>
                             <div class="col-sm-2 form-group">
@@ -622,13 +622,13 @@
                     <div id="aba4" class="tab-pane fade m-3">
                             <div class="col-3 form-group">
                                 <div class="switch">
-                                    <input type="checkbox" id="ICMS_beneficio" name="ICMS_beneficio"
-                                           value="Sim" <?= ($produto['ICMS_beneficio'] ?? '') ? 'checked' : '' ?>>
-                                    <label class="slider" for="ICMS_beneficio"></label>
+                                    <input type="checkbox" id="tICMS_beneficio" name="tICMS_beneficio"
+                                           value="Sim" <?= ($produto['tICMS_beneficio'] ?? '') ? 'checked' : '' ?>>
+                                    <label class="slider" for="tICMS_beneficio"></label>
                                 </div>
                                 <label for="ICMS_beneficio" class="">Beneficio Fiscal</label>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('ICMS_beneficio') ?>
+                                    <?= \Config\Services::validation()->getError('tICMS_beneficio') ?>
                                 </small>
                             </div>
                             <div class="col-3 form-group">

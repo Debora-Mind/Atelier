@@ -131,7 +131,7 @@ class Produtos extends BaseController
             $img->move($caminho, $novoNome);
             $dados['img'] = $caminho . '/' . $novoNome;
         }
-        
+
         $this->validator->reset();
 
         $validarPdf = $this->validate([

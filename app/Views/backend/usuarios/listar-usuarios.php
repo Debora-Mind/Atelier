@@ -1,7 +1,7 @@
 <div class="col-sm-12">
     <div class="card shadow">
         <div class="d-flex justify-content-sm-between align-items-sm-stretch card-header">
-            <form action="/admin/usuarios" method="post" class="d-flex">
+            <form action="/usuarios" method="post" class="d-flex">
                 <input type="text"
                        name="busca"
                        id="busca"

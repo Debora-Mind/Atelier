@@ -3,6 +3,7 @@
 namespace App\Controllers\Empresa;
 
 use App\Controllers\BaseController;
+use App\Models\ClientesModel;
 use App\Models\EmpresasModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
@@ -141,5 +142,19 @@ class Empresa extends BaseController
         }
 
         $this->exibir($data, 'empresa/editar-empresa');
+    }
+
+    public function listarClientes()
+    {
+        $model = new ClientesModel();
+        helper('session');
+        $data = [
+            'title' => 'Clientes',
+            'clientes' => $model->paginate(10),
+            'pager' => $model->pager,
+            'msg' => []
+        ];
+
+        $this->exibir($data, 'empresa/listar-clientes');
     }
 }

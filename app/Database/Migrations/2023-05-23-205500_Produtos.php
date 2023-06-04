@@ -252,12 +252,17 @@ class Produtos extends Migration
                 'comment'       => '* Percentual da MVA Original, quando o produto for ST',
                 'null'          => true,
             ],
-            'ICMS_beneficio' => [
+            'tICMS_beneficio' => [
                 'type'          => 'INT',
                 'comment'       => 'Se o produto tem Beneficio Fiscal',
                 'null'          => true,
             ],
             'empresa_id' => [
+                'type'          => 'INT',
+                'constraint'    => 9,
+                'unsigned'      => true,
+            ],
+            'cliente_id' => [
                 'type'          => 'INT',
                 'constraint'    => 9,
                 'unsigned'      => true,
@@ -288,6 +293,11 @@ class Produtos extends Migration
         $this->forge->addForeignKey(
             'empresa_id',
             'empresas',
+            'id',
+            'CASCADE');
+        $this->forge->addForeignKey(
+            'cliente_id',
+            'clientes',
             'id',
             'CASCADE');
 

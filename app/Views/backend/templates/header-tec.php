@@ -118,6 +118,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Login Screens:</h6>
                     <a class="collapse-item py-sm-1" href="<?= base_url('empresa') ?>">Dados Cadastrais</a>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('empresa/clientes') ?>">Clientes</a>
                     <a class="collapse-item py-sm-1" href="register.html">Configurações</a>
                 </div>
             </div>
