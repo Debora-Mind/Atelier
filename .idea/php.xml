@@ -121,6 +121,16 @@
       <path value="$PROJECT_DIR$/vendor/laminas/laminas-escaper" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/vendor/nfephp-org/sped-da" />
+      <path value="$PROJECT_DIR$/vendor/nfephp-org/sped-common" />
+      <path value="$PROJECT_DIR$/vendor/nfephp-org/sped-mail" />
+      <path value="$PROJECT_DIR$/vendor/nfephp-org/sped-gtin" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-barcode" />
+      <path value="$PROJECT_DIR$/vendor/nfephp-org/sped-nfe" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-color" />
+      <path value="$PROJECT_DIR$/vendor/phpmailer/phpmailer" />
+      <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/vendor/soundasleep/html2text" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />

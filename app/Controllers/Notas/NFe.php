@@ -5,6 +5,7 @@ namespace App\Controllers\Notas;
 use App\Controllers\BaseController;
 use App\Models\ItensNFeModel;
 use App\Models\NFeModel;
+use App\Models\ProdutosModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class NFe extends BaseController
@@ -54,45 +55,130 @@ class NFe extends BaseController
 
     public function gravar()
     {
-        $model = new CategoriasModel();
-
+        $model = new NFeModel();
+        $itemModel = new ItensNFeModel();
         helper('form');
 
         if ($this->validate([
-            'titulo' => [
-                'label' => 'Título',
-                'rules' => 'required|min_length[3]'],
-            'resumo' => [
-                'label' => 'Resumo',
-                'rules' => 'required|min_length[3]'],
+            'cliente_id' => [
+                'label' => 'Cliente',
+                'rules' => 'required'],
         ])) {
-            $id = $this->request->getVar('id');
-            $titulo = $this->request->getVar('titulo');
-            $resumo = $this->request->getVar('resumo');
+            $empresa = $this->request->getVar('empresa_id');
+            $serie = $this->request->getVar('serie');
+            $numeroNfe = $this->request->getVar('numero_nfe');
+            $cliente = $this->request->getVar('cliente_id');
+
+            $produtos = $this->request->getVar('produto_id');
+            $quantidades = $this->request->getVar('prod_qCom');
+            $valores = $this->request->getVar('prod_vProd	');
 
             $model->save([
-                'id'     => $id,
-                'titulo' => $titulo,
-                'resumo' => $resumo,
+                'empresa_id' => $empresa,
+                'serie'      => $serie,
+                'numero_nfe' => $numeroNfe,
+                'cliente_id' => $cliente,
+                'tot_vBC' => 1,
+                'tot_vICMS' => 1,
+                'tot_vICMSDeson' => 1,
+                'tot_vFCP' => 1,
+                'tot_vBCST' => 1,
+                'tot_vST' => 1,
+                'tot_vFCPST' => 1,
+                'tot_vFCPSTRet' => 1,
+                'tot_vProd' => 1,
+                'tot_vFrete' => 1,
+                'tot_vSeg' => 1,
+                'tot_vDesc' => 1,
+                'tot_vII' => 1,
+                'tot_vIPI' => 1,
+                'tot_vIPIDevol' => 1,
+                'tot_vPIS' => 1,
+                'tot_vCOFINS' => 1,
+                'tot_vOutro' => 1,
+                'tot_vNF' => 1,
+                'tot_vTotTrib' => 1,
+                'fat_vDesc' => 1,
+                'fat_vLiq' => 1,
+                'dup_vDup' => 1,
+                'detPag_vPag' => 1,
+                'detPag_vTroco' => 1,
             ]);
+
+            // Salvar cada item no banco de dados
+            for ($i = 0; $i < count($produtos); $i++) {
+                $this->validator->reset();
+                if($this->validate([
+                    'produto_id' => [
+                        'label' => 'Produto',
+                        'rules' => 'required',
+                    ],
+                    'prod_qCom' => [
+                        'label' => 'Quantidade do produto',
+                        'rules' => 'required',
+                    ],
+                    'prod_vProd' => [
+                        'label' => 'Valor do produto',
+                        'rules' => 'required',
+                    ]
+                ])) {
+                    $modelProduto = new ProdutosModel();
+                    $produto = $modelProduto->getProdutos($produtos[$i]);
+                    $item = [
+                        'produto_id' => $produto['id'],
+                        'prod_qCom' => $quantidades[$i],
+                        'prod_vProd	' => $valores[$i],
+                        'nfe_temp_id' => $model->selectMax('id'),
+                        'prod_pedido_id' => 1,
+                        'prod_qTrib' => $quantidades[$i],
+                        'icms_vBC' => $produto['tICMS_cst'],
+                        'icms_pICMS' => $produto['tICMS_tpcalc'],
+                        'icms_vICMS' => $produto['tICMS_aliq'],
+                        'pis_vBC' => $produto['tPIS_cst'],
+                        'pis_pPIS' => $produto['tPIS_tpcalc'],
+                        'pis_vPIS' => $produto['tPIS_aliq'],
+                        'cofins_vBC' => $produto['tCOFINS_cst'],
+                        'cofins_pCOFINS' => $produto['tCOFINS_tpcalc'],
+                        'cofins_vCOFINS' => $produto['tCOFINS_aliq'],
+                        'empresa_id' => session()->get('empresa')['id'],
+                    ];
+
+                    // Salvar o item no banco de dados (exemplo)
+                    $itemModel->save($item);
+                } else {
+
+                    $data = [
+                        'title' => 'Notas',
+                        'nfes' => $model->paginate(10),
+                        'pager' => $model->pager,
+                        'msg' => [
+                            'mensagem' => 'Erro ao cadastrar a nota!',
+                            'tipo'     => 'danger',
+                        ]];
+                }
+            }
+
             $data = [
                 'title' => 'Notas',
-                'categorias' => $model->paginate(10),
+                'nfes' => $model->paginate(10),
                 'pager' => $model->pager,
-                'msg' => 'Categoria cadastrada!'
-            ];
+                'msg' => [
+                    'mensagem' => 'Nota cadastrada!',
+                    'tipo'     => 'sucess',
+                    ]];
         }
         else {
-
             $data = [
                 'title' => 'Notas',
-                'categorias' => $model->paginate(10),
+                'nfes' => $model->paginate(10),
                 'pager' => $model->pager,
-                'msg' => 'Erro ao cadastrar categoria!'
-            ];
+                'msg' => [
+                    'mensagem' => 'Erro ao cadastrar a nota!',
+                    'tipo'     => 'danger',
+            ]];
         }
 
-        $this->exibir($data, 'categorias');
+        $this->exibir($data);
     }
 
     public function cancelar($id = null)

@@ -11,7 +11,10 @@
         "ext-mbstring": "*",
         "laminas/laminas-escaper": "^2.9",
         "psr/log": "^1.1",
-        "ext-fileinfo": "*"
+        "ext-fileinfo": "*",
+        "nfephp-org/sped-da": "dev-master",
+        "nfephp-org/sped-mail": "*",
+        "nfephp-org/sped-nfe": "*"
     },
     "require-dev": {
         "kint-php/kint": "^5.0.1",

@@ -121,6 +121,16 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-escaper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/version" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nfephp-org/sped-da" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nfephp-org/sped-common" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nfephp-org/sped-mail" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nfephp-org/sped-gtin" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-barcode" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nfephp-org/sped-nfe" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-color" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpmailer/phpmailer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/soundasleep/html2text" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

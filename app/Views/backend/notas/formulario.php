@@ -10,7 +10,7 @@
                 </li>
             </ul>
         </div>
-        <form action="<?= base_url('empresa/salvar-empresa') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('notas/salvar-nfe') ?>" method="post">
             <div class="card-body">
                 <div class="tab-content">
                     <!--  Principal  -->
@@ -27,7 +27,7 @@
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('logomarca') ?>
+                                    <?= \Config\Services::validation()->getError('busca') ?>
                                 </small>
                             </div>
                             <div class="col-3">
@@ -40,7 +40,7 @@
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('logomarca') ?>
+                                    <?= \Config\Services::validation()->getError('nfe') ?>
                                 </small>
                             </div>
                             <div class="col-3 form-group">
@@ -53,22 +53,22 @@
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('logomarca') ?>
+                                    <?= \Config\Services::validation()->getError('serie') ?>
                                 </small>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 form-group">
-                                <label for="busca" class="col-form-label-sm">Cliente</label>
+                                <label for="cliente_id" class="col-form-label-sm">Cliente</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           name="busca"
-                                           id="busca"
+                                           name="cliente_id"
+                                           id="cliente_id"
                                            autofocus
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('logomarca') ?>
+                                    <?= \Config\Services::validation()->getError('cliente_id') ?>
                                 </small>
                             </div>
                         </div>
@@ -78,50 +78,49 @@
                         <hr class="mt-1 mb-3">
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <label for="busca" class="col-form-label-sm">Produto</label>
+                                <label for="produto_id" class="col-form-label-sm">Produto</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           name="busca"
-                                           id="busca"
+                                           name="produto_id"
+                                           id="produto_id"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('logomarca') ?>
+                                    <?= \Config\Services::validation()->getError('produto_id') ?>
                                 </small>
                             </div>
                             <div class="col-2">
-                                <label for="nfe" class="">Quantidade</label>
+                                <label for="prod_qCom" class="">Quantidade</label>
                                 <div class="input-group">
-                                    <input type="text"
-                                           id="nfe"
-                                           name="nfe"
+                                    <input type="number"
+                                           id="prod_qCom"
+                                           name="prod_qCom"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('logomarca') ?>
+                                    <?= \Config\Services::validation()->getError('prod_qCom') ?>
                                 </small>
                             </div>
                             <div class="col-2 form-group">
-                                <label for="serie" class="">Valor</label>
+                                <label for="prod_vProd" class="">Valor</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           id="serie"
-                                           name="serie"
+                                           id="prod_vProd"
+                                           name="prod_vProd"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('logomarca') ?>
+                                    <?= \Config\Services::validation()->getError('prod_vProd') ?>
                                 </small>
                             </div>
                             <div class="col-sm-2 form-group mt-sm-4">
-                                <a href="">
-                                    <button class="btn-sm btn-outline-success mx-sm-3 border-success pb-2" type="button" style="height: 80%">
-                                        <i class="fa fa-plus"></i> Adicionar
-                                    </button>
-                                </a>
+                                <button class="btn-sm btn-outline-success mx-sm-3 border-success" type="button"
+                                        onclick="adicionarItem()">
+                                    <i class="fa fa-plus"></i> Adicionar
+                                </button>
                             </div>
                         </div>
-                        <table class="table-sm table dataTable table-striped mb-3 w-100">
+                        <table id="itensNfeTable" class="table-sm table dataTable table-striped mb-3 w-100">
                             <thead>
                             <tr role="row">
                                 <th class="sorting" tabindex="0">Produto</th>
@@ -131,25 +130,7 @@
                             </tr>
                             </thead>
                             <tbody class="table-sm table-striped">
-                            <?php foreach ($itensNfe as $itemNfe): ?>
-                                <tr>
-                                    <input type="hidden" name="id" id="id" value="<?= $itemNfe['id'] ?>">
-                                    <th>
-                                        <select name="acoes">
-                                            <option href="<?= base_url('notas/transmitir') ?>">
-                                                <i class="fa-server"></i> Transmitir
-                                            </option>
-                                        </select>
-                                    </th>
-                                    <td><?= $itemNfe['prod_cProd']; ?></td>
-                                    <td><?= $itemNfe['prod_qCom']?></td>
-                                    <td><?= $itemNfe['prod_vProd']?></td>
-                                    <td>
-                                        <i class="fas fa-edit text-primary"></i>
-                                        <i class="fas fa-trash text-danger"></i>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+
                             </tbody>
                         </table>
                     </div>
@@ -197,3 +178,28 @@
         </form>
     </div>
 </div>
+
+
+<script>
+    function adicionarItem() {
+    // Captura os valores dos campos de entrada
+    var produto = $('#produto_id').val();
+    var quantidade = $('#prod_qCom').val();
+    var valor = $('#prod_vProd').val();
+
+    // Cria uma nova linha para a tabela
+    var newRow = $('<tr>');
+        newRow.append('<td><input type="hidden" name="produto_id[]" value="' + produto + '">' + produto + '</td>');
+        newRow.append('<td><input type="hidden" name="prod_qCom[]" value="' + quantidade + '">' + quantidade + '</td>');
+        newRow.append('<td><input type="hidden" name="prod_vProd[]" value="' + valor + '">' + valor + '</td>');
+        newRow.append('<td><i class="fas fa-edit text-primary"></i> <i class="fas fa-trash text-danger"></i></td>');
+
+    // Adiciona a nova linha à tabela
+    $('#itensNfeTable tbody').append(newRow);
+
+    // Limpa os campos de entrada após adicionar o item à tabela
+    $('#produto_id').val('');
+    $('#prod_qCom').val('');
+    $('#prod_vProd').val('');
+}
+</script>

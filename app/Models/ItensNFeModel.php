@@ -14,7 +14,11 @@ class ItensNFeModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = [''];
+    protected $allowedFields    = ['nfe_temp_id', 'prod_cProd', 'prod_item', 'prod_pedido_id', 'prod_nNF', 'prod_indTot',
+        'nfe_temp_serie', 'prod_cEAN', 'prod_xProd', 'prod_NCM', 'prod_CFOP', 'prod_uCom', 'prod_qCom', 'prod_vUnCom',
+        'prod_vProd', 'prod_cEANTrib', 'prod_uTrib', 'prod_qTrib', 'prod_vUnTrib', 'icms_orig', 'icms_CST', 'icms_modBC',
+        'icms_vBC', 'icms_pICMS', 'icms_vICMS', 'pis_CST', 'pis_vBC', 'pis_pPIS', 'pis_vPIS', 'cofins_CST', 'cofins_vBC',
+        'cofins_pCOFINS', 'cofins_vCOFINS', 'produto_id', 'empresa_id'];
 
     // Dates
     protected $useTimestamps = false;

@@ -25,12 +25,15 @@
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/js/bootstrap.bundle.js"></script>
 
-<!-- Plugin JavaScript-->
+<!-- Plugin JavaScript -->
 <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="/js/custom.js"></script>
 
 <!-- Scripts Customizados Para Todas as Páginas -->
 <script src="/js/sb-admin-2.min.js"></script>
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </body>
 
