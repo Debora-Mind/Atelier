@@ -20,7 +20,7 @@ class Empresa extends BaseController
             'msg' => []
         ];
 
-        $this->exibir($data, 'empresa/cadastro');
+        $this->exibir($data, 'cadastro');
     }
 
     public function exibir($data, $pagina)
@@ -33,7 +33,7 @@ class Empresa extends BaseController
         else:
             echo view('backend/templates/header', $data);
         endif;
-        echo view('backend/' . $pagina, $data);
+        echo view('backend/empresa/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }
@@ -141,7 +141,7 @@ class Empresa extends BaseController
             throw new PageNotFoundException('Não é possível encontrar a empresa com id: ' . $id);
         }
 
-        $this->exibir($data, 'empresa/editar-empresa');
+        $this->exibir($data, 'editar-empresa');
     }
 
     public function listarClientes()
@@ -155,6 +155,75 @@ class Empresa extends BaseController
             'msg' => []
         ];
 
-        $this->exibir($data, 'empresa/listar-clientes');
+        $this->exibir($data, 'listar-clientes');
+    }
+
+    public function formularioCliente()
+    {
+        $id = $this->request->getVar('id');
+
+        $model = new ClientesModel();
+        $cliente = $model->getClientes($id);
+
+        $data = [
+            'title' => 'Cadastrar Cliente',
+            'cliente' => $cliente,
+            'msg' => []
+        ];
+
+        $this->exibir($data, 'formulario-cliente');
+    }
+
+    public function gravarCliente()
+    {
+        $model = new ClientesModel();
+        $vars = $this->request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        helper('form');
+        if ($this->validate([
+            'nome_razao_social' => [
+                'label' => 'Nome/Razão Social',
+                'rules' => 'required'],
+            'cpf_cnpj' => [
+                'label' => 'CPF/CNPJ',
+                'rules' => 'required'],
+        ])) {
+            $model->save($vars);
+
+            $data = [
+                'title' => 'Clientes',
+                'clientes' => $model->paginate(10),
+                'pager' => $model->pager,
+                'msg' => [
+                    'mensagem'   => 'Cliente salvo com sucesso!',
+                    'tipo'      => 'success'
+                ],
+            ];
+        }
+        else {
+
+            $data = [
+                'title' => 'Clientes',
+                'cliente' => $vars,
+                'msg' => [
+                    'mensagem'   => 'Erro ao salvar o cliente!',
+                    'tipo'      => 'danger'
+                ],
+            ];
+            $this->exibir($data, 'formulario-clientes');
+            exit();
+
+        }
+
+        $this->exibir($data, 'listar-clientes');
+    }
+
+    public function removerCliente()
+    {
+        $model = new ClientesModel();
+        $id = $this->request->getVar('id');
+        $model->delete($id);
+
+        return redirect()->to(base_url('empresa/clientes'));
     }
 }
