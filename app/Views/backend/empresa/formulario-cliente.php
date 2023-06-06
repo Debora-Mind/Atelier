@@ -16,7 +16,7 @@
                 </li>
             </ul>
         </div>
-        <form action="<?= base_url('producao/salvar-produto') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('empresa/gravar-cliente') ?>" method="post">
             <div class="card-body">
                 <div class="tab-content">
                     <!--  Principal  -->
@@ -170,6 +170,7 @@
                                     <input type="date"
                                            id="dt_nascimento_abertura"
                                            name="dt_nascimento_abertura"
+                                           value="<?= $cliente['dt_nascimento_abertura'] ?? ''?>"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
@@ -207,6 +208,7 @@
                                     <input type="text"
                                            id="cnae_cod"
                                            name="cnae_cod"
+                                           value="<?= $cliente['cnae_cod'] ?? ''?>"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
@@ -306,7 +308,6 @@
                                 <label for="cep" class="col-form-label-sm">Cep</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           required
                                            id="cep"
                                            name="cep"
                                            class="form-control"
@@ -322,7 +323,6 @@
                             <div class="col col-sm-3 form-group">
                                 <label for="logradouro" class="col-form-label-sm">Endereço</label>
                                 <input type="text"
-                                       required
                                        id="logradouro"
                                        name="logradouro"
                                        class="form-control"
@@ -334,7 +334,6 @@
                             <div class="col col-sm-1 form-group">
                                 <label for="nr" class="col-form-label-sm">Número</label>
                                 <input type="text"
-                                       required
                                        id="nr"
                                        name="nr"
                                        class="form-control"
@@ -346,7 +345,6 @@
                             <div class="col col-sm-2 form-group">
                                 <label for="complemento" class="col-form-label-sm">Complemmento</label>
                                 <input type="text"
-                                       required
                                        id="complemento"
                                        name="complemento"
                                        class="form-control"
@@ -360,7 +358,6 @@
                             <div class="col col-sm-2 form-group">
                                 <label for="bairro" class="col-form-label-sm">Bairro</label>
                                 <input type="text"
-                                       required
                                        id="bairro"
                                        name="bairro"
                                        class="form-control"

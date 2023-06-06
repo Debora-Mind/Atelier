@@ -12,9 +12,12 @@ class ClientesModel extends Model
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = [''];
+    protected $allowedFields    = ['empresa_id', 'tipo_pessoa', 'cpf_cnpj', 'rg_ie', 'apelido_nome_fantasia',
+        'nome_razao_social', 'inscr_munic', 'estado_civil', 'sexo', 'nacionalidade', 'dt_chegada', 'dt_nascimento_abertura',
+        'naturalidade', 'cnae_cod', 'profissao', 'escolaridade', 'nome_pai', 'nome_mae', 'telefone01', 'email', 'cep',
+        'logradouro', 'nr', 'complemento', 'bairro', 'uf', 'cidade', 'cMun', 'pais'];
 
     // Dates
     protected $useTimestamps = false;

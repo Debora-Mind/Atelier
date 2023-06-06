@@ -210,12 +210,29 @@ class Empresa extends BaseController
                     'tipo'      => 'danger'
                 ],
             ];
-            $this->exibir($data, 'formulario-clientes');
+            $this->exibir($data, 'formulario-cliente');
             exit();
 
         }
 
         $this->exibir($data, 'listar-clientes');
+    }
+
+    public function editarCliente()
+    {
+        $model = new ClientesModel();
+        $id = $this->request->getVar('id');
+        $data = [
+            'title' => 'Editar Cliente',
+            'cliente' => $model->getClientes($id),
+            'msg' => []
+        ];
+
+        if (empty($data['cliente'])) {
+            throw new PageNotFoundException('Não é possível encontrar o cliente com id: ' . $id);
+        }
+
+        $this->exibir($data, 'formulario-cliente');
     }
 
     public function removerCliente()

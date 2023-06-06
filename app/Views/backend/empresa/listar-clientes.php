@@ -61,7 +61,7 @@
                         <td><?= $cliente['id']; ?></td>
                         <td><?= $cliente['nome_razao_social']; ?></td>
                         <td><?= $cliente['cpf_cnpj']?></td>
-                        <td>
+                        <td class="text-center">
                             <a href="<?= base_url('empresa/editar-cliente?id=' . $cliente['id']) ?>">
                                 <i class="fa fa-edit text-primary mx-1"></i>
                             </a>

@@ -60,7 +60,7 @@ class Cliente extends Migration
                 'null'          => true,
             ],
             'dt_chegada' => [
-                'type'          => 'TIMESTAMP',
+                'type'          => 'DATE',
                 'null'          => true,
             ],
             'naturalidade' => [
@@ -68,7 +68,7 @@ class Cliente extends Migration
                 'null'          => true,
             ],
             'dt_nascimento_abertura' => [
-                'type'          => 'TIMESTAMP',
+                'type'          => 'DATE',
                 'null'          => true,
             ],
             'cnae_cod' => [
