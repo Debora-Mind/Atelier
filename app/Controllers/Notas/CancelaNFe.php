@@ -3,7 +3,7 @@
 namespace App\Controllers\NFe;
 
 use App\Controllers\BaseController;
-use App\Models\CategoriasModel;
+use App\Models\StatusModel;
 use App\Models\EmpresaModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use NFePHP\NFe\Common\Standardize;

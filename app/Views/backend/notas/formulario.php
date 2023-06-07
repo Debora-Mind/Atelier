@@ -13,6 +13,9 @@
         <form action="<?= base_url('notas/salvar-nfe') ?>" method="post">
             <div class="card-body">
                 <div class="tab-content">
+                    <div hidden>
+                        <input id="empresa_id" name="empresa_id" value="<?= session()->get('empresa')['id'] ?>">
+                    </div>
                     <!--  Principal  -->
                     <div id="aba1" class="tab-pane fade m-3 show active">
                         <div class="row">

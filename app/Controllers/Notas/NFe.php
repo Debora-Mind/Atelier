@@ -3,9 +3,11 @@
 namespace App\Controllers\Notas;
 
 use App\Controllers\BaseController;
+use App\Models\ClientesModel;
 use App\Models\ItensNFeModel;
 use App\Models\NFeModel;
 use App\Models\ProdutosModel;
+use App\Models\StatusModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class NFe extends BaseController
@@ -18,6 +20,8 @@ class NFe extends BaseController
             'title' => 'Notas Fiscais',
             'nfes' => $model->paginate(10),
             'pager' => $model->pager,
+            'cliente' => new ClientesModel(),
+            'status' => new StatusModel(),
             'msg' => ''
         ];
 

@@ -41,58 +41,21 @@ class Empresa extends BaseController
     public function gravar()
     {
         $model = new EmpresasModel();
-
         helper('form');
 
         if ($this->validate([
-            'descricao' => [
-                'label' => 'Nome',
+            'nome_fantasia' => [
+                'label' => 'Nome Fantasia',
                 'rules' => 'required|min_length[3]'],
         ])) {
-            $id = $this->request->getVar('id');
-            $descricao = $this->request->getVar('descricao');
-            $tema = $this->request->getVar('tema');
-            $img = $this->request->getFile('logo');
+            $vars = $this->request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            if (!$img->isValid()) {
-                $model->save([
-                    'id'        => $id,
-                    'descricao' => $descricao,
-                    'tema'      => $tema,
-                ]);
-            }
-            else {
-                $validacaoImg = $this->validate([
-                    'logo' => [
-                        'uploaded[logo]',
-                        'mime_in[logo,image/jpg,image/jpeg,image/gif,image/png,image/webp]',
-                        'max_size[logo, 4096]',
-                    ]
-                ]);
+            $img = $this->request->getFile('logomarca');
+            $certificado = $this->request->getFile('certificado_a3');
 
-                if ($validacaoImg) {
-                    $novoNome = $descricao . '_' . $img->getRandomName();
-                    $img->move('img/empresas', $novoNome);
+            $vars = $this->validarObjeto($vars, $img, $certificado);
+            $model->save($vars);
 
-                    $model->save([
-                        'id'        => $id,
-                        'descricao' => $descricao,
-                        'tema'      => $tema,
-                        'logo'       => $novoNome,
-                    ]);
-                }
-                else {
-
-                    $data = [
-                        'title' => 'Empresa',
-                        'empresas' => session()->get('empresa'),
-                        'msg' => [
-                            'mensagem'   => 'Erro ao validar logo!',
-                            'tipo'       => 'danger',
-                        ],
-                    ];
-                }
-            }
             $data = [
                 'title' => 'Empresa',
                 'empresas' => session()->get('empresa'),
@@ -112,7 +75,6 @@ class Empresa extends BaseController
                 ],
             ];
         }
-
         return redirect('sistema');
     }
 
@@ -242,5 +204,44 @@ class Empresa extends BaseController
         $model->delete($id);
 
         return redirect()->to(base_url('empresa/clientes'));
+    }
+
+    private function validarObjeto ($dados, $img, $certificado)
+    {
+        $this->validator->reset();
+        $validar = $this->validate([
+            'logomarca' => [
+                'uploaded[logomarca]',
+                'mime_in[logomarca,image/png,image/jpeg,image/gif,image/webp]',
+                'max_size[logomarca,4096]',
+                'is_image[logomarca]'
+            ]
+        ]);
+
+        if ($validar) {
+            $novoNome =  'logo_' . $img->getRandomName();
+            $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/logo/';
+            $img->move($caminho, $novoNome);
+
+            $dados['logomarca'] = $caminho . $novoNome;
+        }
+
+        $this->validator->reset();
+        $validarCertificado = $this->validate([
+            'pdf' => [
+                'uploaded[certificado_a3]',
+                'max_size[certificado_a3,4096]',
+            ]
+        ]);
+
+        if ($validarCertificado) {
+            $novoNome = $certificado->getRandomName();
+            $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/certificados/';
+            $certificado->move($caminho, $novoNome);
+
+            $dados['certificado_a3'] = $caminho .  $novoNome;
+        }
+
+        return $dados;
     }
 }

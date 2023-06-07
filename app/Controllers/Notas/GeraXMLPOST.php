@@ -3,8 +3,9 @@
 namespace App\Controllers\NFe;
 
 use App\Controllers\BaseController;
-use App\Models\EmpresaModel;
-use App\Models\NFeTempModel;
+use App\Models\ClientesModel;
+use App\Models\EmpresasModel;
+use App\Models\NFeModel;
 use Exception;
 use NFePHP\Common\Certificate;
 use NFePHP\NFe\Common\Standardize;
@@ -17,11 +18,14 @@ class GeraXMLPOST extends BaseController
 {
     public function store()
     {
-        $model = new NFeTempModel();
-        $nota = $model->getNFeTemp($this->request->getVar('id'));
+        $model = new NFeModel();
+        $nota = $model->getNFe($this->request->getVar('id'));
 
-        $modelEmpresa = new EmpresaModel();
+        $modelEmpresa = new EmpresasModel();
         $empresa = $modelEmpresa->getEmpresa($nota['empresa_id']); //ALTERAR
+
+        $modelCliente = new ClientesModel();
+        $cliente = $modelCliente->getClientes($nota['cliente_id']);
 
         if($nota['status_id'] != 1) {
             echo 'Tentativa de duplicidade';
@@ -32,9 +36,9 @@ class GeraXMLPOST extends BaseController
             'atualizacao' => date('Y-m-d H:i:s'),
             'tpAmb' => $empresa['ambiente'],
             'razaosocial' => $empresa['razao_social'],
-            'cnpj' => $this->validarCnpj($empresa['cnpj']), // PRECISA SER VÁLIDO
+            'cnpj' => $this->validarCnpj($empresa['cnpj']),
             'ie' => $empresa['ie'], // PRECISA SER VÁLIDO
-            'siglaUF' => $empresa['UF'],
+            'siglaUF' => $empresa['uf'],
             'schemes' => 'PL_009_V4',
             'versao' => '4.00',
         ];

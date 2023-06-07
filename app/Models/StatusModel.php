@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CategoriasModel extends Model
+class StatusModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'categoria';
+    protected $table            = 'status_nfe';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = true;
+    protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['titulo', 'resumo'];
+    protected $allowedFields    = ['titulo', 'cor'];
 
     // Dates
     protected $useTimestamps = true;
@@ -40,7 +40,7 @@ class CategoriasModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getCategoria($id = false)
+    public function getStatus($id = false)
     {
         if (!$id) {
             return $this->findAll();

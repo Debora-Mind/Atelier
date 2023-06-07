@@ -93,13 +93,17 @@
                                 </option>
                             </select>
                         </th>
-                        <td><?= $nfe['cliente_id']['nome_razao_social']; ?></td>
-                        <td><?= $nfe['status']['titulo']?></td>
-                        <td><?= $nfe['xEvento']?></td>
-                        <td><?= $nfe['numero_nfe']?></td>
-                        <td><?= $nfe['ide_serie']?></td>
-                        <td><?= $nfe['nfe_prot']?></td>
-                        <td><?= $nfe['ide_chave_nfe']?></td>
+                        <td><?= $cliente->getClientes($nfe['cliente_id'])['nome_razao_social'] ?? '' ?></td>
+                        <td>
+                            <div class="btn-sm btn-<?= $status->getStatus($nfe['status_id'])['cor'] ?? ''?> py-0 px-1">
+                                <?= $status->getStatus($nfe['status_id'])['titulo'] ?? ''?>
+                            </div>
+                        </td>
+                        <td><?= $nfe['xEvento'] ?? ''?></td>
+                        <td><?= $nfe['numero_nfe'] ?? ''?></td>
+                        <td><?= $nfe['ide_serie'] ?? ''?></td>
+                        <td><?= $nfe['nfe_prot'] ?? ''?></td>
+                        <td><?= $nfe['ide_chave_nfe' ?? '']?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
