@@ -218,20 +218,17 @@ class ItensNFe extends Migration
         $this->forge->addForeignKey(
             'empresa_id',
             'empresas',
-            'id',
-            'CASCADE');
+            'id');
 
         $this->forge->addForeignKey(
             'produto_id',
             'produtos',
-            'id',
-            'CASCADE');
+            'id');
 
         $this->forge->addForeignKey(
             'nfe_temp_id',
             'nfe_temp',
-            'id',
-            'CASCADE');
+            'id');
 
         $this->forge->createTable('itens_nfe', true);
     }

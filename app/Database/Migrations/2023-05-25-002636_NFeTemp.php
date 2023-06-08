@@ -36,7 +36,6 @@ class NFeTemp extends Migration
                 'constraint'    =>  9,
                 'unsigned'      => true,
                 'null'          => true,
-                'default'       =>  0,
             ],
             'numero_nfe' => [
                 'type'          => 'INT',
@@ -646,14 +645,12 @@ class NFeTemp extends Migration
         $this->forge->addForeignKey(
             'cliente_id',
             'clientes',
-            'id',
-            'CASCADE');
+            'id');
 
         $this->forge->addForeignKey(
             'status_id',
             'status_nfe',
-            'id',
-            'CASCADE');
+            'id');
 
         $this->forge->createTable('nfe_temp', true);
     }

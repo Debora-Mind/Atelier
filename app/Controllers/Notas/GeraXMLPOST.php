@@ -5,6 +5,7 @@ namespace App\Controllers\NFe;
 use App\Controllers\BaseController;
 use App\Models\ClientesModel;
 use App\Models\EmpresasModel;
+use App\Models\NaturezaOperacaoModel;
 use App\Models\NFeModel;
 use Exception;
 use NFePHP\Common\Certificate;
@@ -27,6 +28,9 @@ class GeraXMLPOST extends BaseController
         $modelCliente = new ClientesModel();
         $cliente = $modelCliente->getClientes($nota['cliente_id']);
 
+        $modelNaturezaOperacao = new NaturezaOperacaoModel();
+        $naturezaOperacao = $modelNaturezaOperacao->getNaturezaOperacao($nota['ide_natOp']);
+
         if($nota['status_id'] != 1) {
             echo 'Tentativa de duplicidade';
             exit();
@@ -44,7 +48,6 @@ class GeraXMLPOST extends BaseController
         ];
 
 ////// DECIDIR ONDE O CERTIFICADO VAI SER ARMARZENADO
-//    AGUARDA CERTIFICADO DIGITAL
         $certificadoDigital = file_get_contents(
             $empresa['path_certificados']
         );
@@ -65,9 +68,9 @@ class GeraXMLPOST extends BaseController
         $stdIde = new stdClass();
         $stdIde->cUF = $empresa['cUF'];
         $stdIde->cNF = rand(11111111, 99999999);
-        $stdIde->natOp = 'VENDA';  //VERIFICAR OPERAÇÃO
+        $stdIde->natOp = $naturezaOperacao['descricao'];  //TRANSFORMAR EM FK
         $stdIde->mod = 55; //Modelo do Documento Fiscal
-        $stdIde->serie = $nota['ide_serie'];
+        $stdIde->serie = $nota['ide_serie']; //verificar como trazer esses n[umero da sefaz
         $stdIde->nNF = $nota['numero_nfe']; //Código Numérico que compõe a Chave de Acesso
         $stdIde->dhEmi = date('Y-m-d') . 'T' . date('H:i:s') . '-03:00';
         $std->dhSaiEnt = date('Y-m-d') . 'T' . date('H:i:s') . '-03:00';
@@ -77,7 +80,7 @@ class GeraXMLPOST extends BaseController
         $stdIde->tpImp = 1;
         $stdIde->tpEmis = 1; //Número do Documento Fiscal
         $stdIde->cDV = 2; //Dígito Verificador da Chave de Acesso
-        $stdIde->tpAmb = 2;
+        $stdIde->tpAmb = 2; //$empresa['ambiente']; // 1 - Produção, 2 - Homologação
         $stdIde->finNFe = 1; //Se NF-e complementar (finNFe=2):– Não informado NF referenciada (NF modelo 1 ou NF-e)
         $stdIde->indFinal = 1;
         $stdIde->indPres = 0;
@@ -91,7 +94,7 @@ class GeraXMLPOST extends BaseController
 
         $stdEmit = new stdClass();
         $stdEmit->xNome = $empresa['razao_social'];
-        $stdEmit->xFant = $empresa['fantasy'];
+        $stdEmit->xFant = $empresa['nome_fantasia'];
         $stdEmit->IE = $empresa['ie'];
         $stdEmit->IEST = null;
         $stdEmit->IM = $empresa['im'];
@@ -125,28 +128,28 @@ class GeraXMLPOST extends BaseController
 
         ########################## DESTINATARIO##########################
         $stdDest = new stdClass();
-        $stdDest->xNome = 'Rubens dos Santos';
+        $stdDest->xNome = $cliente['nome_razao_social'];
         $stdDest->indIEDest = 9;
-        $stdDest->IE = '';
+        $stdDest->IE = $cliente['rg_ie'];
         $stdDest->ISUF = '';
-        $stdDest->IM = '';
-        $stdDest->email = 'salvadorbba@gmail.com';
-        // $stdDest->CNPJ = "57219214553";
-        $stdDest->CPF = '57219214553';
+        $stdDest->IM = $cliente['inscr_munic'];
+        $stdDest->email = $cliente['email'];
+        $stdDest->CNPJ = $cliente['cpf_cnpj'];
+//        $stdDest->CPF = $cliente['cpf_cnpj'];
         $tagdest = $nfe->tagdest($stdDest);
 
         $stdEndereDest = new stdClass();
-        $stdEndereDest->xLgr = 'Rua teste';
-        $stdEndereDest->nro = '100';
-        $stdEndereDest->xCpl = 'Loja35';
-        $stdEndereDest->xBairro = 'Centro';
-        $stdEndereDest->cMun = '2925303';
-        $stdEndereDest->xMun = 'Porto Seguro';
-        $stdEndereDest->UF = 'BA';
-        $stdEndereDest->CEP = '45810000';
-        $stdEndereDest->cPais = '1058';
+        $stdEndereDest->xLgr = $cliente['logradouro'];
+        $stdEndereDest->nro = $cliente['nr'];
+        $stdEndereDest->xCpl = $cliente['complemento'];
+        $stdEndereDest->xBairro = $cliente['bairro'];
+        $stdEndereDest->cMun = $cliente['cMun']; //IBGE
+        $stdEndereDest->xMun = $cliente['cidade'];
+        $stdEndereDest->UF = $cliente['uf'];
+        $stdEndereDest->CEP = $cliente['cep'];
+        $stdEndereDest->cPais = '1058'; //Brasil
         $stdEndereDest->xPais = 'Brasil';
-        $stdEndereDest->fone = '73988347818';
+        $stdEndereDest->fone = $this->validarTelefone($cliente['telefone01']);
         $nfe->tagenderDest($stdEndereDest);
         ########################## DESTINATARIO##########################
 
@@ -196,7 +199,6 @@ class GeraXMLPOST extends BaseController
         $stdPIS->vBC = 0.0;
         $stdPIS->pPIS = 0.0;
         $stdPIS->vPIS = 0.0;
-        $pis = $nfe->tagPIS($stdPIS);
         $pis = $nfe->tagPIS($stdPIS);
 
         $stdCOFINS = new stdClass();
@@ -378,7 +380,7 @@ class GeraXMLPOST extends BaseController
     {
         echo view('backend/templates/html-header', $data);
         echo view('backend/templates/header');
-        echo view('backend/pages/' . $pagina, $data);
+        echo view('backend/notas/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }

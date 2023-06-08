@@ -20,6 +20,7 @@ class Produtos extends Migration
                 'constraint'    => '9,2',
                 'unsigned'      => true,
                 'default'       => 0,
+                'null'          => true,
             ],
             'cProd' => [
                 'type'          => 'VARCHAR',
@@ -129,44 +130,52 @@ class Produtos extends Migration
                 'constraint'    => '9,2',
                 'unsigned'      => true,
                 'comment'       => 'Valor do paroduto recebido',
+                'null'          => true,
             ],
             'valor_saida' => [
                 'type'          => 'DOUBLE',
                 'constraint'    => '9,2',
                 'unsigned'      => true,
                 'comment'       => 'Valor do produto entregue',
+                'null'          => true,
             ],
             'margem_lucro_bruto' => [
                 'type'          => 'DOUBLE',
                 'constraint'    => '9,2',
                 'unsigned'      => true,
                 'comment'       => 'Margem de lucro bruto',
+                'null'          => true,
             ],
             'vUnCom' => [
                 'type'          => 'DOUBLE',
                 'constraint'    => '9,2',
                 'unsigned'      => true,
                 'comment'       => '* Valor Unitario Comercial " Preço de venda"',
+                'null'          => true,
             ],
             'NCM' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 20,
                 'comment'       => '* Codigo NCM "Nomeclatura Comum do Mercosul"',
+                'null'          => true,
             ],
             'CEST' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 20,
                 'comment'       => 'CEST "Codigo Estadual de Substituição Tributara"',
+                'null'          => true,
             ],
             'CFOP_Saida' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 4,
                 'comment'       => '* Codigo CFOP de Saida "Codigo Fiscal de Operações do Produtos"',
+                'null'          => true,
             ],
             'CFOP_Entrada' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 4,
                 'comment'       => '	Codigo CFOP de Entrada "Codigo Fiscal de Operações do Produtos"',
+                'null'          => true,
             ],
             'tPIS_cst' => [
                 'type'          => 'INT',
@@ -266,6 +275,7 @@ class Produtos extends Migration
                 'type'          => 'INT',
                 'constraint'    => 9,
                 'unsigned'      => true,
+                'null'          => true,
             ],
             'img' => [
                 'type'          => 'TEXT',
@@ -293,13 +303,11 @@ class Produtos extends Migration
         $this->forge->addForeignKey(
             'empresa_id',
             'empresas',
-            'id',
-            'CASCADE');
+            'id');
         $this->forge->addForeignKey(
             'cliente_id',
             'clientes',
-            'id',
-            'CASCADE');
+            'id');
 
         $this->forge->createTable('produtos', true);
     }

@@ -68,20 +68,17 @@ class NFe extends BaseController
                 'label' => 'Cliente',
                 'rules' => 'required'],
         ])) {
-            $empresa = $this->request->getVar('empresa_id');
-            $serie = $this->request->getVar('serie');
-            $numeroNfe = $this->request->getVar('numero_nfe');
-            $cliente = $this->request->getVar('cliente_id');
+            $vars = $this->request->getVar();
 
             $produtos = $this->request->getVar('produto_id');
             $quantidades = $this->request->getVar('prod_qCom');
             $valores = $this->request->getVar('prod_vProd	');
 
             $model->save([
-                'empresa_id' => $empresa,
-                'serie'      => $serie,
-                'numero_nfe' => $numeroNfe,
-                'cliente_id' => $cliente,
+                'empresa_id' => $vars['empresa_id'],
+                'serie'      => $vars['serie'],
+                'numero_nfe' => $vars['numero_nfe'],
+                'cliente_id' => $vars['cliente_id'],
                 'tot_vBC' => 1,
                 'tot_vICMS' => 1,
                 'tot_vICMSDeson' => 1,
@@ -150,7 +147,6 @@ class NFe extends BaseController
                     // Salvar o item no banco de dados (exemplo)
                     $itemModel->save($item);
                 } else {
-
                     $data = [
                         'title' => 'Notas',
                         'nfes' => $model->paginate(10),
@@ -168,7 +164,7 @@ class NFe extends BaseController
                 'pager' => $model->pager,
                 'msg' => [
                     'mensagem' => 'Nota cadastrada!',
-                    'tipo'     => 'sucess',
+                    'tipo'     => 'success',
                     ]];
         }
         else {
@@ -181,7 +177,8 @@ class NFe extends BaseController
                     'tipo'     => 'danger',
             ]];
         }
-
+        var_dump($model->selectMax('id', 'ID')); exit();
+        redirect('gerarxml?id=' . $model->selectMax('id', 'ID') );
         $this->exibir($data);
     }
 

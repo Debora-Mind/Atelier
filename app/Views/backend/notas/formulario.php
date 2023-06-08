@@ -34,29 +34,31 @@
                                 </small>
                             </div>
                             <div class="col-3">
-                                <label for="nfe" class="">Série</label>
-                                <div class="input-group">
-                                    <input type="text"
-                                           id="nfe"
-                                           name="nfe"
-                                           disabled
-                                           class="form-control">
-                                </div>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('nfe') ?>
-                                </small>
-                            </div>
-                            <div class="col-3 form-group">
-                                <label for="serie" class="">Número NF-e</label>
+                                <label for="serie" class="">Série</label>
                                 <div class="input-group">
                                     <input type="text"
                                            id="serie"
                                            name="serie"
-                                           disabled
+
+                                           value="1"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
                                     <?= \Config\Services::validation()->getError('serie') ?>
+                                </small>
+                            </div>
+                            <div class="col-3 form-group">
+                                <label for="numero_nfe" class="">Número NF-e</label>
+                                <div class="input-group">
+                                    <input type="text"
+                                           id="numero_nfe"
+                                           name="numero_nfe"
+
+                                           value="1"
+                                           class="form-control">
+                                </div>
+                                <small class="text-danger position-absolute">
+                                    <?= \Config\Services::validation()->getError('numero_nfe') ?>
                                 </small>
                             </div>
                         </div>

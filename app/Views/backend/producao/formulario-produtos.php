@@ -81,10 +81,10 @@
                             <div class="col-4 form-group">
                                 <label for="cliente_id" class="">Cliente</label>
                                 <div class="input-group">
-                                    <input type="text"
+                                    <input type="number"
                                            id="cliente_id"
                                            name="cliente_id"
-                                           value="<?= $produto['cliente_id']['nome_razao_social'] ?? ''?>"
+                                           value="<?= $produto['cliente_id'] ?? ''?>"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
@@ -546,6 +546,19 @@
                                     <?= \Config\Services::validation()->getError('uTrib') ?>
                                 </small>
                             </div>
+                            <div class="col-2 form-group">
+                                <label for="tICMS_beneficio" class="">Benefício Fiscal</label>
+                                <div class="input-group">
+                                    <input type="number"
+                                           id="tICMS_beneficio"
+                                           name="tICMS_beneficio"
+                                           value="<?= $produto['tICMS_beneficio'] ?? ''?>"
+                                           class="form-control">
+                                </div>
+                                <small class="text-danger position-absolute">
+                                    <?= \Config\Services::validation()->getError('tICMS_beneficio') ?>
+                                </small>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-2 form-group">
@@ -620,17 +633,6 @@
                         </div>
                     </div>
                     <div id="aba4" class="tab-pane fade m-3">
-                            <div class="col-3 form-group">
-                                <div class="switch">
-                                    <input type="checkbox" id="tICMS_beneficio" name="tICMS_beneficio"
-                                           value="Sim" <?= ($produto['tICMS_beneficio'] ?? '') ? 'checked' : '' ?>>
-                                    <label class="slider" for="tICMS_beneficio"></label>
-                                </div>
-                                <label for="ICMS_beneficio" class="">Beneficio Fiscal</label>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('tICMS_beneficio') ?>
-                                </small>
-                            </div>
                             <div class="col-3 form-group">
                                 <div class="switch">
                                     <input type="checkbox" id="vender_sem_estoque" name="vender_sem_estoque"
