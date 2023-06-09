@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\NFe;
+namespace App\Controllers\Notas;
 
 use App\Controllers\BaseController;
 use App\Models\ClientesModel;
@@ -23,7 +23,7 @@ class GeraXMLPOST extends BaseController
         $nota = $model->getNFe($this->request->getVar('id'));
 
         $modelEmpresa = new EmpresasModel();
-        $empresa = $modelEmpresa->getEmpresa($nota['empresa_id']); //ALTERAR
+        $empresa = $modelEmpresa->getEmpresas($nota['empresa_id']); //ALTERAR
 
         $modelCliente = new ClientesModel();
         $cliente = $modelCliente->getClientes($nota['cliente_id']);
@@ -38,7 +38,7 @@ class GeraXMLPOST extends BaseController
 
         $config = [
             'atualizacao' => date('Y-m-d H:i:s'),
-            'tpAmb' => $empresa['ambiente'],
+            'tpAmb' => 2,//$empresa['ambiente'],
             'razaosocial' => $empresa['razao_social'],
             'cnpj' => $this->validarCnpj($empresa['cnpj']),
             'ie' => $empresa['ie'], // PRECISA SER VÁLIDO
@@ -49,7 +49,7 @@ class GeraXMLPOST extends BaseController
 
 ////// DECIDIR ONDE O CERTIFICADO VAI SER ARMARZENADO
         $certificadoDigital = file_get_contents(
-            $empresa['path_certificados']
+            $empresa['certificado_a3']
         );
 
         $tools = new Tools(
@@ -68,6 +68,7 @@ class GeraXMLPOST extends BaseController
         $stdIde = new stdClass();
         $stdIde->cUF = $empresa['cUF'];
         $stdIde->cNF = rand(11111111, 99999999);
+
         $stdIde->natOp = $naturezaOperacao['descricao'];  //TRANSFORMAR EM FK
         $stdIde->mod = 55; //Modelo do Documento Fiscal
         $stdIde->serie = $nota['ide_serie']; //verificar como trazer esses n[umero da sefaz
@@ -110,7 +111,7 @@ class GeraXMLPOST extends BaseController
         $stdEnderEmit->xBairro = $empresa['bairro'];
         $stdEnderEmit->cMun = $empresa['ibge'];
         $stdEnderEmit->xMun = $empresa['municipio'];
-        $stdEnderEmit->UF = $empresa['UF'];
+        $stdEnderEmit->UF = $empresa['uf'];
         $stdEnderEmit->CEP = $empresa['cep'];
         $stdEnderEmit->cPais = $empresa['codPais']; //BRASIL 1058
         $stdEnderEmit->xPais = $empresa['pais'];
@@ -259,7 +260,13 @@ class GeraXMLPOST extends BaseController
         $stdinfAdic->infCpl = 'aula gerando xml 29/06/2022 as 07:38';
         $taginfAdic = $nfe->taginfAdic($stdinfAdic);
 
-        $XML = $nfe->getXML();
+        try {
+            $XML = $nfe->getXML();
+        } catch (Exception $e) {
+            echo "Ocorreu um erro: " . $e->getMessage();
+            var_dump($nfe->getErrors());
+            exit();
+    }
         $chave = $nfe->getChave();
         $erros = $nfe->getErrors();
         $modelo = $nfe->getModelo();

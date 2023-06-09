@@ -72,13 +72,14 @@ class NFe extends BaseController
 
             $produtos = $this->request->getVar('produto_id');
             $quantidades = $this->request->getVar('prod_qCom');
-            $valores = $this->request->getVar('prod_vProd	');
+            $valores = $this->request->getVar('prod_vProd');
 
             $model->save([
                 'empresa_id' => $vars['empresa_id'],
-                'serie'      => $vars['serie'],
+                'ide_serie'  => $vars['ide_serie'],
                 'numero_nfe' => $vars['numero_nfe'],
                 'cliente_id' => $vars['cliente_id'],
+                'ide_natOp'  => $vars['ide_natOp'],
                 'tot_vBC' => 1,
                 'tot_vICMS' => 1,
                 'tot_vICMSDeson' => 1,
@@ -129,7 +130,7 @@ class NFe extends BaseController
                         'produto_id' => $produto['id'],
                         'prod_qCom' => $quantidades[$i],
                         'prod_vProd	' => $valores[$i],
-                        'nfe_temp_id' => $model->selectMax('id'),
+                        'nfe_temp_id' => $model->selectMax('id')->first(),
                         'prod_pedido_id' => 1,
                         'prod_qTrib' => $quantidades[$i],
                         'icms_vBC' => $produto['tICMS_cst'],
@@ -177,9 +178,7 @@ class NFe extends BaseController
                     'tipo'     => 'danger',
             ]];
         }
-        var_dump($model->selectMax('id', 'ID')); exit();
-        redirect('gerarxml?id=' . $model->selectMax('id', 'ID') );
-        $this->exibir($data);
+        return redirect()->to('notas/gerarxml?id=' . $model->selectMax('id')->first()['id']);
     }
 
     public function cancelar($id = null)

@@ -17,7 +17,8 @@ class ClientesModel extends Model
     protected $allowedFields    = ['empresa_id', 'tipo_pessoa', 'cpf_cnpj', 'rg_ie', 'apelido_nome_fantasia',
         'nome_razao_social', 'inscr_munic', 'estado_civil', 'sexo', 'nacionalidade', 'dt_chegada', 'dt_nascimento_abertura',
         'naturalidade', 'cnae_cod', 'profissao', 'escolaridade', 'nome_pai', 'nome_mae', 'telefone01', 'email', 'cep',
-        'logradouro', 'nr', 'complemento', 'bairro', 'uf', 'cidade', 'cMun', 'pais'];
+        'logradouro', 'nr', 'complemento', 'bairro', 'uf', 'cidade', 'cMun', 'pais', 'pessoa_transpotadora',
+        'pessoa_fornecedor', 'pessoa_cliente'];
 
     // Dates
     protected $useTimestamps = false;

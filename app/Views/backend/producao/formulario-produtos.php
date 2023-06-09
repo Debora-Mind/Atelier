@@ -633,28 +633,30 @@
                         </div>
                     </div>
                     <div id="aba4" class="tab-pane fade m-3">
-                            <div class="col-3 form-group">
-                                <div class="switch">
-                                    <input type="checkbox" id="vender_sem_estoque" name="vender_sem_estoque"
-                                           value="Sim" <?= ($produto['vender_sem_estoque'] ?? '') ? 'checked' : '' ?>>
-                                    <label class="slider" for="vender_sem_estoque"></label>
-                                </div>
-                                <label for="vender_sem_estoque" class="">Vender sem Estoque</label>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('vender_sem_estoque') ?>
-                                </small>
+                        <div class="col-3 form-group">
+                            <div class="switch">
+                                <input type="hidden" name="vender_sem_estoque" value="0">
+                                <input type="checkbox" id="vender_sem_estoque" name="vender_sem_estoque"
+                                       value="1" <?= isset($produto['vender_sem_estoque']) ? 'checked' : '' ?>>
+                                <label class="slider" for="vender_sem_estoque"></label>
                             </div>
-                            <div class="col-3 form-group">
-                                <div class="switch">
-                                    <input type="checkbox" id="prod_balanca" name="prod_balanca"
-                                           value="Sim" <?= ($produto['prod_balanca'] ?? '') ? 'checked' : '' ?>>
-                                    <label class="slider" for="prod_balanca"></label>
-                                </div>
-                                <label for="prod_balanca" class="">Vendido por Peso</label>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('prod_balanca') ?>
-                                </small>
+                            <label for="vender_sem_estoque">Vender sem Estoque</label>
+                            <small class="text-danger position-absolute">
+                                <?= \Config\Services::validation()->getError('vender_sem_estoque') ?>
+                            </small>
+                        </div>
+                        <div class="col-3 form-group">
+                            <div class="switch">
+                                <input type="hidden" name="prod_balanca" value="0">
+                                <input type="checkbox" id="prod_balanca" name="prod_balanca"
+                                       value="1" <?= isset($produto['prod_balanca']) ? 'checked' : '' ?>>
+                                <label class="slider" for="prod_balanca"></label>
                             </div>
+                            <label for="prod_balanca">Vendido por Peso</label>
+                            <small class="text-danger position-absolute">
+                                <?= \Config\Services::validation()->getError('prod_balanca') ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
             </div>

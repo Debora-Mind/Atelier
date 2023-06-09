@@ -93,7 +93,8 @@
                                 </option>
                             </select>
                         </th>
-                        <td><?= $cliente->getClientes($nfe['cliente_id'])['nome_razao_social'] ?? '' ?></td>
+                        <td><?= $cliente->getClientes($nfe['cliente_id'])['apelido_nome_fantasia'] . ' - '
+                                . $cliente->getClientes($nfe['cliente_id'])['cpf_cnpj']?? '' ?></td>
                         <td>
                             <div class="btn-sm btn-<?= $status->getStatus($nfe['status_id'])['cor'] ?? ''?> py-0 px-1">
                                 <?= $status->getStatus($nfe['status_id'])['titulo'] ?? ''?>

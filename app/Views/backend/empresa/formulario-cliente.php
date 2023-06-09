@@ -407,33 +407,36 @@
                     <div id="aba4" class="tab-pane fade m-3">
                         <div class="col-3 form-group">
                             <div class="switch">
+                                <input type="hidden" name="pessoa_cliente" value="0">
                                 <input type="checkbox" id="pessoa_cliente" name="pessoa_cliente"
-                                       value="Sim" <?= ($cliente['pessoa_cliente'] ?? '') ? 'checked' : '' ?>>
+                                       value="1" <?= isset($cliente['pessoa_cliente']) ? 'checked' : '' ?>>
                                 <label class="slider" for="pessoa_cliente"></label>
                             </div>
-                            <label for="pessoa_cliente" class="">Cliente</label>
+                            <label for="pessoa_cliente">Cliente</label>
                             <small class="text-danger position-absolute">
                                 <?= \Config\Services::validation()->getError('pessoa_cliente') ?>
                             </small>
                         </div>
                         <div class="col-3 form-group">
                             <div class="switch">
+                                <input type="hidden" name="pessoa_fornecedor" value="0">
                                 <input type="checkbox" id="pessoa_fornecedor" name="pessoa_fornecedor"
-                                       value="Sim" <?= ($cliente['pessoa_fornecedor'] ?? '') ? 'checked' : '' ?>>
+                                       value="1" <?= isset($cliente['pessoa_fornecedor']) ? 'checked' : '' ?>>
                                 <label class="slider" for="pessoa_fornecedor"></label>
                             </div>
-                            <label for="pessoa_fornecedor" class="">Fornecedor</label>
+                            <label for="pessoa_fornecedor">Fornecedor</label>
                             <small class="text-danger position-absolute">
                                 <?= \Config\Services::validation()->getError('pessoa_fornecedor') ?>
                             </small>
                         </div>
                         <div class="col-3 form-group">
                             <div class="switch">
+                                <input type="hidden" name="pessoa_transpotadora" value="0">
                                 <input type="checkbox" id="pessoa_transpotadora" name="pessoa_transpotadora"
-                                       value="Sim" <?= ($cliente['pessoa_transpotadora'] ?? '') ? 'checked' : '' ?>>
+                                       value="1" <?= isset($cliente['pessoa_transpotadora']) ? 'checked' : '' ?>>
                                 <label class="slider" for="pessoa_transpotadora"></label>
                             </div>
-                            <label for="pessoa_transpotadora" class="">Transportadora</label>
+                            <label for="pessoa_transpotadora">Transportadora</label>
                             <small class="text-danger position-absolute">
                                 <?= \Config\Services::validation()->getError('pessoa_transpotadora') ?>
                             </small>

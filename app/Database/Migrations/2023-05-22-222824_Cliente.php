@@ -153,18 +153,15 @@ class Cliente extends Migration
                 'null'          => true,
             ],
             'pessoa_cliente' => [
-                'type'          => 'VARCHAR',
-                'constraint'    =>  1,
+                'type'          => 'BOOLEAN',
                 'null'          => true,
             ],
             'pessoa_fornecedor' => [
-                'type'          => 'VARCHAR',
-                'constraint'    =>  1,
+                'type'          => 'BOOLEAN',
                 'null'          => true,
             ],
             'pessoa_transpotadora' => [
-                'type'          => 'VARCHAR',
-                'constraint'    =>  1,
+                'type'          => 'BOOLEAN',
                 'null'          => true,
             ],
             'empresa_id' => [

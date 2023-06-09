@@ -95,8 +95,7 @@ class Produtos extends Migration
                 'null'          => true,
             ],
             'prod_balanca' => [
-                'type'          => 'VARCHAR',
-                'constraint'    => 1,
+                'type'          => 'BOOLEAN',
                 'comment'       => '* (Sem Tabela) - Se o produto usa balança - se vendido no peso "Sim ou Não"',
                 'null'          => true,
             ],
@@ -262,7 +261,7 @@ class Produtos extends Migration
                 'null'          => true,
             ],
             'tICMS_beneficio' => [
-                'type'          => 'INT',
+                'type'          => 'BOOLEAN',
                 'comment'       => 'Se o produto tem Beneficio Fiscal',
                 'null'          => true,
             ],

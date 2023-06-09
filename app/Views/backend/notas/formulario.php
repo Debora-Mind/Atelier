@@ -20,31 +20,25 @@
                     <div id="aba1" class="tab-pane fade m-3 show active">
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <label for="busca" class="col-form-label-sm">Empresa</label>
+                                <label class="col-form-label-sm">Empresa</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           name="busca"
-                                           id="busca"
                                            disabled
                                            value="<?= session()->get('empresa')['nome_fantasia'] ?>"
                                            class="form-control">
                                 </div>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('busca') ?>
-                                </small>
                             </div>
                             <div class="col-3">
-                                <label for="serie" class="">Série</label>
+                                <label for="ide_serie" class="">Série</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           id="serie"
-                                           name="serie"
-
+                                           id="ide_serie"
+                                           name="ide_serie"
                                            value="1"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('serie') ?>
+                                    <?= \Config\Services::validation()->getError('ide_serie') ?>
                                 </small>
                             </div>
                             <div class="col-3 form-group">
@@ -53,7 +47,6 @@
                                     <input type="text"
                                            id="numero_nfe"
                                            name="numero_nfe"
-
                                            value="1"
                                            class="form-control">
                                 </div>
@@ -83,39 +76,39 @@
                         <hr class="mt-1 mb-3">
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <label for="produto_id" class="col-form-label-sm">Produto</label>
+                                <label for="i_produto_id" class="col-form-label-sm">Produto</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           name="produto_id"
-                                           id="produto_id"
+                                           name="i_produto_id"
+                                           id="i_produto_id"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('produto_id') ?>
+                                    <?= \Config\Services::validation()->getError('i_produto_id') ?>
                                 </small>
                             </div>
                             <div class="col-2">
-                                <label for="prod_qCom" class="">Quantidade</label>
+                                <label for="i_prod_qCom" class="">Quantidade</label>
                                 <div class="input-group">
                                     <input type="number"
-                                           id="prod_qCom"
-                                           name="prod_qCom"
+                                           id="i_prod_qCom"
+                                           name="i_prod_qCom"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('prod_qCom') ?>
+                                    <?= \Config\Services::validation()->getError('i_prod_qCom') ?>
                                 </small>
                             </div>
                             <div class="col-2 form-group">
-                                <label for="prod_vProd" class="">Valor</label>
+                                <label for="i_prod_vProd" class="">Valor</label>
                                 <div class="input-group">
                                     <input type="text"
-                                           id="prod_vProd"
-                                           name="prod_vProd"
+                                           id="i_prod_vProd"
+                                           name="i_prod_vProd"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('prod_vProd') ?>
+                                    <?= \Config\Services::validation()->getError('i_prod_vProd') ?>
                                 </small>
                             </div>
                             <div class="col-sm-2 form-group mt-sm-4">
@@ -143,7 +136,17 @@
                     <div id="aba2" class="tab-pane fade m-3">
                         <div class="row">
                             <div class="col-sm-3 form-group">
-
+                                <label for="ide_natOp" class="col-form-label-sm">Operação</label>
+                                <div class="input-group">
+                                    <input type="text"
+                                           name="ide_natOp"
+                                           id="ide_natOp"
+                                           value="Venda"
+                                           class="form-control">
+                                </div>
+                                <small class="text-danger position-absolute">
+                                    <?= \Config\Services::validation()->getError('ide_natOp') ?>
+                                </small>
                             </div>
                         </div>
                         <div class="row">
@@ -188,9 +191,9 @@
 <script>
     function adicionarItem() {
     // Captura os valores dos campos de entrada
-    var produto = $('#produto_id').val();
-    var quantidade = $('#prod_qCom').val();
-    var valor = $('#prod_vProd').val();
+    var produto = $('#i_produto_id').val();
+    var quantidade = $('#i_prod_qCom').val();
+    var valor = $('#i_prod_vProd').val();
 
     // Cria uma nova linha para a tabela
     var newRow = $('<tr>');
@@ -203,8 +206,8 @@
     $('#itensNfeTable tbody').append(newRow);
 
     // Limpa os campos de entrada após adicionar o item à tabela
-    $('#produto_id').val('');
-    $('#prod_qCom').val('');
-    $('#prod_vProd').val('');
+    $('#i_produto_id').val('');
+    $('#i_prod_qCom').val('');
+    $('#i_prod_vProd').val('');
 }
 </script>
