@@ -145,18 +145,16 @@
                                 </small>
                             </div>
                             <div class="col col-sm-2 form-group">
-                                <label for="municipio">Cidade</label>
-                                <!-- MELHORAR -->
+                                <label for="municipio">Município</label>
                                 <select type="button" name="municipio" id="municipio"
                                         class="custom-select">
-                                    <option selected class="dropdown-item"
-                                            value="<?= $empresas['municipio'] ?? '' ?>">
-                                        <?= $empresas['municipio'] ?? 'Selecione'?>
-                                    </option>
-                                    <option value="Claro" class="dropdown-item">
-                                        Igrejinha
-                                    </option>
-                                    <!--                                Também prescisa do código da cidade/IBGE-->
+                                    <?php foreach ($municipios as $municipio) : ?>
+                                        <option
+                                            <?= $empresas['municipio'] == $municipio['descricao'] ? 'selected' : ''?>
+                                            value="<?= $municipio['descricao'] ?>" class="dropdown-item">
+                                            <?= $municipio['descricao'] ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
                                 <small class="text-danger position-absolute">
                                     <?= \Config\Services::validation()->getError('municipio') ?>

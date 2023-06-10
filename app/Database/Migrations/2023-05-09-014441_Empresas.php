@@ -82,19 +82,18 @@ class Empresas extends Migration
             'codPais' => [
                 'type'          => 'INT',
                 'constraint'    => 5,
-                'default'       => 105,
+                'default'       => 1058,//105
                 'null'          => true,
             ],
             'codMun' => [
                 'type'          => 'INT',
-                'constraint'    => 5,
+                'constraint'    => 7,
                 'null'          => true,
             ],
             'uf' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 2,
                 'default'       => 'RS',
-                'null'          => true,
             ],
             'CST_CSOSN_padrao' => [
                 'type'          => 'VARCHAR',
@@ -144,14 +143,13 @@ class Empresas extends Migration
             ],
             'ambiente' => [
                 'type'          => 'INT',
-                'constraint'    => 10,
-                'null'          => true,
+                'constraint'    => 1,
+                'default'       => 2,
             ],
             'cUF' => [
                 'type'          => 'INT',
                 'constraint'    => 2,
                 'default'       =>  43,
-                'null'          => true,
             ],
             'numero_serie_nfe' => [
                 'type'          => 'VARCHAR',

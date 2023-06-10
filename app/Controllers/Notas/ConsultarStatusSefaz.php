@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Controllers\NFe;
+namespace App\Controllers\Notas;
 
 use App\Controllers\BaseController;
 
-use App\Models\EmpresaModel;
+use App\Models\ClientesModel;
+use App\Models\EmpresasModel;
+use App\Models\NFeModel;
+use App\Models\StatusModel;
 use NFePHP\NFe\Tools;
 use NFePHP\Common\Certificate;
 use NFePHP\NFe\Common\Standardize;
@@ -13,26 +16,26 @@ class ConsultarStatusSefaz extends BaseController
 {
     public function index()
     {
+        $modelNotas = new NFeModel();
+
         try {
 
-            $modal = new EmpresaModel();
-            $empresa = $modal->getEmpresa(2); //ALTERAR
+            $modal = new EmpresasModel();
+            $empresa = $modal->getEmpresas(session()->get('empresa')['id']); //ALTERAR
 
             $config = [
                 'atualizacao' => date('Y-m-d H:i:s'),
-                'tpAmb' => $empresa['ambiente'],
+                'tpAmb' => 2, //$empresa['ambiente'],
                 'razaosocial' => $empresa['razao_social'],
                 'cnpj' => $this->validarCnpj($empresa['cnpj']), // PRECISA SER VÁLIDO
                 'ie' => $empresa['ie'], // PRECISA SER VÁLIDO
-                'siglaUF' => $empresa['UF'],
+                'siglaUF' => $empresa['uf'],
                 'schemes' => 'PL_009_V4',
                 'versao' => '4.00',
             ];
 
-            ////// DECIDIR ONDE O CERTIFICADO VAI SER ARMARZENADO
-            //    AGUARDA CERTIFICADO DIGITAL
             $certificadoDigital = file_get_contents(
-                $empresa['path_certificados']
+                $empresa['certificado_a3']
             );
 
             $tools = new Tools(
@@ -41,8 +44,8 @@ class ConsultarStatusSefaz extends BaseController
             );
 
             $tools->model('55');
-            $uf = $empresa['UF'];
-            $tpAmb = $empresa['ambiente'];
+            $uf = $empresa['uf'];
+            $tpAmb = 2; //$empresa['ambiente'];
             $response = $tools->sefazStatus($uf, $tpAmb);
             //este método não requer parametros, são opcionais, se nenhum parametro for
             //passado serão usados os contidos no $configJson
@@ -60,11 +63,46 @@ class ConsultarStatusSefaz extends BaseController
             //nesse caso o $json irá conter uma representação em JSON do XML
             $json = $stdCl->toJson();
 
-            echo $arr['xMotivo']; //Exibir status atual
+            $dados = [
+                'title' => 'Notas Fiscais',
+                'nfes' => $modelNotas->paginate(10),
+                'pager' => $modelNotas->pager,
+                'cliente' => new ClientesModel(),
+                'status' => new StatusModel(),
+                'msg' => [
+                    'mensagem' => $arr['xMotivo'],
+                    'tipo' => 'info']
+            ];
 
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            $dados = [
+                'title' => 'Notas Fiscais',
+                'nfes' => $modelNotas->paginate(10),
+                'pager' => $modelNotas->pager,
+                'cliente' => new ClientesModel(),
+                'status' => new StatusModel(),
+                'msg' => [
+                    'mensagem' => $e->getMessage(),
+                    'tipo' => 'danger']
+            ];
         }
+
+        $this->exibir($dados, 'listar-notas');
+    }
+
+    public function exibir($data, $pagina = '')
+    {
+        $tipo = session('usuario')['tipo'];
+
+        echo view('backend/templates/html-header', $data);
+        if ($tipo):
+            echo view('backend/templates/header-' . $tipo, $data);
+        else:
+            echo view('backend/templates/header', $data);
+        endif;
+        echo view('backend/notas/' . $pagina, $data);
+        echo view('backend/templates/footer');
+        echo view('backend/templates/html-footer');
     }
 
     function validarCnpj($cnpj)

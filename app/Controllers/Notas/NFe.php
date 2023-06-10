@@ -5,6 +5,7 @@ namespace App\Controllers\Notas;
 use App\Controllers\BaseController;
 use App\Models\ClientesModel;
 use App\Models\ItensNFeModel;
+use App\Models\MunicipiosModel;
 use App\Models\NFeModel;
 use App\Models\ProdutosModel;
 use App\Models\StatusModel;
@@ -74,39 +75,33 @@ class NFe extends BaseController
             $quantidades = $this->request->getVar('prod_qCom');
             $valores = $this->request->getVar('prod_vProd');
 
-            $model->save([
-                'empresa_id' => $vars['empresa_id'],
-                'ide_serie'  => $vars['ide_serie'],
-                'numero_nfe' => $vars['numero_nfe'],
-                'cliente_id' => $vars['cliente_id'],
-                'ide_natOp'  => $vars['ide_natOp'],
-                'tot_vBC' => 1,
-                'tot_vICMS' => 1,
-                'tot_vICMSDeson' => 1,
-                'tot_vFCP' => 1,
-                'tot_vBCST' => 1,
-                'tot_vST' => 1,
-                'tot_vFCPST' => 1,
-                'tot_vFCPSTRet' => 1,
-                'tot_vProd' => 1,
-                'tot_vFrete' => 1,
-                'tot_vSeg' => 1,
-                'tot_vDesc' => 1,
-                'tot_vII' => 1,
-                'tot_vIPI' => 1,
-                'tot_vIPIDevol' => 1,
-                'tot_vPIS' => 1,
-                'tot_vCOFINS' => 1,
-                'tot_vOutro' => 1,
-                'tot_vNF' => 1,
-                'tot_vTotTrib' => 1,
-                'fat_vDesc' => 1,
-                'fat_vLiq' => 1,
-                'dup_vDup' => 1,
-                'detPag_vPag' => 1,
-                'detPag_vTroco' => 1,
-            ]);
+            $vars['tot_vBC'] = 1;
+            $vars['tot_vICMS'] = 1;
+            $vars['tot_vICMSDeson'] = 1;
+            $vars['tot_vFCP'] = 1;
+            $vars['tot_vBCST'] = 1;
+            $vars['tot_vST'] = 1;
+            $vars['tot_vFCPST'] = 1;
+            $vars['tot_vFCPSTRet'] = 1;
+            $vars['tot_vProd'] = 1;
+            $vars['tot_vFrete'] = 1;
+            $vars['tot_vSeg'] = 1;
+            $vars['tot_vDesc'] = 1;
+            $vars['tot_vII'] = 1;
+            $vars['tot_vIPI'] = 1;
+            $vars['tot_vIPIDevol'] = 1;
+            $vars['tot_vPIS'] = 1;
+            $vars['tot_vCOFINS'] = 1;
+            $vars['tot_vOutro'] = 1;
+            $vars['tot_vNF'] = 1;
+            $vars['tot_vTotTrib'] = 1;
+            $vars['fat_vDesc'] = 1;
+            $vars['fat_vLiq'] = 1;
+            $vars['dup_vDup'] = 1;
+            $vars['detPag_vPag'] = 1;
+            $vars['detPag_vTroco'] = 1;
 
+            $model->save($vars);
             // Salvar cada item no banco de dados
             for ($i = 0; $i < count($produtos); $i++) {
                 $this->validator->reset();
@@ -178,7 +173,10 @@ class NFe extends BaseController
                     'tipo'     => 'danger',
             ]];
         }
-        return redirect()->to('notas/gerarxml?id=' . $model->selectMax('id')->first()['id']);
+
+        $this->listar();
+
+//                return redirect()->to('notas/gerarxml?id=' . $model->selectMax('id')->first()['id']);
     }
 
     public function cancelar($id = null)

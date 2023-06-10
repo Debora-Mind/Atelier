@@ -25,10 +25,10 @@
                                    class="input-group-sm shadow-sm w-100">
                         </div>
                         <div class="col-4 form-group">
-                            <label for="serie" class="">Série</label>
+                            <label for="ide_serie" class="">Série</label>
                             <input type="text"
-                                   id="serie"
-                                   name="serie"
+                                   id="ide_serie"
+                                   name="ide_serie"
                                    class="input-group-sm shadow-sm w-100">
                         </div>
                         <div class="col-4 form-group">
@@ -73,9 +73,9 @@
                 <thead>
                     <tr role="row">
                         <th style="width: 10%" class="sorting" tabindex="0"></th>
-                        <th style="width: 20%" class="sorting" tabindex="0">Cliente</th>
-                        <th style="width: 7%" class="sorting" tabindex="0">Status</th>
-                        <th style="width: 20%" class="sorting" tabindex="0">Retorno</th>
+                        <th style="width: 25%" class="sorting" tabindex="0">Cliente</th>
+                        <th style="width: 5%" class="sorting" tabindex="0">Status</th>
+                        <th style="width: 15%" class="sorting" tabindex="0">Retorno</th>
                         <th style="width: 6%" class="sorting" tabindex="0">NºNF-e</th>
                         <th style="width: 6%" class="sorting" tabindex="0">Série</th>
                         <th style="width: 10%" class="sorting" tabindex="0">Protocolo</th>
@@ -96,7 +96,7 @@
                         <td><?= $cliente->getClientes($nfe['cliente_id'])['apelido_nome_fantasia'] . ' - '
                                 . $cliente->getClientes($nfe['cliente_id'])['cpf_cnpj']?? '' ?></td>
                         <td>
-                            <div class="btn-sm btn-<?= $status->getStatus($nfe['status_id'])['cor'] ?? ''?> py-0 px-1">
+                            <div class="btn-group-sm btn-<?= $status->getStatus($nfe['status_id'])['cor'] ?? ''?> py-1 px-1">
                                 <?= $status->getStatus($nfe['status_id'])['titulo'] ?? ''?>
                             </div>
                         </td>
@@ -109,6 +109,7 @@
                 <?php endforeach; ?>
                 </tbody>
             </table>
+            <?= $pager->links(); ?>
         </div>
     </div>
 </div>

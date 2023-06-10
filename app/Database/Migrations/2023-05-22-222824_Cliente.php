@@ -111,16 +111,16 @@ class Cliente extends Migration
             ],
             'pais' => [
                 'type'          => 'INT',
-                'null'          => true,
+                'default'       => 'Brasil',
             ],
             'uf' => [
                 'type'          => 'VARCHAR',
                 'constraint'    =>  2,
-                'null'          => true,
+                'default'       => 'RS',
             ],
             'cidade' => [
-                'type'          => 'VARCHAR',
-                'constraint'    =>  10,
+                'type'          => 'INT',
+                'constraint'    =>  30,
                 'null'          => true,
             ],
             'cMun' => [

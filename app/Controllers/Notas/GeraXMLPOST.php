@@ -17,21 +17,28 @@ use stdClass;
 
 class GeraXMLPOST extends BaseController
 {
+
+    private $nota;
+    private $empresa;
+    private $cliente;
+    private $nfe;
+    private $stdICMSTot;
+    private $stdProd;
+    private $stdIde;
+    private $tools;
+
     public function store()
     {
         $model = new NFeModel();
-        $nota = $model->getNFe($this->request->getVar('id'));
+        $this->nota = $model->getNFe($this->request->getVar('id'));
 
         $modelEmpresa = new EmpresasModel();
-        $empresa = $modelEmpresa->getEmpresas($nota['empresa_id']); //ALTERAR
+        $this->empresa = $modelEmpresa->getEmpresas($this->nota['empresa_id']); //ALTERAR
 
         $modelCliente = new ClientesModel();
-        $cliente = $modelCliente->getClientes($nota['cliente_id']);
+        $this->cliente = $modelCliente->getClientes($this->nota['cliente_id']);
 
-        $modelNaturezaOperacao = new NaturezaOperacaoModel();
-        $naturezaOperacao = $modelNaturezaOperacao->getNaturezaOperacao($nota['ide_natOp']);
-
-        if($nota['status_id'] != 1) {
+        if ($this->nota['status_id'] != 1) {
             echo 'Tentativa de duplicidade';
             exit();
         }
@@ -39,150 +46,176 @@ class GeraXMLPOST extends BaseController
         $config = [
             'atualizacao' => date('Y-m-d H:i:s'),
             'tpAmb' => 2,//$empresa['ambiente'],
-            'razaosocial' => $empresa['razao_social'],
-            'cnpj' => $this->validarCnpj($empresa['cnpj']),
-            'ie' => $empresa['ie'], // PRECISA SER VÁLIDO
-            'siglaUF' => $empresa['uf'],
+            'razaosocial' => $this->empresa['razao_social'],
+            'cnpj' => $this->validarCnpj($this->empresa['cnpj']),
+            'ie' => $this->empresa['ie'], // PRECISA SER VÁLIDO
+            'siglaUF' => $this->empresa['uf'],
             'schemes' => 'PL_009_V4',
             'versao' => '4.00',
         ];
 
-////// DECIDIR ONDE O CERTIFICADO VAI SER ARMARZENADO
         $certificadoDigital = file_get_contents(
-            $empresa['certificado_a3']
+            $this->empresa['certificado_a3']
         );
 
-        $tools = new Tools(
+        $this->tools = new Tools(
             json_encode($config),
-            Certificate::readPfx($certificadoDigital, $empresa['senha_centificado'])
+            Certificate::readPfx($certificadoDigital, $this->empresa['senha_centificado'])
         );
 
-        $nfe = new Make();
+        $this->nfe = new Make();
         $std = new stdClass();
         $std->versao = '4.00';
         $std->Id = null;
         $std->pk_nItem = '';
-        $nfe->taginfNFe($std);
+        $this->nfe->taginfNFe($std);
 
-        ########################## IDE ##########################
-        $stdIde = new stdClass();
-        $stdIde->cUF = $empresa['cUF'];
-        $stdIde->cNF = rand(11111111, 99999999);
+        $this->configuracoes($std);
+        $this->emitente();
+        $this->dadosSefaz();
+        $this->destinatario();
+        $this->itens();
+        $this->transporte();
+        $this->fatura();
+        $this->gerarXML();
+        $chave = $this->nfe->getChave();
+        $erros = $this->nfe->getErrors();
+        $modelo = $this->nfe->getModelo();
+        $XML = $this->gerarXML();
+        $this->gerarPasta($chave, $XML, $model);
+        $response_assinado = $this->assinar($chave);
+        $recibo = $this->protocolar($response_assinado);
+        $response = $this->verificarRecibo($recibo);
+        $this->transmitir($model, $response_assinado, $response, $chave);
 
-        $stdIde->natOp = $naturezaOperacao['descricao'];  //TRANSFORMAR EM FK
-        $stdIde->mod = 55; //Modelo do Documento Fiscal
-        $stdIde->serie = $nota['ide_serie']; //verificar como trazer esses n[umero da sefaz
-        $stdIde->nNF = $nota['numero_nfe']; //Código Numérico que compõe a Chave de Acesso
-        $stdIde->dhEmi = date('Y-m-d') . 'T' . date('H:i:s') . '-03:00';
+    }
+
+    public function configuracoes($std)
+    {
+        $modelNaturezaOperacao = new NaturezaOperacaoModel();
+        $naturezaOperacao = $modelNaturezaOperacao->getNaturezaOperacao($this->nota['ide_natOp']);
+
+        $this->stdIde = new stdClass();
+        $this->stdIde->cUF = $this->empresa['cUF'];
+        $this->stdIde->cNF = rand(11111111, 99999999);
+
+        $this->stdIde->natOp = $naturezaOperacao['descricao'];  //TRANSFORMAR EM FK
+        $this->stdIde->mod = 55; //Modelo do Documento Fiscal
+        $this->stdIde->serie = $this->nota['ide_serie']; //verificar como trazer esses n[umero da sefaz
+        $this->stdIde->nNF = $this->nota['numero_nfe']; //Código Numérico que compõe a Chave de Acesso
+        $this->stdIde->dhEmi = date('Y-m-d') . 'T' . date('H:i:s') . '-03:00';
         $std->dhSaiEnt = date('Y-m-d') . 'T' . date('H:i:s') . '-03:00';
-        $stdIde->tpNF = 1;
-        $stdIde->idDest = 1;
-        $stdIde->cMunFG = 2925303; //Código do Município dO ibge
-        $stdIde->tpImp = 1;
-        $stdIde->tpEmis = 1; //Número do Documento Fiscal
-        $stdIde->cDV = 2; //Dígito Verificador da Chave de Acesso
-        $stdIde->tpAmb = 2; //$empresa['ambiente']; // 1 - Produção, 2 - Homologação
-        $stdIde->finNFe = 1; //Se NF-e complementar (finNFe=2):– Não informado NF referenciada (NF modelo 1 ou NF-e)
-        $stdIde->indFinal = 1;
-        $stdIde->indPres = 0;
-        $stdIde->indIntermed = null;
-        $stdIde->procEmi = 0;
-        $stdIde->verProc = 0; //Identificador da versão do processo de emissão (informar a versão do aplicativo emissor de NF-e).
-        $tagide = $nfe->tagide($stdIde);
-        ########################## IDE ##########################
+        $this->stdIde->tpNF = 1;
+        $this->stdIde->idDest = 1;
+        $this->stdIde->cMunFG = $this->empresa['codMun']; //Código do Município dO ibge
+        $this->stdIde->tpImp = 1;
+        $this->stdIde->tpEmis = 1; //Número do Documento Fiscal
+        $this->stdIde->cDV = 2; //Dígito Verificador da Chave de Acesso
+        $this->stdIde->tpAmb = 2; //$empresa['ambiente']; // 1 - Produção, 2 - Homologação
+        $this->stdIde->finNFe = 1; //Se NF-e complementar (finNFe=2):– Não informado NF referenciada (NF modelo 1 ou NF-e)
+        $this->stdIde->indFinal = 1;
+        $this->stdIde->indPres = 0;
+        $this->stdIde->indIntermed = null;
+        $this->stdIde->procEmi = 0;
+        $this->stdIde->verProc = 0; //Identificador da versão do processo de emissão (informar a versão do aplicativo emissor de NF-e).
+        $tagide = $this->nfe->tagide($this->stdIde);
+    }
 
-        ########################## EMITENTE##########################
-
+    public function emitente()
+    {
         $stdEmit = new stdClass();
-        $stdEmit->xNome = $empresa['razao_social'];
-        $stdEmit->xFant = $empresa['nome_fantasia'];
-        $stdEmit->IE = $empresa['ie'];
+        $stdEmit->xNome = $this->empresa['razao_social'];
+        $stdEmit->xFant = $this->empresa['nome_fantasia'];
+        $stdEmit->IE = $this->empresa['ie'];
         $stdEmit->IEST = null;
-        $stdEmit->IM = $empresa['im'];
-        $stdEmit->CNAE = $empresa['CNAE'];
-        $stdEmit->CRT = $empresa['CRT_ID'];
-        $stdEmit->CNPJ = $this->validarCnpj($empresa['cnpj']); //indicar apenas um CNPJ ou CPF
-        $tagemit = $nfe->tagemit($stdEmit);
+        $stdEmit->IM = $this->empresa['im'];
+        $stdEmit->CNAE = $this->empresa['CNAE'];
+        $stdEmit->CRT = $this->empresa['CRT_ID'];
+        $stdEmit->CNPJ = $this->validarCnpj($this->empresa['cnpj']); //indicar apenas um CNPJ ou CPF
+        $tagemit = $this->nfe->tagemit($stdEmit);
 
         $stdEnderEmit = new stdClass();
-        $stdEnderEmit->xLgr = $empresa['logradouro'];
-        $stdEnderEmit->nro = $empresa['numero'];
-        $stdEnderEmit->xCpl = $empresa['emitentexCpl'];
-        $stdEnderEmit->xBairro = $empresa['bairro'];
-        $stdEnderEmit->cMun = $empresa['ibge'];
-        $stdEnderEmit->xMun = $empresa['municipio'];
-        $stdEnderEmit->UF = $empresa['uf'];
-        $stdEnderEmit->CEP = $empresa['cep'];
-        $stdEnderEmit->cPais = $empresa['codPais']; //BRASIL 1058
-        $stdEnderEmit->xPais = $empresa['pais'];
-        $stdEnderEmit->fone = $this->validarTelefone($empresa['fone']);
-        $tagenderEmit = $nfe->tagenderEmit($stdEnderEmit);
-        ########################## EMITENTE##########################
+        $stdEnderEmit->xLgr = $this->empresa['logradouro'];
+        $stdEnderEmit->nro = $this->empresa['numero'];
+        $stdEnderEmit->xCpl = $this->empresa['emitentexCpl'];
+        $stdEnderEmit->xBairro = $this->empresa['bairro'];
+        $stdEnderEmit->cMun = $this->empresa['codMun'];
+        $stdEnderEmit->xMun = $this->empresa['municipio'];
+        $stdEnderEmit->UF = $this->empresa['uf'];
+        $stdEnderEmit->CEP = $this->empresa['cep'];
+        $stdEnderEmit->cPais = $this->empresa['codPais']; //BRASIL 1058
+        $stdEnderEmit->xPais = $this->empresa['pais'];
+        $stdEnderEmit->fone = $this->validarTelefone($this->empresa['fone']);
+        $tagenderEmit = $this->nfe->tagenderEmit($stdEnderEmit);
+    }
 
-        ########################## CONTADOR ########################
+    public function dadosSefaz()
+    {
         //cnpj sefaz rs 87.958.674/0001-81
         $std = new stdClass();
-        $std->CNPJ = $this->validarCnpj('87.958.674/0001-81');  //INDICAR OU UM CNPJ OU UM CPF
+        $std->CNPJ = $this->validarCnpj('87.958.674/0001-81');  //INDICAR OU UM CNPJ OU UM CPF DO CONTADOR
         $std->CPF = null;
-        $tagautXML = $nfe->tagautXML($std);
-        ########################## CONTADOR ########################
+        $tagautXML = $this->nfe->tagautXML($std);
+    }
 
-        ########################## DESTINATARIO##########################
+    public function destinatario()
+    {
         $stdDest = new stdClass();
-        $stdDest->xNome = $cliente['nome_razao_social'];
+        $stdDest->xNome = $this->cliente['nome_razao_social'];
         $stdDest->indIEDest = 9;
-        $stdDest->IE = $cliente['rg_ie'];
+        $stdDest->IE = $this->cliente['rg_ie'];
         $stdDest->ISUF = '';
-        $stdDest->IM = $cliente['inscr_munic'];
-        $stdDest->email = $cliente['email'];
-        $stdDest->CNPJ = $cliente['cpf_cnpj'];
-//        $stdDest->CPF = $cliente['cpf_cnpj'];
-        $tagdest = $nfe->tagdest($stdDest);
+        $stdDest->IM = $this->cliente['inscr_munic'];
+        $stdDest->email = $this->cliente['email'];
+        $stdDest->CNPJ = $this->cliente['cpf_cnpj'];
+        $stdDest->CPF = null;
+        $tagdest = $this->nfe->tagdest($stdDest);
 
         $stdEndereDest = new stdClass();
-        $stdEndereDest->xLgr = $cliente['logradouro'];
-        $stdEndereDest->nro = $cliente['nr'];
-        $stdEndereDest->xCpl = $cliente['complemento'];
-        $stdEndereDest->xBairro = $cliente['bairro'];
-        $stdEndereDest->cMun = $cliente['cMun']; //IBGE
-        $stdEndereDest->xMun = $cliente['cidade'];
-        $stdEndereDest->UF = $cliente['uf'];
-        $stdEndereDest->CEP = $cliente['cep'];
+        $stdEndereDest->xLgr = $this->cliente['logradouro'];
+        $stdEndereDest->nro = $this->cliente['nr'];
+        $stdEndereDest->xCpl = $this->cliente['complemento'];
+        $stdEndereDest->xBairro = $this->cliente['bairro'];
+        $stdEndereDest->cMun = $this->cliente['cMun']; //IBGE
+        $stdEndereDest->xMun = $this->cliente['cidade'];
+        $stdEndereDest->UF = $this->cliente['uf'];
+        $stdEndereDest->CEP = $this->cliente['cep'];
         $stdEndereDest->cPais = '1058'; //Brasil
         $stdEndereDest->xPais = 'Brasil';
-        $stdEndereDest->fone = $this->validarTelefone($cliente['telefone01']);
-        $nfe->tagenderDest($stdEndereDest);
-        ########################## DESTINATARIO##########################
+        $stdEndereDest->fone = $this->validarTelefone($this->cliente['telefone01']);
+        $this->nfe->tagenderDest($stdEndereDest);
+    }
 
-        ########################## PRODUTOS ##########################
-        //foreache
+    public function itens()
+    {
+        //foreach
         $valor = 306.8;
-        $stdProd = new stdClass();
-        $stdProd->item = 1;
-        $stdProd->cEAN = '7896745800660';
-        $stdProd->cEANTrib = '7896745800660';
-        $stdProd->cProd = '1057';
-        $stdProd->xProd = 'GENFLOC CLARIFICANTE 01LT';
-        $stdProd->NCM = '38089419';
-        $stdProd->CFOP = '5102';
-        $stdProd->uCom = 'UN';
-        $stdProd->uTrib = 'UN';
-        $stdProd->qCom = 1.0;
+        $this->stdProd = new stdClass();
+        $this->stdProd->item = 1;
+        $this->stdProd->cEAN = '7896745800660';
+        $this->stdProd->cEANTrib = '7896745800660';
+        $this->stdProd->cProd = '1057';
+        $this->stdProd->xProd = 'GENFLOC CLARIFICANTE 01LT';
+        $this->stdProd->NCM = '38089419';
+        $this->stdProd->CFOP = '5102';
+        $this->stdProd->uCom = 'UN';
+        $this->stdProd->uTrib = 'UN';
+        $this->stdProd->qCom = 1.0;
         $std = new stdClass();
-        $std->CNPJ = null; //indicar um CNPJ ou CPF
-        $std->CPF = '93102208568';
-        $stdProd->vUnCom = number_format($valor, 2, '.', '');
-        $stdProd->qTrib = 1;
-        $stdProd->vUnTrib = number_format($stdProd->vUnCom, 2, '.', '');
-        $stdProd->vProd = $stdProd->qTrib * $stdProd->vUnTrib;
-        $stdProd->indTot = 1;
-        $tagprod = $nfe->tagprod($stdProd);
+        $std->CNPJ = $this->cliente['cpf_cnpj']; //indicar um CNPJ ou CPF
+        $std->CPF = null;
+        $this->stdProd->vUnCom = number_format($valor, 2, '.', '');
+        $this->stdProd->qTrib = 1;
+        $this->stdProd->vUnTrib = number_format($this->stdProd->vUnCom, 2, '.', '');
+        $this->stdProd->vProd = $this->stdProd->qTrib * $this->stdProd->vUnTrib;
+        $this->stdProd->indTot = 1;
+        $tagprod = $this->nfe->tagprod($this->stdProd);
 
         /** TRIBUTOS */
         $stdimposto = new stdClass();
         $stdimposto->item = 1;
         $stdimposto->vTotTrib = 20.93;
-        $tagimposto = $nfe->tagimposto($stdimposto);
+        $tagimposto = $this->nfe->tagimposto($stdimposto);
 
         $stdICMS = new stdClass();
         $stdICMS->item = 1; //item da Notas
@@ -192,7 +225,7 @@ class GeraXMLPOST extends BaseController
         $stdICMS->vBC = 0.0;
         $stdICMS->pICMS = 0.0;
         $stdICMS->vICMS = 0.0;
-        $ICMS = $nfe->tagICMS($stdICMS);
+        $ICMS = $this->nfe->tagICMS($stdICMS);
 
         $stdPIS = new stdClass();
         $stdPIS->item = 1; //item da Notas
@@ -200,7 +233,7 @@ class GeraXMLPOST extends BaseController
         $stdPIS->vBC = 0.0;
         $stdPIS->pPIS = 0.0;
         $stdPIS->vPIS = 0.0;
-        $pis = $nfe->tagPIS($stdPIS);
+        $pis = $this->nfe->tagPIS($stdPIS);
 
         $stdCOFINS = new stdClass();
         $stdCOFINS->item = 1; //item da Notas
@@ -208,112 +241,133 @@ class GeraXMLPOST extends BaseController
         $stdCOFINS->vBC = 0.0;
         $stdCOFINS->pCOFINS = 0.0;
         $stdCOFINS->vCOFINS = 0.0;
-        $COFINS = $nfe->tagCOFINS($stdCOFINS);
+        $COFINS = $this->nfe->tagCOFINS($stdCOFINS);
 
-        $stdICMSTot = new stdClass();
-        $stdICMSTot->vBC = 0.0;
-        $stdICMSTot->vICMS = 0.0;
-        $stdICMSTot->vProd = $stdProd->vProd;
-        $stdICMSTot->vPIS = 0.0;
-        $stdICMSTot->vCOFINS = 0.0;
-        $stdICMSTot->vNF = number_format($stdProd->vProd, 2, '.', '');
-        $stdICMSTot->vTotTrib = 0.0;
-        $ICMSTot = $nfe->tagICMSTot($stdICMSTot);
+        $this->stdICMSTot = new stdClass();
+        $this->stdICMSTot->vBC = 0.0;
+        $this->stdICMSTot->vICMS = 0.0;
+        $this->stdICMSTot->vProd = $this->stdProd->vProd;
+        $this->stdICMSTot->vPIS = 0.0;
+        $this->stdICMSTot->vCOFINS = 0.0;
+        $this->stdICMSTot->vNF = number_format($this->stdProd->vProd, 2, '.', '');
+        $this->stdICMSTot->vTotTrib = 0.0;
+        $ICMSTot = $this->nfe->tagICMSTot($this->stdICMSTot);
 
         /** TRIBUTOS */
+    }
 
-        ########################## PRODUTOS ##########################
-
-        ########################## TRANSPORTES ##########################
+    public function transporte()
+    {
         $stdtransp = new stdClass();
         $stdtransp->modFrete = 9;
-        $trasnp = $nfe->tagtransp($stdtransp);
-        ########################## TRANSPORTES ##########################
+        $trasnp = $this->nfe->tagtransp($stdtransp);
+    }
 
-        ########################## DADOS DA FATURA ##########################
+    public function fatura()
+    {
         $stdfat = new stdClass();
         $stdfat->nFat = '1736';
-        $stdfat->vOrig = $stdICMSTot->vNF;
+        $stdfat->vOrig = $this->stdICMSTot->vNF;
         $stdfat->vDesc = 0.0;
-        $stdfat->vLiq = $stdICMSTot->vNF;
-        $fat = $nfe->tagfat($stdfat);
+        $stdfat->vLiq = $this->stdICMSTot->vNF;
+        $fat = $this->nfe->tagfat($stdfat);
 
         $stddup = new stdClass();
         $stddup->nDup = '001';
         $stddup->dVenc = '2023-09-29';
-        $stddup->vDup = $stdICMSTot->vNF;
-        $nfe->tagdup($stddup);
+        $stddup->vDup = $this->stdICMSTot->vNF;
+        $this->nfe->tagdup($stddup);
 
         $stdtroco = new stdClass();
         $stdtroco->vTroco = 0.0;
-        $troco = $nfe->tagpag($stdtroco);
+        $troco = $this->nfe->tagpag($stdtroco);
 
         $stdPag = new stdClass();
         $stdPag->tPag = '05';
-        $stdPag->vPag = number_format($stdProd->vProd, 2, '.', '');
+        $stdPag->vPag = number_format($this->stdProd->vProd, 2, '.', '');
         //$std->indPag = 0;
-        $pags = $nfe->tagdetPag($stdPag);
+        $pags = $this->nfe->tagdetPag($stdPag);
 
-        ########################## DADOS DA FATURA ##########################
         $stdinfAdic = new stdClass();
         $stdinfAdic->infAdFisco = 'informacoes para o fisco';
-        $stdinfAdic->infCpl = 'aula gerando xml 29/06/2022 as 07:38';
-        $taginfAdic = $nfe->taginfAdic($stdinfAdic);
+        $stdinfAdic->infCpl = 'gerando xml teste';
+        $taginfAdic = $this->nfe->taginfAdic($stdinfAdic);
+    }
 
+    public function gerarXML()
+    {
         try {
-            $XML = $nfe->getXML();
+            $XML = $this->nfe->getXML();
+            return $XML;
         } catch (Exception $e) {
             echo "Ocorreu um erro: " . $e->getMessage();
-            var_dump($nfe->getErrors());
+            var_dump($this->nfe->getErrors());
             exit();
+        }
     }
-        $chave = $nfe->getChave();
-        $erros = $nfe->getErrors();
-        $modelo = $nfe->getModelo();
 
-        // dd($notas->dom);
+    public function gerarPasta($chave, $XML, NFeModel $model)
+    {
+        $ano = date('Y');
+        $mes = date('m');
+        $dia = date('d');
 
-        /**
-         * usada para criar pastas
-         */
-
-        $data_geracao_ano = date('Y');
-        $data_geracao_mes = date('m');
-        $data_geracao_dia = date('d');
-
-        if ($stdIde->tpAmb == 1):
+        if ($this->stdIde->tpAmb == 1):
             $PastaAmbiente = 'producao';
         else:
             $PastaAmbiente = 'homologacao';
         endif;
 
         ########## GERANDO XML E SALVANDO NA PASTA #########
-        $path = "XML/NF-e/{$stdEmit->CNPJ}/{$PastaAmbiente}/temporaria/{$data_geracao_ano}/{$data_geracao_mes}/{$data_geracao_dia}";
+        $path = "XML/NF-e/{$this->empresa['cnpj']}/{$PastaAmbiente}/temporaria/{$ano}/{$mes}/{$dia}";
 
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
 
-        $Filename = $path . '/' . $chave . '-notas.xml';
-        $response = file_put_contents($Filename, $XML);
+        $filename = $path . '/' . $chave . '-notas.xml';
 
-        ########## GERANDO XML E SALVANDO NA PASTA #########
+        $model->save([
+            'id' => $this->nota['id'],
+            'path_xml' => $path,
+            'ide_nome_xml' => $filename
+        ]);
 
-        ########## ASSINANDO XML E SALVANDO NA PASTA #########
-        $response_assinado = $tools->signNFe(file_get_contents($Filename ));
-        $path_assinadas =  "XML/NF-e/{$stdEmit->CNPJ}/{$PastaAmbiente}/assinadas/{$data_geracao_ano}/{$data_geracao_mes}/{$data_geracao_dia}";
+        $this->nota = $model->getNFe($this->nota['id']);
+
+        $response = file_put_contents($filename, $XML);
+    }
+
+    public function assinar($chave)
+    {
+        $response_assinado = $this->tools->signNFe(file_get_contents($this->nota['ide_nome_xml']));
+
+        $ano = date('Y');
+        $mes = date('m');
+        $dia = date('d');
+
+        if ($this->stdIde->tpAmb == 1):
+            $PastaAmbiente = 'producao';
+        else:
+            $PastaAmbiente = 'homologacao';
+        endif;
+
+        $path_assinadas =  "XML/NF-e/{$this->empresa['cnpj']}/{$PastaAmbiente}/assinadas/{$ano}/{$mes}/{$dia}";
         $caminho = $path_assinadas . '/' . $chave . '-notas.xml';
         if (is_dir($path_assinadas)) {
         } else {
             mkdir($path_assinadas, 0777, true);
         }
         file_put_contents($caminho,  $response_assinado);
-        ########## ASSINANDO XML E SALVANDO NA PASTA #########
 
-        ###################### PROTOCOLANDO XML ####################
+        return $response_assinado;
+    }
+
+    public function protocolar($response_assinado)
+    {
         try {
             $idLote = str_pad(100, 15, '0', STR_PAD_LEFT); // Identificador do lote
-            $resp = $tools->sefazEnviaLote([$response_assinado], $idLote);
+            $resp = $this->tools->sefazEnviaLote([$response_assinado], $idLote);
 
             $st = new  Standardize();
             $std = $st->toStd($resp);
@@ -322,31 +376,45 @@ class GeraXMLPOST extends BaseController
                 exit("[$std->cStat] $std->xMotivo");
             }
             $recibo = $std->infRec->nRec; // Vamos usar a variável $recibo para consultar o status da nota
+
+            return $recibo;
         } catch (Exception $e) {
             //aqui você trata possiveis exceptions do envio
             exit($e->getMessage());
         }
-        ###################### PROTOCOLANDO XML ####################
+    }
 
-        ################ VERIFICA O RECIBO ###########
+    public function verificarRecibo($recibo)
+    {
         try {
-            $protocolo = $tools->sefazConsultaRecibo($recibo);
+            $protocolo = $this->tools->sefazConsultaRecibo($recibo);
         } catch (Exception $e) {
             //aqui você trata possíveis exceptions da consulta
             exit($e->getMessage());
         }
 
+        return $protocolo;
+    }
+
+    public function transmitir($model, $response_assinado, $response, $chave)
+    {
         $request = $response_assinado;
-        $response = $protocolo;
-        ################ VERIFICA O RECIBO ###########
 
-        //echo $response_assinado;
-
-        ###################### TRANSMITE PARA SEFAZ ####################
         try {
             $xml_autorizado = Complements::toAuthorize($request, $response);
             //  header('Content-type: text/xml; charset=UTF-8');
-            $path_autorizadas =  "XML/NF-e/{$stdEmit->CNPJ}/{$PastaAmbiente}/autorizadas/{$data_geracao_ano}/{$data_geracao_mes}/{$data_geracao_dia}";
+
+            $ano = date('Y');
+            $mes = date('m');
+            $dia = date('d');
+
+            if ($this->stdIde->tpAmb == 1):
+                $PastaAmbiente = 'producao';
+            else:
+                $PastaAmbiente = 'homologacao';
+            endif;
+
+            $path_autorizadas =  "XML/NF-e/{$this->empresa['cnpj']}/{$PastaAmbiente}/autorizadas/{$ano}/{$mes}/{$dia}";
             $caminho_aut = $path_autorizadas . '/' . $chave . '-notas.xml';
             if (is_dir($path_autorizadas)) {
             } else {
@@ -362,7 +430,7 @@ class GeraXMLPOST extends BaseController
 
             $retornoXML = $arr['protNFe']['infProt'];
 
-            $model->update($nota['id'], [
+            $model->update($this->nota['id'], [
                 'ide_id' => $chave,
                 'path_xml' => $path_autorizadas,
                 'path_file' => $caminho_aut,
@@ -380,13 +448,18 @@ class GeraXMLPOST extends BaseController
             //reporta erro na autorização
             echo "Erro: " . $e->getMessage();
         }
-        ###################### TRANSMITE PARA SEFAZ ####################
     }
 
-    public function exibir($data, $pagina)
+    public function exibir($data, $pagina = '')
     {
+        $tipo = session('usuario')['tipo'];
+
         echo view('backend/templates/html-header', $data);
-        echo view('backend/templates/header');
+        if ($tipo):
+            echo view('backend/templates/header-' . $tipo, $data);
+        else:
+            echo view('backend/templates/header', $data);
+        endif;
         echo view('backend/notas/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');

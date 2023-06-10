@@ -5,6 +5,7 @@ namespace App\Controllers\Empresa;
 use App\Controllers\BaseController;
 use App\Models\ClientesModel;
 use App\Models\EmpresasModel;
+use App\Models\MunicipiosModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Empresa extends BaseController
@@ -13,10 +14,13 @@ class Empresa extends BaseController
     {
         $empresa = new EmpresasModel();
         $empresa = $empresa->getEmpresas(session()->get('empresa')['id']);
+        $modelMunicipios = new MunicipiosModel();
+
         helper('session');
         $data = [
             'title' => 'Empresa',
             'empresas' => $empresa,
+            'municipios' => $modelMunicipios->getMunicipios(),
             'msg' => []
         ];
 
@@ -41,6 +45,7 @@ class Empresa extends BaseController
     public function gravar()
     {
         $model = new EmpresasModel();
+        $modelMunicipios = new MunicipiosModel();
         helper('form');
 
         if ($this->validate([
@@ -49,6 +54,7 @@ class Empresa extends BaseController
                 'rules' => 'required|min_length[3]'],
         ])) {
             $vars = $this->request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $vars['codMun'] = $modelMunicipios->getMunicipiosDescricao($vars['municipio'])['ibge'];
 
             $img = $this->request->getFile('logomarca');
             $certificado = $this->request->getFile('certificado_a3');
@@ -109,7 +115,9 @@ class Empresa extends BaseController
     public function listarClientes()
     {
         $model = new ClientesModel();
+
         helper('session');
+
         $data = [
             'title' => 'Clientes',
             'clientes' => $model->paginate(10),
@@ -126,10 +134,12 @@ class Empresa extends BaseController
 
         $model = new ClientesModel();
         $cliente = $model->getClientes($id);
+        $modelMunicipios = new MunicipiosModel();
 
         $data = [
             'title' => 'Cadastrar Cliente',
             'cliente' => $cliente,
+            'municipios' => $modelMunicipios->getMunicipios(),
             'msg' => []
         ];
 
@@ -139,7 +149,10 @@ class Empresa extends BaseController
     public function gravarCliente()
     {
         $model = new ClientesModel();
+        $modelMunicipios = new MunicipiosModel();
+
         $vars = $this->request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $vars['cMun'] = $modelMunicipios->getMunicipiosDescricao($vars['cidade'])['ibge'];
 
         helper('form');
         if ($this->validate([
@@ -184,9 +197,12 @@ class Empresa extends BaseController
     {
         $model = new ClientesModel();
         $id = $this->request->getVar('id');
+        $modelMunicipios = new MunicipiosModel();
+
         $data = [
             'title' => 'Editar Cliente',
             'cliente' => $model->getClientes($id),
+            'municipios' => $modelMunicipios->getMunicipios(),
             'msg' => []
         ];
 

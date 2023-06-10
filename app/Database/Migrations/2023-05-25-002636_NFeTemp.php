@@ -163,8 +163,8 @@ class NFeTemp extends Migration
                 'null'          => true,
             ],
             'ide_natOp' => [
-                'type'          => 'VARCHAR',
-                'constraint'    =>  30,
+                'type'          => 'INT',
+                'constraint'    =>  2,
                 'null'          => true,
             ],
             'ide_nNF' => [
@@ -650,6 +650,11 @@ class NFeTemp extends Migration
         $this->forge->addForeignKey(
             'status_id',
             'status_nfe',
+            'id');
+
+        $this->forge->addForeignKey(
+            'ide_natOp',
+            'natureza_operacao_nfe',
             'id');
 
         $this->forge->createTable('nfe_temp', true);

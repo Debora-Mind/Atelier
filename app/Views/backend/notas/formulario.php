@@ -28,19 +28,6 @@
                                            class="form-control">
                                 </div>
                             </div>
-                            <div class="col-3">
-                                <label for="ide_serie" class="">Série</label>
-                                <div class="input-group">
-                                    <input type="text"
-                                           id="ide_serie"
-                                           name="ide_serie"
-                                           value="1"
-                                           class="form-control">
-                                </div>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('ide_serie') ?>
-                                </small>
-                            </div>
                             <div class="col-3 form-group">
                                 <label for="numero_nfe" class="">Número NF-e</label>
                                 <div class="input-group">
@@ -52,6 +39,19 @@
                                 </div>
                                 <small class="text-danger position-absolute">
                                     <?= \Config\Services::validation()->getError('numero_nfe') ?>
+                                </small>
+                            </div>
+                            <div class="col-3">
+                                <label for="ide_serie" class="">Série</label>
+                                <div class="input-group">
+                                    <input type="text"
+                                           id="ide_serie"
+                                           name="ide_serie"
+                                           value="1"
+                                           class="form-control">
+                                </div>
+                                <small class="text-danger position-absolute">
+                                    <?= \Config\Services::validation()->getError('ide_serie') ?>
                                 </small>
                             </div>
                         </div>

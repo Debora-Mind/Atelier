@@ -379,16 +379,19 @@
                                     <?= \Config\Services::validation()->getError('uf') ?>
                                 </small>
                             </div>
-                            <div class="col-sm-2 form-group">
+                            <div class="col col-sm-2 form-group">
                                 <label for="cidade">Muncípio</label>
-                                <select name="cidade" id="cidade" class="custom-select">
-                                    <option selected value="<?= $cliente['cidade'] ?? '' ?>">
-                                        <?= $cliente['cidade'] ?? 'Selecione' ?>
-                                    </option>
-                                    <option value="Igreginha">Igrejinha</option>
-                                    <!-- Incluir outros estados aqui -->
+                                <select type="button" name="cidade" id="cidade"
+                                        class="custom-select">
+                                    <?php foreach ($municipios as $municipio) : ?>
+                                        <option
+                                            <?= $cliente['cidade'] == $municipio['descricao'] ? 'selected' : ''?>
+                                            value="<?= $municipio['descricao'] ?>" class="dropdown-item">
+                                            <?= $municipio['descricao'] ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
-                                <small class="text-danger">
+                                <small class="text-danger position-absolute">
                                     <?= \Config\Services::validation()->getError('cidade') ?>
                                 </small>
                             </div>
