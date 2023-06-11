@@ -19,7 +19,7 @@ class NFe extends BaseController
 
         $data = [
             'title' => 'Notas Fiscais',
-            'nfes' => $model->paginate(5),
+            'nfes' => $model->orderBy('created_at', 'DESC')->paginate(5),
             'pager' => $model->pager,
             'cliente' => new ClientesModel(),
             'status' => new StatusModel(),
@@ -197,7 +197,7 @@ class NFe extends BaseController
             ]];
         }
 
-        $this->listar();
+        return redirect('notas');
 
 //                return redirect()->to('notas/gerarxml?id=' . $model->selectMax('id')->first()['id']);
     }
@@ -337,7 +337,7 @@ class NFe extends BaseController
             ]];
         }
 
-        $this->listar();
+        return redirect('notas');
 
 //                return redirect()->to('notas/gerarxml?id=' . $model->selectMax('id')->first()['id']);
     }

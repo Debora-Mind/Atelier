@@ -30,7 +30,7 @@ class NFeModel extends Model
         'finNFe', 'data_processamento', 'nRec', 'cUF', 'acronym', 'motive', 'timestamp', 'type', 'tpEmis', 'qrcodenfce'];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
