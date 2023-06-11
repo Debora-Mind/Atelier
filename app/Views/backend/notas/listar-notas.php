@@ -87,10 +87,36 @@
                     <tr>
                         <input type="hidden" name="id" id="id" value="<?= $nfe['id'] ?>">
                         <th>
-                            <select name="acoes">
-                                <option href="<?= base_url('notas/transmitir') ?>">
-                                    <i class="fa-server"></i> Transmitir
+                            <select name="acoes" onchange="redirect(this)">
+                                <option value="" selected disabled>
+                                    <i class="fa fa-cog"></i> Ações
                                 </option>
+                                <?php if ($nfe['status_id'] == 1): ?>
+                                <option value="<?= base_url('notas/cadastrar?id=' . $nfe['id']) ?>" data-url="<?= base_url('notas/cadastrar?id=' . $nfe['id']) ?>">
+                                    <i class="fa fa-server text-danger mx-1"> Visualizar</i>
+                                </option>
+                                <option href="<?= base_url('notas/transmitir') ?>">
+                                    <i class="fa fa-server"></i> Faturar
+                                </option>
+                                <?php elseif ($nfe['status_id'] == 2): ?>
+                                <option href="<?= base_url('notas/transmitir') ?>">
+                                    <i class="fa fa-server"></i> Transmitir
+                                </option>
+                                <?php elseif ($nfe['status_id'] == 5): ?>
+                                <option href="<?= base_url('notas/transmitir') ?>">
+                                    <i class="fa fa-server"></i> Baixar XML
+                                </option>
+                                <option href="<?= base_url('notas/transmitir') ?>">
+                                    <i class="fa fa-server"></i> Imprimir
+                                </option>
+                                <option href="<?= base_url('notas/transmitir') ?>">
+                                    <i class="fa fa-server"></i> Nota de correção
+                                </option>
+                                <option href="<?= base_url('notas/transmitir') ?>">
+                                    <i class="fa fa-server"></i> Cancelar
+                                </option>
+                                <?php elseif ($nfe['status_id'] == 10): ?>
+                                <?php endif; ?>
                             </select>
                         </th>
                         <td><?= $cliente->getClientes($nfe['cliente_id'])['apelido_nome_fantasia'] . ' - '
@@ -113,3 +139,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    function redirect(select) {
+        var selectedOption = select.options[select.selectedIndex];
+        var url = selectedOption.getAttribute('data-url');
+        if (url) {
+            window.location.href = url;
+        }
+    }
+</script>

@@ -34,7 +34,7 @@
                                     <input type="text"
                                            id="numero_nfe"
                                            name="numero_nfe"
-                                           value="1"
+                                           value="<?= $nfe['numero_nfe'] ?? '' ?>"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
@@ -47,7 +47,8 @@
                                     <input type="text"
                                            id="ide_serie"
                                            name="ide_serie"
-                                           value="1"
+                                           value="<?= $nfe['ide_serie'] ?? '' ?>"
+
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
@@ -63,6 +64,7 @@
                                            name="cliente_id"
                                            id="cliente_id"
                                            autofocus
+                                           value="<?= $nfe['cliente_id'] ?? '' ?>"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
@@ -121,6 +123,7 @@
                         <table id="itensNfeTable" class="table-sm table dataTable table-striped mb-3 w-100">
                             <thead>
                             <tr role="row">
+                                <th style="width: 3%" class="sorting" tabindex="0">#</th>
                                 <th class="sorting" tabindex="0">Produto</th>
                                 <th style="width: 20%" class="sorting" tabindex="0">Quantidade</th>
                                 <th style="width: 20%" class="sorting" tabindex="0">Valor</th>
@@ -128,7 +131,16 @@
                             </tr>
                             </thead>
                             <tbody class="table-sm table-striped">
-
+                                <?php foreach ($produtosNota as $produtoNota): ?>
+                                <tr>
+                                    <td hidden id="id[<?= $produtoNota['id'] ?>]"><?= $produtoNota['id'] ?></td>
+                                    <td id="prod_item[<?= $produtoNota['prod_item'] ?>]"><?= $produtoNota['prod_item'] ?></td>
+                                    <td id="prod_xProd[<?= $produtoNota['prod_xProd'] ?>]"><?= $produtoNota['prod_xProd'] ?></td>
+                                    <td id="prod_qCom[<?= $produtoNota['prod_qCom'] ?>]"><?= $produtoNota['prod_qCom'] ?></td>
+                                    <td id="prod_vProd[<?= $produtoNota['prod_vProd'] ?>]"><?= $produtoNota['prod_vProd'] ?></td>
+                                    <td><i class="fas fa-edit text-primary"></i> <i class="fas fa-trash text-danger"></i></td>
+                                </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -141,7 +153,7 @@
                                     <input type="text"
                                            name="ide_natOp"
                                            id="ide_natOp"
-                                           value="Venda"
+                                           value="1"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">

@@ -54,4 +54,11 @@ class ItensNFeModel extends Model
             ->where(['id' => $id])
             ->first();
     }
+
+    public function getItensNFeNota($idNfe)
+    {
+        return $this->asArray()
+            ->where(['nfe_temp_id' => $idNfe])
+            ->findAll();
+    }
 }

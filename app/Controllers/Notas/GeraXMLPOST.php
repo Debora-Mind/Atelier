@@ -77,7 +77,8 @@ class GeraXMLPOST extends BaseController
         $this->itens();
         $this->transporte();
         $this->fatura();
-        $this->gerarXML();
+
+        //transmitir
         $chave = $this->nfe->getChave();
         $erros = $this->nfe->getErrors();
         $modelo = $this->nfe->getModelo();
@@ -87,7 +88,6 @@ class GeraXMLPOST extends BaseController
         $recibo = $this->protocolar($response_assinado);
         $response = $this->verificarRecibo($recibo);
         $this->transmitir($model, $response_assinado, $response, $chave);
-
     }
 
     public function configuracoes($std)

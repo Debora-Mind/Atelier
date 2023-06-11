@@ -19,7 +19,7 @@ class NFe extends BaseController
 
         $data = [
             'title' => 'Notas Fiscais',
-            'nfes' => $model->paginate(10),
+            'nfes' => $model->paginate(5),
             'pager' => $model->pager,
             'cliente' => new ClientesModel(),
             'status' => new StatusModel(),
@@ -46,12 +46,17 @@ class NFe extends BaseController
 
     public function formulario()
     {
-        $model = new ItensNFeModel();
-        $nfes = $model->getItensNFe();
+        $id = $this->request->getVar('id');
+        $model = new NFeModel();
+        $nfes = $model->getNFe($id);
+
+        $modelProdutos = new ItensNFeModel();
+        $produtosNota = $modelProdutos->getItensNFeNota($id) ?? [];
 
         $data = [
             'title' => 'Cadastrar Nota Fiscal',
-            'itensNfe' => $nfes,
+            'nfe' => $nfes,
+            'produtosNota' => $produtosNota,
             'msg' => []
         ];
 
@@ -126,7 +131,7 @@ class NFe extends BaseController
                         'prod_qCom' => $quantidades[$i],
                         'prod_vProd	' => $valores[$i],
                         'nfe_temp_id' => $model->selectMax('id')->first(),
-                        'prod_pedido_id' => 1,
+                        'prod_item' => $i,
                         'prod_qTrib' => $quantidades[$i],
                         'icms_vBC' => $produto['tICMS_cst'],
                         'icms_pICMS' => $produto['tICMS_tpcalc'],
@@ -138,6 +143,24 @@ class NFe extends BaseController
                         'cofins_pCOFINS' => $produto['tCOFINS_tpcalc'],
                         'cofins_vCOFINS' => $produto['tCOFINS_aliq'],
                         'empresa_id' => session()->get('empresa')['id'],
+                        'nfe_temp_serie' => $vars['ide_serie'],
+                        'prod_cProd' => '',
+                        'prod_nNF' => $vars['numero_nfe'],
+                        'prod_indTot' => '',
+                        'prod_cEAN' => $produto['cEAN'],
+                        'prod_xProd' => $produto['xProd'],
+                        'prod_NCM' => $produto['NCM'],
+                        'prod_CFOP' => $produto['CFOP_Entrada'], //identificar se é o cfop de entrada ou saída
+                        'prod_uCom' => $produto['uCom_Entrada'], //identificar se é de entrada ou saída
+                        'prod_vUnCom' => $produto['vUnCom'],
+                        'prod_cEANTrib' => $produto['cEANTrib'],
+                        'prod_uTrib' => $produto['uTrib'],
+                        'prod_vUnTrib' => $produto['vUnTrib'],
+                        'icms_orig' => $produto['tICMS_origem'],
+                        'icms_CST' => $produto['tICMS_cst'],
+                        'icms_modBC' => '',
+                        'pis_CST' => '',
+                        'cofins_CST' => '',
                     ];
 
                     // Salvar o item no banco de dados (exemplo)
