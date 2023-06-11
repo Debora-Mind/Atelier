@@ -30,7 +30,7 @@ class GeraXMLPOST extends BaseController
     public function store()
     {
         $model = new NFeModel();
-        $this->nota = $model->getNFe($this->request->getVar('id'));
+        $this->nota = $model->getNFe($this->request->getGet('id'));
 
         $modelEmpresa = new EmpresasModel();
         $this->empresa = $modelEmpresa->getEmpresas($this->nota['empresa_id']); //ALTERAR
@@ -76,18 +76,9 @@ class GeraXMLPOST extends BaseController
         $this->destinatario();
         $this->itens();
         $this->transporte();
-        $this->fatura();
+        $this->fatura($model);
 
-        //transmitir
-        $chave = $this->nfe->getChave();
-        $erros = $this->nfe->getErrors();
-        $modelo = $this->nfe->getModelo();
-        $XML = $this->gerarXML();
-        $this->gerarPasta($chave, $XML, $model);
-        $response_assinado = $this->assinar($chave);
-        $recibo = $this->protocolar($response_assinado);
-        $response = $this->verificarRecibo($recibo);
-        $this->transmitir($model, $response_assinado, $response, $chave);
+        return redirect('notas');
     }
 
     public function configuracoes($std)
@@ -263,7 +254,7 @@ class GeraXMLPOST extends BaseController
         $trasnp = $this->nfe->tagtransp($stdtransp);
     }
 
-    public function fatura()
+    public function fatura(NFeModel $model)
     {
         $stdfat = new stdClass();
         $stdfat->nFat = '1736';
@@ -292,6 +283,10 @@ class GeraXMLPOST extends BaseController
         $stdinfAdic->infAdFisco = 'informacoes para o fisco';
         $stdinfAdic->infCpl = 'gerando xml teste';
         $taginfAdic = $this->nfe->taginfAdic($stdinfAdic);
+
+        $model->save([
+            'id' => $this->nota['id'],
+            'status_id' => 2]);
     }
 
     public function gerarXML()
@@ -396,8 +391,18 @@ class GeraXMLPOST extends BaseController
         return $protocolo;
     }
 
-    public function transmitir($model, $response_assinado, $response, $chave)
+    public function transmitir()
     {
+        $model = new NFeModel();
+        $this->nota = $model->getNFe($this->request->getGet('id'));
+        $chave = $this->nfe->getChave();
+        $erros = $this->nfe->getErrors();
+        $modelo = $this->nfe->getModelo();
+        $XML = $this->gerarXML();
+        $this->gerarPasta($chave, $XML, $model);
+        $response_assinado = $this->assinar($chave);
+        $recibo = $this->protocolar($response_assinado);
+        $response = $this->verificarRecibo($recibo);
         $request = $response_assinado;
 
         try {

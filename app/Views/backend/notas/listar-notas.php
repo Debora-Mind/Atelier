@@ -92,11 +92,11 @@
                                     <i class="fa fa-cog"></i> Ações
                                 </option>
                                 <?php if ($nfe['status_id'] == 1): ?>
-                                <option value="<?= base_url('notas/cadastrar?id=' . $nfe['id']) ?>" data-url="<?= base_url('notas/cadastrar?id=' . $nfe['id']) ?>">
+                                <option data-url="<?= base_url('notas/cadastrar?id=' . $nfe['id']) ?>">
                                     <i class="fa fa-server text-danger mx-1"> Visualizar</i>
                                 </option>
-                                <option href="<?= base_url('notas/transmitir') ?>">
-                                    <i class="fa fa-server"></i> Faturar
+                                <option data-url="<?= base_url('notas/faturar?id=' . $nfe['id']) ?>">
+                                        <i class="fa fa-server"></i> Faturar
                                 </option>
                                 <?php elseif ($nfe['status_id'] == 2): ?>
                                 <option href="<?= base_url('notas/transmitir') ?>">
