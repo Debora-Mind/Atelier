@@ -10,10 +10,12 @@
                 </li>
             </ul>
         </div>
-        <form action="<?= base_url('notas/salvar-nfe') ?>" method="post">
+        <form action="<?= request()->getVar('id') ? base_url('notas/editar-nfe') :
+            base_url('notas/salvar-nfe') ?>" method="post">
             <div class="card-body">
                 <div class="tab-content">
                     <div hidden>
+                        <input id="id" name="id" value="<?= $nfe['id'] ?? '' ?>">
                         <input id="empresa_id" name="empresa_id" value="<?= session()->get('empresa')['id'] ?>">
                     </div>
                     <!--  Principal  -->
@@ -104,7 +106,8 @@
                             <div class="col-2 form-group">
                                 <label for="i_prod_vProd" class="">Valor</label>
                                 <div class="input-group">
-                                    <input type="text"
+                                    <input type="number"
+                                           step="0.01"
                                            id="i_prod_vProd"
                                            name="i_prod_vProd"
                                            class="form-control">
@@ -133,11 +136,16 @@
                             <tbody class="table-sm table-striped">
                                 <?php foreach ($produtosNota as $produtoNota): ?>
                                 <tr>
-                                    <td hidden id="id[<?= $produtoNota['id'] ?>]"><?= $produtoNota['id'] ?></td>
-                                    <td id="prod_item[<?= $produtoNota['prod_item'] ?>]"><?= $produtoNota['prod_item'] ?></td>
-                                    <td id="prod_xProd[<?= $produtoNota['prod_xProd'] ?>]"><?= $produtoNota['prod_xProd'] ?></td>
-                                    <td id="prod_qCom[<?= $produtoNota['prod_qCom'] ?>]"><?= $produtoNota['prod_qCom'] ?></td>
-                                    <td id="prod_vProd[<?= $produtoNota['prod_vProd'] ?>]"><?= $produtoNota['prod_vProd'] ?></td>
+                                    <td hidden><input name="produto_id[]" id="produto_id[]" value="<?= $produtoNota['produto_id'] ?>">
+                                        <?= $produtoNota['id'] ?></td>
+                                    <td><input hidden name="prod_item[<?= $produtoNota['prod_item'] ?>]" value="<?= $produtoNota['prod_item'] ?>">
+                                        <?= $produtoNota['prod_item'] ?></td>
+                                    <td><input hidden name="prod_xProd[<?= $produtoNota['prod_item'] ?>]" value="<?= $produtoNota['prod_xProd'] ?>">
+                                        <?= $produtoNota['prod_xProd'] ?></td>
+                                    <td><input hidden name="prod_qCom[<?= $produtoNota['prod_item'] ?>]" value="<?= $produtoNota['prod_qCom'] ?>">
+                                        <?= $produtoNota['prod_qCom'] ?></td>
+                                    <td><input hidden name="prod_vProd[<?= $produtoNota['prod_item'] ?>]" value="<?= $produtoNota['prod_vProd'] ?>">
+                                        <?= $produtoNota['prod_vProd'] ?></td>
                                     <td><i class="fas fa-edit text-primary"></i> <i class="fas fa-trash text-danger"></i></td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -209,6 +217,7 @@
 
     // Cria uma nova linha para a tabela
     var newRow = $('<tr>');
+        newRow.append('<td><input type="hidden" name="item" value=""></td>');
         newRow.append('<td><input type="hidden" name="produto_id[]" value="' + produto + '">' + produto + '</td>');
         newRow.append('<td><input type="hidden" name="prod_qCom[]" value="' + quantidade + '">' + quantidade + '</td>');
         newRow.append('<td><input type="hidden" name="prod_vProd[]" value="' + valor + '">' + valor + '</td>');
