@@ -27,7 +27,7 @@ class NFeModel extends Model
         'tot_vOutro', 'tot_vNF', 'tot_vTotTrib', 'fret_modFrete', 'fat_nFat', 'fat_vOrig', 'fat_vDesc', 'fat_vLiq', 'dup_nDup',
         'dup_dVenc', 'dup_vDup', 'detPag_tPag', 'detPag_vPag', 'detPag_vTroco', 'infAd_Fisco', 'inf_Cpl', 'pedido_id',
         'verAplic', 'chNFe', 'data_cancelamento', 'tpEvento', 'xCorrecao', 'path_xml', 'parh_file', 'hora_saida', 'data_saida',
-        'finNFe', 'data_processamento', 'nRec', 'cUF', 'acronym', 'motive', 'timestamp', 'type', 'tpEmis', 'qrcodenfce'];
+        'finNFe', 'data_processamento', 'nRec', 'cUF', 'acronym', 'motive', 'timestamp', 'type', 'tpEmis', 'qrcodenfce', 'objeto_nfe'];
 
     // Dates
     protected $useTimestamps = true;

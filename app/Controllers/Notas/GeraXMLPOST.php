@@ -395,10 +395,58 @@ class GeraXMLPOST extends BaseController
     {
         $model = new NFeModel();
         $this->nota = $model->getNFe($this->request->getGet('id'));
+
+        $modelEmpresa = new EmpresasModel();
+        $this->empresa = $modelEmpresa->getEmpresas($this->nota['empresa_id']); //ALTERAR
+
+        $modelCliente = new ClientesModel();
+        $this->cliente = $modelCliente->getClientes($this->nota['cliente_id']);
+
+        if ($this->nota['status_id'] != 2) {
+            echo 'Tentativa de duplicidade';
+            exit();
+        }
+
+        $config = [
+            'atualizacao' => date('Y-m-d H:i:s'),
+            'tpAmb' => 2,//$empresa['ambiente'],
+            'razaosocial' => $this->empresa['razao_social'],
+            'cnpj' => $this->validarCnpj($this->empresa['cnpj']),
+            'ie' => $this->empresa['ie'], // PRECISA SER VÁLIDO
+            'siglaUF' => $this->empresa['uf'],
+            'schemes' => 'PL_009_V4',
+            'versao' => '4.00',
+        ];
+
+        $certificadoDigital = file_get_contents(
+            $this->empresa['certificado_a3']
+        );
+
+        $this->tools = new Tools(
+            json_encode($config),
+            Certificate::readPfx($certificadoDigital, $this->empresa['senha_centificado'])
+        );
+
+        $this->nfe = new Make();
+        $std = new stdClass();
+        $std->versao = '4.00';
+        $std->Id = null;
+        $std->pk_nItem = '';
+        $this->nfe->taginfNFe($std);
+
+        $this->configuracoes($std);
+        $this->emitente();
+        $this->dadosSefaz();
+        $this->destinatario();
+        $this->itens();
+        $this->transporte();
+        $this->fatura($model);
+
+        $XML = $this->gerarXML();
         $chave = $this->nfe->getChave();
         $erros = $this->nfe->getErrors();
         $modelo = $this->nfe->getModelo();
-        $XML = $this->gerarXML();
+
         $this->gerarPasta($chave, $XML, $model);
         $response_assinado = $this->assinar($chave);
         $recibo = $this->protocolar($response_assinado);
@@ -435,8 +483,9 @@ class GeraXMLPOST extends BaseController
 
             $retornoXML = $arr['protNFe']['infProt'];
 
-            $model->update($this->nota['id'], [
-                'ide_id' => $chave,
+            $model->save([
+                'id' => $this->nota['id'],
+                'ide_chave_nfe' => $chave,
                 'path_xml' => $path_autorizadas,
                 'path_file' => $caminho_aut,
                 'status_id' => 5,
@@ -452,7 +501,10 @@ class GeraXMLPOST extends BaseController
         } catch (Exception $e) {
             //reporta erro na autorização
             echo "Erro: " . $e->getMessage();
+            exit();
         }
+
+        return redirect('notas');
     }
 
     public function exibir($data, $pagina = '')

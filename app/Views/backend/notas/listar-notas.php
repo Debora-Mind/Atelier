@@ -99,7 +99,7 @@
                                         <i class="fa fa-server"></i> Faturar
                                 </option>
                                 <?php elseif ($nfe['status_id'] == 2): ?>
-                                <option href="<?= base_url('notas/transmitir') ?>">
+                                <option data-url="<?= base_url('notas/transmitir?id=' . $nfe['id']) ?>">
                                     <i class="fa fa-server"></i> Transmitir
                                 </option>
                                 <?php elseif ($nfe['status_id'] == 5): ?>
@@ -126,10 +126,10 @@
                                 <?= $status->getStatus($nfe['status_id'])['titulo'] ?? ''?>
                             </div>
                         </td>
-                        <td><?= $nfe['xEvento'] ?? ''?></td>
+                        <td><?= $nfe['xMotivo'] ?? ''?></td>
                         <td><?= $nfe['numero_nfe'] ?? ''?></td>
                         <td><?= $nfe['ide_serie'] ?? ''?></td>
-                        <td><?= $nfe['nfe_prot'] ?? ''?></td>
+                        <td><?= $nfe['nProt'] ?? ''?></td>
                         <td><?= $nfe['ide_chave_nfe' ?? '']?></td>
                     </tr>
                 <?php endforeach; ?>
