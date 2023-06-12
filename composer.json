@@ -6,15 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.4 || ^8.0",
+        "ext-fileinfo": "*",
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
         "laminas/laminas-escaper": "^2.9",
-        "psr/log": "^1.1",
-        "ext-fileinfo": "*",
         "nfephp-org/sped-da": "dev-master",
         "nfephp-org/sped-mail": "*",
-        "nfephp-org/sped-nfe": "*"
+        "nfephp-org/sped-nfe": "*",
+        "psr/log": "^1.1",
+        "guzzlehttp/psr7": "^2.0"
     },
     "require-dev": {
         "kint-php/kint": "^5.0.1",

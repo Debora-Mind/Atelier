@@ -106,7 +106,7 @@
                                 <option href="<?= base_url('notas/transmitir') ?>">
                                     <i class="fa fa-server"></i> Baixar XML
                                 </option>
-                                <option href="<?= base_url('notas/transmitir') ?>">
+                                <option value="imprimir" data-url="<?= base_url('notas/imprimir?id=' . $nfe['id']) ?>">
                                     <i class="fa fa-server"></i> Imprimir
                                 </option>
                                 <option href="<?= base_url('notas/transmitir') ?>">
@@ -141,11 +141,19 @@
 </div>
 
 <script>
-    function redirect(select) {
-        var selectedOption = select.options[select.selectedIndex];
+    function redirect(selectElement) {
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var optionValue = selectedOption.value;
         var url = selectedOption.getAttribute('data-url');
-        if (url) {
-            window.location.href = url;
+
+        if (optionValue === 'imprimir') {
+            if (url) {
+                window.open(url, '_blank');
+            }
+        } else {
+            if (url) {
+                window.location.href = url;
+            }
         }
     }
 </script>

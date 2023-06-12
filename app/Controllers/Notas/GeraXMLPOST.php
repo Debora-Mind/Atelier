@@ -490,6 +490,7 @@ class GeraXMLPOST extends BaseController
                 'path_file' => $caminho_aut,
                 'status_id' => 5,
                 'xMotivo' => $retornoXML['xMotivo'],
+                'xEvento' => $retornoXML['xEvento'],
                 'digVal' => $retornoXML['digVal'],
                 'dhRecbto' => $retornoXML['dhRecbto'],
                 'nProt' => $retornoXML['nProt'],

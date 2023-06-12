@@ -1,29 +1,31 @@
 <?php
 
-namespace App\Controllers\NFe;
+namespace App\Controllers\Notas;
 
 use App\Controllers\BaseController;
-use App\Models\EmpresaModel;
-use App\Models\NFeTempModel;
+use App\Models\EmpresasModel;
+use App\Models\NFeModel;
 use InvalidArgumentException;
 use NFePHP\DA\NFe\Danfe;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Stream;
 
 class ImprimirPost extends BaseController
 {
     public function store()
     {
-        $model = new NFeTempModel();
-        $nota = $model->getNFeTemp($this->request->getVar('id'));
+        $model = new NFeModel();
+        $nota = $model->getNFe($this->request->getGet('id'));
 
-        $modal = new EmpresaModel();
-        $empresa = $modal->getEmpresa($nota['empresa_id']); //ALTERAR
+        $modal = new EmpresasModel();
+        $empresa = $modal->getEmpresas($nota['empresa_id']); //ALTERAR
 
         //LOGO DA EMPRESA
-        $logo = 'data://text/plain;base64,'. base64_encode(file_get_contents(realpath($empresa['logomarca'])));
-        $logo = realpath(realpath($empresa['logomarca']));
+//        $logo = 'data://text/plain;base64,'. base64_encode(file_get_contents(realpath($empresa['logomarca']))) ?? '';
+        $logo = realpath(realpath($empresa['logomarca'])) ?? null;
 
         //VERIFICAR SE A NOTA PRECISA ESTAR AUTORIZADA
-        $xml = file_get_contents($nota['parh_file']);
+        $xml = file_get_contents($nota['ide_nome_xml']);
 
         if (!$nota):
             echo 'Notas não existe';
@@ -64,8 +66,12 @@ class ImprimirPost extends BaseController
             /*  $danfe->logoParameters($logo, 'C', false);  */
             //Gera o PDF
             $pdf = $danfe->render($logo);
+
             header('Content-Type: application/pdf');
+
             echo $pdf;
+            exit();
+
         } catch (InvalidArgumentException $e) {
             echo "Ocorreu um erro durante o processamento :" . $e->getMessage();
         }
