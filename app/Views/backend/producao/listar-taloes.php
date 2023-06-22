@@ -1,7 +1,7 @@
 <div class="col-sm-12">
     <div class="card shadow">
         <div class="d-flex justify-content-sm-between align-items-sm-stretch card-header">
-                Buscar Talçao
+                Buscar Talão
         </div>
         <form action="<?= base_url('producao/listar-taloes') ?>" method="post">
             <div class="card-body">
@@ -58,7 +58,7 @@
             <table class="table-sm table dataTable table-striped mb-3 w-100">
                 <thead>
                     <tr role="row">
-                        <th style="width: 10%" class="sorting" tabindex="0">#</th>
+                        <th style="width: 3%" class="sorting" tabindex="0">#</th>
                         <th class="sorting" tabindex="0">Referência</th>
                         <th style="width: 10%" class="sorting" tabindex="0">Produção</th>
                         <th style="width: 20%" class="sorting" tabindex="0">Sublote</th>

@@ -46,16 +46,16 @@ class Taloes extends BaseController
     {
         $id = $this->request->getVar('id');
 
-        $model = new ProdutosModel();
-        $produto = $model->getProdutos($id);
+        $model = new TaloesModel();
+        $talao = $model->getTaloes($id);
 
         $data = [
-            'title' => 'Cadastrar Produto',
-            'produto' => $produto,
+            'title' => 'Cadastrar Talão',
+            'talao' => $talao,
             'msg' => []
         ];
 
-        $this->exibir($data, 'formulario-produtos');
+        $this->exibir($data, 'formulario-taloes');
     }
 
     public function gravar()
