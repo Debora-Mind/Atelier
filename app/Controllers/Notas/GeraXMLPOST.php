@@ -5,6 +5,7 @@ namespace App\Controllers\Notas;
 use App\Controllers\BaseController;
 use App\Models\ClientesModel;
 use App\Models\EmpresasModel;
+use App\Models\ItensNFeModel;
 use App\Models\NaturezaOperacaoModel;
 use App\Models\NFeModel;
 use Exception;
@@ -23,7 +24,7 @@ class GeraXMLPOST extends BaseController
     private $cliente;
     private $nfe;
     private $stdICMSTot;
-    private $stdProd;
+    private stdClass $stdProd;
     private $stdIde;
     private $tools;
 
@@ -179,72 +180,89 @@ class GeraXMLPOST extends BaseController
 
     public function itens()
     {
-        //foreach
-        $valor = 306.8;
-        $this->stdProd = new stdClass();
-        $this->stdProd->item = 1;
-        $this->stdProd->cEAN = '7896745800660';
-        $this->stdProd->cEANTrib = '7896745800660';
-        $this->stdProd->cProd = '1057';
-        $this->stdProd->xProd = 'GENFLOC CLARIFICANTE 01LT';
-        $this->stdProd->NCM = '38089419';
-        $this->stdProd->CFOP = '5102';
-        $this->stdProd->uCom = 'UN';
-        $this->stdProd->uTrib = 'UN';
-        $this->stdProd->qCom = 1.0;
-        $std = new stdClass();
-        $std->CNPJ = $this->cliente['cpf_cnpj']; //indicar um CNPJ ou CPF
-        $std->CPF = null;
-        $this->stdProd->vUnCom = number_format($valor, 2, '.', '');
-        $this->stdProd->qTrib = 1;
-        $this->stdProd->vUnTrib = number_format($this->stdProd->vUnCom, 2, '.', '');
-        $this->stdProd->vProd = $this->stdProd->qTrib * $this->stdProd->vUnTrib;
-        $this->stdProd->indTot = 1;
-        $tagprod = $this->nfe->tagprod($this->stdProd);
+        $itemModel = new ItensNFeModel();
+        $itens = $itemModel->getItensNFeNota($this->nota['id']);
 
-        /** TRIBUTOS */
-        $stdimposto = new stdClass();
-        $stdimposto->item = 1;
-        $stdimposto->vTotTrib = 20.93;
-        $tagimposto = $this->nfe->tagimposto($stdimposto);
+        $vBCTotal = 1;
+        $vICMSTotal = 1;
+        $vPISTotal = 1;
+        $vCOFINSTotal = 1;
+        $vTotTrib = 1;
 
-        $stdICMS = new stdClass();
-        $stdICMS->item = 1; //item da Notas
-        $stdICMS->orig = 0;
-        $stdICMS->CST = '00';
-        $stdICMS->modBC = 1;
-        $stdICMS->vBC = 0.0;
-        $stdICMS->pICMS = 0.0;
-        $stdICMS->vICMS = 0.0;
-        $ICMS = $this->nfe->tagICMS($stdICMS);
+        foreach ($itens as $item) {
+            $valor = $item['prod_vProd'];
+            $this->stdProd = new stdClass();
+            $this->stdProd->item = $item['prod_item'];
+            $this->stdProd->cEAN = $item['prod_cEAN'];
+            $this->stdProd->cEANTrib = $item['prod_cEANTrib'];
+            $this->stdProd->cProd = $item['prod_cProd'];
+            $this->stdProd->xProd = $item['prod_xProd'];
+            $this->stdProd->NCM = '38089419';//$item['prod_NCM'];
+            $this->stdProd->CFOP = '5102';//$item['prod_CFOP'];
+            $this->stdProd->uCom = $item['prod_uCom'];
+            $this->stdProd->uTrib = $item['prod_uTrib'];
+            $this->stdProd->qCom = $item['prod_qCom'];
 
-        $stdPIS = new stdClass();
-        $stdPIS->item = 1; //item da Notas
-        $stdPIS->CST = '99';
-        $stdPIS->vBC = 0.0;
-        $stdPIS->pPIS = 0.0;
-        $stdPIS->vPIS = 0.0;
-        $pis = $this->nfe->tagPIS($stdPIS);
+            $std = new stdClass();
+            $std->CNPJ = $this->cliente['cpf_cnpj']; //indicar um CNPJ ou CPF
+            $std->CPF = null;
+            $this->stdProd->vUnCom = number_format($valor, 2, '.', '');
+            $this->stdProd->qTrib = $item['prod_qTrib'];
+            $this->stdProd->vUnTrib = number_format($this->stdProd->vUnCom, 2, '.', '');
+            $this->stdProd->vProd = $this->stdProd->qTrib * $this->stdProd->vUnTrib;
+            $this->stdProd->indTot = 1;//$item['prod_indTot'];
+            $tagprod = $this->nfe->tagprod($this->stdProd);
 
-        $stdCOFINS = new stdClass();
-        $stdCOFINS->item = 1; //item da Notas
-        $stdCOFINS->CST = '99';
-        $stdCOFINS->vBC = 0.0;
-        $stdCOFINS->pCOFINS = 0.0;
-        $stdCOFINS->vCOFINS = 0.0;
-        $COFINS = $this->nfe->tagCOFINS($stdCOFINS);
+            /** TRIBUTOS */
+            $stdimposto = new stdClass();
+            $stdimposto->item = $item['prod_item'];
+            $stdimposto->vTotTrib = $item['prod_qTrib'] * $item['prod_vUnTrib'];
+            $tagimposto = $this->nfe->tagimposto($stdimposto);
+
+            $stdICMS = new stdClass();
+            $stdICMS->item = 1; //item da Notas
+            $stdICMS->orig = 0;
+            $stdICMS->CST = '00'; //1;
+            $stdICMS->modBC = 1;
+            $stdICMS->vBC = 0.0;
+            $stdICMS->pICMS = 0.0;
+            $stdICMS->vICMS = 0.0;
+            $ICMS = $this->nfe->tagICMS($stdICMS);
+
+            $stdPIS = new stdClass();
+            $stdPIS->item = $item['prod_item']; //item da Notas
+            $stdPIS->CST = '99'; //$item['pis_CST'];
+            $stdPIS->vBC = $item['pis_vBC'];
+            $stdPIS->pPIS = $item['pis_pPIS'];
+            $stdPIS->vPIS = $item['pis_vPIS'];
+            $stdPIS->PISQtde = 1;
+            $pis = $this->nfe->tagPIS($stdPIS);
+
+            $stdCOFINS = new stdClass();
+            $stdCOFINS->item = $item['prod_item']; //item da Notas
+            $stdCOFINS->CST = '99';//$item['cofins_CST'];
+            $stdCOFINS->vBC = $item['cofins_vBC'];
+            $stdCOFINS->pCOFINS = $item['cofins_pCOFINS'];
+            $stdCOFINS->vCOFINS = $item['cofins_vCOFINS'];
+            $COFINS = $this->nfe->tagCOFINS($stdCOFINS);
+
+//            $vBCTotal += ($item['icms_vBC'] + $item['pis_vBC'] + $item['cofins_vBC']);
+//            $vICMSTotal += $item['icms_vICMS'];
+//            $vPISTotal += $item['pis_vPIS'];
+//            $vCOFINSTotal += $item['cofins_vCOFINS'];
+//            $vTotTrib += $item['prod_vUnTrib'];
+        }
 
         $this->stdICMSTot = new stdClass();
-        $this->stdICMSTot->vBC = 0.0;
-        $this->stdICMSTot->vICMS = 0.0;
+        $this->stdICMSTot->vBC = 0.0;// $vBCTotal;
+        $this->stdICMSTot->vICMS = 0.0; //$vICMSTotal;
         $this->stdICMSTot->vProd = $this->stdProd->vProd;
-        $this->stdICMSTot->vPIS = 0.0;
-        $this->stdICMSTot->vCOFINS = 0.0;
+        $this->stdICMSTot->vPIS = 0.0; // $vPISTotal;
+        $this->stdICMSTot->vCOFINS = 0.0; // $vCOFINSTotal;
         $this->stdICMSTot->vNF = number_format($this->stdProd->vProd, 2, '.', '');
-        $this->stdICMSTot->vTotTrib = 0.0;
+        $this->stdICMSTot->vTotTrib = 0.0; // $vTotTrib;
         $ICMSTot = $this->nfe->tagICMSTot($this->stdICMSTot);
 
-        /** TRIBUTOS */
     }
 
     public function transporte()
@@ -490,7 +508,7 @@ class GeraXMLPOST extends BaseController
                 'path_file' => $caminho_aut,
                 'status_id' => 5,
                 'xMotivo' => $retornoXML['xMotivo'],
-                'xEvento' => $retornoXML['xEvento'],
+                'xEvento' => $retornoXML['xEvento'] ?? '',
                 'digVal' => $retornoXML['digVal'],
                 'dhRecbto' => $retornoXML['dhRecbto'],
                 'nProt' => $retornoXML['nProt'],
