@@ -385,7 +385,7 @@
                                         class="custom-select">
                                     <?php foreach ($municipios as $municipio) : ?>
                                         <option
-                                            <?= $cliente['cidade'] == $municipio['descricao'] ? 'selected' : ''?>
+                                            <?= $cliente['cidade'] = $municipio['descricao'] ? 'selected' : ''?>
                                             value="<?= $municipio['descricao'] ?>" class="dropdown-item">
                                             <?= $municipio['descricao'] ?>
                                         </option>

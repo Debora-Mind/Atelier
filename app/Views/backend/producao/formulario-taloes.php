@@ -19,17 +19,17 @@
                     </div>
                     <div id="aba1" class="tab-pane fade m-3 show active">
                         <div class="row">
-                            <div class="col-sm-4 form-group">
-                                <label for="modelo_id" class="col-form-label-sm">Referência</label>
+                            <div class="col-sm-2 form-group">
+                                <label for="id_produto" class="col-form-label-sm">Referência</label>
                                 <div class="input-group">
-                                    <input type="text"
-                                           name="modelo_id"
-                                           id="modelo_id"
-                                           value="<?= $talao['modelo_id'] ?? ''?>"
+                                    <input type="number"
+                                           name="id_produto"
+                                           id="id_produto"
+                                           value="<?= $talao['id_produto'] ?? ''?>"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('modelo_id') ?>
+                                    <?= \Config\Services::validation()->getError('id_produto') ?>
                                 </small>
                             </div>
                             <div class="col-2 form-group">
@@ -42,9 +42,11 @@
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('num_producao') ?>
+                                    <?= \Config\Services::validation()->getError('id_produto') ?>
                                 </small>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-2 form-group">
                                 <label for="sublote" class="">Sublote</label>
                                 <div class="input-group">
@@ -58,7 +60,7 @@
                                     <?= \Config\Services::validation()->getError('sublote') ?>
                                 </small>
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-2 form-group">
                                 <label for="quantidade" class="">Quantidade</label>
                                 <div class="input-group">
                                     <input type="number"
@@ -71,6 +73,8 @@
                                     <?= \Config\Services::validation()->getError('quantidade') ?>
                                 </small>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-2 form-group">
                                 <label for="semana" class="col-form-label-sm">Semana</label>
                                 <div class="input-group">
@@ -127,7 +131,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-3 form-group">
+                            <div class="col-sm-4 form-group">
                                 <label for="nota_fiscal" class="col-form-label-sm">Nota Fiscal</label>
                                 <div class="input-group">
                                     <input type="number"

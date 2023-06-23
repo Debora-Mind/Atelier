@@ -62,8 +62,7 @@ class Modelos extends Migration
         $this->forge->addForeignKey(
             'empresa_id',
             'empresas',
-            'id',
-            'CASCADE');
+            'id');
 
         $this->forge->createTable('modelos', true);
         $this->db->enableForeignKeyChecks();

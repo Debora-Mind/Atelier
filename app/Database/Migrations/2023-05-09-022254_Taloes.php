@@ -48,10 +48,10 @@ class Taloes extends Migration
                 'type'          => 'VARCHAR',
                 'constraint'    => 100,
             ],
-            'modelo_id' => [
+            'id_produto' => [
                 'type'          => 'INT',
-                'constraint'    => 9,
                 'unsigned'      => true,
+                'null'          => true,
             ],
             'created_at'         => [
                 'type'           => 'DATETIME',
@@ -69,10 +69,9 @@ class Taloes extends Migration
 
         $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey(
-            'modelo_id',
-            'modelos',
-            'id',
-            'CASCADE');
+            'id_produto',
+            'produtos',
+            'id');
 
         $this->forge->createTable('taloes', true);
         $this->db->enableForeignKeyChecks();

@@ -60,12 +60,12 @@
                     <tr role="row">
                         <th style="width: 3%" class="sorting" tabindex="0">#</th>
                         <th class="sorting" tabindex="0">Referência</th>
-                        <th style="width: 10%" class="sorting" tabindex="0">Produção</th>
-                        <th style="width: 20%" class="sorting" tabindex="0">Sublote</th>
-                        <th style="width: 10%" class="sorting text-center" tabindex="0">Semana</th>
-                        <th style="width: 10%" class="sorting text-center" tabindex="0">Quantidade</th>
-                        <th style="width: 10%" class="sorting text-center" tabindex="0">Entrada</th>
-                        <th style="width: 10%" class="sorting text-center" tabindex="0">Saída</th>
+                        <th style="width: 8%" class="sorting" tabindex="0">Produção</th>
+                        <th style="width: 8%" class="sorting" tabindex="0">Sublote</th>
+                        <th style="width: 8%" class="sorting" tabindex="0">Semana</th>
+                        <th style="width: 8%" class="sorting" tabindex="0">Quantidade</th>
+                        <th style="width: 10%" class="sorting" tabindex="0">Entrada</th>
+                        <th style="width: 15%" class="sorting" tabindex="0">Saída</th>
                         <th style="width: 10%" class="sorting text-center" tabindex="0">Ações</th>
                     </tr>
                 </thead>
@@ -73,38 +73,23 @@
                 <?php foreach ($taloes as $talao): ?>
                     <tr>
                         <input type="hidden" name="id" id="id" value="<?= $talao['id'] ?>">
-                        <td><?= $talao['modelo_id']; ?></td>
+                        <td><?= $talao['id']; ?></td>
+                        <td><?= $talao['id_produto']; ?></td>
                         <td><?= $talao['num_producao']; ?></td>
                         <td><?= $talao['sublote']?></td>
                         <td><?= $talao['semana']?></td>
                         <td><?= $talao['quantidade']?></td>
                         <td><?= $talao['data_entrada']?></td>
                         <td><?= $talao['data_saida']?></td>
-<!--                        <td>-->
-<!--                            --><?php //if($talao['img']): ?>
-<!--                            <a href="--><?//= base_url('producao/visualizar-imagem?id=' . $talao['id']) ?><!--"-->
-<!--                                target="_blank">-->
-<!--                                <i class="fa fa-eye text-primary mx-1"></i>-->
-<!--                            </a>-->
-<!--                            --><?php //else: ?>
-<!--                                <i class="fa fa-eye text-secondary disabled mx-1"></i>-->
-<!--                            --><?php //endif; ?>
-<!--                            --><?php //if($talao['pdf']): ?>
-<!--                            <a href="--><?//= base_url('producao/visualizar-pdf?id=' . $talao['id']) ?><!--"-->
-<!--                                target="_blank">-->
-<!--                                <i class="fa fa-file-pdf text-primary mx-1"></i>-->
-<!--                            </a>-->
-<!--                            --><?php //else: ?>
-<!--                                <i class="fa fa-file-pdf text-secondary disabled mx-1"></i>-->
-<!--                            --><?php //endif; ?>
-<!--                            <a href="--><?//= base_url('producao/editar-produto?id=' . $talao['id']) ?><!--">-->
-<!--                                <i class="fa fa-edit text-primary mx-1"></i>-->
-<!--                            </a>-->
-<!--                            <a href="--><?//= base_url('producao/produtos/remover?id=' . $talao['id']) ?><!-- "-->
-<!--                               onclick="return confirm('Deseja mesmo excluir a produto --><?//= $talao['cod_fabrica'] ?>//?')">
-//                                <i class="fa fa-trash text-danger mx-1"></i>
-//                            </a>
-//                        </td>
+                        <td class="text-center">
+                            <a href="<?= base_url('producao/taloes/editar?id=' . $talao['id']) ?>">
+                                <i class="fa fa-edit text-primary mx-1"></i>
+                            </a>
+                            <a href="<?= base_url('producao/taloes/remover?id=' . $talao['id']) ?> "
+                               onclick="return confirm('Deseja mesmo excluir a produto <?= $talao['id'] ?>?')">
+                                <i class="fa fa-trash text-danger mx-1"></i>
+                            </a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

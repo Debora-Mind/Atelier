@@ -19,7 +19,7 @@ class Taloes extends BaseController
 
         $data = [
             'title' => 'Talões',
-            'taloes' => $model->paginate(10),
+            'taloes' => $model->paginate(7),
             'pager' => $model->pager,
             'msg' => ''
         ];
@@ -60,96 +60,57 @@ class Taloes extends BaseController
 
     public function gravar()
     {
-        $model = new ProdutosModel();
+        $model = new TaloesModel();
         $vars = $this->request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         helper('form');
         if ($this->validate([
-            'cod_fabrica' => [
+            'id_produto' => [
                 'label' => 'Referência da Fabrica',
                 'rules' => 'required'],
-            'cEAN' => [
+            'quantidade' => [
                 'label' => 'Código de Barras',
                 'rules' => 'required'],
+            'data_entrada' => [
+                'label' => 'Data de Entrada',
+                'rules' => 'required'],
         ])) {
-            $img = $this->request->getFile('img');
-            $pdf = $this->request->getFile('pdf');
-
-            $vars = $this->validarObjeto($vars, $img, $pdf);
             $model->save($vars);
 
             $data = [
-                'title' => 'Produtos',
-                'produtos' => $model->paginate(10),
+                'title' => 'Talões',
+                'taloes' => $model->paginate(10),
                 'pager' => $model->pager,
                 'msg' => [
-                    'mensagem'   => 'Produto salvo com sucesso!',
+                    'mensagem'   => 'Talão salvo com sucesso!',
                     'tipo'      => 'success'
                 ],
             ];
         }
         else {
-
             $data = [
-                'title' => 'Produtos',
-                'produto' => $vars,
+                'title' => 'Talões',
+                'talao' => $vars,
                 'msg' => [
-                    'mensagem'   => 'Erro ao salvar o produto!',
+                    'mensagem'   => 'Erro ao salvar o talão!',
                     'tipo'      => 'danger'
                 ],
             ];
-            $this->exibir($data, 'formulario-produtos');
+            $this->exibir($data, 'formulario-taloes');
             exit();
 
         }
 
-        $this->exibir($data, 'listar-produtos');
+        $this->exibir($data, 'listar-taloes');
     }
 
     public function remover()
     {
-        $model = new ProdutosModel();
+        $model = new TaloesModel();
         $id = $this->request->getVar('id');
         $model->delete($id);
 
-        return redirect()->to(base_url('producao/produtos'));
-    }
-
-    private function validarObjeto ($dados, $img, $pdf)
-    {
-        $validar = $this->validate([
-            'img' => [
-                'uploaded[img]',
-                'mime_in[img,image/png,image/jpeg,image/gif,image/webp]',
-                'max_size[img,4096]',
-                'is_image[img]'
-            ]
-        ]);
-
-        if ($validar) {
-            $novoNome =  $img->getRandomName();
-            $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/produtos/img/' . date('Y/m/d');
-            $img->move($caminho, $novoNome);
-            $dados['img'] = $caminho . '/' . $novoNome;
-        }
-
-        $this->validator->reset();
-
-        $validarPdf = $this->validate([
-            'pdf' => [
-                'uploaded[pdf]',
-                'max_size[pdf,4096]',
-            ]
-        ]);
-
-        if ($validarPdf) {
-            $novoNome = $pdf->getRandomName();
-            $caminho = 'img/' . session()->get('empresa')['nome_fantasia'] . '/produtos/pdf/' . date('Y/m/d');
-            $pdf->move($caminho, $novoNome);
-            $dados['pdf'] = $caminho . '/' .  $novoNome;
-        }
-
-        return $dados;
+        return redirect()->to(base_url('producao/listar-taloes'));
     }
 
     public function visualizarImagem()

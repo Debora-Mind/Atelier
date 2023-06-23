@@ -110,7 +110,8 @@ class Cliente extends Migration
                 'null'          => true,
             ],
             'pais' => [
-                'type'          => 'INT',
+                'type'          => 'VARCHAR',
+                'constraint'    =>  30,
                 'default'       => 'Brasil',
             ],
             'uf' => [

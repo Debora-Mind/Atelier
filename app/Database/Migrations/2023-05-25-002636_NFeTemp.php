@@ -164,7 +164,7 @@ class NFeTemp extends Migration
             ],
             'ide_natOp' => [
                 'type'          => 'INT',
-                'constraint'    =>  2,
+                'unsigned'      => true,
                 'null'          => true,
             ],
             'ide_nNF' => [
