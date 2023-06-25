@@ -7,6 +7,7 @@ use App\Models\ProdutosModel;
 use App\Models\TaloesModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\Response;
+use CodeIgniter\I18n\Time;
 use Kint\Zval\EnumValue;
 use CodeIgniter\Files\File;
 
@@ -76,7 +77,6 @@ class Taloes extends BaseController
                 'rules' => 'required'],
         ])) {
             $model->save($vars);
-
             $data = [
                 'title' => 'Talões',
                 'taloes' => $model->paginate(10),

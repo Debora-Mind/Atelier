@@ -43,6 +43,7 @@ class Taloes extends Migration
             ],
             'data_saida' => [
                 'type'          => 'DATETIME',
+                'null'          => true
             ],
             'nota_fiscal' => [
                 'type'          => 'VARCHAR',

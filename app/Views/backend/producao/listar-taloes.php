@@ -79,9 +79,17 @@
                         <td><?= $talao['sublote']?></td>
                         <td><?= $talao['semana']?></td>
                         <td><?= $talao['quantidade']?></td>
-                        <td><?= $talao['data_entrada']?></td>
-                        <td><?= $talao['data_saida']?></td>
+                        <td><?= (new DateTime($talao['data_entrada']))->format('d/m/Y') ?></td>
+                        <td><?= $talao['data_saida'] != '0000-00-00 00:00:00'
+                                ? (new DateTime($talao['data_saida']))->format('d/m/Y - H:i') : ''?></td>
                         <td class="text-center">
+                            <?php if($talao['data_saida'] != '0000-00-00 00:00:00'): ?>
+                            <i class="fa fa-check-circle text-success mx-1"></i>
+                            <?php else: ?>
+                            <a href="<?= base_url('producao/taloes/saida?id=' . $talao['id']) ?>">
+                                <i class="fa fa-check-circle text-secondary disabled mx-1"></i>
+                            </a>
+                            <?php endif; ?>
                             <a href="<?= base_url('producao/taloes/editar?id=' . $talao['id']) ?>">
                                 <i class="fa fa-edit text-primary mx-1"></i>
                             </a>

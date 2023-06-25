@@ -14,7 +14,7 @@ class TaloesModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['num_producao', 'sublote', 'quantidade', 'semana', 'codigo_barras', 'data_entrada'.
+    protected $allowedFields    = ['num_producao', 'sublote', 'quantidade', 'semana', 'codigo_barras', 'data_entrada',
     'data_saida', 'nota_fiscal', 'id_produto'];
 
     // Dates

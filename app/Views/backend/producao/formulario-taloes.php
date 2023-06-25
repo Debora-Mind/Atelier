@@ -5,9 +5,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="true" data-bs-toggle="tab" href="#aba1">Principal</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#aba2">Outros</a>
-                </li>
             </ul>
         </div>
         <form action="<?= base_url('producao/salvar-talao') ?>" method="post">
@@ -78,9 +75,10 @@
                             <div class="col-sm-2 form-group">
                                 <label for="semana" class="col-form-label-sm">Semana</label>
                                 <div class="input-group">
-                                    <input type="text"
+                                    <input type="number"
                                            name="semana"
                                            id="semana"
+                                           max="53"
                                            value="<?= $talao['semana'] ?? ''?>"
                                            class="form-control">
                                 </div>
@@ -88,12 +86,14 @@
                                     <?= \Config\Services::validation()->getError('semana') ?>
                                 </small>
                             </div>
-                            <div class="col-2">
+                            <div class="col-auto">
                                 <label for="codigo_barras" class="">Código Barras</label>
                                 <div class="input-group">
                                     <input type="text"
                                            id="codigo_barras"
                                            name="codigo_barras"
+                                           maxlength="20"
+                                           minlength="20"
                                            value="<?= $talao['codigo_barras'] ?? ''?>"
                                            class="form-control">
                                 </div>
@@ -106,20 +106,20 @@
                             <div class="col-2 form-group">
                                 <label for="data_entrada" class="">Data Entrada</label>
                                 <div class="input-group">
-                                    <input type="text"
+                                    <input type="date"
                                            id="data_entrada"
                                            name="data_entrada"
-                                           value="<?= $talao['data_entrada'] ?? ''?>"
+                                           value="<?= $talao['data_entrada'] ?? date('Y-m-d')?>"
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
                                     <?= \Config\Services::validation()->getError('data_entrada') ?>
                                 </small>
                             </div>
-                            <div class="col-2 form-group">
+                            <div class="col-auto form-group">
                                 <label for="data_saida" class="">Data Saída</label>
                                 <div class="input-group">
-                                    <input type="text"
+                                    <input type="datetime-local"
                                            id="data_saida"
                                            name="data_saida"
                                            value="<?= $talao['data_saida'] ?? ''?>"
@@ -142,67 +142,6 @@
                                 </div>
                                 <small class="text-danger position-absolute">
                                     <?= \Config\Services::validation()->getError('nota_fiscal') ?>
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <!--  Outros  -->
-                    <div id="aba2" class="tab-pane fade m-3">
-                        <div class="row">
-                            <div class="col-2 form-group">
-                                <label for="valor" class="">Valor</label>
-                                <div class="input-group">
-                                    <input type="number"
-                                           step="0.01"
-                                           id="valor"
-                                           name="valor"
-                                           value=""
-                                           class="form-control">
-                                </div>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('valor') ?>
-                                </small>
-                            </div>
-                            <div class="col-2 form-group">
-                                <label for="valor_entrada" class="">Valor de Entrada</label>
-                                <div class="input-group">
-                                    <input type="number"
-                                           step="0.01"
-                                           id="valor_entrada"
-                                           name="valor_entrada"
-                                           value=""
-                                           class="form-control">
-                                </div>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('valor_entrada') ?>
-                                </small>
-                            </div>
-                            <div class="col-2 form-group">
-                                <label for="valor_saida" class="">Valor de Saída</label>
-                                <div class="input-group">
-                                    <input type="number"
-                                           step="0.01"
-                                           id="valor_saida"
-                                           name="valor_saida"
-                                           value=""
-                                           class="form-control">
-                                </div>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('valor_saida') ?>
-                                </small>
-                            </div>
-                            <div class="col-2 form-group">
-                                <label for="margem_lucro_bruto" class="">Lucro Bruto</label>
-                                <div class="input-group">
-                                    <input type="number"
-                                           step="0.01"
-                                           id="margem_lucro_bruto"
-                                           name="margem_lucro_bruto"
-                                           value=""
-                                           class="form-control">
-                                </div>
-                                <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('margem_lucro_bruto') ?>
                                 </small>
                             </div>
                         </div>
