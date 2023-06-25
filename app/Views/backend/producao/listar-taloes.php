@@ -66,7 +66,7 @@
                         <th style="width: 8%" class="sorting" tabindex="0">Quantidade</th>
                         <th style="width: 10%" class="sorting" tabindex="0">Entrada</th>
                         <th style="width: 15%" class="sorting" tabindex="0">Saída</th>
-                        <th style="width: 10%" class="sorting text-center" tabindex="0">Ações</th>
+                        <th style="width: 12%" class="sorting text-center" tabindex="0">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="table-sm table-striped">
@@ -90,6 +90,24 @@
                                 <i class="fa fa-check-circle text-secondary disabled mx-1"></i>
                             </a>
                             <?php endif; ?>
+
+                            <?php if($talao['img']): ?>
+                                <a href="<?= base_url('producao/visualizar-imagem?id=' . $talao['id_produto']) ?>"
+                                   target="_blank">
+                                    <i class="fa fa-eye text-primary mx-1"></i>
+                                </a>
+                            <?php else: ?>
+                                <i class="fa fa-eye text-secondary disabled mx-1"></i>
+                            <?php endif; ?>
+                            <?php if($talao['pdf']): ?>
+                                <a href="<?= base_url('producao/visualizar-pdf?id=' . $talao['id_produto']) ?>"
+                                   target="_blank">
+                                    <i class="fa fa-file-pdf text-primary mx-1"></i>
+                                </a>
+                            <?php else: ?>
+                                <i class="fa fa-file-pdf text-secondary disabled mx-1"></i>
+                            <?php endif; ?>
+
                             <a href="<?= base_url('producao/taloes/editar?id=' . $talao['id']) ?>">
                                 <i class="fa fa-edit text-primary mx-1"></i>
                             </a>

@@ -21,7 +21,7 @@ class Taloes extends BaseController
         $data = [
             'title' => 'Talões',
             'taloes' => $model
-                ->select('taloes.id as id, taloes.*, p.xProd as descricao_produto')
+                ->select('taloes.id as id, p.img as img, p.pdf as pdf, taloes.*, p.xProd as descricao_produto')
                 ->join('produtos p', 'taloes.id_produto = p.id')
                 ->paginate(7),
             'pager' => $model->pager,
