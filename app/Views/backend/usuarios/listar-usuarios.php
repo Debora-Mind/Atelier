@@ -1,6 +1,9 @@
 <div class="col-sm-12">
     <div class="card shadow">
         <div class="d-flex justify-content-sm-between align-items-sm-stretch card-header">
+            Buscar Usuário
+        </div>
+        <div class="d-flex justify-content-sm-between align-items-sm-stretch card-body mt-3">
             <form action="/usuarios" method="post" class="d-flex">
                 <input type="text"
                        name="busca"
@@ -22,9 +25,11 @@
                 </a>
             </div>
         </div>
-    <div class="card-body">
-        <table class="table-sm table-bordered dataTable table-striped mb-3 w-100">
-            <thead>
+    </div>
+    <div class="card shadow mt-1">
+        <div class="card-body mt-2">
+            <table class="table-sm table dataTable table-striped mb-3 w-100">
+                <thead>
                 <tr role="row">
                     <th style="width: 4%" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">#</th>
                     <th style="width: 20%" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">Usuário</th>
@@ -39,11 +44,11 @@
                     <td><?= $usuario['usuario']; ?></td>
                     <td><?= $usuario['funcionario']['nome'] ?? '' ?></td>
                     <td class="text-center">
-                        <a href="<?= base_url('usuarios/alterar-permissoes?id=' . $usuario['id']) ?>" ><i class="fas fa-list"></i></a>
-                        <a href="<?= base_url('usuarios/formulario?id=' . $usuario['id']) ?>" ><i class="fas fa-edit"></i></a>
+                        <a href="<?= base_url('usuarios/alterar-permissoes?id=' . $usuario['id']) ?>" ><i class="fas fa-list mx-1"></i></a>
+                        <a href="<?= base_url('usuarios/formulario?id=' . $usuario['id']) ?>" ><i class="fas fa-edit mx-1"></i></a>
                         <a href="<?= base_url('usuarios/excluir-usuario?id=' . $usuario['id']) ?>"
                            onclick="return confirm('Deseja mesmo excluir a usuário <?= $usuario['usuario'] ?>?')">
-                            <i class="fas fa-trash"></i>
+                            <i class="fas fa-trash text-danger mx-1"></i>
                         </a>
                     </td>
                 </tr>
