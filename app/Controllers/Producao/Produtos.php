@@ -101,8 +101,7 @@ class Produtos extends BaseController
             exit();
 
         }
-
-        $this->exibir($data, 'listar-produtos');
+        return redirect('producao/produtos');
     }
 
     public function remover()
@@ -111,7 +110,7 @@ class Produtos extends BaseController
         $id = $this->request->getVar('id');
         $model->delete($id);
 
-        return redirect()->to(base_url('producao/produtos'));
+        return redirect('producao/produtos');
     }
 
     private function validarObjeto ($dados, $img, $pdf)

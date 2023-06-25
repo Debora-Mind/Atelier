@@ -119,8 +119,7 @@ class Usuarios extends BaseController
             'usuarios' => $model->paginate(10),
             'pager' => $model->pager,
             ];
-
-        $this->exibir($data, 'listar-usuarios');
+        return redirect('usuarios');
     }
 
     public function excluir()
@@ -129,7 +128,7 @@ class Usuarios extends BaseController
         $model = new UsuariosModel();
         $model->delete($id);
 
-        return redirect()->to(base_url('usuarios'));
+        return redirect('usuarios');
     }
 
     public function formulario()

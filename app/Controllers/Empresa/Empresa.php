@@ -93,7 +93,7 @@ class Empresa extends BaseController
 
         $model->delete($id);
 
-        return redirect()->to(base_url('sistema'));
+        return redirect('sistema');
     }
 
     public function editar($id = null)
@@ -189,8 +189,7 @@ class Empresa extends BaseController
             exit();
 
         }
-
-        $this->exibir($data, 'listar-clientes');
+        return redirect('empresa/clientes');
     }
 
     public function editarCliente()
@@ -219,7 +218,7 @@ class Empresa extends BaseController
         $id = $this->request->getVar('id');
         $model->delete($id);
 
-        return redirect()->to(base_url('empresa/clientes'));
+        return redirect('empresa/clientes');
     }
 
     private function validarObjeto ($dados, $img, $certificado)

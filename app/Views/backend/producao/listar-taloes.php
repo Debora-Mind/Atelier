@@ -74,7 +74,7 @@
                     <tr>
                         <input type="hidden" name="id" id="id" value="<?= $talao['id'] ?>">
                         <td><?= $talao['id']; ?></td>
-                        <td><?= $talao['id_produto']; ?></td>
+                        <td><?= $talao['descricao_produto']; ?></td>
                         <td><?= $talao['num_producao']; ?></td>
                         <td><?= $talao['sublote']?></td>
                         <td><?= $talao['semana']?></td>

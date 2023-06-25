@@ -151,7 +151,7 @@
             <?= csrf_field(); ?>
             <div class="card-footer py-2">
                 <div class="d-flex justify-content-end">
-                    <button type="button" onclick="cancelar('producao/listar-taloes')"
+                    <button type="button" onclick="cancelar('producao/taloes')"
                             class="btn btn-light border-secondary fixed" style="margin-right: 1rem;">
                         <i class="fa fa-arrow-left"></i> Voltar</button>
                     <button class="btn btn-primary fixed"><i class="fa fa-save"></i> Salvar</button>

@@ -74,7 +74,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Custom Components:</h6>
                     <a class="collapse-item py-sm-1" href="utilities-color.html">Visão Geral</a>
-                    <a class="collapse-item py-sm-1" href="<?= base_url('producao/listar-taloes') ?>">Entrada de Talão</a>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('producao/taloes') ?>">Entrada de Talão</a>
                     <a class="collapse-item py-sm-1" href="utilities-border.html">Saída de Talão</a>
                     <a class="collapse-item py-sm-1" href="<?= base_url('producao/produtos') ?>">Produtos</a>
                     <a class="collapse-item py-sm-1" href="utilities-border.html">Montar Layout</a>

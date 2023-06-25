@@ -20,13 +20,18 @@ class Taloes extends BaseController
 
         $data = [
             'title' => 'Talões',
-            'taloes' => $model->paginate(7),
+            'taloes' => $model
+                ->select('taloes.id as id, taloes.*, p.xProd as descricao_produto')
+                ->join('produtos p', 'taloes.id_produto = p.id')
+                ->paginate(7),
             'pager' => $model->pager,
             'msg' => ''
         ];
 
         $this->exibir($data, 'listar-taloes');
     }
+
+
 
     public function exibir($data, $pagina = '')
     {
@@ -100,8 +105,7 @@ class Taloes extends BaseController
             exit();
 
         }
-
-        $this->exibir($data, 'listar-taloes');
+        return redirect('producao/taloes');
     }
 
     public function remover()
@@ -110,7 +114,7 @@ class Taloes extends BaseController
         $id = $this->request->getVar('id');
         $model->delete($id);
 
-        return redirect()->to(base_url('producao/listar-taloes'));
+        return redirect('producao/taloes');
     }
 
     public function visualizarImagem()
