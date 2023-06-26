@@ -20,39 +20,24 @@ function cancelar(caminho) {
 
 // espera o DOM ser carregado
 document.addEventListener('DOMContentLoaded', function() {
+    const switches = document.querySelectorAll('.switch input[type="checkbox"]');
 
-    // define a função toggleNumberInput
     function toggleNumberInput(switchElement) {
-        const numberInput = switchElement.parentNode.querySelector('.number-input');
-        const inputText = switchElement.parentNode.querySelector('.input-text');
+        const numberInput = switchElement.closest('.form-group').nextElementSibling;
+        const isChecked = switchElement.checked;
 
-        if (switchElement.checked) {
-            numberInput.classList.remove('hide');
-            numberInput.classList.add('show');
-            inputText.classList.remove('hide');
-            inputText.classList.add('show');
-            numberInput.removeAttribute('disabled');
-        } else {
-            numberInput.classList.remove('show');
-            numberInput.classList.add('hide');
-            inputText.classList.remove('show');
-            inputText.classList.add('hide');
-            numberInput.setAttribute('disabled', 'disabled');
-        }
+        numberInput.style.display = isChecked ? 'block' : 'none';
     }
-        // define as variáveis switches e switchElement
-        const switches = document.querySelectorAll('.form-check-input');
-        let switchElement;
 
-        // itera sobre cada switch e adiciona um evento change
-        for (let i = 0; i < switches.length; i++) {
-            switchElement = switches[i];
-            toggleNumberInput(switchElement); // inicializa a exibição do input
-            switchElement.addEventListener('change', function () {
-                toggleNumberInput(this);
-            });
-        }
-    })
+    for (let i = 0; i < switches.length; i++) {
+        const switchElement = switches[i];
+        toggleNumberInput(switchElement);
+        switchElement.addEventListener('click', function() {
+            toggleNumberInput(this);
+        });
+    }
+});
+
 
 function limparConteudo() {
     document.getElementById('data-saida').value = ''; //limpa o valor do input

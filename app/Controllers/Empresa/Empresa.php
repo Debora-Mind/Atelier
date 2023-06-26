@@ -4,6 +4,7 @@ namespace App\Controllers\Empresa;
 
 use App\Controllers\BaseController;
 use App\Models\ClientesModel;
+use App\Models\ConfiguracoesModel;
 use App\Models\EmpresasModel;
 use App\Models\MunicipiosModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
@@ -15,12 +16,15 @@ class Empresa extends BaseController
         $empresa = new EmpresasModel();
         $empresa = $empresa->getEmpresas(session()->get('empresa')['id']);
         $modelMunicipios = new MunicipiosModel();
+        $configuracoes = new ConfiguracoesModel();
+        $empresa['configuracoes'] = json_decode($empresa['configuracoes'], true);
 
         helper('session');
         $data = [
             'title' => 'Empresa',
             'empresas' => $empresa,
             'municipios' => $modelMunicipios->getMunicipios(),
+            'configuracoes' => $configuracoes->getConfiguracoes(),
             'msg' => []
         ];
 
@@ -46,41 +50,65 @@ class Empresa extends BaseController
     {
         $model = new EmpresasModel();
         $modelMunicipios = new MunicipiosModel();
+        $modelConfiguracoes = new ConfiguracoesModel();
+        $configuracoes = $modelConfiguracoes->getConfiguracoes();
+
         helper('form');
 
         if ($this->validate([
             'nome_fantasia' => [
                 'label' => 'Nome Fantasia',
-                'rules' => 'required|min_length[3]'],
+                'rules' => 'required|min_length[3]'
+            ]
         ])) {
             $vars = $this->request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $vars['codMun'] = $modelMunicipios->getMunicipiosDescricao($vars['municipio'])['ibge'];
+
+            $configuracoesData = [];
+
+            foreach ($configuracoes as $configuracao) {
+                $configuracoesData[$configuracao['id']] = [
+                    $vars['switch'][$configuracao['id']],
+                    $vars['numero'][$configuracao['id']]
+                ];
+            }
+
+            $configuracoesJson = json_encode($configuracoesData);
+            $vars['configuracoes'] = $configuracoesJson;
+
+            unset($vars['switch']);
+            unset($vars['numero']);
+
+            $model->save($vars);
+
 
             $img = $this->request->getFile('logomarca');
             $certificado = $this->request->getFile('certificado_a3');
 
             $vars = $this->validarObjeto($vars, $img, $certificado);
+
+            // Salvar os outros dados da empresa
             $model->save($vars);
 
             $data = [
                 'title' => 'Empresa',
                 'empresas' => session()->get('empresa'),
                 'msg' => [
-                    'mensagem'   => 'Empresa atualizada!',
-                    'tipo'      => 'success'
+                    'mensagem' => 'Empresa atualizada!',
+                    'tipo' => 'success'
                 ],
             ];
-        }
-        else {
+        } else {
             $data = [
                 'title' => 'Empresa',
                 'empresas' => session()->get('empresa'),
                 'msg' => [
-                    'mensagem'   => 'Erro ao atualizar empresa!',
-                    'tipo'      => 'danger'
+                    'mensagem' => 'Erro ao atualizar empresa!',
+                    'tipo' => 'danger'
                 ],
             ];
         }
+
         return redirect('sistema');
     }
 

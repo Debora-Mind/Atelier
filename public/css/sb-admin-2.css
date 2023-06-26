@@ -11095,10 +11095,5 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 input[type="radio"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  padding: 0;
-  margin: 0;
   display: none;
 }

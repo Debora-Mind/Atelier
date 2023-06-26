@@ -262,18 +262,55 @@
                             <div class="col col-sm-4 form-group">
                                 <label class="col-form-label-sm" for="ambiente">Ambiente</label>
                                 <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-outline-primary">
-                                        <input type="radio" name="ambiente" id="ambiente-homologacao">Homologação
+                                    <label class="btn btn-outline-primary <?= $empresas['ambiente'] == 2 ? 'active' : '' ?>">
+                                        <input type="radio" name="ambiente" id="ambiente-homologacao" value="2" <?= $empresas['ambiente'] == 2 ? 'checked' : '' ?>>Homologação
                                     </label>
-                                    <label class="btn btn-outline-primary">
-                                        <input type="radio" name="ambiente" id="ambiente-producao">Produção
+                                    <label class="btn btn-outline-primary <?= $empresas['ambiente'] == 1 ? 'active' : '' ?>">
+                                        <input type="radio" name="ambiente" id="ambiente-producao" value="1" <?= $empresas['ambiente'] == 1 ? 'checked' : '' ?>>Produção
                                     </label>
                                 </div>
                                 <small class="text-danger position-absolute">
                                     <?= \Config\Services::validation()->getError('ambiente') ?>
                                 </small>
                             </div>
+
                         </div>
+
+                        <?php foreach ($configuracoes as $configuracao) : ?>
+                            <div class="row">
+                                <div class="col-8 d-inline-flex">
+                                    <div class="form-group mr-2">
+                                        <div class="switch">
+                                            <input type="hidden" name="switch[<?= $configuracao['id'] ?>]" value="0">
+                                            <input type="checkbox" id="switch[<?= $configuracao['id'] ?>]"
+                                                   name="switch[<?= $configuracao['id'] ?>]"
+                                                   value="1"
+                                                <?= isset($empresas['configuracoes'][$configuracao['id']][0])
+                                                && $empresas['configuracoes'][$configuracao['id']][0] === '1'
+                                                    ? 'checked' : '' ?>>
+                                            <label class="slider" for="switch[<?= $configuracao['id'] ?>]"></label>
+                                        </div>
+                                        <label class="form-check-label" for="switch[<?= $configuracao['id'] ?>]">
+                                            <?= $configuracao['descricao'] ?>
+                                        </label>
+                                    </div>
+                                    <div class="form-group" id="inputGroup<?= $configuracao['id'] ?>"
+                                         style="display: <?= isset($empresas['configuracoes'][$configuracao['id']][0])
+                                         && $empresas['configuracoes'][$configuracao['id']][0] === '1'
+                                             ? 'block' : 'none' ?>">
+                                        <div class="input-group">
+                                            <input class="form-control number-input mr-2"
+                                                   id="numero[<?= $configuracao['id'] ?>]"
+                                                   name="numero[<?= $configuracao['id'] ?>]"
+                                                   type="number"
+                                                   style="width: 4rem"
+                                                   value="<?= $empresas['configuracoes'][$configuracao['id']][1] ?? '' ?>">
+                                            <span> dias</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach ?>
                     </div>
                 </div>
             </div>
