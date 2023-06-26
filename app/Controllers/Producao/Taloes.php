@@ -17,6 +17,8 @@ class Taloes extends BaseController
     public function listar()
     {
         $model = new TaloesModel();
+        $diasWarning = json_decode(session()->get('empresa')['configuracoes'], true)[1][1];
+        $diasDanger = json_decode(session()->get('empresa')['configuracoes'], true)[2][1];
 
         $data = [
             'title' => 'Talões',
@@ -24,6 +26,8 @@ class Taloes extends BaseController
                 ->select('taloes.id as id, p.img as img, p.pdf as pdf, taloes.*, p.xProd as descricao_produto')
                 ->join('produtos p', 'taloes.id_produto = p.id')
                 ->paginate(7),
+            'diasWarning' => $diasWarning,
+            'diasDanger' => $diasDanger,
             'pager' => $model->pager,
             'msg' => ''
         ];

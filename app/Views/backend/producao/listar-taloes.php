@@ -55,7 +55,7 @@
     </div>
     <div class="card shadow mt-1">
         <div class="card-body mt-2">
-            <table class="table-sm table dataTable table-striped mb-3 w-100">
+            <table class="table-sm table dataTable mb-3 w-100">
                 <thead>
                     <tr role="row">
                         <th style="width: 3%" class="sorting" tabindex="0">#</th>
@@ -71,7 +71,7 @@
                 </thead>
                 <tbody class="table-sm table-striped">
                 <?php foreach ($taloes as $talao): ?>
-                    <tr>
+                    <tr id="linha-<?php echo $talao['id']; ?>">
                         <input type="hidden" name="id" id="id" value="<?= $talao['id'] ?>">
                         <td><?= $talao['id']; ?></td>
                         <td><?= $talao['descricao_produto']; ?></td>
@@ -118,9 +118,40 @@
                         </td>
                     </tr>
                 <?php endforeach; ?>
+                <script>
+                    var taloes = <?php echo json_encode($taloes); ?>;
+                    var diasWarning = <?php echo $diasWarning; ?>;
+                    var diasDanger = <?php echo $diasDanger; ?>;
+                    var dataAtual = new Date(); // Obtém a data atual
+
+                    taloes.forEach(function(talao) {
+                        var dataEntrada = new Date(talao['data_entrada']);
+                        var dataSaida = talao['data_saida'];
+
+                        var diferencaDias = Math.floor((dataAtual - dataEntrada) / (24 * 60 * 60 * 1000));
+
+                        var linhaId = "linha-" + talao.id;
+                        var linha = document.getElementById(linhaId);
+
+                        if (dataSaida !== '0000-00-00 00:00:00' && dataSaida !== null && dataSaida !== '') {
+                            linha.classList.add("table-success");
+                        } else if (diasDanger && diferencaDias > diasDanger) {
+                            linha.classList.add("table-danger");
+                        } else if (diasWarning && diferencaDias > diasWarning) {
+                            linha.classList.add("table-warning");
+                        }
+                    });
+                </script>
+
+
+
+
+
+
                 </tbody>
             </table>
             <?= $pager->links(); ?>
         </div>
     </div>
 </div>
+
