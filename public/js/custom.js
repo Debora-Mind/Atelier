@@ -58,39 +58,39 @@ function limparConteudo() {
     document.getElementById('data-saida').value = ''; //limpa o valor do input
 }
 
-(function() {
-    const input = document.getElementById("modelo-filtro");
-    const select = document.getElementById("modelo");
-    const options = select.options;
-
-    input.addEventListener("input", function() {
-        const value = input.value.trim().toLowerCase();
-
-        for (let i = 0; i < options.length; i++) {
-            const option = options[i];
-            const optionValue = option.value.trim().toLowerCase();
-
-            if (optionValue.indexOf(value) !== -1) {
-                option.style.display = "";
-            } else {
-                option.style.display = "none";
-            }
-        }
-    });
-
-    input.addEventListener("blur", function() {
-        const value = input.value.trim().toLowerCase();
-
-        for (let i = 0; i < options.length; i++) {
-            const option = options[i];
-            const optionValue = option.value.trim().toLowerCase();
-
-            if (optionValue === value) {
-                select.value = optionValue;
-                break;
-            }
-        }
-
-        input.value = "";
-    });
-})();
+// (function() {
+//     const input = document.getElementById("modelo-filtro");
+//     const select = document.getElementById("modelo");
+//     const options = select.options;
+//
+//     input.addEventListener("input", function() {
+//         const value = input.value.trim().toLowerCase();
+//
+//         for (let i = 0; i < options.length; i++) {
+//             const option = options[i];
+//             const optionValue = option.value.trim().toLowerCase();
+//
+//             if (optionValue.indexOf(value) !== -1) {
+//                 option.style.display = "";
+//             } else {
+//                 option.style.display = "none";
+//             }
+//         }
+//     });
+//
+//     input.addEventListener("blur", function() {
+//         const value = input.value.trim().toLowerCase();
+//
+//         for (let i = 0; i < options.length; i++) {
+//             const option = options[i];
+//             const optionValue = option.value.trim().toLowerCase();
+//
+//             if (optionValue === value) {
+//                 select.value = optionValue;
+//                 break;
+//             }
+//         }
+//
+//         input.value = "";
+//     });
+// })();

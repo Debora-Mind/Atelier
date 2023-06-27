@@ -307,18 +307,6 @@ class GeraXMLPOST extends BaseController
             'status_id' => 2]);
     }
 
-    public function gerarXML()
-    {
-        try {
-            $XML = $this->nfe->getXML();
-            return $XML;
-        } catch (Exception $e) {
-            echo "Ocorreu um erro: " . $e->getMessage();
-            var_dump($this->nfe->getErrors());
-            exit();
-        }
-    }
-
     public function gerarPasta($chave, $XML, NFeModel $model)
     {
         $ano = date('Y');
@@ -460,12 +448,19 @@ class GeraXMLPOST extends BaseController
         $this->transporte();
         $this->fatura($model);
 
-        $XML = $this->gerarXML();
+        try {
+            $xml = $this->nfe->getXML();
+
+        } catch (Exception $e) {
+            $this->session->setFlashdata('erro', $this->nfe->getErrors());
+            return redirect()->to('/notas');
+        }
+
         $chave = $this->nfe->getChave();
         $erros = $this->nfe->getErrors();
         $modelo = $this->nfe->getModelo();
 
-        $this->gerarPasta($chave, $XML, $model);
+        $this->gerarPasta($chave, $xml, $model);
         $response_assinado = $this->assinar($chave);
         $recibo = $this->protocolar($response_assinado);
         $response = $this->verificarRecibo($recibo);
