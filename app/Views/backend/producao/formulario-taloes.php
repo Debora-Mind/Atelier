@@ -19,11 +19,13 @@
                             <div class="col-sm-2 form-group">
                                 <label for="id_produto" class="col-form-label-sm">Referência</label>
                                 <div class="input-group">
-                                    <input type="number"
-                                           name="id_produto"
-                                           id="id_produto"
+                                    <input type="hidden" name="id_produto" id="id_produto">
+                                    <input type="text"
+                                           name="xProd"
+                                           id="xProd"
+                                           autocomplete="off"
                                            value="<?= $talao['id_produto'] ?? ''?>"
-                                           class="form-control">
+                                           class="form-control autocomplete-input">
                                 </div>
                                 <small class="text-danger position-absolute">
                                     <?= \Config\Services::validation()->getError('id_produto') ?>
@@ -39,7 +41,7 @@
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
-                                    <?= \Config\Services::validation()->getError('id_produto') ?>
+                                    <?= \Config\Services::validation()->getError('num_producao') ?>
                                 </small>
                             </div>
                         </div>
@@ -160,3 +162,26 @@
         </form>
     </div>
 </div>
+
+<script>
+    var produtos = <?= json_encode($produtos) ?>;
+    var inputField = $('.autocomplete-input');
+    var productIdField = $('#id_produto');
+
+    inputField.autocomplete({
+        source: produtos.map(function(product) {
+            return product.xProd;
+        }),
+        select: function(event, ui) {
+            var selectedProduct = produtos.find(function(product) {
+                return product.xProd === ui.item.value;
+            });
+
+            if (selectedProduct) {
+                inputField.val(selectedProduct.xProd);
+                productIdField.val(selectedProduct.id);
+                inputField.trigger('change');
+            }
+        }
+    });
+</script>

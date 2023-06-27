@@ -3,6 +3,7 @@
 namespace App\Controllers\Producao;
 
 use App\Controllers\BaseController;
+use App\Models\EmpresasModel;
 use App\Models\ProdutosModel;
 use App\Models\TaloesModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
@@ -17,14 +18,18 @@ class Taloes extends BaseController
     public function listar()
     {
         $model = new TaloesModel();
-        $diasWarning = json_decode(session()->get('empresa')['configuracoes'], true)[1][1];
-        $diasDanger = json_decode(session()->get('empresa')['configuracoes'], true)[2][1];
+        $empresaModel = new EmpresasModel;
+        $empresa = $empresaModel->getEmpresas(session()->get('empresa')['id']);
+        $diasWarning = json_decode($empresa['configuracoes'], true)[1][1];
+        $diasDanger = json_decode($empresa['configuracoes'], true)[2][1];
 
         $data = [
             'title' => 'Talões',
             'taloes' => $model
                 ->select('taloes.id as id, p.img as img, p.pdf as pdf, taloes.*, p.xProd as descricao_produto')
                 ->join('produtos p', 'taloes.id_produto = p.id')
+                ->orderBy('data_saida', 'ASC')
+                ->orderBy('data_entrada', 'ASC')
                 ->paginate(7),
             'diasWarning' => $diasWarning,
             'diasDanger' => $diasDanger,
@@ -58,10 +63,12 @@ class Taloes extends BaseController
 
         $model = new TaloesModel();
         $talao = $model->getTaloes($id);
+        $produtos = new ProdutosModel();
 
         $data = [
             'title' => 'Cadastrar Talão',
             'talao' => $talao,
+            'produtos' => $produtos->getProdutos(),
             'msg' => []
         ];
 
@@ -71,6 +78,7 @@ class Taloes extends BaseController
     public function gravar()
     {
         $model = new TaloesModel();
+        $produtos = new ProdutosModel();
         $vars = $this->request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         helper('form');
@@ -100,6 +108,7 @@ class Taloes extends BaseController
             $data = [
                 'title' => 'Talões',
                 'talao' => $vars,
+                'produtos' => $produtos->getProdutos(),
                 'msg' => [
                     'mensagem'   => 'Erro ao salvar o talão!',
                     'tipo'      => 'danger'

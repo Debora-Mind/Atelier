@@ -11097,3 +11097,49 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="radio"] {
   display: none;
 }
+
+
+/* AUTOCOMPLETE */
+.ui-autocomplete {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 9999;
+  float: left;
+  display: none;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #2d2e33;
+  border: 1px solid #0d6efd;
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.ui-autocomplete li {
+  padding: 3px 20px;
+  cursor: pointer;
+  background-color: #2d2e33;
+  color: var(--secondary);
+}
+
+.ui-autocomplete li:hover{
+  color: #0d6efd;
+  padding: 3px 20px;
+  cursor: pointer;
+  background-color: #3b3b3d;
+}
+
+.ui-autocomplete .ui-menu-item.ui-state-active,
+.ui-autocomplete .ui-menu-item-wrapper.ui-state-active{
+  padding: 0 20px;
+  cursor: pointer;
+  color: #0d6efd;
+  background-color: #3b3b3d;
+  width: calc(100% + 40px) !important;
+  margin-left: -20px !important;
+  margin-right: -20px !important;
+}
