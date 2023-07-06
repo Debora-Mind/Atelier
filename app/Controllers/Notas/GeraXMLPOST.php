@@ -15,18 +15,19 @@ use NFePHP\NFe\Complements;
 use NFePHP\NFe\Make;
 use NFePHP\NFe\Tools;
 use stdClass;
+use function Amp\Iterator\toArray;
 
 class GeraXMLPOST extends BaseController
 {
 
-    private $nota;
-    private $empresa;
-    private $cliente;
-    private $nfe;
-    private $stdICMSTot;
+    private array $nota;
+    private array $empresa;
+    private array $cliente;
+    private Make $nfe;
+    private stdClass $stdICMSTot;
     private stdClass $stdProd;
-    private $stdIde;
-    private $tools;
+    private stdClass $stdIde;
+    private Tools $tools;
 
     public function store()
     {
@@ -91,21 +92,21 @@ class GeraXMLPOST extends BaseController
         $this->stdIde->cUF = $this->empresa['cUF'];
         $this->stdIde->cNF = rand(11111111, 99999999);
 
-        $this->stdIde->natOp = $naturezaOperacao['descricao'];  //TRANSFORMAR EM FK
+        $this->stdIde->natOp = 'VENDA'; //$naturezaOperacao['descricao'];  //TRANSFORMAR EM FK
         $this->stdIde->mod = 55; //Modelo do Documento Fiscal
         $this->stdIde->serie = $this->nota['ide_serie']; //verificar como trazer esses n[umero da sefaz
         $this->stdIde->nNF = $this->nota['numero_nfe']; //Código Numérico que compõe a Chave de Acesso
         $this->stdIde->dhEmi = date('Y-m-d') . 'T' . date('H:i:s') . '-03:00';
         $std->dhSaiEnt = date('Y-m-d') . 'T' . date('H:i:s') . '-03:00';
         $this->stdIde->tpNF = 1;
-        $this->stdIde->idDest = 1;
+        $this->stdIde->idDest = 1; // 1 - estadual, 2 - nacional, 3 - exterior
         $this->stdIde->cMunFG = $this->empresa['codMun']; //Código do Município dO ibge
         $this->stdIde->tpImp = 1;
         $this->stdIde->tpEmis = 1; //Número do Documento Fiscal
         $this->stdIde->cDV = 2; //Dígito Verificador da Chave de Acesso
         $this->stdIde->tpAmb = 2; //$empresa['ambiente']; // 1 - Produção, 2 - Homologação
         $this->stdIde->finNFe = 1; //Se NF-e complementar (finNFe=2):– Não informado NF referenciada (NF modelo 1 ou NF-e)
-        $this->stdIde->indFinal = 1;
+        $this->stdIde->indFinal = 0; // 0 - consumidor normal, 1 - consumidor final
         $this->stdIde->indPres = 0;
         $this->stdIde->indIntermed = null;
         $this->stdIde->procEmi = 0;
@@ -154,7 +155,7 @@ class GeraXMLPOST extends BaseController
     {
         $stdDest = new stdClass();
         $stdDest->xNome = $this->cliente['nome_razao_social'];
-        $stdDest->indIEDest = 9;
+        $stdDest->indIEDest = 1; // 9 - Não contribuente
         $stdDest->IE = $this->cliente['rg_ie'];
         $stdDest->ISUF = '';
         $stdDest->IM = $this->cliente['inscr_munic'];
@@ -211,23 +212,65 @@ class GeraXMLPOST extends BaseController
             $this->stdProd->vUnTrib = number_format($this->stdProd->vUnCom, 2, '.', '');
             $this->stdProd->vProd = $this->stdProd->qTrib * $this->stdProd->vUnTrib;
             $this->stdProd->indTot = 1;//$item['prod_indTot'];
-            $tagprod = $this->nfe->tagprod($this->stdProd);
+            $this->nfe->tagprod($this->stdProd);
 
             /** TRIBUTOS */
             $stdimposto = new stdClass();
-            $stdimposto->item = $item['prod_item'];
+            $stdimposto->item = 1; //$item['prod_item'];
             $stdimposto->vTotTrib = $item['prod_qTrib'] * $item['prod_vUnTrib'];
-            $tagimposto = $this->nfe->tagimposto($stdimposto);
+            $this->nfe->tagimposto($stdimposto);
 
             $stdICMS = new stdClass();
-            $stdICMS->item = 1; //item da Notas
-            $stdICMS->orig = 0;
-            $stdICMS->CST = '00'; //1;
-            $stdICMS->modBC = 1;
-            $stdICMS->vBC = 0.0;
-            $stdICMS->pICMS = 0.0;
-            $stdICMS->vICMS = 0.0;
-            $ICMS = $this->nfe->tagICMS($stdICMS);
+//            $stdICMS->item = 1; //item da Notas
+//            $stdICMS->orig = 8;
+//            $stdICMS->CST = '00'; //1 estudar diferentes tipos de cst. 00, 02, 10, 20 etc;
+//            $stdICMS->CSOSN = '300'; //Quando optante pelo Simples Nacional
+//            $stdICMS->modBC = 3;
+//            $stdICMS->vBC = 1000.0;
+//            $stdICMS->pICMS = 18.0;
+//            $stdICMS->vICMS = 180.0;
+//            $stdICMS->pFCP = 10;
+//            $stdICMS->vFCP = 10;
+
+            //SIMPLES NACIONAL
+            $std = new stdClass();
+            $std->item = $item['prod_item']; //item da NFe
+            $std->orig = 0;
+            $std->CSOSN = '101';
+            $std->pCredSN = 2.00;
+            $std->vCredICMSSN = 20.00;
+            $std->modBCST = null;
+            $std->pMVAST = null;
+            $std->pRedBCST = null;
+            $std->vBCST = null;
+            $std->pICMSST = null;
+            $std->vICMSST = null;
+            $std->vBCFCPST = null; //incluso no layout 4.00
+            $std->pFCPST = null; //incluso no layout 4.00
+            $std->vFCPST = null; //incluso no layout 4.00
+            $std->vBCSTRet = null;
+            $std->pST = null;
+            $std->vICMSSTRet = null;
+            $std->vBCFCPSTRet = null; //incluso no layout 4.00
+            $std->pFCPSTRet = null; //incluso no layout 4.00
+            $std->vFCPSTRet = null; //incluso no layout 4.00
+            $std->modBC = null;
+            $std->vBC = null;
+            $std->pRedBC = null;
+            $std->pICMS = null;
+            $std->vICMS = null;
+            $std->pRedBCEfet = null;
+            $std->vBCEfet = null;
+            $std->pICMSEfet = null;
+            $std->vICMSEfet = null;
+            $std->vICMSSubstituto = null;
+
+            $this->nfe->tagICMSSN($std);
+
+            //SIMPLES NACIONAL
+
+
+//            $ICMS = $this->nfe->tagICMS($stdICMS);
 
             $stdPIS = new stdClass();
             $stdPIS->item = $item['prod_item']; //item da Notas
@@ -235,16 +278,16 @@ class GeraXMLPOST extends BaseController
             $stdPIS->vBC = $item['pis_vBC'];
             $stdPIS->pPIS = $item['pis_pPIS'];
             $stdPIS->vPIS = $item['pis_vPIS'];
-            $stdPIS->PISQtde = 1;
-            $pis = $this->nfe->tagPIS($stdPIS);
+            $stdPIS->PISQtde = 0;
+            $this->nfe->tagPIS($stdPIS);
 
             $stdCOFINS = new stdClass();
-            $stdCOFINS->item = $item['prod_item']; //item da Notas
+            $stdCOFINS->item = 1; //$item['prod_item']; //item da Notas
             $stdCOFINS->CST = '99';//$item['cofins_CST'];
-            $stdCOFINS->vBC = $item['cofins_vBC'];
-            $stdCOFINS->pCOFINS = $item['cofins_pCOFINS'];
-            $stdCOFINS->vCOFINS = $item['cofins_vCOFINS'];
-            $COFINS = $this->nfe->tagCOFINS($stdCOFINS);
+            $stdCOFINS->vBC = 0.0; //$item['cofins_vBC'];
+            $stdCOFINS->pCOFINS = 0.0; //$item['cofins_pCOFINS'];
+            $stdCOFINS->vCOFINS = 0.0; //$item['cofins_vCOFINS'];
+            $this->nfe->tagCOFINS($stdCOFINS);
 
 //            $vBCTotal += ($item['icms_vBC'] + $item['pis_vBC'] + $item['cofins_vBC']);
 //            $vICMSTotal += $item['icms_vICMS'];
@@ -261,7 +304,7 @@ class GeraXMLPOST extends BaseController
         $this->stdICMSTot->vCOFINS = 0.0; // $vCOFINSTotal;
         $this->stdICMSTot->vNF = number_format($this->stdProd->vProd, 2, '.', '');
         $this->stdICMSTot->vTotTrib = 0.0; // $vTotTrib;
-        $ICMSTot = $this->nfe->tagICMSTot($this->stdICMSTot);
+        $this->nfe->tagICMSTot($this->stdICMSTot);
 
     }
 
@@ -452,7 +495,7 @@ class GeraXMLPOST extends BaseController
             $xml = $this->nfe->getXML();
 
         } catch (Exception $e) {
-            $this->session->setFlashdata('erro', $this->nfe->getErrors());
+            session()->setFlashdata('erro', $this->nfe->getErrors());
             return redirect()->to('/notas');
         }
 
@@ -461,7 +504,16 @@ class GeraXMLPOST extends BaseController
         $modelo = $this->nfe->getModelo();
 
         $this->gerarPasta($chave, $xml, $model);
-        $response_assinado = $this->assinar($chave);
+
+        try {
+            $response_assinado = $this->assinar($chave);
+
+        } catch (Exception $e) {
+            session()->setFlashdata('erro', explode(PHP_EOL, $e->getMessage()));
+            return redirect()->to('/notas');
+        }
+
+
         $recibo = $this->protocolar($response_assinado);
         $response = $this->verificarRecibo($recibo);
         $request = $response_assinado;
@@ -514,8 +566,9 @@ class GeraXMLPOST extends BaseController
 
         } catch (Exception $e) {
             //reporta erro na autorização
-            echo "Erro: " . $e->getMessage();
-            exit();
+//            var_dump(session()-);
+            session()->setFlashdata('erro', explode(PHP_EOL, $e->getMessage()));
+            return redirect()->to('/notas');
         }
 
         return redirect('notas');

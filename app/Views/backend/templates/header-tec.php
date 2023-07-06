@@ -17,9 +17,15 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('admin') ?>">
+            <a class="nav-link collapse py-sm-1" href="<?= base_url('admin') ?>">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Painel Geral</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapse py-sm-1" href="<?= base_url('teste') ?>">
+                <i class="fas fa-cog fa-gears"></i>
+                <span>Teste</span></a>
         </li>
 
         <!-- Divider -->

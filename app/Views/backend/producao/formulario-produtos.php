@@ -111,6 +111,7 @@
                                            id="cProd"
                                            name="cProd"
                                            value="<?= $produto['cProd'] ?? ''?>"
+                                           required
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
@@ -154,6 +155,7 @@
                                            name="cEAN"
                                            id="cEAN"
                                            value="<?= $produto['cEAN'] ?? ''?>"
+                                           required
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
@@ -514,6 +516,7 @@
                                            id="uCom_Entrada"
                                            name="uCom_Entrada"
                                            value="<?= $produto['uCom_Entrada'] ?? ''?>"
+                                           required
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">
@@ -540,6 +543,7 @@
                                            id="uTrib"
                                            name="uTrib"
                                            value="<?= $produto['uTrib'] ?? ''?>"
+                                           required
                                            class="form-control">
                                 </div>
                                 <small class="text-danger position-absolute">

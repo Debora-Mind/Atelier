@@ -109,6 +109,9 @@
                                 <option value="imprimir" data-url="<?= base_url('notas/imprimir?id=' . $nfe['id']) ?>">
                                     <i class="fa fa-server"></i> Imprimir
                                 </option>
+                                <option value="enviar-email" data-url="<?= base_url('notas/enviar-email?id=' . $nfe['id']) ?>">
+                                    <i class="fa fa-mail-reply"></i> Enviar E-mail
+                                </option>
                                 <option href="<?= base_url('notas/transmitir') ?>">
                                     <i class="fa fa-server"></i> Nota de correção
                                 </option>

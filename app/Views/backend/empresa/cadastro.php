@@ -12,7 +12,10 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#aba3">NFe</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#aba4">Configurações</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#aba4">E-mail</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#aba5">Configurações</a>
                 </li>
             </ul>
         </div>
@@ -256,8 +259,68 @@
                             </div>
                         </div>
                     </div>
+                    <!--  E-mail  -->
+                    <div id="aba4" class="tab-pane fade m-4">
+                        <div class="row">
+                            <div class="col col-sm-2 form-group">
+                                <label for="host" class="col-form-label-sm">Host</label>
+                                <input type="text"
+                                       id="host"
+                                       name="host"
+                                       class="form-control"
+                                       value="<?= $empresas['host'] ?? '' ?>">
+                                <small class="text-danger position-absolute">
+                                    <?= \Config\Services::validation()->getError('host') ?>
+                                </small>
+                            </div>
+                            <div class="col col-sm-2 form-group">
+                                <label for="user" class="col-form-label-sm">E-mail</label>
+                                <input type="text"
+                                       id="user"
+                                       name="user"
+                                       class="form-control"
+                                       value="<?= $empresas['user'] ?? '' ?>">
+                                <small class="text-danger position-absolute">
+                                    <?= \Config\Services::validation()->getError('user') ?>
+                                </small>
+                            </div>
+                            <div class="col col-sm-2 form-group">
+                                <label for="password" class="col-form-label-sm">Senha</label>
+                                <input type="text"
+                                       id="password"
+                                       name="password"
+                                       class="form-control"
+                                       value="<?= $empresas['password'] ?? '' ?>">
+                                <small class="text-danger position-absolute">
+                                    <?= \Config\Services::validation()->getError('password') ?>
+                                </small>
+                            </div>
+                            <div class="col col-sm-2 form-group">
+                                <label for="secure" class="col-form-label-sm">Segurança</label>
+                                <input type="text"
+                                       id="secure"
+                                       name="secure"
+                                       class="form-control"
+                                       value="<?= $empresas['secure'] ?? '' ?>">
+                                <small class="text-danger position-absolute">
+                                    <?= \Config\Services::validation()->getError('secure') ?>
+                                </small>
+                            </div>
+                            <div class="col col-sm-2 form-group">
+                                <label for="port" class="col-form-label-sm">Porta</label>
+                                <input type="text"
+                                       id="port"
+                                       name="port"
+                                       class="form-control"
+                                       value="<?= $empresas['port'] ?? '' ?>">
+                                <small class="text-danger position-absolute">
+                                    <?= \Config\Services::validation()->getError('port') ?>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                     <!--  Configurações  -->
-                    <div id="aba4" class="tab-pane fade m-3">
+                    <div id="aba5" class="tab-pane fade m-4">
                         <div class="row">
                             <div class="col col-sm-4 form-group">
                                 <label class="col-form-label-sm" for="ambiente">Ambiente</label>
