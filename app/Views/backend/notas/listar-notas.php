@@ -89,7 +89,7 @@
                         <th>
                             <select name="acoes" onchange="redirect(this)">
                                 <option value="" selected disabled>
-                                    <i class="fa fa-cog"></i> Ações
+                                    <i class="fas fa-fw fa-check"></i> Ações da NF-e
                                 </option>
                                 <?php if ($nfe['status_id'] == 1): ?>
                                 <option data-url="<?= base_url('notas/cadastrar?id=' . $nfe['id']) ?>">
@@ -103,17 +103,17 @@
                                     <i class="fa fa-server"></i> Transmitir
                                 </option>
                                 <?php elseif ($nfe['status_id'] == 5): ?>
-                                <option href="<?= base_url('notas/transmitir') ?>">
-                                    <i class="fa fa-server"></i> Baixar XML
-                                </option>
                                 <option value="imprimir" data-url="<?= base_url('notas/imprimir?id=' . $nfe['id']) ?>">
-                                    <i class="fa fa-server"></i> Imprimir
+                                    <i class="fa fa-server"></i> Danfe
                                 </option>
+                                    <option href="<?= base_url('notas/transmitir') ?>">
+                                        <i class="fa fa-server"></i> Consulta
+                                    </option>
                                 <option value="enviar-email" data-url="<?= base_url('notas/enviar-email?id=' . $nfe['id']) ?>">
                                     <i class="fa fa-mail-reply"></i> Enviar E-mail
                                 </option>
                                 <option href="<?= base_url('notas/transmitir') ?>">
-                                    <i class="fa fa-server"></i> Nota de correção
+                                    <i class="fa fa-server"></i> Carta de correção
                                 </option>
                                 <option href="<?= base_url('notas/transmitir') ?>">
                                     <i class="fa fa-server"></i> Cancelar

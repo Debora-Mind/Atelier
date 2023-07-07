@@ -17,7 +17,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link collapse py-sm-1" href="<?= base_url('admin') ?>">
+            <a class="nav-link collapse py-sm-1" href="<?= base_url('painel') ?>">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Painel Geral</span></a>
         </li>
