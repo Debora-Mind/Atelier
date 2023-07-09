@@ -93,6 +93,7 @@ class Taloes extends BaseController
                 'label' => 'Data de Entrada',
                 'rules' => 'required'],
         ])) {
+            $vars['id_empresa'] = session()->get('empresa')['id'];
             $model->save($vars);
             $data = [
                 'title' => 'Talões',

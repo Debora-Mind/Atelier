@@ -4,18 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TaloesModel extends Model
+class MetasModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'taloes';
+    protected $table            = 'metas';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['num_producao', 'sublote', 'quantidade', 'semana', 'codigo_barras', 'data_entrada',
-    'data_saida', 'nota_fiscal', 'id_produto', 'id_empresa'];
+    protected $allowedFields    = ['meta', 'id_produto', 'data', 'empresa_id'];
 
     // Dates
     protected $useTimestamps = true;
@@ -41,7 +40,7 @@ class TaloesModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getTaloes($id = false)
+    public function getMetas($id = false)
     {
         if (!$id) {
             return $this->findAll();

@@ -7,7 +7,7 @@
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('sistema') ?>">
             <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+                <i class="fas fa-cog fa-gears"></i>
             </div>
             <div class="sidebar-brand-text mx-3">TÉCNICO<sup>1.0.0</sup></div>
         </a>
@@ -79,7 +79,7 @@
             <div id="collapseProducao" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item py-sm-1" href="utilities-color.html">Visão Geral</a>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('producao/metas') ?>">Metas</a>
                     <a class="collapse-item py-sm-1" href="<?= base_url('producao/taloes') ?>">Entrada de Talão</a>
                     <a class="collapse-item py-sm-1" href="utilities-border.html">Saída de Talão</a>
                     <a class="collapse-item py-sm-1" href="<?= base_url('producao/produtos') ?>">Produtos</a>

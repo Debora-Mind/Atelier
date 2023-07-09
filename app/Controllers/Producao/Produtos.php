@@ -17,7 +17,7 @@ class Produtos extends BaseController
         $model = new ProdutosModel();
 
         $data = [
-            'title' => 'Notas Fiscais',
+            'title' => 'Produtos',
             'produtos' => $model->paginate(10),
             'pager' => $model->pager,
             'msg' => ''

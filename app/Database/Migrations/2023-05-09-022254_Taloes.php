@@ -54,6 +54,11 @@ class Taloes extends Migration
                 'unsigned'      => true,
                 'null'          => true,
             ],
+            'id_empresa' => [
+                'type'          => 'INT',
+                'unsigned'      => true,
+                'null'          => true,
+            ],
             'created_at'         => [
                 'type'           => 'DATETIME',
                 'null'           => TRUE
@@ -72,6 +77,10 @@ class Taloes extends Migration
         $this->forge->addForeignKey(
             'id_produto',
             'produtos',
+            'id');
+        $this->forge->addForeignKey(
+            'id_empresa',
+            'empresas',
             'id');
 
         $this->forge->createTable('taloes', true);

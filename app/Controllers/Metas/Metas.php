@@ -1,37 +1,60 @@
 <?php
 
-namespace App\Controllers\Painel;
+namespace App\Controllers\Metas;
 
 use App\Controllers\BaseController;
 use App\Models\ClientesModel;
 use App\Models\ConfiguracoesModel;
 use App\Models\EmpresasModel;
+use App\Models\MetasModel;
 use App\Models\MunicipiosModel;
+use App\Models\ProdutosModel;
+use App\Models\TaloesModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
-class Dashboard extends BaseController
+class Metas extends BaseController
 {
     public function index()
     {
         $empresa = new EmpresasModel();
         $empresa = $empresa->getEmpresas(session()->get('empresa')['id']);
-        $modelMunicipios = new MunicipiosModel();
-        $configuracoes = new ConfiguracoesModel();
         $empresa['configuracoes'] = json_decode($empresa['configuracoes'], true);
+        $metas = new MetasModel();
+        $datas = $metas->where('empresa_id', session()->get('empresa')['id'])
+            ->like('data', '-' . date('m') . '-')
+            ->select('data')
+            ->distinct('data')
+            ->orderBy('data')
+            ->getMetas();
+
+        $metas = $metas->where('empresa_id', session()->get('empresa')['id']);
+        $produtos = new ProdutosModel();
+
+        $taloes = new TaloesModel();
+        $taloes = $taloes->where('id_empresa', session()->get('empresa')['id']);
+//var_dump($metas->selectSum('meta')->where('data', '2023-04-25')->getMetas()); exit();
+        //        $dados['dias'] = $metas->select('data')->distinct('data')->orderBy('data')->getMetas();
+//        $dias = [];
+//        foreach ($dados['dias'] as $dia) {
+//            $dias[] = substr($dia['data'], -2);
+//        }
+
 
         helper('session');
         $data = [
-            'title' => 'Painel',
+            'title' => 'Metas',
+            'produtos' => $produtos->getProdutos(),
             'empresas' => $empresa,
-            'municipios' => $modelMunicipios->getMunicipios(),
-            'configuracoes' => $configuracoes->getConfiguracoes(),
+            'metas' => $metas,
+            'datas' => $datas,
+            'taloes' => $taloes,
             'msg' => []
         ];
 
-        $this->exibir($data, 'graficos');
+        $this->exibir($data, 'metas');
     }
 
-    public function exibir($data, $pagina)
+    public function exibir($data, $pagina = '')
     {
         $tipo = session('usuario')['tipo'];
 
@@ -41,75 +64,53 @@ class Dashboard extends BaseController
         else:
             echo view('backend/templates/header', $data);
         endif;
-        echo view('backend/painel/' . $pagina, $data);
+        echo view('backend/producao/' . $pagina, $data);
         echo view('backend/templates/footer');
         echo view('backend/templates/html-footer');
     }
 
     public function gravar()
     {
-        $model = new EmpresasModel();
-        $modelMunicipios = new MunicipiosModel();
-        $modelConfiguracoes = new ConfiguracoesModel();
-        $configuracoes = $modelConfiguracoes->getConfiguracoes();
+        $metas = new MetasModel();
 
         helper('form');
+        $vars = $this->request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if ($this->validate([
-            'nome_fantasia' => [
-                'label' => 'Nome Fantasia',
-                'rules' => 'required|min_length[3]'
-            ]
+            'meta' => [
+                'label' => 'Meta',
+                'rules' => 'required'
+            ],
+            'id_produto' => [
+                'label' => 'Modelo',
+                'rules' => 'required'
+            ],
+            'data' => [
+                'label' => 'Data',
+                'rules' => 'required'
+            ],
         ])) {
-            $vars = $this->request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $vars['codMun'] = $modelMunicipios->getMunicipiosDescricao($vars['municipio'])['ibge'];
+            $vars['empresa_id'] = session()->get('empresa')['id'];
 
-            $configuracoesData = [];
+            $vars['id'] = $metas->where('id_produto', $vars['id_produto'])
+                ->where('empresa_id', $vars['empresa_id'])
+                ->where('data', $vars['data'])
+                ->getMetas()[0]['id'] ?? '';
 
-            foreach ($configuracoes as $configuracao) {
-                $configuracoesData[$configuracao['id']] = [
-                    $vars['switch'][$configuracao['id']],
-                    $vars['numero'][$configuracao['id']]
-                ];
-            }
-
-            $configuracoesJson = json_encode($configuracoesData);
-            $vars['configuracoes'] = $configuracoesJson;
-
-            unset($vars['switch']);
-            unset($vars['numero']);
-
-            $model->save($vars);
-
-
-            $img = $this->request->getFile('logomarca');
-            $certificado = $this->request->getFile('certificado_a3');
-
-            $vars = $this->validarObjeto($vars, $img, $certificado);
-
-            // Salvar os outros dados da empresa
-            $model->save($vars);
-
-            $data = [
-                'title' => 'Empresa',
-                'empresas' => session()->get('empresa'),
-                'msg' => [
-                    'mensagem' => 'Empresa atualizada!',
-                    'tipo' => 'success'
-                ],
+            $metas->save($vars);
+            $msg = [
+                'mensagem'   => 'Meta salva com sucesso!',
+                'tipo'      => 'success'
             ];
+
         } else {
-            $data = [
-                'title' => 'Empresa',
-                'empresas' => session()->get('empresa'),
-                'msg' => [
-                    'mensagem' => 'Erro ao atualizar empresa!',
-                    'tipo' => 'danger'
-                ],
+            $msg = [
+                'mensagem'   => 'Erro ao salvar meta',
+                'tipo'      => 'danger'
             ];
         }
 
-        return redirect('sistema');
+        return redirect('producao/metas')->with('msg', $msg);
     }
 
     public function excluir($id = null)

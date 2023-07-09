@@ -24,7 +24,7 @@
                                            name="xProd"
                                            id="xProd"
                                            autocomplete="off"
-                                           value="<?= $talao['id_produto'] ?? ''?>"
+                                           value="<?= $produtos[$talao['id_produto']]['xProd'] ?? ''?>"
                                            class="form-control autocomplete-input">
                                 </div>
                                 <small class="text-danger position-absolute">

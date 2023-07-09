@@ -77,7 +77,7 @@
                     <tr>
                         <input type="hidden" name="id" id="id" value="<?= $produto['id'] ?>">
                         <td><?= $produto['id']; ?></td>
-                        <td><?= $produto['cod_fabrica']; ?></td>
+                        <td><?= $produto['xProd']; ?></td>
                         <td><?= $produto['uCom_Saida']?></td>
                         <td><?= $produto['valor']?></td>
                         <td>
