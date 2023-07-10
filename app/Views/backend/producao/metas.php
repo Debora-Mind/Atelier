@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group mt-sm-4">
                         <button class="btn-sm btn-light mx-sm-3 border-primary" type="submit">
-                            <i class="bi bi-pencil bi-align-middle"></i> Alterar
+                            <i class="bi bi-pencil-fill bi-align-middle"></i> Alterar
                         </button>
                     </div>
                 </div>
@@ -60,9 +60,11 @@
             </div>
         </form>
     </div>
-    <div class="row mt-5 px-3">
+    <div class="row mt-4">
         <?php include __DIR__ . '/../painel/graficos/performace-producao.php' ?>
-        <div class="col-12 w-auto" id="chart_div" style="height: 18rem"></div>
+        <div class="col-8 w-auto" id="chart_div" style="height: 18rem"></div>
+        <?php include __DIR__ . '/../painel/graficos/meta-atingida.php' ?>
+        <div class="col-4 w-auto" id="donutchart"></div>
     </div>
 </div>
 <!-- /.container-fluid -->

@@ -175,4 +175,17 @@ class Taloes extends BaseController
             exit();
         }
     }
+
+    public function saida()
+    {
+        $model = new TaloesModel();
+        $id = $this->request->getVar('id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $talao = $model->getTaloes($id);
+        $talao['data_saida'] = date('Y-m-d H:i');
+
+        $model->save($talao);
+
+        return redirect()->to('producao/taloes');
+    }
 }

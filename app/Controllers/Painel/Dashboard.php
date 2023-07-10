@@ -6,7 +6,9 @@ use App\Controllers\BaseController;
 use App\Models\ClientesModel;
 use App\Models\ConfiguracoesModel;
 use App\Models\EmpresasModel;
+use App\Models\MetasModel;
 use App\Models\MunicipiosModel;
+use App\Models\TaloesModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Dashboard extends BaseController
@@ -15,16 +17,26 @@ class Dashboard extends BaseController
     {
         $empresa = new EmpresasModel();
         $empresa = $empresa->getEmpresas(session()->get('empresa')['id']);
-        $modelMunicipios = new MunicipiosModel();
-        $configuracoes = new ConfiguracoesModel();
         $empresa['configuracoes'] = json_decode($empresa['configuracoes'], true);
+        $taloes = new TaloesModel();
+        $taloes = $taloes->where('id_empresa', session()->get('empresa')['id']);
+        $metas = new MetasModel();
+        $metas = $metas->where('empresa_id', session()->get('empresa')['id']);
+        $datas = $metas->where('empresa_id', session()->get('empresa')['id'])
+            ->like('data', '-' . date('m') . '-')
+            ->select('data')
+            ->distinct('data')
+            ->orderBy('data')
+            ->getMetas();
+
 
         helper('session');
         $data = [
             'title' => 'Painel',
             'empresas' => $empresa,
-            'municipios' => $modelMunicipios->getMunicipios(),
-            'configuracoes' => $configuracoes->getConfiguracoes(),
+            'taloes' => $taloes,
+            'metas' => $metas,
+            'datas' => $datas,
             'msg' => []
         ];
 

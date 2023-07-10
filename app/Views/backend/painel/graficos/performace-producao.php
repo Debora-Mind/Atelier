@@ -6,18 +6,18 @@
 
         function drawTrendlines() {
             var data = new google.visualization.DataTable();
-            data.addColumn('number', '<?= date('M') ?>');
+            data.addColumn('number', 'Dia');
             data.addColumn('number', 'Meta');
             data.addColumn('number', 'Resultado');
 
             data.addRows([
-                <?php $i = 0; foreach ($datas as $data):?>
+                <?php $i = 0; foreach ($datas ?? [] as $data):?>
                 [
-                    <?= substr($data['data'], -2) ?>,
+                    <?= substr($data['data'], -2) ?? 0 ?>,
                     <?= $metas->selectSum('meta')
                         ->where('data', $data['data'])
                         ->like('data', '-' . date('m') . '-')
-                        ->getMetas()[0]['meta']?>,
+                        ->getMetas()[0]['meta'] ?? 0?>,
                     <?= $taloes->selectSum('quantidade')
                         ->like('data_saida', $data['data'])
                         ->getTaloes()[0]['quantidade'] ?? 0 ?>] ,
@@ -29,6 +29,9 @@
                 title: 'Performace de Produção',
                 backgroundColor: {
                     fill: 'none'
+                },
+                legend: {
+                    position: 'bottom'
                 },
                 chartArea: {
                     backgroundColor: 'none',
@@ -43,17 +46,19 @@
                     title: '<?= ucfirst(strftime('%B'));?>',
                     format: '',
                     gridLines: {
-                        multiple: 1
-                    }
+                        multiple: 10,
+                        interval: [1],
+                    },
                 },
                 vAxis: {
                     title: 'Quantidade',
                     format: '',
                     gridLines: {
-                        multiple: 100,
-
+                        multiple: 10,
+                        interval: [1],
                     }
-                }
+                },
+
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));

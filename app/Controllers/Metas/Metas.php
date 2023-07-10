@@ -32,13 +32,6 @@ class Metas extends BaseController
 
         $taloes = new TaloesModel();
         $taloes = $taloes->where('id_empresa', session()->get('empresa')['id']);
-//var_dump($metas->selectSum('meta')->where('data', '2023-04-25')->getMetas()); exit();
-        //        $dados['dias'] = $metas->select('data')->distinct('data')->orderBy('data')->getMetas();
-//        $dias = [];
-//        foreach ($dados['dias'] as $dia) {
-//            $dias[] = substr($dia['data'], -2);
-//        }
-
 
         helper('session');
         $data = [
