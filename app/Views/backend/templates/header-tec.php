@@ -81,7 +81,7 @@
                     <h6 class="collapse-header">Custom Components:</h6>
                     <a class="collapse-item py-sm-1" href="<?= base_url('producao/metas') ?>">Metas</a>
                     <a class="collapse-item py-sm-1" href="<?= base_url('producao/taloes') ?>">Entrada de Talão</a>
-                    <a class="collapse-item py-sm-1" href="utilities-border.html">Saída de Talão</a>
+                    <a class="collapse-item py-sm-1" href="<?= base_url('producao/taloes/saida') ?>">Saída de Talão</a>
                     <a class="collapse-item py-sm-1" href="<?= base_url('producao/produtos') ?>">Produtos</a>
                     <a class="collapse-item py-sm-1" href="utilities-border.html">Montar Layout</a>
                     <a class="collapse-item py-sm-1" href="utilities-other.html">Relatórios</a>

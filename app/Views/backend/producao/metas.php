@@ -17,7 +17,7 @@
                                    name="xProd"
                                    id="xProd"
                                    autocomplete="off"
-                                   value="Todos"
+                                   placeholder="Todos"
                                    class="form-control autocomplete-input">
                         </div>
                         <small class="text-danger position-absolute">
@@ -33,8 +33,7 @@
                     </div>
                     <div class="col-2">
                         <label for="meta">Meta</label>
-                        <input type="number" name="meta" id="meta" class="form-control"
-                        value="0">
+                        <input type="number" name="meta" id="meta" class="form-control">
                         <small class="text-danger position-absolute">
                             <?= \Config\Services::validation()->getError('meta') ?>
                         </small>

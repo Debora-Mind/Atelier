@@ -4,6 +4,7 @@ namespace App\Controllers\Producao;
 
 use App\Controllers\BaseController;
 use App\Models\EmpresasModel;
+use App\Models\MetasModel;
 use App\Models\ProdutosModel;
 use App\Models\TaloesModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
@@ -187,5 +188,76 @@ class Taloes extends BaseController
         $model->save($talao);
 
         return redirect()->to('producao/taloes');
+    }
+
+    public function formularioSaida()
+    {
+        $model = new TaloesModel();
+        $taloes = $model->where('id_empresa', session()->get('empresa')['id']);
+        $taloesLista = $model
+            ->select('taloes.id as id, p.img as img, p.pdf as pdf, taloes.*, p.xProd as descricao_produto')
+            ->join('produtos p', 'taloes.id_produto = p.id')
+            ->where('id_empresa', session()->get('empresa')['id'])
+            ->notLike('data_saida', '0000-00-00 00:00:00')
+            ->orderBy('data_saida', 'DESC')
+            ->limit(10)
+            ->getTaloes();
+
+        $resultado = $taloes->selectSum('quantidade')
+            ->where('id_empresa', session()->get('empresa')['id'])
+            ->like('data_saida', date('Y-m-d'))
+            ->getTaloes()[0]['quantidade'];
+
+        $produtosResultado = $model
+            ->select('p.xProd as descricao_produto, SUM(taloes.quantidade) as quantidade')
+            ->join('produtos p', 'taloes.id_produto = p.id')
+            ->where('id_empresa', session()->get('empresa')['id'])
+            ->like('data_saida', date('Y-m-d'))
+            ->groupBy('p.xProd')
+            ->getTaloes();
+
+        $metas = new MetasModel();
+        $metas = $metas->where('empresa_id', session()->get('empresa')['id'])
+            ->like('data', date('Y-m-d'));
+        $metaDia = $metas->selectSum('meta')
+            ->where('empresa_id', session()->get('empresa')['id'])
+            ->like('data', date('Y-m-d'))
+            ->getMetas()[0]['meta'];
+        $produtosMeta = $metas->select('metas.meta as meta, p.xProd as descricao_produto')
+            ->join('produtos p', 'metas.id_produto = p.id')
+            ->where('metas.empresa_id', session()->get('empresa')['id'])
+            ->like('data', date('Y-m-d'))
+            ->getMetas();
+
+        $data = [
+            'title' => 'Saída de talão',
+            'taloes' => $taloes,
+            'taloesLista' => $taloesLista,
+            'metas'=> $metas,
+            'metaDia' => $metaDia,
+            'produtosMeta' => $produtosMeta,
+            'resultadoTotal' => $resultado,
+            'produtosResultado' => $produtosResultado,
+            'msg' => []
+        ];
+
+        $this->exibir($data, 'dar-saida-talao');
+    }
+
+    public function saidaFormulario()
+    {
+        $model = new TaloesModel();
+        $codigoBarras = $this->request->getVar('codigo_barras', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $talao = $model->select()
+            ->where('id_empresa', session()->get('empresa')['id'])
+            ->where('codigo_barras', $codigoBarras)
+            ->limit(1)
+            ->getTaloes()[0];
+        $talao['data_saida'] = date('Y-m-d H:i');
+
+        $model->save($talao);
+
+        return redirect()->to('producao/taloes/saida');
     }
 }
