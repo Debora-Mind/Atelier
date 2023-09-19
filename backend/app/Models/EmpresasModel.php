@@ -60,9 +60,9 @@ class EmpresasModel extends Model
 
     public function getConfiguracoesEmpresa($idEmpresa)
     {
-        return $this->asArray()
+        return $this
             ->select('configuracoes')
             ->where(['id' => $idEmpresa])
-            ->findAll();
+            ->first();
     }
 }

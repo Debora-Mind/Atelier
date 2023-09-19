@@ -345,7 +345,8 @@ export default {
       try {
         const response = await http.get('api/empresa/formulario-cliente?id=' + id);
         this.empresa = response.data.empresa
-        console.log(response.data.configuracoesEmpresa)
+        this.configuracoesEmpresa = response.data.configuracoesEmpresa;
+        console.log(this.configuracoesEmpresa)
       } catch (e) {
         this.$root.mostrarFlashMenssage('danger', 'Erro', e);
         console.error(e);
