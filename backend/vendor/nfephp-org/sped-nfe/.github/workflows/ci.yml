@@ -1,0 +1,55 @@
+name: Pipeline
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  testsuite:
+    name: Testes Automatizados
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ["7.4", "8.0", "8.1", "8.2"]
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, intl, mysql, zlib, dom, openssl, soap, json, simplexml, libxml
+          coverage: pcov
+
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Composer Install
+        run: |
+          composer install --no-progress -o --no-ansi --no-interaction
+
+      - name: Check php code style
+        run: composer phpcs
+
+      - name: Análises estáticas
+        run: |
+          composer stan
+
+      - name: Rodando PHPUnit
+        if: matrix.php-version != '8.2'
+        run: |
+          composer test
+
+      - name: Rodando PHPUnit
+        if: matrix.php-version == '8.2'
+        run: |
+          composer test-with-coverage
+
+      - name: Submit code coverage
+        if: matrix.php-version == '8.2'
+        uses: codecov/codecov-action@v3

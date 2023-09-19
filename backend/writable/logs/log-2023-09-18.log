@@ -1,0 +1,30 @@
+CRITICAL - 2023-09-18 12:48:18 --> Amp\Iterator\toArray(): Argument #1 ($iterator) must be of type Amp\Iterator, string given, called in C:\wamp64\www\Atelier\backend\app\Controllers\Empresa\Empresa.php on line 40
+in VENDORPATH\amphp\amp\lib\functions.php on line 812.
+ 1 APPPATH\Controllers\Empresa\Empresa.php(40): Amp\Iterator\toArray('{"1": ["1", "2"], "2": ["1", "10"]}')
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Empresa\Empresa->formulario()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Empresa\Empresa))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-09-18 13:00:25 --> mysqli_result::fetch_object(): Argument #1 ($class) must be a valid class name, teste given
+in SYSTEMPATH\Database\MySQLi\Result.php on line 152.
+ 1 SYSTEMPATH\Database\MySQLi\Result.php(152): mysqli_result->fetch_object('teste')
+ 2 SYSTEMPATH\Database\BaseResult.php(156): CodeIgniter\Database\MySQLi\Result->fetchObject('teste')
+ 3 SYSTEMPATH\Database\BaseResult.php(113): CodeIgniter\Database\BaseResult->getCustomResultObject('teste')
+ 4 SYSTEMPATH\Model.php(241): CodeIgniter\Database\BaseResult->getResult('teste')
+ 5 SYSTEMPATH\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EmpresasModel.php(66): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Empresa\Empresa.php(33): App\Models\EmpresasModel->getConfiguracoesEmpresa('1')
+ 8 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Empresa\Empresa->formulario()
+ 9 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Empresa\Empresa))
+10 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-09-18 13:09:24 --> Call to a member function select() on null
+in APPPATH\Models\EmpresasModel.php on line 64.
+ 1 APPPATH\Controllers\Empresa\Empresa.php(33): App\Models\EmpresasModel->getConfiguracoesEmpresa('1')
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Empresa\Empresa->formulario()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Empresa\Empresa))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
