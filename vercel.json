@@ -1,0 +1,21 @@
+{
+  "name": "atelier",
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/dist/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "start-sevice.sh",
+      "use": "@now/static-build"
+    }
+  ],
+  "installCommand": "install.sh",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/$1"
+    }
+  ]
+}
