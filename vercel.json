@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontend/package.json",
+      "src": "C:/wamp64/www/Atelier/frontend/package.json",
       "use": "@vercel/static-build"
     },
     {
