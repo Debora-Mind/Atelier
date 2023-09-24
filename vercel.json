@@ -3,12 +3,16 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/*",
+      "src": "start-service.sh", 
+      "use": "@vercel/builders/shell"
+    },
+    {
+      "src": "frontend/dist",
       "use": "@vercel/static"
     },
     {
-      "src": "../start-sevice.sh",
-      "use": "@now/static-build"
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "installCommand": "install.sh",
