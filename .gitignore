@@ -27,6 +27,6 @@ pnpm-debug.log*
 
 #Backend
 /backend/writable
-/backend/system
+/backend/system/
 /backend/.env
 .vercel
