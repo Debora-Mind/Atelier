@@ -22,16 +22,18 @@ class Login extends ResourceController
                 'rules' =>'required'];
 
         $vars = json_decode($this->request->getBody(), true);
-        $data['usuarios'] = $model->getUsuario($vars['usuario']);
+//        $data['usuarios'] = $model->getUsuario($vars['usuario']);
+        $data = $model->getUsuario($vars['usuario']);
 
-        if ($this->validate($rules) && $data['usuarios']) {
+        if ($this->validate($rules) && $data) {
             $modelEmpresa = new EmpresasModel();
-            $empresa = $modelEmpresa->getEmpresas($data['usuarios']['empresa_id']);
+            $empresa = $modelEmpresa->getEmpresas($data['empresa_id']);
 
-            if (password_verify($vars['senha'], $data['usuarios']['senha'])) {
+            if (password_verify($vars['senha'], $data['senha'])) {
+
                 $sessionData = [
                     'logado' => true,
-                    'usuario' => $data['usuarios']['id'],
+                    'usuario' => $data['id'],
                     'empresa' => $empresa['id'],
                 ];
 
@@ -44,7 +46,7 @@ class Login extends ResourceController
 
         $this->validator->setError('usuario', 'Usuário ou senha inválido...');
         return $this->respond([
-            'erroValidacao' => $this->validator->getErrors()
+            'erroValidacao' => $this->validator->getErrors(),
         ]);
     }
 }

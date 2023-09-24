@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
-
-class UsuariosModel extends Model
+class UsuariosModel extends MongoDBModel
 {
     protected $DBGroup          = 'default';
     protected $table            = 'usuarios';
@@ -40,17 +38,30 @@ class UsuariosModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getUsuarios($usuario)
+    public function __construct()
     {
-        return $this->asArray()
-            ->where(['id' => $usuario])
-            ->first();
+        parent::__construct();
+        $this->getCollection($this->table);
+    }
+
+    protected function getCollection($collectionName)
+    {
+        $this->collection = $this->mongoClient->selectCollection($this->dataBase, $collectionName);
+    }
+
+    public function getUsuarios(): array
+    {
+        return $this->getAll();
+//        return $this->asArray()
+//            ->where(['id' => $usuario])
+//            ->first();
     }
 
     public function getUsuario($usuario)
     {
-        return $this->asArray()
-            ->where(['usuario' => $usuario])
-            ->first();
+        return $this->getBy('usuario', $usuario);
+//        return $this->asArray()
+//            ->where(['usuario' => $usuario])
+//            ->first();
     }
 }

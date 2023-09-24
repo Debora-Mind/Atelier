@@ -23,8 +23,13 @@ class Usuarios extends ResourceController
         $model = new UsuariosModel();
 
         return $this->respond([
-            'usuarios' => $model->select('id, usuario')->findAll(),
+            'usuarios' => $model->getUsuarios(),
+            'ping' => $model->pingMongoDB()
         ]);
+//        return $this->respond([
+//            'usuarios' => $model->select('id, usuario')->findAll(),
+//            'ping' => $model->pingMongoDB()
+//        ]);
     }
 
     public function novo(): ResponseInterface
@@ -62,8 +67,8 @@ class Usuarios extends ResourceController
 
             if ($vars['senha'] == '') {
 
-                $model->save($vars);
-
+//                $model->save($vars);
+                $model->add($vars);
                 return $this->respond([
                     'tipo'=> 'success',
                     'titulo' => 'Tudo certo!',
@@ -74,7 +79,8 @@ class Usuarios extends ResourceController
                 unset($vars['funcionario']);
             }
 
-            $model->save($vars);
+//            $model->save($vars);
+            $model->add($vars);
 
             return $this->respond([
                 'tipo'=> 'success',

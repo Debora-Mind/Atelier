@@ -24,3 +24,4 @@ pnpm-debug.log*
 
 #Backend
 /backend/writable
+/backend/.env

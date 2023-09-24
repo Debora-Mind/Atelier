@@ -22,7 +22,8 @@ class App extends BaseConfig
      * explicitly and never rely on auto-guessing, especially in production
      * environments.
      */
-    public string $baseURL = 'https://do-and-make.com/';
+//    public string $baseURL = 'https://do-and-make.com/';
+    public string $baseURL = 'https://atelier-mv6gkzbge-debora-mind.vercel.app/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

@@ -3,7 +3,7 @@
         'name' => 'codeigniter4/codeigniter4',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b0c2d703091ee0ce5757b8d7924c204579f727f2',
+        'reference' => '37b7db22eade897d4d5339315d4cc2738016f86a',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -49,7 +49,7 @@
         'codeigniter4/codeigniter4' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b0c2d703091ee0ce5757b8d7924c204579f727f2',
+            'reference' => '37b7db22eade897d4d5339315d4cc2738016f86a',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -208,6 +208,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'jean85/pretty-package-versions' => array(
+            'pretty_version' => '2.x-dev',
+            'version' => '2.9999999.9999999.9999999-dev',
+            'reference' => 'a0427613ed159314b1aac96952edd515fa2a284f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jean85/pretty-package-versions',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'justinrainbow/json-schema' => array(
             'pretty_version' => '5.2.12',
             'version' => '5.2.12.0',
@@ -243,6 +252,17 @@
             'install_path' => __DIR__ . '/../mikey179/vfsstream',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'mongodb/mongodb' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '05c326ff7de208a41f82c5765a8bb45eb0893909',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mongodb/mongodb',
+            'aliases' => array(
+                0 => '1.17.x-dev',
+            ),
+            'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(
             'pretty_version' => '1.11.1',
@@ -889,7 +909,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-php80',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/polyfill-php81' => array(
             'pretty_version' => 'v1.27.0',
@@ -898,7 +918,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-php81',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/process' => array(
             'pretty_version' => 'v6.3.0',
