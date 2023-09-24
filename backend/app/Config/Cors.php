@@ -21,7 +21,7 @@ class Cors extends \Fluent\Cors\Config\Cors
     /**
      * @var array
      */
-    public $allowedOrigins = ['http://localhost:8081', 'http://localhost:8080'];
+    public $allowedOrigins = ['http://localhost:8081', 'http://localhost:8080', 'https://atelier-pearl.vercel.app/'];
 
     /**
      * @var array
