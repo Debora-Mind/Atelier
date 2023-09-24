@@ -24,7 +24,7 @@
   ],
   "routes": [
     {
-      "src": "/frontend/(.*)",
+      "src": "/(.*)",
       "dest": "/dist/$1"
     }
   ]
