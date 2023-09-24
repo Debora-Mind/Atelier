@@ -6,11 +6,11 @@
       "use": "@vercel/static-build"
     },
     {
-      "src": "installation.sh",
+      "src": "frontend/installation.sh",
       "use": "@vercel/builders/shell"
     },
     {
-      "src": "start-service.sh",
+      "src": "frontend/start-service.sh",
       "use": "@vercel/builders/shell"
     },
     {
@@ -18,7 +18,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "public/**",
+      "src": "frontend/public/**",
       "use": "@vercel/static"
     }
   ],
