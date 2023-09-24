@@ -3,11 +3,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontend/dist/*",
+      "src": "dist/*",
       "use": "@vercel/static"
     },
     {
-      "src": "start-sevice.sh",
+      "src": "../start-sevice.sh",
       "use": "@now/static-build"
     }
   ],
