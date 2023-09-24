@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
     headers: {
         'Content-type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
-        'Access-Control-Allow-Origin': 'https://atelier-pearl.vercel.app/'
+        'Access-Control-Allow-Origin': ['http://localhost:8081', 'https://atelier-pearl.vercel.app/']
     },
     withCredentials: true
 
