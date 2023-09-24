@@ -1,7 +1,10 @@
 {
-  "name": "atelier",
   "version": 2,
   "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build"
+    },
     {
       "src": "installation.sh",
       "use": "@vercel/builders/shell"
