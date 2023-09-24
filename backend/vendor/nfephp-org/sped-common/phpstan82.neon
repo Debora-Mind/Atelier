@@ -1,8 +1,0 @@
-includes:
-    - phpstan-baseline82.neon
-
-parameters:
-    level: 5
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
-    treatPhpDocTypesAsCertain: false
