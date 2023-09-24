@@ -59,8 +59,6 @@ class CoverallsJobsCommand extends Command
     // internal method
 
     /**
-     * {@inheritdoc}
-     *
      * @see \Symfony\Component\Console\Command\Command::configure()
      */
     protected function configure()
@@ -127,12 +125,11 @@ class CoverallsJobsCommand extends Command
                 '-k',
                 InputOption::VALUE_NONE,
                 'Skip SSL certificate check.'
-            );
+            )
+        ;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @see \Symfony\Component\Console\Command\Command::execute()
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -175,7 +172,7 @@ class CoverallsJobsCommand extends Command
     {
         $coverallsYmlPath = $input->getOption('config');
 
-        $ymlPath = $this->rootDir . DIRECTORY_SEPARATOR . $coverallsYmlPath;
+        $ymlPath = $this->rootDir . \DIRECTORY_SEPARATOR . $coverallsYmlPath;
         $configurator = new Configurator();
 
         return $configurator
@@ -183,14 +180,14 @@ class CoverallsJobsCommand extends Command
             ->setDryRun($input->getOption('dry-run'))
             ->setExcludeNoStatementsUnlessFalse($input->getOption('exclude-no-stmt'))
             ->setVerbose($input->getOption('verbose'))
-            ->setEnv($input->getOption('env'));
+            ->setEnv($input->getOption('env'))
+        ;
     }
 
     /**
      * Execute Jobs API.
      *
-     * @param InputInterface $input  input arguments
-     * @param Configuration  $config configuration
+     * @param Configuration $config configuration
      *
      * @return bool
      */

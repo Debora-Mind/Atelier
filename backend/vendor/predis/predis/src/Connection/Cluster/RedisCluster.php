@@ -31,6 +31,7 @@ use Predis\Response\ErrorInterface as ErrorResponseInterface;
 use Predis\Response\ServerException;
 use ReturnTypeWillChange;
 use Throwable;
+use Traversable;
 
 /**
  * Abstraction for a Redis-backed cluster of nodes (Redis >= 3.0.0).
@@ -463,6 +464,14 @@ class RedisCluster implements ClusterInterface, IteratorAggregate, Countable
     {
         [$slot, $connectionID] = explode(' ', $details, 2);
 
+        // Handle connection ID in the form of "IP:port (details about exception)"
+        // by trimming everything after first space (including the space)
+        $startPositionOfExtraDetails = strpos($connectionID, ' ');
+
+        if ($startPositionOfExtraDetails !== false) {
+            $connectionID = substr($connectionID, 0, $startPositionOfExtraDetails);
+        }
+
         if (!$connection = $this->getConnectionById($connectionID)) {
             $connection = $this->createConnection($connectionID);
         }
@@ -589,7 +598,7 @@ class RedisCluster implements ClusterInterface, IteratorAggregate, Countable
     }
 
     /**
-     * {@inheritdoc}
+     * @return int
      */
     #[ReturnTypeWillChange]
     public function count()
@@ -598,7 +607,7 @@ class RedisCluster implements ClusterInterface, IteratorAggregate, Countable
     }
 
     /**
-     * {@inheritdoc}
+     * @return Traversable<string, NodeConnectionInterface>
      */
     #[ReturnTypeWillChange]
     public function getIterator()

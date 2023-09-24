@@ -533,11 +533,12 @@ final class Codebase
 
     public function cacheClassLikeStorage(ClassLikeStorage $classlike_storage, string $file_path): void
     {
-        $file_contents = $this->file_provider->getContents($file_path);
-
-        if ($this->classlike_storage_provider->cache) {
-            $this->classlike_storage_provider->cache->writeToCache($classlike_storage, $file_path, $file_contents);
+        if (!$this->classlike_storage_provider->cache) {
+            return;
         }
+
+        $file_contents = $this->file_provider->getContents($file_path);
+        $this->classlike_storage_provider->cache->writeToCache($classlike_storage, $file_path, $file_contents);
     }
 
     public function exhumeClassLikeStorage(string $fq_classlike_name, string $file_path): void
@@ -553,6 +554,8 @@ final class Codebase
             $this->classlikes->addFullyQualifiedTraitName($storage->name, $file_path);
         } elseif ($storage->is_interface) {
             $this->classlikes->addFullyQualifiedInterfaceName($storage->name, $file_path);
+        } elseif ($storage->is_enum) {
+            $this->classlikes->addFullyQualifiedEnumName($storage->name, $file_path);
         } else {
             $this->classlikes->addFullyQualifiedClassName($storage->name, $file_path);
         }
@@ -681,6 +684,8 @@ final class Codebase
 
     /**
      * Check whether a class/interface exists
+     *
+     * @psalm-assert-if-true class-string|interface-string|enum-string $fq_class_name
      */
     public function classOrInterfaceOrEnumExists(
         string $fq_class_name,
@@ -696,6 +701,7 @@ final class Codebase
         );
     }
 
+    /** @psalm-mutation-free */
     public function classExtendsOrImplements(string $fq_class_name, string $possible_parent): bool
     {
         return $this->classlikes->classExtends($fq_class_name, $possible_parent)

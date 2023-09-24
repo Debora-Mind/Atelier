@@ -36,6 +36,7 @@ use Psalm\Issue\DuplicateEnumCaseValue;
 use Psalm\Issue\ExtensionRequirementViolation;
 use Psalm\Issue\ImplementationRequirementViolation;
 use Psalm\Issue\InaccessibleMethod;
+use Psalm\Issue\InheritorViolation;
 use Psalm\Issue\InternalClass;
 use Psalm\Issue\InvalidEnumCaseValue;
 use Psalm\Issue\InvalidExtendClass;
@@ -269,6 +270,22 @@ class ClassAnalyzer extends ClassLikeAnalyzer
                 $codebase,
                 $class_context,
             );
+        }
+
+        $class_union = new Union([new TNamedObject($fq_class_name)]);
+        foreach ($storage->parent_classes + $storage->direct_class_interfaces as $parent_class) {
+            $parent_storage = $codebase->classlikes->getStorageFor($parent_class);
+            if ($parent_storage && $parent_storage->inheritors) {
+                if (!UnionTypeComparator::isContainedBy($codebase, $class_union, $parent_storage->inheritors)) {
+                    IssueBuffer::maybeAdd(
+                        new InheritorViolation(
+                            'Class ' . $fq_class_name . ' is not an allowed inheritor of parent class ' . $parent_class,
+                            new CodeLocation($this, $this->class),
+                        ),
+                        $this->getSuppressedIssues(),
+                    );
+                }
+            }
         }
 
 
@@ -802,7 +819,20 @@ class ClassAnalyzer extends ClassLikeAnalyzer
                         $codebase,
                     );
 
-                    if ($property_storage->location
+                    if ($guide_property_storage->readonly
+                        && UnionTypeComparator::isContainedBy(
+                            $codebase,
+                            $property_type,
+                            $guide_property_type,
+                            false,
+                            false,
+                            null,
+                            false,
+                            false,
+                        )) {
+                        // if the original property is readonly, it cannot be written
+                        // therefore invariance is not a problem, if the parent type contains the child type
+                    } elseif ($property_storage->location
                         && !$property_type->equals($guide_property_type, false)
                         && $guide_class_storage->user_defined
                     ) {
@@ -996,6 +1026,11 @@ class ClassAnalyzer extends ClassLikeAnalyzer
         if (!isset($storage->declaring_method_ids['__construct'])
             && !$config->reportIssueInFile('MissingConstructor', $this->getFilePath())
         ) {
+            return;
+        }
+
+        // abstract constructors do not have any code, therefore cannot set any properties either
+        if (isset($storage->methods['__construct']) && $storage->methods['__construct']->abstract) {
             return;
         }
 
@@ -2003,7 +2038,7 @@ class ClassAnalyzer extends ClassLikeAnalyzer
                         . ($interface_name instanceof PhpParser\Node\Name\FullyQualified
                             ? '\\'
                             : $this->getNamespace() . '-')
-                        . implode('\\', $interface_name->parts),
+                        . $interface_name->toString(),
             );
 
             $interface_location = new CodeLocation($this, $interface_name);
@@ -2419,7 +2454,7 @@ class ClassAnalyzer extends ClassLikeAnalyzer
                             . ($extended_class instanceof PhpParser\Node\Name\FullyQualified
                                 ? '\\'
                                 : $this->getNamespace() . '-')
-                            . implode('\\', $extended_class->parts),
+                            . $extended_class->toString(),
                 );
             }
 

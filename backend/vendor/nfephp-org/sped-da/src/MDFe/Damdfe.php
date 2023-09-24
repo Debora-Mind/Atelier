@@ -43,6 +43,46 @@ class Damdfe extends DaCommon
     protected $tpEmis;
     protected $qrCodMDFe;
     protected $baseFont = array('font' => 'Times', 'size' => 8, 'style' => '');
+    protected $infMDFe;
+    protected $emit;
+    protected $CPF;
+    protected $CNPJ;
+    protected $IE;
+    protected $xNome;
+    protected $enderEmit;
+    protected $xLgr;
+    protected $nro;
+    protected $xBairro;
+    protected $UF;
+    protected $xMun;
+    protected $CEP;
+    protected $mod;
+    protected $serie;
+    protected $dhEmi;
+    protected $UFIni;
+    protected $UFFim;
+    protected $nMDF;
+    protected $tot;
+    protected $qMDFe;
+    protected $qNFe;
+    protected $qNF;
+    protected $qCTe;
+    protected $qCT;
+    protected $qCarga;
+    protected $cUnid;
+    protected $infModal;
+    protected $rodo;
+    protected $aereo;
+    protected $aquav;
+    protected $ferrov;
+    protected $RNTRC;
+    protected $ciot;
+    protected $veicTracao;
+    protected $veicReboque;
+    protected $valePed;
+    protected $infCpl;
+    protected $dhRecbto;
+    protected $condutor;
     /**
      * @var string
      */
@@ -129,7 +169,7 @@ class Damdfe extends DaCommon
             if (!empty($this->rodo)) {
                 $this->RNTRC = "";
                 $infANTT = $this->rodo->getElementsByTagName("infANTT")->item(0);
-                if (!empty($infANTT)) {
+                if (isset($infANTT->getElementsByTagName("RNTRC")->item(0)->nodeValue)) {
                     $this->RNTRC = $infANTT->getElementsByTagName("RNTRC")->item(0)->nodeValue;
                 }
             }
@@ -824,7 +864,7 @@ class Damdfe extends DaCommon
         $texto = $this->formatField($this->chMDFe, $this->formatoChave);
         $this->pdf->textBox($x + $maxW / 2, $y + 8, $maxW / 2, 6, $texto, $aFont, 'T', 'L', 0, '');
         $aFont = array('font' => $this->fontePadrao, 'size' => 10, 'style' => 'B');
-        $texto = 'Consulte em https://dfe-portal.sefazvirtual.rs.gov.br/MDFe/consulta';
+        $texto = 'Consulte em https://dfe-portal.svrs.rs.gov.br/MDFe/consulta';
         $this->pdf->textBox($x + $maxW / 2, $y + 12, $maxW / 2, 6, $texto, $aFont, 'T', 'L', 0, '');
 
         $x1 = $x;
