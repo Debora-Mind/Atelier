@@ -22,7 +22,11 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+#Frontend
+/frontend/node_modules/
+
 #Backend
 /backend/writable
+/backend/system
 /backend/.env
 .vercel
