@@ -2,23 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build"
-    },
-    {
-      "src": "installation.sh",
+      "src": "./installation.sh",
       "use": "@vercel/builders/shell"
     },
     {
-      "src": "start-service.sh",
+      "src": "./start-service.sh",
       "use": "@vercel/builders/shell"
     },
     {
-      "src": "dist",
+      "src": "./dist",
       "use": "@vercel/static"
     },
     {
-      "src": "public/**",
+      "src": "./public/**",
       "use": "@vercel/static"
     }
   ],
