@@ -2,23 +2,23 @@
   "version": 2,
   "builds": [
     {
-      "src": "C:/wamp64/www/Atelier/frontend/package.json",
+      "src": "package.json",
       "use": "@vercel/static-build"
     },
     {
-      "src": "frontend/installation.sh",
+      "src": "installation.sh",
       "use": "@vercel/builders/shell"
     },
     {
-      "src": "frontend/start-service.sh",
+      "src": "start-service.sh",
       "use": "@vercel/builders/shell"
     },
     {
-      "src": "frontend/dist",
+      "src": "dist",
       "use": "@vercel/static"
     },
     {
-      "src": "frontend/public/**",
+      "src": "public/**",
       "use": "@vercel/static"
     }
   ],
