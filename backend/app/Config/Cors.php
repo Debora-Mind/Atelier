@@ -21,12 +21,12 @@ class Cors extends \Fluent\Cors\Config\Cors
     /**
      * @var array
      */
-    public $allowedOrigins = ['http://localhost:8081', 'http://localhost:8080', 'https://atelier-pearl.vercel.app/'];
+    public $allowedOrigins = ['http://localhost:8081', 'http://localhost:8080', 'https://atelier-pearl.vercel.app/', 'https://atelier-8ws4hjml4-debora-mind.vercel.app/'];
 
     /**
      * @var array
      */
-    public $allowedOriginsPatterns = [];
+    public $allowedOriginsPatterns = ['https://atelier-pearl.vercel.app/', 'https://atelier-8ws4hjml4-debora-mind.vercel.app/'];
 
     /**
      * @var array
