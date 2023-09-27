@@ -17,3 +17,4 @@ echo "Executando: php spark serve"
 php spark serve
 
 echo "Script de implantação concluído."
+printf 'ok'
