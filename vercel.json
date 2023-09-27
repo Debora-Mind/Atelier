@@ -2,7 +2,14 @@
   "version": 2,
   "builds": [
     { "src": "/backend", "use": "@vercel/php" },
-    { "src": "/frontend", "use": "@vercel/static-build" },
+    {
+      "src": "frontend",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npm install && npm run build",
+        "outputDirectory": "dist"
+      }
+    },
     {
       "src": "/frontend/installation.sh",
       "use": "@vercel/builders/shell"
