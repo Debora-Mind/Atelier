@@ -4,10 +4,10 @@
     { "src": "/backend", "use": "@vercel/php" },
     { "src": "frontend", "use": "@vercel/static-build" },
     {
-      "src": "/frontend",
+      "src": "frontend",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm run build",
+        "buildCommand": "npm install && npm run build",
         "outputDirectory": "dist"
       }
     },
