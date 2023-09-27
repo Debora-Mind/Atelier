@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "Iniciando script de implantação..."
 
+cd frontend
 echo "Executando: npm install"
 npm install
 

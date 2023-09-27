@@ -1,6 +1,8 @@
 #!/bin/bash
 echo "Iniciando script de implantação..."
 
+cd frontend
+
 echo "Executando: vue-cli-service build"
 vue-cli-service build
 
