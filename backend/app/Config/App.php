@@ -23,7 +23,7 @@ class App extends BaseConfig
      * environments.
      */
 //    public string $baseURL = 'https://do-and-make.com/';
-    public string $baseURL = 'https://atelier-pearl.vercel.app/';
+    public string $baseURL = 'https://atelier-mv6gkzbge-debora-mind.vercel.app/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
