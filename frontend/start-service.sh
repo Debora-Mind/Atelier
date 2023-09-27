@@ -7,8 +7,12 @@ vue-cli-service build
 # Volte uma pasta para acessar a pasta raiz
 cd ..
 
-echo "Inicializando o servidor do CodeIgniter"
+echo "Entrando no servidor do CodeIgniter"
 cd backend
+
+echo "Inicializando o composer"
+composer update
+
 echo "Executando: php spark serve"
 php spark serve
 
