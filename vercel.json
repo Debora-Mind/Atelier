@@ -1,13 +1,20 @@
 {
   "version": 2,
   "builds": [
-    { "src": "backend", "use": "@vercel/php" },
     {
-      "src": "frontend/installation.sh",
+      "src": "frontend",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "backend",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "installation.sh",
       "use": "@vercel/builders/shell"
     },
     {
-      "src": "frontend/start-service.sh",
+      "src": "start-service.sh",
       "use": "@vercel/builders/shell"
     },
     {
