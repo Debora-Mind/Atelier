@@ -3,7 +3,8 @@
   "builds": [
     {
       "src": "installation.sh",
-      "use": "@vercel/builders/shell"
+      "use": "@vercel/builders/shell",
+      "config": { "maxDuration": 300 }
     },
     {
       "src": "frontend/dist",
