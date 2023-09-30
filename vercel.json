@@ -14,10 +14,6 @@
       "use": "@vercel/builders/shell"
     },
     {
-      "src": "start-service.sh",
-      "use": "@vercel/builders/shell"
-    },
-    {
       "src": "frontend/dist",
       "use": "@vercel/static"
     },
