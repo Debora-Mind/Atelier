@@ -2,14 +2,6 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontend",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "backend",
-      "use": "@vercel/php"
-    },
-    {
       "src": "installation.sh",
       "use": "@vercel/builders/shell"
     },
