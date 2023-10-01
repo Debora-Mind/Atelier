@@ -26,6 +26,11 @@ jobs:
         working-directory: frontend  # Altere para o diretório do frontend
         run: npm run build  # Ou o comando correspondente para construir o Vue.js
 
+      - name: Install PHP 8.1.12
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1.12
+
       - name: Install PHP Composer
         run: |
           php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -35,9 +40,9 @@ jobs:
         working-directory: backend  # Altere para o diretório do backend
         run: composer install
 
-      - name: Server Codeigniter
-        working-directory: backend  # Altere para o diretório do backend
-        run: php spark serve
+#      - name: Server Codeigniter
+#        working-directory: backend  # Altere para o diretório do backend
+#        run: php spark serve
 
       - name: Deploy to GitHub Pages
         run: |
