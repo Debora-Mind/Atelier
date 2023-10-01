@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73320c0195a6eacb5a8e9a309ba439dc",
+    "content-hash": "36885ca21b23f94e83bc37858c0387ba",
     "packages": [
         {
             "name": "agungsugiarto/codeigniter4-cors",
@@ -7001,8 +7001,7 @@
         "ext-fileinfo": "*",
         "ext-intl": "*",
         "ext-json": "*",
-        "ext-mbstring": "*",
-        "ext-mongodb": "^1.16.0"
+        "ext-mbstring": "*"
     },
     "platform-dev": [],
     "platform-overrides": {
