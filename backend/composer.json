@@ -13,7 +13,6 @@
         "agungsugiarto/codeigniter4-cors": "*",
         "guzzlehttp/psr7": "^2.0",
         "laminas/laminas-escaper": "^2.9",
-        "mongodb/mongodb": "v1.16.0",
         "ext-mongodb": "^1.16.0",
         "nfephp-org/sped-da": "dev-master",
         "nfephp-org/sped-mail": "*",
