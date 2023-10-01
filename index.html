@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="refresh" content="0;url=frontend/dist/index.html">
+    <meta http-equiv="refresh" content="5">
     <title>Redirecionar</title>
 </head>
 <body>
-Redirecionando para a página inicial...
+<script>
+    // Aguarde 5 segundos (ou o tempo desejado) e redirecione para a página dentro de dist
+    setTimeout(function () {
+        window.location.href = 'frontend/dist/index.html';
+    }, 5000); // 5000 milissegundos = 5 segundos
+</script>
+<p>Redirecionando para a página inicial...</p>
 </body>
 </html>
