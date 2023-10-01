@@ -27,7 +27,7 @@ jobs:
 
       - name: Build Vue.js
         working-directory: frontend  # Altere para o diretório do frontend
-        run: vue-cli-service build  # Ou o comando correspondente para construir o Vue.js
+        run: npm run-script build  # Ou o comando correspondente para construir o Vue.js
 
       - name: Install PHP 8.1.12
         uses: shivammathur/setup-php@v2
