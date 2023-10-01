@@ -23,7 +23,6 @@ jobs:
         run: npm install
 
       - name: Install Vue CLI
-        working-directory: frontend  # Altere para o diretório do frontend
         run: npm install -g @vue/cli
 
       - name: Build Vue.js
