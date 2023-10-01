@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/api/installation", "dest": "api/installation.js" },
-    { "src": "/api/(.*)", "dest": "/backend/index.php" },
-    { "src": ".*", "dest": "/frontend/index.html" }
-  ]
-}

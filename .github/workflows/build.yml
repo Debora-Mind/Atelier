@@ -1,0 +1,46 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master  # Substitua "main" pelo nome da sua branch principal
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14  # Escolha a versão do Node.js que você precisa
+
+      - name: Install Vue.js dependencies
+        working-directory: frontend  # Altere para o diretório do frontend
+        run: npm install
+
+      - name: Build Vue.js
+        working-directory: frontend  # Altere para o diretório do frontend
+        run: npm run build  # Ou o comando correspondente para construir o Vue.js
+
+      - name: Install PHP Composer
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+      - name: Install CodeIgniter dependencies
+        working-directory: backend  # Altere para o diretório do backend
+        run: composer install
+
+      - name: Server Codeigniter
+        working-directory: backend  # Altere para o diretório do backend
+        run: php spark serve
+
+      - name: Deploy to GitHub Pages
+        run: |
+          # Aqui você pode adicionar os comandos para implantar seu site em produção, se necessário
+
+# Lembre-se de personalizar os comandos e configurações acima de acordo com as necessidades do seu projeto.

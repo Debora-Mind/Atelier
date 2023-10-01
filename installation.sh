@@ -1,16 +1,14 @@
 #!/bin/bash
-echo "Iniciando script de implantação..."
 
-cd frontend
-echo "Executando: npm install"
-npm install
-
-echo "Executando: vue-cli-service build"
-vue-cli-service build
-
-# Volte uma pasta para acessar a pasta raiz
-cd ..
 cd backend
+
+curl -o php-binary.gz https://example.com/php-binary.tar.gz
+
+# Descompacta o PHP
+gunzip php-binary.gz
+
+# Executa o PHP local para rodar o install-composer.php
+./path-to-php/php install-composer.php
 
 echo "Executando: composer update"
 composer update
