@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c89d14615503346bde84a5a8fde8b17",
+    "content-hash": "5df970a26140d50d27fb61a0cceeeae2",
     "packages": [
         {
             "name": "agungsugiarto/codeigniter4-cors",
@@ -7205,6 +7205,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "mongodb/mongodb": 20,
         "nfephp-org/sped-da": 20
     },
     "prefer-stable": false,
@@ -7214,7 +7215,8 @@
         "ext-fileinfo": "*",
         "ext-intl": "*",
         "ext-json": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-mongodb": "^1.16.0"
     },
     "platform-dev": [],
     "platform-overrides": {
