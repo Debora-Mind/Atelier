@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkfrontend"]=self["webpackChunkfrontend"]||[]).push([[886],{4886:function(n,e,r){r.r(e),r.d(e,{default:function(){return l}});var t=r(6252);function u(n,e,r,u,a,f){return(0,t.wg)(),(0,t.iD)("span",null,"TESTE")}var a={name:"PainelGeral"},f=r(3744);const c=(0,f.Z)(a,[["render",u]]);var l=c}}]);
+//# sourceMappingURL=886.694472e2.js.map
