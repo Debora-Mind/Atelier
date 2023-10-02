@@ -51,4 +51,7 @@ jobs:
         run: |
           # Aqui você pode adicionar os comandos para implantar seu site em produção, se necessário
 
+      - name: Serve Vue.js
+        working-directory: frontend  # Altere para o diretório do frontend
+        run: npm run-script serve
 # Lembre-se de personalizar os comandos e configurações acima de acordo com as necessidades do seu projeto.
