@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "composer.json",
+      "use": "@vercel/php",
+      "config": {
+        "maxDuration": 300,
+        "command": "composer install"
+      }
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/php"
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    {
+      "src": "/(.*)",
+      "dest": "index.php"
+    }
+  ],
+  "env": {
+    "VERCEL": "1"
+  }
+}

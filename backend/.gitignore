@@ -1,0 +1,6 @@
+#Backend
+writable
+.env
+vendor/
+.vercel
+tests/
