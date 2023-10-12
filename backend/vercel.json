@@ -1,17 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "public/**/*",
-      "use": "@vercel/now-php"
-    }
-  ],
+  "name": "php-app",
+  "builds": [{ "src": "/public/**/*", "use": "@vercel/static-build" }],
   "routes": [
-    { "handle": "filesystem" },
-    {
-      "src": "/(.*)",
-      "dest": "index.php"
-    }
+    { "src": "/(.*)", "dest": "public/index.php" }
   ],
   "env": {
     "VERCEL": "1"
