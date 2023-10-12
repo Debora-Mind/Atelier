@@ -2,16 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "composer.json",
-      "use": "@vercel/php",
-      "config": {
-        "maxDuration": 300,
-        "command": "composer install"
-      }
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/php"
+      "src": "public/**/*",
+      "use": "@vercel/now-php"
     }
   ],
   "routes": [
