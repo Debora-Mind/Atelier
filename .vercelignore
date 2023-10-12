@@ -1,0 +1,5 @@
+# PHP
+/backend/vendor
+
+# Vercel
+/backend/.vercel

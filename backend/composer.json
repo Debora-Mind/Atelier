@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "tracy/tracy": "^2.6.0",
         "ext-fileinfo": "*",
         "ext-intl": "*",
         "ext-json": "*",
