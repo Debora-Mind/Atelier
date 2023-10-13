@@ -27,7 +27,7 @@ export default defineComponent({
   components: {Confirmar, FlashMessenger, Footer, NavBar, SideBar, LogIn},
   computed: {
     logado() {
-      return sessionStorage.getItem("logado") === "true";
+      return true//sessionStorage.getItem("logado") === "true";
     }
   }
 })

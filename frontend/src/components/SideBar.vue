@@ -11,8 +11,8 @@
     </div>
     <hr>
     <ul class="menu-list">
-      <li><a><fa icon="gauge-high" /> Painel Geral</a></li>
-      <li><a><fa icon="gears" /> Testes</a></li>
+      <li><router-link to=""><fa icon="gauge-high" /> Painel Geral</router-link></li>
+      <li><router-link to=""><fa icon="gears" /> Testes</router-link></li>
     </ul>
     <hr>
     <p class="menu-label">
@@ -24,8 +24,8 @@
           <fa icon="chart-line" /> Faturamento</a>
         <template v-if="menus[0].expande">
           <ul>
-            <li><a>Visão Geral</a></li>
-            <li><a>Relatórios</a></li>
+            <li><router-link to="">Visão Geral</router-link></li>
+            <li><router-link to="">Relatórios</router-link></li>
           </ul>
         </template>
       </li>
@@ -34,8 +34,8 @@
           <fa icon="scroll" /> Notas</a>
         <template v-if="menus[1].expande">
           <ul>
-            <li><a href="/notas">Emissão de Nota</a></li>
-            <li><a>Nota de Saída</a></li>
+            <li><a to="/notas">Emissão de Nota</a></li>
+            <li><router-link to="">Nota de Saída</router-link></li>
           </ul>
         </template>
       </li>
@@ -44,12 +44,12 @@
           <fa icon="box-open" /> Produção</a>
         <template  v-if="menus[2].expande">
           <ul>
-            <li><a>Metas</a></li>
-            <li><a href="/producao/taloes">Entrada de Talão</a></li>
-            <li><a href="/producao/taloes/saida">Saída de Talão</a></li>
-            <li><a href="/producao/produtos">Produtos</a></li>
-            <li><a>Montar Layout</a></li>
-            <li><a>Relatórios</a></li>
+            <li><router-link to="">Metas</router-link></li>
+            <li><router-link to="/producao/taloes">Entrada de Talão</router-link></li>
+            <li><router-link to="/producao/taloes/saida">Saída de Talão</router-link></li>
+            <li><router-link to="/producao/produtos">Produtos</router-link></li>
+            <li><router-link to="">Montar Layout</router-link></li>
+            <li><router-link to="">Relatórios</router-link></li>
           </ul>
         </template>
       </li>
@@ -60,22 +60,22 @@
     </p>
     <ul class="menu-list">
       <li>
-        <a class="" href="/usuarios"><fa icon="user" /> Usuários</a>
+        <router-link to="usuarios"><fa icon="user" /> Usuários</router-link>
       </li>
       <li>
         <a class="expande" :class="{ 'is-active': menus[3].expande }" @click="expandir(3)">
           <fa icon="shop" /> Empresa</a>
         <template  v-if="menus[3].expande">
           <ul>
-            <li><a href="/empresa/formulario">Dados Cadastrais</a></li>
-            <li><a href="/empresa/clientes">Clientes</a></li>
+            <li><router-link to="/empresa/formulario">Dados Cadastrais</router-link></li>
+            <li><router-link to="/empresa/clientes">Clientes</router-link></li>
           </ul>
         </template>
       </li>
     </ul>
     <ul class="menu-list">
       <li>
-        <a class=""><fa icon="id-badge" /> Funcionários</a>
+        <router-link to=""><fa icon="id-badge" /> Funcionários</router-link>
       </li>
     </ul>
   </aside>

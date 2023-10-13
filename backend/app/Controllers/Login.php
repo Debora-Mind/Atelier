@@ -27,7 +27,7 @@ class Login extends ResourceController
 
         if ($this->validate($rules) && $data) {
             $modelEmpresa = new EmpresasModel();
-            $empresa = $modelEmpresa->getEmpresas($data['empresa_id']);
+            $empresa = $modelEmpresa->getEmpresas(1);//$data['empresa_id']);
 
             if (password_verify($vars['senha'], $data['senha'])) {
 
@@ -35,11 +35,12 @@ class Login extends ResourceController
                     'logado' => true,
                     'usuario' => $data['id'],
                     'empresa' => $empresa['id'],
+					'dados' => $data
                 ];
 
                 return $this->respond([
                     'mensagem' => 'Logado com sucesso!',
-                    'session'    => $sessionData
+                    'session'    => $sessionData,
                 ]);
             }
         }
@@ -47,6 +48,8 @@ class Login extends ResourceController
         $this->validator->setError('usuario', 'Usuário ou senha inválido...');
         return $this->respond([
             'erroValidacao' => $this->validator->getErrors(),
-        ]);
+			'dados' => $data
+
+		]);
     }
 }
