@@ -34,7 +34,7 @@
           <fa icon="scroll" /> Notas</a>
         <template v-if="menus[1].expande">
           <ul>
-            <li><a to="/notas">Emissão de Nota</a></li>
+            <li><router-link to="/notas">Emissão de Nota</router-link></li>
             <li><router-link to="">Nota de Saída</router-link></li>
           </ul>
         </template>
