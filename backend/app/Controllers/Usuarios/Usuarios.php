@@ -42,7 +42,7 @@ class Usuarios extends ResourceController
         if ($this->validate([
             'usuario' => [
                 'label' => 'Usuários',
-                'rules' => 'required|min_length[3]|is_unique[usuarios.usuario]'],
+                'rules' => 'required|min_length[3]'],
             'senha' => [
                 'label' => 'Senha',
                 'rules' => 'required|min_length[3]'],
@@ -62,7 +62,6 @@ class Usuarios extends ResourceController
                     'erroValidacao' => $this->validator->getErrors()
                 ]);
             }
-
             $vars['senha'] = password_hash($vars['senha'], PASSWORD_ARGON2I);
 
             if ($vars['senha'] == '') {
@@ -99,7 +98,7 @@ class Usuarios extends ResourceController
         }
     }
 
-    public function excluir(): ResponseInterface
+	public function excluir(): ResponseInterface
     {
         $id = json_decode($this->request->getBody(), true);
 

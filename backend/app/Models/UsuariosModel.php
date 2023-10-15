@@ -64,4 +64,10 @@ class UsuariosModel extends MongoDBModel
 //            ->where(['usuario' => $usuario])
 //            ->first();
     }
+
+	public function add($data)
+	{
+		unset($data['senhaRepetida']);
+		$this->addData($data, $this->table);
+	}
 }

@@ -34,6 +34,16 @@ abstract class MongoDBModel
 
     abstract protected function getCollection($collectionName);
 
+	private function gerarIdSequencial($collectionName)
+	{
+		$document = $this->collection->findOne([], ['sort' => ['_id' => -1]]);
+		$newId = $document ? iterator_to_array($document) : null;
+		if(!$newId) {
+			return 1;
+		}
+		return $newId['id'] + 1;
+	}
+
     protected function getAll(): array | string
     {
         try {
@@ -75,10 +85,14 @@ abstract class MongoDBModel
         }
     }
 
-    public function add($data)
+	abstract public function add($data);
+
+    protected function addData($data, $table)
     {
         try {
-            $insertResult = $this->collection->insertOne($data);
+			$id = $this->gerarIdSequencial($table);
+			$data['id'] = $id;
+			$insertResult = $this->collection->insertOne($data);
 
             if ($insertResult->getInsertedCount() === 1) {
                 return "Documento adicionado com sucesso";
