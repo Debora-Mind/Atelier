@@ -60,7 +60,7 @@
     </p>
     <ul class="menu-list">
       <li>
-        <router-link to="usuarios"><fa icon="user" /> Usuários</router-link>
+        <router-link to="/usuarios"><fa icon="user" /> Usuários</router-link>
       </li>
       <li>
         <a class="expande" :class="{ 'is-active': menus[3].expande }" @click="expandir(3)">

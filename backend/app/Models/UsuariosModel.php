@@ -52,22 +52,21 @@ class UsuariosModel extends MongoDBModel
     public function getUsuarios(): array
     {
         return $this->getAll();
-//        return $this->asArray()
-//            ->where(['id' => $usuario])
-//            ->first();
     }
 
     public function getUsuario($usuario)
     {
         return $this->getBy('usuario', $usuario);
-//        return $this->asArray()
-//            ->where(['usuario' => $usuario])
-//            ->first();
     }
 
 	public function add($data)
 	{
 		unset($data['senhaRepetida']);
 		$this->addData($data, $this->table);
+	}
+
+	public function delete($id)
+	{
+		return $this->deleteById($id);
 	}
 }

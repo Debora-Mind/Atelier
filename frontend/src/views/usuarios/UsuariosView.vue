@@ -53,11 +53,11 @@
 <script>
 import http from "../../services/http";
 import Paginador from "@/components/templates/Paginador";
-import Confirmar from "@/components/templates/Confirmar";
+import confirmar from "@/store/confirmar";
 
 export default {
   name: "UsuariosView",
-  components: {Paginador, Confirmar},
+  components: {Paginador},
   data() {
     return {
       usuarios: [],
@@ -99,9 +99,13 @@ export default {
       }
     },
     excluir(id) {
-      this.$root.mostrarConfirmar(this.confirmar.tipo, this.confirmar.titulo, this.confirmar.mensagem + id + '?', 'confirmado')
-      //this.$refs.Confirmar.mostrarConfirmar(this.confirmar.tipo, this.confirmar.titulo, this.confirmar.mensagem + id + '?', 'confirmado')
-      this.confirmar.id = id
+      this.$store.dispatch('confirmar/mostrarConfirmar', {
+        tipo: 'danger',
+        titulo: 'Excluir',
+        mensagem: 'Tem certeza que quer excluir o usuário ' + id + '?',
+        retorno: 'confirmado'
+      });
+      this.confirmar.id = id;
     },
     async updateExcluir(confirmado) {
         console.log('oi')

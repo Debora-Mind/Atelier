@@ -24,17 +24,11 @@ class Usuarios extends ResourceController
 
         return $this->respond([
             'usuarios' => $model->getUsuarios(),
-            'ping' => $model->pingMongoDB()
         ]);
-//        return $this->respond([
-//            'usuarios' => $model->select('id, usuario')->findAll(),
-//            'ping' => $model->pingMongoDB()
-//        ]);
     }
 
     public function novo(): ResponseInterface
     {
-
         $model = new UsuariosModel();
 
         helper('form');
@@ -66,7 +60,6 @@ class Usuarios extends ResourceController
 
             if ($vars['senha'] == '') {
 
-//                $model->save($vars);
                 $model->add($vars);
                 return $this->respond([
                     'tipo'=> 'success',
@@ -78,7 +71,6 @@ class Usuarios extends ResourceController
                 unset($vars['funcionario']);
             }
 
-//            $model->save($vars);
             $model->add($vars);
 
             return $this->respond([
@@ -103,13 +95,21 @@ class Usuarios extends ResourceController
         $id = json_decode($this->request->getBody(), true);
 
         $model = new UsuariosModel();
-        $model->delete($id);
+		try {
+			$model->delete($id);
+			return $this->respond([
+				'tipo' => 'success',
+				'titulo' => 'Tudo certo!',
+				'mensagem' => 'Usuário excluído com sucesso!',
+			]);
+		} catch (\Error $e) {
+			return $this->respond([
+				'tipo' => 'danger',
+				'titulo' => 'Algo deu errado...',
+				'mensagem' => $e->getMessage()
+			]);
+		}
 
-        return $this->respond([
-            'tipo' => 'success',
-            'titulo' => 'Tudo certo!',
-            'mensagem' => 'Usuário excluído com sucesso!',
-        ]);
     }
     public function formulario(): ResponseInterface
     {

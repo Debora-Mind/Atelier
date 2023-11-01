@@ -85,7 +85,7 @@ abstract class MongoDBModel
         }
     }
 
-	abstract public function add($data);
+	abstract protected function add($data);
 
     protected function addData($data, $table)
     {
@@ -103,4 +103,17 @@ abstract class MongoDBModel
             return $e->getMessage();
         }
     }
+
+	abstract protected function delete($id);
+
+	protected function deleteById($id)
+	{
+		try {
+			$result = $this->collection->deleteOne(['id' => new \MongoDB\BSON\ObjectId($id)]);
+
+			return $result->getDeletedCount() > 0;
+		} catch (\Exception $e) {
+			return $e;
+		}
+	}
 }
