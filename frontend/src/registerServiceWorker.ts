@@ -1,3 +1,8 @@
+declare const self: ServiceWorkerGlobalScope;
+
+// @ts-ignore
+self.__WB_MANIFEST = [].concat(self.__WB_MANIFEST || []);
+
 /* eslint-disable no-console */
 
 import { register } from 'register-service-worker'
