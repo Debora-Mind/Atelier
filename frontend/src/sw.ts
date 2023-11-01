@@ -1,7 +1,18 @@
+/// <reference path="../src/workbox.d.ts" />
+import { precacheAndRoute } from 'workbox-precaching';
+
 declare const self: ServiceWorkerGlobalScope;
 
-// @ts-ignore
-self.__WB_MANIFEST = [].concat(self.__WB_MANIFEST || []);
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+      caches.open('my-cache').then((cache) => {
+        return cache.addAll(['/', '/index.html', '/css/style.css', '/js/app.js']);
+      })
+  );
+});
+
+precacheAndRoute(self.__WB_MANIFEST);
+
 
 /* eslint-disable no-console */
 
