@@ -5,18 +5,19 @@
       <div class="field">
         <label class="label">Usuário</label>
         <div class="control">
-          <input id="usuario" name="usuario" class="input" type="text">
+          <input id="usuario" name="usuario" class="input" type="text" inputmode="text" @keyup.enter="focusSenhaField">
         </div>
       </div>
 
       <div class="field">
         <label class="label">Senha</label>
         <div class="control">
-          <input id="senha" name="senha" class="input" type="password" placeholder="********" @keyup.enter="fazerLogin">
+          <input id="senha" name="senha" class="input" type="password" placeholder="********"
+                 inputmode="text" @keyup.enter="fazerLogin" ref="senhaInput">
         </div>
       </div>
       <div class="buttons is-right">
-        <button type="button" class="button is-primary" @click="fazerLogin">Login</button>
+        <button type="button" class="button is-primary" @click="fazerLogin" @touchstart="fazerLogin">Login</button>
       </div>
         <small class="has-text-danger">
           {{ erroValidacao && (erroValidacao.usuario || erroValidacao.senha)}}
@@ -59,11 +60,17 @@ export default {
         window.location.reload();
       }
     },
+    focusSenhaField() {
+      this.$refs.senhaInput.focus();
+    }
   },
 }
 </script>
 
 <style scoped>
+* {
+  max-height: 100%;
+}
 .coluns {
   background: #00d0b1;
   display: flex;
