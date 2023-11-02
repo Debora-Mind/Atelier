@@ -55,6 +55,7 @@ export default {
           })
           .catch(e => {
             console.error('Erro ao enviar dados:', e);
+            this.erroValidacao['usuario'] = 'Falha na comunicação com o servidor.'
           });
       if (sessionStorage.getItem('logado') === 'true') {
         window.location.reload();
