@@ -88,13 +88,15 @@ export default {
   },
   methods: {
     listar: async function (id) {
-      try {
-        const response = await http.get('api/usuarios/formulario?id=' + id);
-        this.usuario = response.data.usuario;
-        console.log(response.data)
-      } catch (e) {
-        this.$root.mostrarFlashMenssage('danger', 'Erro', e);
-        console.error(e);
+      if(id){
+        try {
+          const response = await http.get('api/usuarios/formulario?id=' + id);
+          this.usuario = response.data.usuario;
+          console.log(response.data)
+        } catch (e) {
+          this.$root.mostrarFlashMenssage('danger', 'Erro', e);
+          console.error(e);
+        }
       }
     },
     selecionarAba(conteudo) {

@@ -99,6 +99,7 @@ abstract class MongoDBModel
 				$existingDocument = $this->getById($data['id']);
 
 			if ($existingDocument) {
+				$data['id'] = $existingDocument['id'];
 				$updateResult = $this->collection->updateOne(['id' => $existingDocument['id']], ['$set' => $data]);
 
 				if ($updateResult->getModifiedCount() === 1) {
@@ -123,7 +124,7 @@ abstract class MongoDBModel
 
 	abstract protected function delete($id);
 
-	protected function deleteById($id)
+	protected function deleteById(int $id)
 	{
 		try {
 			$result = $this->collection->deleteOne(['id' => new \MongoDB\BSON\ObjectId($id)]);
