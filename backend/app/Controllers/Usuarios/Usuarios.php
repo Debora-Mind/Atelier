@@ -114,8 +114,8 @@ class Usuarios extends ResourceController
     public function formulario(): ResponseInterface
     {
         $model = new UsuariosModel();
-        $id = $this->request->getGetPost('id');
-        $usuario = $model->getUsuarios($id);
+		$id = $this->request->getGet('id');
+        $usuario = $model->getId($id);
 
         return $this->respond([
             'usuario' => $usuario

@@ -59,6 +59,11 @@ class UsuariosModel extends MongoDBModel
         return $this->getBy('usuario', $usuario);
     }
 
+	public function getId($id)
+	{
+		return $this->getById($id);
+	}
+
 	public function add($data)
 	{
 		unset($data['senhaRepetida']);

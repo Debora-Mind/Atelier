@@ -55,13 +55,15 @@ abstract class MongoDBModel
         }
     }
 
-    protected function getById($id)
+	abstract function getId($id);
+
+    protected function getById(int $id)
     {
         try {
             $document = $this->collection->findOne(['id' => $id]);
 
             if (!$document) {
-                return "Documento não encontrado";
+                return "Registro não encontrado";
             }
 
             return iterator_to_array($document);
@@ -89,19 +91,34 @@ abstract class MongoDBModel
 
     protected function addData($data, $table)
     {
-        try {
-			$id = $this->gerarIdSequencial($table);
-			$data['id'] = $id;
-			$insertResult = $this->collection->insertOne($data);
+		try {
+			if (!$data['id']) {
+				$id = $this->gerarIdSequencial($table);
+				$data['id'] = $id;
+			}
+				$existingDocument = $this->getById($data['id']);
 
-            if ($insertResult->getInsertedCount() === 1) {
-                return "Documento adicionado com sucesso";
-            } else {
-                return "Falha ao adicionar o documento";
-            }
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
+			if ($existingDocument) {
+				$updateResult = $this->collection->updateOne(['id' => $existingDocument['id']], ['$set' => $data]);
+
+				if ($updateResult->getModifiedCount() === 1) {
+					return "Registro atualizado com sucesso";
+				} else {
+					return "Falha ao atualizar o registro";
+				}
+			} else {
+				// Inserir um novo documento
+				$insertResult = $this->collection->insertOne($data);
+
+				if ($insertResult->getInsertedCount() === 1) {
+					return "Registro adicionado com sucesso";
+				} else {
+					return "Falha ao adicionar o registro";
+				}
+			}
+		} catch (\Exception $e) {
+			return $e->getMessage();
+		}
     }
 
 	abstract protected function delete($id);
