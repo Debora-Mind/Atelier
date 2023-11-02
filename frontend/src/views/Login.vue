@@ -55,7 +55,7 @@ export default {
           })
           .catch(e => {
             console.error('Erro ao enviar dados:', e);
-            this.erroValidacao['usuario'] = 'Falha na comunicação com o servidor.'
+            this.erroValidacao['usuario'] = e//'Falha na comunicação com o servidor.'
           });
       if (sessionStorage.getItem('logado') === 'true') {
         window.location.reload();
@@ -69,9 +69,11 @@ export default {
 </script>
 
 <style scoped>
-* {
-  max-height: 100%;
+
+.box.column.is-half.is-offset-one-quarter {
+  max-height: 100vh;
 }
+
 .coluns {
   background: #00d0b1;
   display: flex;
