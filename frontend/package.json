@@ -20,6 +20,7 @@
     "vue": "^3.3.7",
     "vue-router": "^4.2.5",
     "vuex": "^4.1.0",
+    "workbox-precaching": "^7.0.0",
     "workbox-sw": "^7.0.0"
   },
   "devDependencies": {

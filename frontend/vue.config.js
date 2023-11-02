@@ -1,4 +1,9 @@
 const { defineConfig } = require('@vue/cli-service')
+const { InjectManifest } = require('workbox-webpack-plugin')
+
+//optional, but InjectManifest didn't respect the {mode: 'development'} config
+process.env.NODE_ENV = 'development'
+
 module.exports = {
   publicPath: './',
   outputDir: './dist',
@@ -32,8 +37,17 @@ module.exports = {
     workboxPluginMode: 'InjectManifest',
     workboxOptions: {
       // swSrc is required in InjectManifest mode.
-      swSrc: '/src/sw.ts',
+      swSrc: './src/registerServiceWorker.js',
       // ...other Workbox options...
-    }
+  }
+  },
+  configureWebpack: {
+    plugins: [
+      new InjectManifest({
+        swSrc: './src/registerServiceWorker.js',
+        swDest: 'sw.js',
+        maximumFileSizeToCacheInBytes: 5000000,
+      }),
+    ]
   }
 }
