@@ -96,9 +96,9 @@ abstract class MongoDBModel
 				$id = $this->gerarIdSequencial($table);
 				$data['id'] = $id;
 			}
-				$existingDocument = $this->getById($data['id']);
+			$existingDocument = $this->getById($data['id']);
 
-			if ($existingDocument) {
+			if ($existingDocument != 'Registro não encontrado') {
 				$data['id'] = $existingDocument['id'];
 				$updateResult = $this->collection->updateOne(['id' => $existingDocument['id']], ['$set' => $data]);
 

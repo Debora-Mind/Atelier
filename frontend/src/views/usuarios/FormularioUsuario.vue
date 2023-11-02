@@ -84,19 +84,19 @@ export default {
   },
   async mounted() {
     let id = this.$route.query.id;
-    await this.listar(id);
+    if(id) {
+      await this.listar(id);
+    }
   },
   methods: {
     listar: async function (id) {
-      if(id){
-        try {
-          const response = await http.get('api/usuarios/formulario?id=' + id);
-          this.usuario = response.data.usuario;
-          console.log(response.data)
-        } catch (e) {
-          this.$root.mostrarFlashMenssage('danger', 'Erro', e);
-          console.error(e);
-        }
+      try {
+        const response = await http.get('api/usuarios/formulario?id=' + id);
+        this.usuario = response.data.usuario;
+        console.log(response.data)
+      } catch (e) {
+        this.$root.mostrarFlashMenssage('danger', 'Erro', e);
+        console.error(e);
       }
     },
     selecionarAba(conteudo) {
