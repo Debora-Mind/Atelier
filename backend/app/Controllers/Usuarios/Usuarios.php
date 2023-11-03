@@ -36,7 +36,7 @@ class Usuarios extends ResourceController
         if ($this->validate([
             'usuario' => [
                 'label' => 'Usuários',
-                'rules' => 'required|min_length[3]'],
+                'rules' => 'required|min_length[3]|is_unique[usuarios.usuario]'],
             'senha' => [
                 'label' => 'Senha',
                 'rules' => 'required|min_length[3]'],
@@ -70,6 +70,17 @@ class Usuarios extends ResourceController
             if (!$vars['funcionario']) {
                 unset($vars['funcionario']);
             }
+
+			// Verifique a unicidade do usuário
+			if (!$model->verificarUnicidade('usuario', $vars['usuario'])) {
+				$this->validator->setError('usuario', 'Este usuário já existe.');
+				return $this->respond([
+					'tipo' => 'danger',
+					'titulo' => 'Usuário já existe',
+					'mensagem' => 'O usuário já existe na base de dados.',
+					'erroValidacao' => $this->validator->getErrors(),
+				]);
+			}
 
             $model->add($vars);
 

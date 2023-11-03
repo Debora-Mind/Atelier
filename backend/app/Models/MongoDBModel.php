@@ -134,4 +134,11 @@ abstract class MongoDBModel
 			return $e;
 		}
 	}
+
+	public function verificarUnicidade($coluna, $valor): bool
+	{
+		$count = $this->collection->countDocuments([$coluna => $valor]);
+		return $count === 0;
+	}
+
 }

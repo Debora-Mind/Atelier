@@ -74,4 +74,5 @@ class UsuariosModel extends MongoDBModel
 	{
 		return $this->deleteById($id);
 	}
+
 }
