@@ -2,6 +2,11 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/',
+    name: 'PainelGeral',
+    component: () => import('../views/PainelGeral.vue')
+  },
+  {
     path: '/teste',
     name: 'painelGeral',
     component: () => import('../views/PainelGeral.vue')

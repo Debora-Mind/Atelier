@@ -5,7 +5,8 @@
       <div class="field">
         <label class="label">Usuário</label>
         <div class="control">
-          <input id="usuario" name="usuario" class="input" type="text" inputmode="text" @keyup.enter="focusSenhaField">
+          <input id="usuario" name="usuario" class="input" type="text" inputmode="text" @keyup.enter="focusSenhaField"
+                 autocomplete="username">
         </div>
       </div>
 
@@ -13,7 +14,7 @@
         <label class="label">Senha</label>
         <div class="control">
           <input id="senha" name="senha" class="input" type="password" placeholder="********"
-                 inputmode="text" @keyup.enter="fazerLogin" ref="senhaInput">
+                 inputmode="text" @keyup.enter="fazerLogin" ref="senhaInput" autocomplete="current-password">
         </div>
       </div>
       <div class="buttons is-right">

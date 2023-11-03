@@ -58,7 +58,6 @@ export default {
       await http.post('/api/' + this.objeto + 's/excluir-' + this.objeto + '?id=' + this.id)
           .then(response => {
             this.$root.mostrarFlashMenssage(response.data.tipo, response.data.titulo, response.data.mensagem);
-            console.log(response.data)
           })
           .catch(e => {
             this.$root.mostrarFlashMenssage('danger', 'Erro', e);

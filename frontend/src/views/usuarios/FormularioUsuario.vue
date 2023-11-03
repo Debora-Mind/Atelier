@@ -15,7 +15,8 @@
         <div class="field m-0 pt-0 column is-one-fifth">
           <label class="label">Login</label>
           <div class="control">
-            <input name="usuario" id="usuario" class="input is-small" type="text" autofocus :value="usuario ? usuario.usuario : ''">
+            <input name="usuario" id="usuario" class="input is-small" type="text" autofocus :value="usuario ? usuario.usuario : ''"
+                   autocomplete="off">
           </div>
           <small class="is-danger">{{ erroValidacao && erroValidacao.usuario }}</small>
         </div>
@@ -24,7 +25,8 @@
         <div class="field m-0 pt-0 column is is-one-fifth">
           <label class="label">Funcionário</label>
           <div class="control">
-            <input name="funcionario" class="input is-small" type="text" :value="usuario ? usuario.funcionario : null">
+            <input name="funcionario" class="input is-small" type="text" :value="usuario ? usuario.funcionario : null"
+                   autocomplete="off">
           </div>
           <small class="is-danger">{{ erroValidacao && erroValidacao.funcionario }}</small>
         </div>
@@ -33,7 +35,7 @@
         <div class="field m-0 py-0 column is-one-fifth">
           <label class="label">Senha</label>
           <div class="control">
-            <input name="senha" class="input is-small" type="password">
+            <input name="senha" class="input is-small" type="password" autocomplete="new-password">
           </div>
           <small class="is-danger">{{ erroValidacao && erroValidacao.senha }}</small>
         </div>
@@ -42,7 +44,7 @@
         <div class="field m-0 pt-0 column is-one-fifth">
           <label class="label">Repita a senha</label>
           <div class="control">
-            <input name="senhaRepetida" class="input is-small" type="password">
+            <input name="senhaRepetida" class="input is-small" type="password" autocomplete="new-password">
           </div>
           <small class="is-danger">{{ erroValidacao && erroValidacao.senhaRepetida }}</small>
         </div>
@@ -93,7 +95,6 @@ export default {
       try {
         const response = await http.get('api/usuarios/formulario?id=' + id);
         this.usuario = response.data.usuario;
-        console.log(response.data)
       } catch (e) {
         this.$root.mostrarFlashMenssage('danger', 'Erro', e);
         console.error(e);
@@ -123,7 +124,6 @@ export default {
       await http.post('/api/usuarios/salvar-usuario', formData)
         .then(response => {
           this.$root.mostrarFlashMenssage(response.data.tipo, response.data.titulo, response.data.mensagem);
-          console.log(response.data)
           this.erroValidacao = response.data.erroValidacao
           if(!response.data.erroValidacao) {
             this.$router.push({ name: 'usuariosView' });
