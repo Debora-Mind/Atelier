@@ -92,7 +92,7 @@ class Usuarios extends ResourceController
 
 	public function excluir(): ResponseInterface
     {
-        $id = json_decode($this->request->getBody(), true);
+		$id = $this->request->getGet('id');
 
         $model = new UsuariosModel();
 		try {
@@ -111,7 +111,19 @@ class Usuarios extends ResourceController
 		}
 
     }
+
     public function formulario(): ResponseInterface
+    {
+        $model = new UsuariosModel();
+		$id = $this->request->getGet('id');
+        $usuario = $model->getId($id);
+
+        return $this->respond([
+            'usuario' => $usuario
+        ]);
+    }
+
+	public function buscarId(): ResponseInterface
     {
         $model = new UsuariosModel();
 		$id = $this->request->getGet('id');

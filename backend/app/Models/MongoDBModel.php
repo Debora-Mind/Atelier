@@ -127,7 +127,7 @@ abstract class MongoDBModel
 	protected function deleteById(int $id)
 	{
 		try {
-			$result = $this->collection->deleteOne(['id' => new \MongoDB\BSON\ObjectId($id)]);
+			$result = $this->collection->deleteOne(['id' => $id]);
 
 			return $result->getDeletedCount() > 0;
 		} catch (\Exception $e) {

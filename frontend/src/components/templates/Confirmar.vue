@@ -17,9 +17,8 @@
   </div>
 </template>
 
-<script>
+<script lang="js">
 export default {
-// eslint-disable-next-line vue/multi-word-component-names
   name: "Confirmar",
   mounted() {
     this.$root.mostrarConfirmar = this.mostrarConfirmar;
@@ -36,13 +35,9 @@ export default {
   methods: {
     mostrarConfirmar(tipo, titulo, mensagem, retorno) {
       if (mensagem) {
-        // eslint-disable-next-line vue/no-mutating-props
         this.tipo = tipo;
-        // eslint-disable-next-line vue/no-mutating-props
         this.titulo = titulo;
-        // eslint-disable-next-line vue/no-mutating-props
         this.mensagem = mensagem;
-        // eslint-disable-next-line vue/no-mutating-props
         this.retorno = retorno;
 
         let elemento = document.getElementById('confirmar')

@@ -46,28 +46,27 @@
 
     <!--    PAGINADOR   -->
     <Paginador :perPage="perPage" :itens="usuarios" @update:currentPage="updateCurrentPage" />
-    <Confirmar ref="Confirmar" @confirmado="updateExcluir" />
+    <Excluir ref="Excluir" />
   </div>
 </template>
 
-<script>
+<script lang="js">
 import http from "../../services/http";
 import Paginador from "@/components/templates/Paginador";
-import confirmar from "@/store/confirmar";
+import Excluir from "@/components/templates/Excluir";
 
 export default {
   name: "UsuariosView",
-  components: {Paginador},
+  components: {Paginador, Excluir},
   data() {
     return {
       usuarios: [],
       perPage: 5,
       currentPage: 1,
       confirmar: {
-        tipo: 'danger',
         ativo: false,
-        titulo: 'Excluir',
-        mensagem: 'Tem certeza que quer excluir o usuário ',
+        preposicao: 'o usuário',
+        objeto: 'usuario',
         id: null
       },
     }
@@ -76,6 +75,10 @@ export default {
     await this.listar();
   },
   methods: {
+    excluir(id) {
+        this.$refs.Excluir.mostrarExcluir(id, this.confirmar.objeto, this.confirmar.preposicao);
+    },
+
     listar: async function () {
       try {
         const response = await http.get('api/usuarios/listar');
@@ -98,30 +101,7 @@ export default {
         console.error(e);
       }
     },
-    excluir(id) {
-      this.$store.dispatch('confirmar/mostrarConfirmar', {
-        tipo: 'danger',
-        titulo: 'Excluir',
-        mensagem: 'Tem certeza que quer excluir o usuário ' + id + '?',
-        retorno: 'confirmado'
-      });
-      this.confirmar.id = id;
-    },
-    async updateExcluir(confirmado) {
-        console.log('oi')
-      if (confirmado) {
-        await http.post('/api/usuarios/excluir-usuario', this.confirmar.id)
-              .then(response => {
-                this.erroValidacao = response.data.erroValidacao
-                this.$root.mostrarFlashMenssage(response.data.tipo, response.data.titulo, response.data.mensagem);
-              })
-              .catch(e => {
-                this.$root.mostrarFlashMenssage('danger', 'Erro', e);
-                console.error('Erro ao excluir:', e);
-              });
-          await this.listar()
-      }
-    }
+
   },
   computed: {
     usuariosPorPagina() {

@@ -54,12 +54,17 @@ $routes->get('empresa/editar-cliente', 'Empresa\Empresa::editarCliente');
 
 $routes->get('api/usuarios/listar', 'Usuarios\Usuarios::listar');
 $routes->post('api/usuarios/buscar', 'Usuarios\Usuarios::buscar');
+$routes->get('api/usuarios/buscar-id', 'Usuarios\Usuarios::buscarId');
 //$routes->get('api/usuarios/salvar-usuario', 'Usuarios\Usuarios::novo');
 
-$routes->get('api/usuarios/formulario', 'Usuarios\Usuarios::formulario', ['filter' => 'cors']);
-$routes->post('api/usuarios/salvar-usuario', 'Usuarios\Usuarios::novo', ['filter' => 'cors']);
-$routes->get('api/usuarios/salvar-usuario', 'Usuarios\Usuarios::novo', ['filter' => 'cors']);
+$routes->get('api/usuarios/formulario', 'Usuarios\Usuarios::formulario');
+$routes->post('api/usuarios/salvar-usuario', 'Usuarios\Usuarios::novo');
+$routes->get('api/usuarios/salvar-usuario', 'Usuarios\Usuarios::novo');
 //$routes->post('api/usuarios/salvar-usuario', 'Usuarios\Usuarios::editar');
+
+$routes->post('api/usuarios/excluir-usuario', 'Usuarios\Usuarios::excluir');
+$routes->post('usuarios/editar-permissoes/(:num)', 'Usuarios\Usuarios::permissaoEditar/$1');
+$routes->get('usuarios/alterar-permissoes', 'Usuarios\Usuarios::permissaoGravar');
 
 
 //FIM DAS NOVAS ROTAS
@@ -106,9 +111,6 @@ $routes->get('notas/status-sefaz', 'Notas\ConsultarStatusSefaz::index');
 
 
 
-$routes->post('api/usuarios/excluir-usuario', 'Usuarios\Usuarios::excluir', ['filter' => 'cors']);
-$routes->post('usuarios/editar-permissoes/(:num)', 'Usuarios\Usuarios::permissaoEditar/$1');
-$routes->get('usuarios/alterar-permissoes', 'Usuarios\Usuarios::permissaoGravar');
 //Produção
 $routes->get('producao/produtos', 'Producao\Produtos::listar');
 $routes->get('producao/produtos/formulario', 'Producao\Produtos::formulario');
