@@ -31,19 +31,15 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 
 //Request
-$routes->group('api', ['namespace' => 'App\Controllers\API'], function ($routes) {
-    $routes->options('teste', 'Teste::options'); // Lidar com requisições OPTIONS para /api/teste
-});
-$routes->get('api/teste', 'Teste::index'); // Lidar com requisições POST para /api/teste
 
 $routes->options('api/', function () {
     header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: POST, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type');
+    header('Access-Control-Allow-Methods: *');
+    header('Access-Control-Allow-Headers: *');
 });
 
 //Login
-$routes->post('api/login', 'Login::login', ['filter' => 'cors']);
+$routes->post('api/login', 'Login::login');
 
 //Empresa
 $routes->get('api/empresa/formulario-cliente', 'Empresa\Empresa::formulario');

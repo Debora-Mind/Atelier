@@ -34,7 +34,8 @@
         <div class="field m-0 pt-0 column is-one-third">
           <label class="label">Nome Fantasia</label>
           <div class="control">
-            <input class="input is-small" type="text" autofocus :value="empresa ? empresa.nome_fantasia : ''">
+            <input class="input is-small" type="text" autofocus :value="empresa ? empresa.nome_fantasia : ''"
+                   autocomplete="off">
           </div>
           <small hidden class="is-danger">Mensagem</small>
         </div>

@@ -16,7 +16,7 @@ class Cors extends \Fluent\Cors\Config\Cors
     /**
      * @var array
      */
-    public $allowedMethods = ['*'];
+	public $allowedMethods = ['*'];
 
     /**
      * @var array

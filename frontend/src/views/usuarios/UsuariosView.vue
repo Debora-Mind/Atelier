@@ -64,7 +64,6 @@ export default {
       perPage: 5,
       currentPage: 1,
       confirmar: {
-        ativo: false,
         preposicao: 'o usuário',
         objeto: 'usuario',
         id: null
@@ -78,7 +77,6 @@ export default {
     excluir(id) {
         this.$refs.Excluir.mostrarExcluir(id, this.confirmar.objeto, this.confirmar.preposicao);
     },
-
     listar: async function () {
       try {
         const response = await http.get('api/usuarios/listar');

@@ -95,7 +95,7 @@ class GerarXMLNFe extends BaseController
         $stdEnderEmit = new stdClass();
         $stdEnderEmit->xLgr = $empresa['logradouro'];
         $stdEnderEmit->nro = $empresa['numero'];
-        $stdEnderEmit->xCpl = $empresa['emitentexCpl'];
+        $stdEnderEmit->xCpl = $empresa['cpl'];
         $stdEnderEmit->xBairro = $empresa['bairro'];
         $stdEnderEmit->cMun = $empresa['ibge'];
         $stdEnderEmit->xMun = $empresa['municipio'];

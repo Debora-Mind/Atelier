@@ -53,10 +53,12 @@ export default {
             sessionStorage.setItem('logado', response.data.session.logado)
             sessionStorage.setItem('usuario', response.data.session.usuario)
             sessionStorage.setItem('empresa', response.data.session.empresa)
+            var resposta = response.data;
           })
           .catch(e => {
             console.error('Erro ao enviar dados:', e);
             this.erroValidacao['usuario'] = 'Falha na comunicação com o servidor.'
+            console.log(e);
           });
       if (sessionStorage.getItem('logado') === 'true') {
         window.location.reload();
