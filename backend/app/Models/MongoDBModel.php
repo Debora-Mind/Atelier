@@ -10,7 +10,6 @@ abstract class MongoDBModel
     protected string $dataBase = 'atelier';
     protected $collection;
     protected Client $mongoClient;
-    protected $db;
 
     public function __construct()
     {
@@ -21,8 +20,8 @@ abstract class MongoDBModel
         $this->pingMongoDB();
     }
 
-    public function pingMongoDB()
-    {
+    public function pingMongoDB(): string
+	{
         try {
             // Ping para confirmar uma conexão bem-sucedida
             $this->mongoClient->selectDatabase('atelier')->command(['ping' => 1]);
@@ -32,7 +31,10 @@ abstract class MongoDBModel
         }
     }
 
-    abstract protected function getCollection($collectionName);
+	public function getCollection(): void
+	{
+		$this->collection = $this->mongoClient->selectCollection($this->dataBase, $this->table);
+	}
 
 	private function gerarIdSequencial($collectionName)
 	{
@@ -44,7 +46,7 @@ abstract class MongoDBModel
 		return $newId['id'] + 1;
 	}
 
-    protected function getAll(): array | string
+    public function getAll(): array | string
     {
         try {
             $documents = $this->collection->find();
@@ -55,12 +57,10 @@ abstract class MongoDBModel
         }
     }
 
-	abstract function getId($id);
-
-    protected function getById(int $id)
-    {
+    public function get(string $id): array|string
+	{
         try {
-            $document = $this->collection->findOne(['id' => $id]);
+            $document = $this->collection->find(['id' => $id]);
 
             if (!$document) {
                 return "Registro não encontrado";
@@ -72,13 +72,13 @@ abstract class MongoDBModel
         }
     }
 
-    protected function getBy($field, $value)
-    {
+    public function getBy($field, $value): array|string|null
+	{
         try {
             $document = $this->collection->findOne([$field => $value]);
 
             if (!$document) {
-                return "Documento não encontrado";
+                return null;
             }
 
             return iterator_to_array($document);
@@ -87,16 +87,16 @@ abstract class MongoDBModel
         }
     }
 
-	abstract protected function add($data);
+    public function add($data, ? string $unset): string
+	{
+		if($unset) unset($unset);
 
-    protected function addData($data, $table)
-    {
 		try {
 			if (!$data['id']) {
-				$id = $this->gerarIdSequencial($table);
+				$id = $this->gerarIdSequencial($this->table);
 				$data['id'] = $id;
 			}
-			$existingDocument = $this->getById($data['id']);
+			$existingDocument = $this->getId($data['id']);
 
 			if ($existingDocument != 'Registro não encontrado') {
 				$data['id'] = $existingDocument['id'];
@@ -122,9 +122,7 @@ abstract class MongoDBModel
 		}
     }
 
-	abstract protected function delete($id);
-
-	protected function deleteById(int $id)
+	public function delete(int $id): \Exception|bool
 	{
 		try {
 			$result = $this->collection->deleteOne(['id' => $id]);

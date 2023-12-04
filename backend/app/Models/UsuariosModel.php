@@ -6,7 +6,6 @@ class UsuariosModel extends MongoDBModel
 {
     protected $DBGroup          = 'default';
     protected $table            = 'usuarios';
-    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
@@ -43,36 +42,5 @@ class UsuariosModel extends MongoDBModel
         parent::__construct();
         $this->getCollection($this->table);
     }
-
-    protected function getCollection($collectionName)
-    {
-        $this->collection = $this->mongoClient->selectCollection($this->dataBase, $collectionName);
-    }
-
-    public function getUsuarios(): array
-    {
-        return $this->getAll();
-    }
-
-    public function getUsuario($usuario)
-    {
-        return $this->getBy('usuario', $usuario);
-    }
-
-	public function getId($id)
-	{
-		return $this->getById($id);
-	}
-
-	public function add($data)
-	{
-		unset($data['senhaRepetida']);
-		$this->addData($data, $this->table);
-	}
-
-	public function delete($id)
-	{
-		return $this->deleteById($id);
-	}
 
 }

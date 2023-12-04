@@ -105,6 +105,7 @@ export default {
     usuariosPorPagina() {
       const startIndex = (this.currentPage - 1) * this.perPage;
       return this.usuarios.slice(startIndex, startIndex + this.perPage);
+
     },
   },
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class EmpresasModel extends Model
+class EmpresasModel extends MongoDBModel
 {
     protected $DBGroup          = 'default';
     protected $table            = 'empresas';
@@ -47,16 +47,11 @@ class EmpresasModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getEmpresas($id = false)
-    {
-        if (!$id) {
-            return $this->findAll();
-        }
-
-        return $this->asArray()
-            ->where(['id' => $id])
-            ->first();
-    }
+	public function __construct()
+	{
+		parent::__construct();
+		$this->getCollection($this->table);
+	}
 
     public function getConfiguracoesEmpresa($idEmpresa)
     {
@@ -65,4 +60,5 @@ class EmpresasModel extends Model
             ->where(['id' => $idEmpresa])
             ->first();
     }
+
 }

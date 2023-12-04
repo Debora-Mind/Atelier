@@ -34,8 +34,8 @@
         <div class="field m-0 pt-0 column is-one-third">
           <label class="label">Nome Fantasia</label>
           <div class="control">
-            <input class="input is-small" type="text" autofocus :value="empresa ? empresa.nome_fantasia : ''"
-                   autocomplete="off">
+            <input name="nome_fantasia" id="nome_fantasia" class="input is-small" type="text" autofocus
+                   :value="empresa ? empresa.nome_fantasia : ''" autocomplete="off">
           </div>
           <small hidden class="is-danger">Mensagem</small>
         </div>
@@ -44,7 +44,8 @@
         <div class="field m-0 pt-0 column is-one-fifth">
           <label class="label">Razão Social</label>
           <div class="control has-icons-right">
-            <input class="input is-small" type="text" :value="empresa ? empresa.razao_social : ''">
+            <input name="razao_social" id="razao_social" class="input is-small" type="text"
+                   :value="empresa ? empresa.razao_social : ''" autocomplete="off">
             <span class="icon is-small is-right">
               <i class="fas fa-exclamation-triangle"></i>
             </span>
@@ -56,7 +57,7 @@
         <div class="column pt-0">
           <div class="file is-small is-info has-name column is-half p-0">
             <label class="file-label">
-              <input class="file-input" type="file" name="resume">
+              <input class="file-input" type="file" name="logo" id="logo">
               <span class="file-cta">
                 <span class="file-icon">
                   <fa icon="fa-upload"></fa>
@@ -78,23 +79,26 @@
         <div class="field m-0 pt-0 column is-one-third">
           <label class="label">CEP</label>
           <div class="control">
-            <input class="input is-small" type="text" :value="empresa ? empresa.cep : ''">
+            <input name="cep" id="cep" class="input is-small" type="text"
+                   :value="empresa ? empresa.endereco.cep : ''">
           </div>
           <small hidden class="is-danger">Mensagem</small>
         </div>
       </div>
       <div class="columns m-0">
         <div class="field m-0 pt-0 column is is-one-third">
-          <label class="label">Endereço</label>
+          <label class="label">Logradouro</label>
           <div class="control">
-            <input class="input is-small" type="text" :value="empresa ? empresa.logradouro : ''">
+            <input name="logradouro" id="logradouro" class="input is-small" type="text"
+                   :value="empresa ? empresa.endereco.logradouro : ''" autocomplete="off">
           </div>
           <small hidden class="is-danger">Mensagem</small>
         </div>
         <div class="field m-0 pt-0 column is-one-quarter">
           <label class="label">Número</label>
           <div class="control has-icons-right">
-            <input class="input is-small" type="text" :value="empresa ? empresa.numero : ''">
+            <input name="numero" id="numero" class="input is-small" type="text"
+                   :value="empresa ? empresa.endereco.numero : ''" autocomplete="off">
             <span class="icon is-small is-right">
               <i class="fas fa-exclamation-triangle"></i>
             </span>
@@ -104,7 +108,8 @@
         <div class="field m-0 pt-0 column is-one-quarter">
           <label class="label">Complemento</label>
           <div class="control has-icons-right">
-            <input class="input is-small" type="text" :value="empresa ? empresa.emitentexCpl : ''">
+            <input name="complmento" id="complemento" class="input is-small" type="text"
+                   :value="empresa ? empresa.endereco.complemento : ''" autocomplete="off">
             <span class="icon is-small is-right">
               <i class="fas fa-exclamation-triangle"></i>
             </span>
@@ -116,21 +121,24 @@
         <div class="field m-0 py-0 column is-one-fifth">
           <label class="label">Bairro</label>
           <div class="control">
-            <input class="input is-small" type="text" :value="empresa ? empresa.bairro : ''">
+            <input name="bairro" id="bairro" class="input is-small" type="text"
+                   :value="empresa ? empresa.endereco.bairro : ''" autocomplete="off">
           </div>
           <small hidden class="is-danger">Mensagem</small>
         </div>
         <div class="field m-0 py-0 column is-one-fifth">
           <label class="label">Estado</label>
           <div class="control has-icons-right">
-            <input class="input is-small" type="text" :value="empresa ? empresa.uf : ''">
+            <input name="uf" id="uf" class="input is-small" type="text"
+                   :value="empresa ? empresa.endereco.uf : ''" autocomplete="off">
           </div>
           <small hidden class="is-danger">Mensagem</small>
         </div>
         <div class="field m-0 pt-0 column is-one-quarter">
           <label class="label">Município</label>
           <div class="control">
-            <input class="input is-small" type="text" :value="empresa ? empresa.municipio : ''">
+            <input name="cidade" id="cidade" class="input is-small" type="text"
+                   :value="empresa ? empresa.endereco.municipio : ''">
           </div>
           <small hidden class="is-danger">Mensagem</small>
         </div>

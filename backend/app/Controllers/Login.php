@@ -12,7 +12,7 @@ class Login extends ResourceController
 {
     public function login(): ResponseInterface
     {
-        $model = new UsuariosModel();
+        $usuarios = new UsuariosModel();
 
         $rules['usuario'] = [
                 'label' => 'Usuário',
@@ -22,19 +22,19 @@ class Login extends ResourceController
                 'rules' =>'required'];
 
         $vars = json_decode($this->request->getBody(), true);
-//        $data['usuarios'] = $model->getUsuario($vars['usuario']);
-        $data = $model->getUsuario($vars['usuario']);
+
+		$data = $usuarios->getBy('usuario' ,$vars['usuario']);
 
         if ($this->validate($rules) && $data) {
-            $modelEmpresa = new EmpresasModel();
-            $empresa = $modelEmpresa->getEmpresas(1);//$data['empresa_id']);
+            $empresas = new EmpresasModel();
+            $empresa = $empresas->get(1);
 
             if (password_verify($vars['senha'], $data['senha'])) {
 
                 $sessionData = [
                     'logado' => true,
                     'usuario' => $data['id'],
-                    'empresa' => $empresa['id'],
+                    'empresa' => $empresa,
 					'dados' => $data
                 ];
 

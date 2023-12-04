@@ -21,7 +21,7 @@
         <button type="button" class="button is-primary" @click="fazerLogin" @touchstart="fazerLogin">Login</button>
       </div>
         <small class="has-text-danger">
-          {{ erroValidacao && (erroValidacao.usuario || erroValidacao.senha)}}
+          {{ erroValidacao && (erroValidacao.usuario || erroValidacao.senha || erroValidacao.outro)}}
         </small>
     </form>
   </div>
@@ -56,8 +56,8 @@ export default {
             var resposta = response.data;
           })
           .catch(e => {
+            this.erroValidacao['outro'] = 'Falha na comunicação...'
             console.error('Erro ao enviar dados:', e);
-            this.erroValidacao['usuario'] = 'Falha na comunicação com o servidor.'
             console.log(e);
           });
       if (sessionStorage.getItem('logado') === 'true') {
